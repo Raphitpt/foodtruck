@@ -1,6 +1,6 @@
 <?php
 require './bootstrap.php';
-$plats= "SELECT * FROM plats";
+$plats = "SELECT * FROM plats";
 $plats = $dbh->query($plats);
 $plats = $plats->fetchAll();
 
@@ -11,6 +11,7 @@ $supplements = $supplements->fetchAll();
 ?>
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -18,6 +19,7 @@ $supplements = $supplements->fetchAll();
     <link href="./assets/css/style.css" rel="stylesheet">
     <title>test</title>
 </head>
+
 <body>
     <nav>
         <img src="" alt="logo fouee">
@@ -61,4 +63,5 @@ $supplements = $supplements->fetchAll();
     </main>
 
 </body>
+
 </html>
