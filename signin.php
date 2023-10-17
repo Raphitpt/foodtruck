@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   
   // Validate the form data (you can add more validation rules here)
   if (empty($nom) || empty($prenom) || empty($email) || empty($password)) {
-    $error = 'Please fill in all fields';
+    $error = 'Veuillez renseigner tous les champs';
   } else {
    $password = password_hash($password, PASSWORD_DEFAULT);
     // Insert form data in the database
@@ -18,10 +18,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt = $dbh->prepare($sql);
     $stmt->execute(['nom' => $nom, 'prenom' => $prenom, 'email' => $email, 'passwd' => $password]);
     if ($stmt->rowCount() == 1) {
-      $success = 'User registered successfully!';
+      $success = 'Vous êtes maintenant enregistré !';
       header('Location: index.php');
     } else {
-      $error = 'Something went wrong!';
+      $error = "Quelque chose s'est mal passé...";
     }
   }
 }
@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Register</title>
+  <title>Connectez-vous</title>
 </head>
 <body>
   <h1>Register</h1>
@@ -41,11 +41,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   <form method="post">
     <label>Nom:</label>
     <input type="text" name="nom"><br>    
-    <label>Prenom:</label>
+    <label>Prénom:</label>
     <input type="text" name="prenom"><br>
     <label>Email:</label>
     <input type="email" name="email"><br>
-    <label>Password:</label>
+    <label>Mot de passe:</label>
     <input type="password" name="password"><br>
     <input type="submit" value="Register">
   </form>
