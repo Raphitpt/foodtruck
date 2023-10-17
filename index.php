@@ -46,8 +46,11 @@ echo head('Accueil');
                 echo "<div class='card-body'>";
                 echo "<h5 class='card-title'>" . $plat['nom'] . "</h5>";
                 echo "<p class='card-text'>" . $plat['composition'] . "</p>";
-                echo "<p>" . $plat['prix'] . "€</p><a href='#' class='btn btn-primary'>Buy</a>";
-                echo "</div></div></div>";
+                echo "<button  class='btn btn-primary' id='ajouter'>+</button>";
+                echo "<ul id='liste-elements'></ul>";
+                echo "<button class='btn btn-primary' id='enlever'>-</button>";
+                echo "<p>" . $plat['prix'] . "€</p><a href='#' class='btn btn-primary'>Ajouter</a>";
+                echo "</div></div>";
 
                 // echo "<div class='plat'>";
                 // echo "<h2>" . $plat['nom'] . "</h2>";
@@ -71,7 +74,7 @@ echo head('Accueil');
             ?>
         </div>
     </main>
-
+<script src="./assets/js/functions.js"></script>
 </body>
 
 </html>

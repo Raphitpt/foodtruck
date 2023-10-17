@@ -16,7 +16,7 @@ if (isset($_POST['envoi'])) {
 
 
         if($recupUser && password_verify($mdp, $recupUser['passwd'])){
-            header('Location: test.php');
+            header('Location: index.php');
             exit();
         }else {
             echo "Votre mot de passe ou pseudo est incorrect";
