@@ -40,13 +40,14 @@ echo head('Accueil');
         <div class="plats">
             <?php
             foreach ($plats as $plat) {
+                echo "<div class='plats_card'>";
                 echo "<div class='card' style='width: 18rem;'>";
                 echo "<img src='...' class='card-img-top' alt='...'>";
                 echo "<div class='card-body'>";
                 echo "<h5 class='card-title'>" . $plat['nom'] . "</h5>";
                 echo "<p class='card-text'>" . $plat['composition'] . "</p>";
                 echo "<p>" . $plat['prix'] . "€</p><a href='#' class='btn btn-primary'>Buy</a>";
-                echo "</div></div>";
+                echo "</div></div></div>";
 
                 // echo "<div class='plat'>";
                 // echo "<h2>" . $plat['nom'] . "</h2>";
