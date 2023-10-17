@@ -4,6 +4,10 @@ $plats= "SELECT * FROM plats";
 $plats = $dbh->query($plats);
 $plats = $plats->fetchAll();
 
+$supplements= "SELECT * FROM supplements";
+$supplements = $dbh->query($supplements);
+$supplements = $supplements->fetchAll();
+
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -15,21 +19,43 @@ $plats = $plats->fetchAll();
     <title>test</title>
 </head>
 <body>
-    <h1>test de cvvo</h1>
-    <button><a href="./login.php">Se connecter</a></button>
-    <button><p>Panier</p></button>
-    <button>S'isncrire</button>
-    <div>
-        <?php
-        foreach($plats as $plat){
-            echo "<div class='plat'>";
-            echo "<h2>".$plat['nom']."</h2>";
-            echo "<p>".$plat['composition']."</p>";
-            echo "<p>".$plat['prix']."€</p>";
-            echo "</div>";
+    <nav>
+        <ul>
+            <li><button><a href="./login.php">Se connecter</a></button></li>
+            <li><button><p>Panier</p></button></li>
+            <li><button>S'isncrire</button></li>
+        </ul>
+    </nav>
 
-        }
-        ?>
-    </div>
+    <main>
+
+<!-- affichage des plats -->
+
+        <div class="plats">
+            <?php
+            foreach($plats as $plat){
+                echo "<div class='plat'>";
+                echo "<h2>".$plat['nom']."</h2>";
+                echo "<p>".$plat['composition']."</p>";
+                echo "<p>".$plat['prix']."€</p>";
+                echo "</div>";
+            }
+            ?>
+        </div>
+
+    <!-- affichage des suppléments -->
+
+        <div class="supplements" style="display:none;">
+            <?php
+            foreach($supplements as $supplement){
+                echo "<div class='supplements'>";
+                echo "<h2>".$supplement['nom']."</h2>";
+                echo "<p>".$supplement['prix']."€</p>";
+                echo "</div>";
+            }
+            ?>
+        </div>
+    </main>
+
 </body>
 </html>
