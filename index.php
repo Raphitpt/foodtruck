@@ -1,9 +1,14 @@
 <?php
 require './bootstrap.php';
 
-$plats = "SELECT * FROM plats";
-$plats = $dbh->query($plats);
-$plats = $plats->fetchAll();
+$plats_sale = "SELECT * FROM plats WHERE id_categorie = 2";
+$plats_sale = $dbh->query($plats_sale);
+$plats_sale = $plats_sale->fetchAll();
+
+$plats_sucre = "SELECT * FROM plats WHERE id_categorie = 1";
+$plats_sucre = $dbh->query($plats_sucre);
+$plats_sucre = $plats_sucre->fetchAll();
+
 
 $supplements = "SELECT * FROM supplements";
 $supplements = $dbh->query($supplements);
@@ -39,9 +44,11 @@ echo head('Accueil');
 
         <!-- affichage des plats -->
 
-        <div class="plats">
-            <?php foreach ($plats as $plat) : ?>
-                <div class="plats_card">
+        <div class="plats sale">
+            <h1>Fouées salés</h1>
+            </br>
+            <div class="plats_card">
+                <?php foreach ($plats_sale as $plat) : ?>
                     <div class="card" style="width: 18rem;">
                         <img src="..." class="card-img-top" alt="...">
                         <div class="card-body">
@@ -56,8 +63,32 @@ echo head('Accueil');
                             </div>
                         </div>
                     </div>
-                </div>
-            <?php endforeach; ?>
+                <?php endforeach; ?>
+            </div>
+        </div>
+        <div class="plats sucre">
+            <h1>Fouées sucrés</h1>
+            </br>
+            <div class="plats_card">
+                <?php foreach ($plats_sucre as $plat) : ?>
+
+                    <div class="card" style="width: 18rem;">
+                        <img src="..." class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title"><?= $plat['nom'] ?></h5>
+                            <p class="card-text"><?= $plat['composition'] ?></p>
+                            <p><?= $plat['prix'] ?>€</p>
+                            <div class="card-footer-plats">
+                                <button type="button" class="btn btn-primary">Ajouter</button>
+                                <input type="number" class="form-control" value="0" id="input-number">
+                                <button type="button" class="btn btn-success" id="ajouter">+</button>
+                                <button type="button" class="btn btn-danger" id="enlever">-</button>
+                            </div>
+                        </div>
+                    </div>
+
+                <?php endforeach; ?>
+            </div>
         </div>
 
 
