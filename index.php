@@ -7,9 +7,14 @@ if (isset($_POST['envoi'])) {
         $email = htmlspecialchars($_POST['email']);
         $mdp = $_POST['mdp'];
 
-        $recupUser = $dbh->prepare('SELECT * FROM users WHERE email = ? AND passwd = ?');
-        $recupUser->execute(array($email, $mdp));
-        $recupUser = $recupUser->fetch();
+        $recupUser = 'SELECT * FROM users WHERE email = :email';
+        $stmt = $dbh->prepare($recupUser);
+        $stmt->execute([
+            'email' => $email,
+        ]);
+        $recupUser = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        dd($recupUser);
 
         if($recupUser && password_verify($mdp, $recupUser['passwd'])){
             header('Location: test.php');
