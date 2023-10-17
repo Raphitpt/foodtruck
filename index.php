@@ -14,6 +14,7 @@ echo head('Accueil');
 ?>
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -21,6 +22,7 @@ echo head('Accueil');
     <link href="./assets/css/style.css" rel="stylesheet">
     <title>Connexion</title>
 </head>
+
 <body>
     <nav>
         <img src="" alt="logo fouee">
@@ -38,28 +40,26 @@ echo head('Accueil');
         <!-- affichage des plats -->
 
         <div class="plats">
-            <?php
-            foreach ($plats as $plat) {
-                echo "<div class='plats_card'>";
-                echo "<div class='card' style='width: 18rem;'>";
-                echo "<img src='...' class='card-img-top' alt='...'>";
-                echo "<div class='card-body'>";
-                echo "<h5 class='card-title'>" . $plat['nom'] . "</h5>";
-                echo "<p class='card-text'>" . $plat['composition'] . "</p>";
-                echo "<button  class='btn btn-primary' id='ajouter'>+</button>";
-                echo "<ul id='liste-elements'></ul>";
-                echo "<button class='btn btn-primary' id='enlever'>-</button>";
-                echo "<p>" . $plat['prix'] . "€</p><a href='#' class='btn btn-primary'>Ajouter</a>";
-                echo "</div></div>";
-
-                // echo "<div class='plat'>";
-                // echo "<h2>" . $plat['nom'] . "</h2>";
-                // echo "<p>" . $plat['composition'] . "</p>";
-                // echo "<p>" . $plat['prix'] . "€</p>";
-                // echo "</div>";
-            }
-            ?>
+            <?php foreach ($plats as $plat) : ?>
+                <div class="plats_card">
+                    <div class="card" style="width: 18rem;">
+                        <img src="..." class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title"><?= $plat['nom'] ?></h5>
+                            <p class="card-text"><?= $plat['composition'] ?></p>
+                            <p><?= $plat['prix'] ?>€</p>
+                            <div class="card-footer-plats">
+                                <button type="button" class="btn btn-primary">Ajouter</button>
+                                <input type="number" class="form-control" value="0" id="input-number">
+                                <button type="button" class="btn btn-success" id="ajouter">+</button>
+                                <button type="button" class="btn btn-danger" id="enlever">-</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach; ?>
         </div>
+
 
         <!-- affichage des suppléments -->
 
@@ -74,7 +74,7 @@ echo head('Accueil');
             ?>
         </div>
     </main>
-<script src="./assets/js/functions.js"></script>
+    <script src="./assets/js/functions.js"></script>
 </body>
 
 </html>

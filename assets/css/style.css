@@ -4,6 +4,17 @@
     box-sizing: border-box;
 }
 
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
 
 nav{
     background-color: #4CAF50;
@@ -42,13 +53,17 @@ button:hover{
     opacity: 0.8;
 }
 
-.plats_card{
+.plats {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+    gap: 1rem;
+    margin: 1rem;
+}
+
+.card-footer-plats{
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    /* justify-content: center; */
     align-items: center;
-    margin: 10px;
-
-
-
+    margin-top: 10%;
 }
