@@ -9,5 +9,6 @@
 </head>
 <body>
     <h1>test de cvvo</h1>
+    <a href="./login.php">Se connecter</a>
 </body>
 </html>
