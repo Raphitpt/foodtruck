@@ -14,7 +14,6 @@ if (isset($_POST['envoi'])) {
         ]);
         $recupUser = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        dd($recupUser);
 
         if($recupUser && password_verify($mdp, $recupUser['passwd'])){
             header('Location: test.php');
