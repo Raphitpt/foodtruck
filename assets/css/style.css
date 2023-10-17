@@ -6,16 +6,26 @@
 
 
 nav{
+    background-color: #4CAF50;
     list-style: none;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
+nav a{
+    text-decoration: none;
+}
+
 ul{
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+li{
+    list-style: none;
+
 }
 
 button{
