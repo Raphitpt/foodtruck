@@ -5,17 +5,13 @@ document.addEventListener("DOMContentLoaded", function () {
     let elementCounter = 1;
 
     ajouterBouton.addEventListener("click", function () {
-        const nouvelElement = document.createElement("li");
-        nouvelElement.textContent = "Élément " + elementCounter;
-        listeElements.appendChild(nouvelElement);
+        
+        listeElements.textContent = elementCounter;
         elementCounter++;
     });
 
     enleverBouton.addEventListener("click", function () {
-        const dernierElement = listeElements.lastChild;
-        if (dernierElement) {
-            listeElements.removeChild(dernierElement);
-            elementCounter--;
-        }
+        listeElements.textContent = elementCounter;
+            elementCounter--
     });
 });
