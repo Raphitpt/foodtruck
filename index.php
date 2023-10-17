@@ -1,25 +1,26 @@
 <?php
 require './bootstrap.php';
+
 $plats = "SELECT * FROM plats";
 $plats = $dbh->query($plats);
 $plats = $plats->fetchAll();
 
-$supplements= "SELECT * FROM supplements";
+$supplements = "SELECT * FROM supplements";
 $supplements = $dbh->query($supplements);
 $supplements = $supplements->fetchAll();
+
+echo head('Accueil');
 
 ?>
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="./assets/css/style.css" rel="stylesheet">
-    <title>test</title>
+    <title>Connexion</title>
 </head>
-
 <body>
     <nav>
         <img src="" alt="logo fouee">
@@ -34,28 +35,36 @@ $supplements = $supplements->fetchAll();
 
     <main>
 
-<!-- affichage des plats -->
+        <!-- affichage des plats -->
 
         <div class="plats">
             <?php
-            foreach($plats as $plat){
-                echo "<div class='plat'>";
-                echo "<h2>".$plat['nom']."</h2>";
-                echo "<p>".$plat['composition']."</p>";
-                echo "<p>".$plat['prix']."€</p>";
-                echo "</div>";
+            foreach ($plats as $plat) {
+                echo "<div class='card' style='width: 18rem;'>";
+                echo "<img src='...' class='card-img-top' alt='...'>";
+                echo "<div class='card-body'>";
+                echo "<h5 class='card-title'>" . $plat['nom'] . "</h5>";
+                echo "<p class='card-text'>" . $plat['composition'] . "</p>";
+                echo "<p>" . $plat['prix'] . "€</p><a href='#' class='btn btn-primary'>Buy</a>";
+                echo "</div></div>";
+
+                // echo "<div class='plat'>";
+                // echo "<h2>" . $plat['nom'] . "</h2>";
+                // echo "<p>" . $plat['composition'] . "</p>";
+                // echo "<p>" . $plat['prix'] . "€</p>";
+                // echo "</div>";
             }
             ?>
         </div>
 
-    <!-- affichage des suppléments -->
+        <!-- affichage des suppléments -->
 
         <div class="supplements" style="display:none;">
             <?php
-            foreach($supplements as $supplement){
+            foreach ($supplements as $supplement) {
                 echo "<div class='supplements'>";
-                echo "<h2>".$supplement['nom']."</h2>";
-                echo "<p>".$supplement['prix']."€</p>";
+                echo "<h2>" . $supplement['nom'] . "</h2>";
+                echo "<p>" . $supplement['prix'] . "€</p>";
                 echo "</div>";
             }
             ?>
