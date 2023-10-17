@@ -9,14 +9,15 @@ if (isset($_POST['envoi'])) {
 
         $recupUser = $dbh->prepare('SELECT * FROM users WHERE email = ? AND passwd = ?');
         $recupUser->execute(array($email, $mdp));
-        if ($recupUser->rowCount() > 0) {
-            $_SESSION['user'] = $recupUser->fetch();
-            $_SESSION['email'] = $email;
+        $recupUser = $recupUser->fetch();
+
+        if($recupUser && password_verify($mdp, $recupUser['passwd'])){
             header('Location: test.php');
             exit();
-        } else {
+        }else {
             echo "Votre mot de passe ou pseudo est incorrect";
         }
+       
     } else {
         echo "Veuillez compléter les champs.";
     }
