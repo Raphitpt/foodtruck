@@ -20,10 +20,13 @@ $supplements = $supplements->fetchAll();
 </head>
 <body>
     <nav>
+        <img src="" alt="logo fouee">
         <ul>
+            <li><button><a href="">Accueil</a></button></li>
+            <li><button><a href="">Commander</a></button></li>
+            <li><button><a href="">Panier</a></button></li>
             <li><button><a href="./login.php">Se connecter</a></button></li>
-            <li><button><p>Panier</p></button></li>
-            <li><button>S'isncrire</button></li>
+            <li><button>S'inscrire</button></li>
         </ul>
     </nav>
 
