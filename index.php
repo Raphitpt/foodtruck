@@ -24,11 +24,11 @@ $supplements = $supplements->fetchAll();
     <nav>
         <img src="" alt="logo fouee">
         <ul>
-            <li><button><a href="">Accueil</a></button></li>
+            <li><button><a href="./index.php">Accueil</a></button></li>
             <li><button><a href="">Commander</a></button></li>
             <li><button><a href="">Panier</a></button></li>
             <li><button><a href="./login.php">Se connecter</a></button></li>
-            <li><button>S'inscrire</button></li>
+            <li><button><a href="signin.php">S'inscrire</a></button></li>
         </ul>
     </nav>
 
