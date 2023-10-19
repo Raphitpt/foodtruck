@@ -94,7 +94,7 @@ echo head('Accueil');
         </div>
         <div class="commande">
             <div class="panier"></div>
-            <a href="./order.php" class="order-button">Commander</a>
+            <a href="./order.php" class="order-button" style="display:none;">Commander</a>
         </div>
         
 
