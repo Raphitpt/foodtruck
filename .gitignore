@@ -1,0 +1,5 @@
+vendor/
+Config/
+composer.json
+composer.lock
+```
