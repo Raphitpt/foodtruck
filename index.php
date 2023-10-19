@@ -45,7 +45,7 @@ echo head('Accueil');
         <!-- affichage des plats -->
 
         <div class="plats sale">
-            <h1>Fouées salés</h1>
+            <h1>Fouées salées</h1>
             </br>
             <div class="plats_card">
                 <?php foreach ($plats_sale as $plat) : ?>
@@ -53,10 +53,11 @@ echo head('Accueil');
                         <img src="..." class="card-img-top" alt="...">
                         <div class="card-body">
                             <h5 class="card-title"><?= $plat['nom'] ?></h5>
+                            <input type="hidden" name="id_plats" class="id_plats" value="<?= $plat['id_plat'] ?>">
                             <p class="card-text"><?= $plat['composition'] ?></p>
-                            <p><?= $plat['prix'] ?>€</p>
+                            <p class="card-price"><?= $plat['prix'] ?>€</p>
                             <div class="card-footer-plats">
-                                <button type="button" class="btn btn-primary">Ajouter</button>
+                                <!-- <button type="button" class="btn btn-primary">Ajouter</button> -->
                                 <input type="number" class="form-control" value="0" id="input-number">
                                 <button type="button" class="btn btn-success" id="ajouter">+</button>
                                 <button type="button" class="btn btn-danger" id="enlever">-</button>
@@ -67,7 +68,7 @@ echo head('Accueil');
             </div>
         </div>
         <div class="plats sucre">
-            <h1>Fouées sucrés</h1>
+            <h1>Fouées sucrées</h1>
             </br>
             <div class="plats_card">
                 <?php foreach ($plats_sucre as $plat) : ?>
@@ -76,10 +77,11 @@ echo head('Accueil');
                         <img src="..." class="card-img-top" alt="...">
                         <div class="card-body">
                             <h5 class="card-title"><?= $plat['nom'] ?></h5>
+                            <input type="hidden" name="id_plats" class="id_plats" value="<?= $plat['id_plat'] ?>">
                             <p class="card-text"><?= $plat['composition'] ?></p>
-                            <p><?= $plat['prix'] ?>€</p>
+                            <p class="card-price"><?= $plat['prix'] ?>€</p>
                             <div class="card-footer-plats">
-                                <button type="button" class="btn btn-primary">Ajouter</button>
+                                <!-- <button type="button" class="btn btn-primary">Ajouter</button> -->
                                 <input type="number" class="form-control" value="0" id="input-number">
                                 <button type="button" class="btn btn-success" id="ajouter">+</button>
                                 <button type="button" class="btn btn-danger" id="enlever">-</button>
@@ -95,14 +97,33 @@ echo head('Accueil');
         <!-- affichage des suppléments -->
 
         <div class="supplements" style="display:none;">
-            <?php
-            foreach ($supplements as $supplement) {
-                echo "<div class='supplements'>";
-                echo "<h2>" . $supplement['nom'] . "</h2>";
-                echo "<p>" . $supplement['prix'] . "€</p>";
-                echo "</div>";
-            }
-            ?>
+                <h1>Suppléments</h1>
+                </br>
+                <div class="cross_close">
+                    <img src="./assets/img/cross_close.png" alt="croix fermer">
+                </div>
+            <div class="plats_card">
+                <?php foreach ($supplements as $supplement) : ?>
+
+                    <div class="card" style="width: 18rem;">
+                        <img src="..." class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title"><?= $supplement['nom'] ?></h5>
+                            <p class="card-price"><?= $supplement['prix'] ?>€</p>
+                            <div class="card-footer-plats">
+                                <!-- <button type="button" class="btn btn-primary">Ajouter</button> -->
+                                <input type="number" class="form-control" value="0" id="input-number">
+                                <button type="button" class="btn btn-success" id="ajouter">+</button>
+                                <button type="button" class="btn btn-danger" id="enlever">-</button>
+                            </div>
+                        </div>
+                    </div>
+
+                <?php endforeach; ?>
+            </div>
+        </div>
+        <div class="fouee-recap">
+
         </div>
     </main>
     <script src="./assets/js/functions.js"></script>
