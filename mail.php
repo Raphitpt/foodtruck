@@ -1,78 +1,75 @@
 <?php
-// Inclusion de la bibliothèque mPDF (assurez-vous de l'avoir installée)
-require_once __DIR__ . '/vendor/autoload.php'; 
+require_once 'vendor/autoload.php';
 
-// Récupération des données depuis un formulaire POST (à adapter selon votre cas)
-$nom = 'Yvart';
-$prenom = 'Marius';
-$details_commande = 'fjqjdioqzd';
-$heure_retrait = '12h35';
-$email_client = 'rtiphonet@gmail.com';
+use Konekt\PdfInvoice\InvoicePrinter;
 
-// Génération de la facture en HTML
-$html = "
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Facture</title>
-</head>
-<body>
-    <h1>Facture</h1>
-    <p>Nom: $nom</p>
-    <p>Prénom: $prenom</p>
-    <p>Détails de la commande: $details_commande</p>
-    <p>Heure de retrait: $heure_retrait</p>
-</body>
-</html>
-";
+  $invoice = new InvoicePrinter('A4', '€', 'fr');
+  
+  /* Header settings */
+  // $invoice->setLogo("images/sample1.jpg");   //logo image path
+  $invoice->setColor("#007fff");      // pdf color scheme
+  $invoice->setType("Facture");    // Invoice Type
+  $invoice->setReference("INV-55033645");   // Reference
+  $invoice->setDate(date('M dS ,Y',time()));   //Billing Date
+  $invoice->setTime(date('h:i:s A',time()));   //Billing Time
+  $invoice->setDue(date('M dS ,Y',strtotime('+3 months')));    // Due Date
+  $invoice->setFrom(array("Tiphonet Raphaël","FoodTruck","5 allée des vignes","Trois-Palis , FR 16730"));
+  $invoice->setTo(array("Marius ta mère","Acheteur","15 Rue de basseau","Angoulême , FR 16000"));
+  
+  $invoice->addItem("Fouée","Mougette",2,0,5,0,10);
+  
+  $invoice->addTotal("Total",10);
+  $invoice->addTotal("TVA 5,5%",1);
+  $invoice->addTotal("Montant total",11,true);
+  
+  $invoice->addBadge("Payé");
+  
+  $invoice->addTitle("Commentaire de livraison");
+  
+  $invoice->addParagraph("Vous pourrez venir chercher votre commande le 12/05/2021 à 12h30 au FoodTruck");
+  
+  $invoice->setFooternote("Le meilleur FoodTruck");
+  $invoiceFileName = 'facture.pdf';
+  $invoice->render($invoiceFileName, 'F');
 
-// Génération du PDF avec mPDF
-$mpdf = new \Mpdf\Mpdf();
-$mpdf->WriteHTML($html);
-$pdf = $mpdf->Output('', 'S');
+// Envoyez la facture par e-mail
+// Destinataire de l'e-mail
+$to = 'mariusyvt@gmail.com';
 
-// Envoi de l'e-mail avec la facture en pièce jointe
-$to = $email_client;
-$subject = "Facture de commande";
+// Sujet de l'e-mail
+$subject = 'Facture';
 
-$fileatttype = "application/pdf";
-$fileattname = "Facture.pdf";
-
-$headers = "From: Votre Nom <votre@email.com>\r\n";
-$headers .= "Reply-To: votre@email.com\r\n";
-$headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
+// En-têtes MIME pour l'e-mail
+$headers = "From: Votre Nom <votre_email@example.com>\r\n";
 $headers .= "MIME-Version: 1.0\r\n";
+$headers .= "Content-Type: multipart/mixed; boundary=\"boundary\"\r\n";
 
-$semi_rand = md5(time());
-$mime_boundary = "==Multipart_Boundary_x{$semi_rand}x";
-$headers .= "Content-Type: multipart/mixed;\n" .
-  " boundary={$mime_boundary}";
+// Corps de l'e-mail
+$message = "--boundary\r\n";
+$message .= "Content-Type: text/plain; charset=\"utf-8\"\r\n";
+$message .= "Content-Transfer-Encoding: 7bit\r\n";
+$message .= "\r\n";
+$message .= "Veuillez trouver ci-joint la facture en PDF.\r\n";
+$message .= "\r\n";
+$message .= "--boundary\r\n";
 
-$message = "Ceci est un message en format MIME multipart.\n\n" .
-  "--{$mime_boundary}\n" .
-  "Content-type:text/html;charset=UTF-8\n" .
-  "Content-Transfer-Encoding: 7bit\n\n" .
-  $html. "\n\n";
+// Pièce jointe (facture en PDF)
+$fileContent = file_get_contents($invoiceFileName);
+$message .= "Content-Type: application/pdf\r\n";
+$message .= "Content-Disposition: attachment; filename=\"$invoiceFileName\"\r\n";
+$message .= "Content-Transfer-Encoding: base64\r\n";
+$message .= "\r\n";
+$message .= chunk_split(base64_encode($fileContent));
+$message .= "\r\n";
+$message .= "--boundary--\r\n";
 
-$data = chunk_split(base64_encode($pdf));
-$message .= "--{$mime_boundary}\n" .
-  "Content-Type: {$fileatttype};\n" .
-  " name={$fileattname}\n" .
-  "Content-Disposition: attachment;\n" .
-  " filename={$fileattname}\n" .
-  "Content-Transfer-Encoding: base64\n\n" .
-  $data . "\n\n" .
-  "--{$mime_boundary}--\n";
-
-// Envoyer l'e-mail
+// Envoyer l'e-mail avec la pièce jointe
 if (mail($to, $subject, $message, $headers)) {
-  echo "Facture envoyée avec succès.";
+    echo 'Facture envoyée avec succès par e-mail.';
 } else {
-  $error = error_get_last();
-  if ($error) {
-    echo "Erreur lors de l'envoi de la facture : " . $error['message'];
-  } else {
-    echo "Erreur inconnue lors de l'envoi de la facture.";
-  }
+    echo 'Échec de l\'envoi de la facture par e-mail.';
 }
+
+// Supprimer le fichier PDF temporaire
+unlink($invoiceFileName);
 ?>
