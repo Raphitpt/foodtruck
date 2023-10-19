@@ -140,5 +140,7 @@ document.addEventListener("DOMContentLoaded", function () {
       html += `<p>Total du panier : ${panierTotal}</p>`;
       return html;
     };
-  }); 
+  });
+
+  
 });
