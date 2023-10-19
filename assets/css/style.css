@@ -67,3 +67,28 @@ button:hover{
     align-items: center;
     margin-top: 10%;
 }
+
+.supplements{
+    position: fixed;
+    /* display: flex;
+    flex-direction: row;
+    align-items: center; */
+    top: 50%;
+    left: 50%;
+    z-index: 100;
+    padding: 1rem;
+    background-color: aqua;
+    width: 90vw;
+    height: 90vh;
+    margin-top: -45vh;
+    margin-left: -45vw;
+    border-radius: 15px;
+}
+.cross_close{
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 1rem;
+    font-size: 2rem;
+    cursor: pointer;
+}
