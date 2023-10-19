@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const divSupplement = document.querySelector(".supplements");
   const closeSupplement = document.querySelector(".cross_close");
   const ajouterBoutons = document.querySelectorAll(".btn-success");
+  const orderButton = document.querySelector(".order-button");
   let panier = [];
 
   ajouterBoutons.forEach((ajouterBouton, index) => {
@@ -17,6 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
     ajouterBouton.addEventListener("click", function () {
       elementCounter++;
       inputNumbers[index].value = elementCounter;
+      orderButton.style.display = "block";
 
       // You should check if the item is already in the cart and update its quantity
       let id = idPlat[index].value;
@@ -66,14 +68,14 @@ document.addEventListener("DOMContentLoaded", function () {
           // Calculer le total pour cet article
           const articleTotal = prix * quantite;
       
-          html += `<li>${plat.nom} - ${prix} - Quantité: ${quantite} - Total: ${articleTotal}</li>`;
+          html += `<li>${plat.nom} - ${prix}€ - Quantité: ${quantite} - Total: ${articleTotal}€</li>`;
         });
       
         // Calculer le total de l'ensemble du panier
         const panierTotal = calculateTotal(panier);
       
         html += '</ul>';
-        html += `<p>Total du panier : ${panierTotal}</p>`;
+        html += `<p>Total du panier : ${panierTotal}€</p>`;
         return html;
       }
       
@@ -84,6 +86,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (elementCounter > 0) {
         elementCounter--;
         inputNumbers[index].value = elementCounter;
+        orderButton.style.display = "block";
     
         let id = idPlat[index].value;
         let itemIndex = panier.findIndex(item => item.id === id);
@@ -104,6 +107,10 @@ document.addEventListener("DOMContentLoaded", function () {
         // Mettre à jour le contenu du panier
         const panierDiv = document.querySelector(".panier");
         panierDiv.innerHTML = generatePanierHTML(panier, panierTotal);
+      }
+      if (elementCounter == 0) {
+        orderButton.style.display = "none";
+        
       }
     });
     
@@ -133,12 +140,14 @@ document.addEventListener("DOMContentLoaded", function () {
         // Calculer le total pour cet article
         const articleTotal = prix * quantite;
     
-        html += `<li>${plat.nom} - ${prix} - Quantité: ${quantite} - Total: ${articleTotal}</li>`;
+        html += `<li>${plat.nom} - ${prix}€ - Quantité: ${quantite} - Total: ${articleTotal}€</li>`;
       });
     
       html += '</ul>';
-      html += `<p>Total du panier : ${panierTotal}</p>`;
+      html += `<p>Total du panier : ${panierTotal}€</p>`;
       return html;
     };
-  }); 
+  });
+
+
 });

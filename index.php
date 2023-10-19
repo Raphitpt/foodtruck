@@ -92,8 +92,11 @@ echo head('Accueil');
                 <?php endforeach; ?>
             </div>
         </div>
-        <div class="panier">
+        <div class="commande">
+            <div class="panier"></div>
+            <a href="./order.php" class="order-button" style="display:none;">Commander</a>
         </div>
+        
 
 
         <!-- affichage des suppléments -->
