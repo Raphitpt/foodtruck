@@ -90,6 +90,9 @@ echo head('Accueil');
                 <?php endforeach; ?>
             </div>
         </div>
+        <div class="panier">
+            
+        </div>
 
 
         <!-- affichage des suppléments -->
@@ -104,6 +107,7 @@ echo head('Accueil');
             }
             ?>
         </div>
+        <a href="./mail.php">Mail</a>
     </main>
     <script src="./assets/js/functions.js"></script>
 </body>
