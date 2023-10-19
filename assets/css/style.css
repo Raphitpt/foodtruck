@@ -28,7 +28,7 @@ nav a{
     text-decoration: none;
 }
 
-ul{
+nav ul{
     list-style-type: none;
     display: flex;
     justify-content: center;
@@ -91,4 +91,14 @@ button:hover{
     margin: 1rem;
     font-size: 2rem;
     cursor: pointer;
+}
+
+.panier{
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+}
+
+main{
+    position: relative;
 }

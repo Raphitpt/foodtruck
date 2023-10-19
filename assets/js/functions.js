@@ -4,12 +4,11 @@ document.addEventListener("DOMContentLoaded", function () {
   const platComposition = document.querySelectorAll(".card-text");
   const idPlat = document.querySelectorAll(".id_plats");
   const addBoutons = document.querySelectorAll(".btn-primary");
-  const ajouterBoutons = document.querySelectorAll(".btn-success");
   const enleverBoutons = document.querySelectorAll(".btn-danger");
   const inputNumbers = document.querySelectorAll(".form-control");
   const divSupplement = document.querySelector(".supplements");
   const closeSupplement = document.querySelector(".cross_close");
-
+  const ajouterBoutons = document.querySelectorAll(".btn-success");
   let panier = [];
 
   ajouterBoutons.forEach((ajouterBouton, index) => {
@@ -36,8 +35,19 @@ document.addEventListener("DOMContentLoaded", function () {
           quantite: elementCounter,
         });
       }
-
+      
+      const panierDiv = document.querySelector(".panier");
+      panierDiv.innerHTML = generatePanierHTML(panier);
       console.log(panier);
+      
+      function generatePanierHTML(panier) {
+        let html = '<ul>';
+        panier.forEach(function(plat) {
+          html += `<li>${plat.nom} - ${plat.prix} - Quantité: ${plat.quantite}</li>`;
+        });
+        html += '</ul>';
+        return html;
+      }
     });
 
     enleverBoutons[index].addEventListener("click", function () {
@@ -62,4 +72,6 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
   });
+
+
 });
