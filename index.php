@@ -67,7 +67,6 @@ echo head('Accueil');
                 <?php endforeach; ?>
             </div>
         </div>
-        <h1>BONJOUR le monde</h1>
         <div class="plats sucre">
             <h1>Fouées sucrées</h1>
             </br>
