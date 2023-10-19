@@ -102,7 +102,7 @@ echo head('Accueil');
         <!-- affichage des suppléments -->
 
         <div class="supplements" style="display:none;">
-                <h1>Suppléments</h1>
+                <h1>Supplémens</h1>
                 </br>
                 <div class="cross_close">
                     <img src="./assets/img/cross_close.png" alt="croix fermer">
