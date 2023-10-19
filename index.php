@@ -93,7 +93,6 @@ echo head('Accueil');
             </div>
         </div>
         <div class="panier">
-            
         </div>
 
 
