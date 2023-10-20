@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const closeSupplement = document.querySelector(".cross_close");
   const ajouterBoutons = document.querySelectorAll(".btn-success");
   const orderButton = document.querySelector(".order-button");
+  orderButton.style.display = "none";
 
   let panier = JSON.parse(sessionStorage.getItem('panier')) || [];
 
@@ -32,7 +33,6 @@ document.addEventListener("DOMContentLoaded", function () {
     ajouterBouton.addEventListener("click", function () {
       elementCounter++;
       inputNumbers[index].value = elementCounter;
-      orderButton.style.display = "block";
 
       // You should check if the item is already in the cart and update its quantity
       let id = idPlat[index].value;
@@ -57,17 +57,19 @@ document.addEventListener("DOMContentLoaded", function () {
       console.log(panier); 
       updateInputNumbers();
       sessionStorage.setItem('panier', JSON.stringify(panier));
+
+      // Afficher le bouton "order-button" uniquement s'il y a des articles dans le panier
+      orderButton.style.display = panier.length > 0 ? "block" : "none";
     });
 
     enleverBoutons[index].addEventListener("click", function () {
       if (elementCounter > 0) {
         elementCounter--;
         inputNumbers[index].value = elementCounter;
-        orderButton.style.display = "block";
-    
+
         let id = idPlat[index].value;
         let itemIndex = panier.findIndex(item => item.id === id);
-    
+
         if (itemIndex !== -1) {
           if (elementCounter === 0) {
             // Remove the item from the cart when the quantity reaches 0
@@ -77,18 +79,17 @@ document.addEventListener("DOMContentLoaded", function () {
             panier[itemIndex].quantite = elementCounter;
           }
         }
-    
+
         // Recalculer le total du panier
         const panierTotal = calculateTotal(panier);
-    
+
         // Mettre à jour le contenu du panier
         const panierDiv = document.querySelector(".panier");
         updateInputNumbers();
         panierDiv.innerHTML = generatePanierHTML(panier, panierTotal);
-      }
-      if (elementCounter == 0) {
-        orderButton.style.display = "none";
-        
+
+        // Afficher le bouton "order-button" uniquement s'il y a des articles dans le panier
+        orderButton.style.display = panier.length > 0 ? "block" : "none";
       }
       sessionStorage.setItem('panier', JSON.stringify(panier));
     });

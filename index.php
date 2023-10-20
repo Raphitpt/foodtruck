@@ -32,7 +32,7 @@ echo head('Accueil');
     <nav>
         <img src="" alt="logo fouee">
         <ul>
-            <li><button><a href="./index.php">Accueil</a></button></li>
+            <li><button><a href="./index.php">Accueille</a></button></li>
             <li><button><a href="">Commander</a></button></li>
             <li><button><a href="">Panier</a></button></li>
             <li><button><a href="./login.php">Se connecter</a></button></li>
@@ -94,7 +94,7 @@ echo head('Accueil');
         </div>
         <div class="commande">
             <div class="panier"></div>
-            <a href="./order.php" class="order-button" style="display:none;">Commander</a>
+            <a href="./order.php" class="order-button">Commander</a>
         </div>
         
 
