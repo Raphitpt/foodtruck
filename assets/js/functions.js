@@ -56,6 +56,7 @@ document.addEventListener("DOMContentLoaded", function () {
       panierDiv.innerHTML = generatePanierHTML(panier);
       console.log(panier); 
       updateInputNumbers();
+      updateCartDisplay();
       sessionStorage.setItem('panier', JSON.stringify(panier));
 
       // Afficher le bouton "order-button" uniquement s'il y a des articles dans le panier
@@ -91,25 +92,11 @@ document.addEventListener("DOMContentLoaded", function () {
         // Afficher le bouton "order-button" uniquement s'il y a des articles dans le panier
         orderButton.style.display = panier.length > 0 ? "block" : "none";
       }
+      updateCartDisplay();
       sessionStorage.setItem('panier', JSON.stringify(panier));
     });
   });
-  function calculateTotal(panier) {
-    let total = 0;
-    panier.forEach(function (plat) {
-      // Convertir le prix et la quantité en nombre à virgule flottante
-      const prix = parseFloat(plat.prix);
-      const quantite = parseFloat(plat.quantite);
-  
-      // Calculer le total pour cet article
-      const articleTotal = prix * quantite;
-  
-      // Ajouter le total de cet article au total général
-      total += articleTotal;
-    });
-    return total;
-  }
-  
+ 
   function generatePanierHTML(panier) {
     let html = '<ul>';
     panier.forEach(function (plat) {
@@ -167,6 +154,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function updateCartDisplay() {
     const panierTotal = calculateTotal(panier);
+    console.log(panierTotal);
     const panierDiv = document.querySelector(".panier");
     panierDiv.innerHTML = generatePanierHTML(panier, panierTotal);
   }
