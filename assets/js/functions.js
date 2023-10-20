@@ -10,8 +10,22 @@ document.addEventListener("DOMContentLoaded", function () {
   const closeSupplement = document.querySelector(".cross_close");
   const ajouterBoutons = document.querySelectorAll(".btn-success");
   const orderButton = document.querySelector(".order-button");
-  let panier = [];
 
+  let panier = JSON.parse(sessionStorage.getItem('panier')) || [];
+
+  function updateInputNumbers() {
+    panier.forEach(function (item) {
+      const id = item.id;
+      const inputNumber = document.querySelector(`.id_plats[value="${id}"] + .form-control`);
+      if (inputNumber) {
+        inputNumber.value = item.quantite;
+      }
+    });
+  }
+
+
+  // Update input numbers when the page loads
+  updateInputNumbers();
   ajouterBoutons.forEach((ajouterBouton, index) => {
     let elementCounter = 0;
 
@@ -40,46 +54,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
       const panierDiv = document.querySelector(".panier");
       panierDiv.innerHTML = generatePanierHTML(panier);
-      console.log(panier);
-
-      function calculateTotal(panier) {
-        let total = 0;
-        panier.forEach(function (plat) {
-          // Convertir le prix et la quantité en nombre à virgule flottante
-          const prix = parseFloat(plat.prix);
-          const quantite = parseFloat(plat.quantite);
-      
-          // Calculer le total pour cet article
-          const articleTotal = prix * quantite;
-      
-          // Ajouter le total de cet article au total général
-          total += articleTotal;
-        });
-        return total;
-      }
-      
-      function generatePanierHTML(panier) {
-        let html = '<ul>';
-        panier.forEach(function (plat) {
-          // Convertir le prix et la quantité en nombre à virgule flottante
-          const prix = parseFloat(plat.prix);
-          const quantite = parseFloat(plat.quantite);
-      
-          // Calculer le total pour cet article
-          const articleTotal = prix * quantite;
-      
-          html += `<li>${plat.nom} - ${prix}€ - Quantité: ${quantite} - Total: ${articleTotal}€</li>`;
-        });
-      
-        // Calculer le total de l'ensemble du panier
-        const panierTotal = calculateTotal(panier);
-      
-        html += '</ul>';
-        html += `<p>Total du panier : ${panierTotal}€</p>`;
-        return html;
-      }
-      
-      
+      console.log(panier); 
+      updateInputNumbers();
+      sessionStorage.setItem('panier', JSON.stringify(panier));
     });
 
     enleverBoutons[index].addEventListener("click", function () {
@@ -106,48 +83,96 @@ document.addEventListener("DOMContentLoaded", function () {
     
         // Mettre à jour le contenu du panier
         const panierDiv = document.querySelector(".panier");
+        updateInputNumbers();
         panierDiv.innerHTML = generatePanierHTML(panier, panierTotal);
       }
       if (elementCounter == 0) {
         orderButton.style.display = "none";
         
       }
+      sessionStorage.setItem('panier', JSON.stringify(panier));
     });
-    
-    function calculateTotal(panier) {
-      let total = 0;
-      panier.forEach(function (plat) {
-        // Convertir le prix et la quantité en nombre à virgule flottante
-        const prix = parseFloat(plat.prix);
-        const quantite = parseFloat(plat.quantite);
-    
-        // Calculer le total pour cet article
-        const articleTotal = prix * quantite;
-    
-        // Ajouter le total de cet article au total général
-        total += articleTotal;
-      });
-      return total;
-    }
-    
-    function generatePanierHTML(panier, panierTotal) {
-      let html = '<ul>';
-      panier.forEach(function (plat) {
-        // Convertir le prix et la quantité en nombre à virgule flottante
-        const prix = parseFloat(plat.prix);
-        const quantite = parseFloat(plat.quantite);
-    
-        // Calculer le total pour cet article
-        const articleTotal = prix * quantite;
-    
-        html += `<li>${plat.nom} - ${prix}€ - Quantité: ${quantite} - Total: ${articleTotal}€</li>`;
-      });
-    
-      html += '</ul>';
-      html += `<p>Total du panier : ${panierTotal}€</p>`;
-      return html;
-    };
   });
+  function calculateTotal(panier) {
+    let total = 0;
+    panier.forEach(function (plat) {
+      // Convertir le prix et la quantité en nombre à virgule flottante
+      const prix = parseFloat(plat.prix);
+      const quantite = parseFloat(plat.quantite);
+  
+      // Calculer le total pour cet article
+      const articleTotal = prix * quantite;
+  
+      // Ajouter le total de cet article au total général
+      total += articleTotal;
+    });
+    return total;
+  }
+  
+  function generatePanierHTML(panier) {
+    let html = '<ul>';
+    panier.forEach(function (plat) {
+      // Convertir le prix et la quantité en nombre à virgule flottante
+      const prix = parseFloat(plat.prix);
+      const quantite = parseFloat(plat.quantite);
+  
+      // Calculer le total pour cet article
+      const articleTotal = prix * quantite;
+  
+      html += `<li>${plat.nom} - ${prix}€ - Quantité: ${quantite} - Total: ${articleTotal}€</li>`;
+    });
+  
+    // Calculer le total de l'ensemble du panier
+    const panierTotal = calculateTotal(panier);
+  
+    html += '</ul>';
+    html += `<p>Total du panier : ${panierTotal}€</p>`;
+    return html;
+  }
+  
+  function calculateTotal(panier) {
+    let total = 0;
+    panier.forEach(function (plat) {
+      // Convertir le prix et la quantité en nombre à virgule flottante
+      const prix = parseFloat(plat.prix);
+      const quantite = parseFloat(plat.quantite);
+  
+      // Calculer le total pour cet article
+      const articleTotal = prix * quantite;
+  
+      // Ajouter le total de cet article au total général
+      total += articleTotal;
+    });
+    return total;
+  }
+  
+  function generatePanierHTML(panier, panierTotal) {
+    let html = '<ul>';
+    panier.forEach(function (plat) {
+      // Convertir le prix et la quantité en nombre à virgule flottante
+      const prix = parseFloat(plat.prix);
+      const quantite = parseFloat(plat.quantite);
+  
+      // Calculer le total pour cet article
+      const articleTotal = prix * quantite;
+  
+      html += `<li>${plat.nom} - ${prix}€ - Quantité: ${quantite} - Total: ${articleTotal}€</li>`;
+    });
+  
+    html += '</ul>';
+    html += `<p>Total du panier : ${panierTotal}€</p>`;
+    return html;
+  };
+
+  function updateCartDisplay() {
+    const panierTotal = calculateTotal(panier);
+    const panierDiv = document.querySelector(".panier");
+    panierDiv.innerHTML = generatePanierHTML(panier, panierTotal);
+  }
+  
+  
+
+  updateCartDisplay();
 
 
 });

@@ -1,1 +1,0 @@
-<!-- récupéer les données de la commande en js, les envoyées en dans des variables de session en php et enregistrer la commande dans la BD. Faire la fqcture en fonction -->
