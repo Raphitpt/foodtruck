@@ -61,6 +61,8 @@ echo head('Accueil');
                                 <input type="number" class="form-control" value="0" id="input-number">
                                 <button type="button" class="btn btn-success" id="ajouter">+</button>
                                 <button type="button" class="btn btn-danger" id="enlever">-</button>
+                                <button type="button"><a href="suppression.php?id_plat=<?= $plat['id_plat'] ?>">Effacer</a></button>
+                                <button type="button"><a href="edit.php?id_plat=<?= $plat['id_plat'] ?>">Modifier</a></button>
                             </div>
                         </div>
                     </div>

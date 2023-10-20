@@ -6,6 +6,7 @@ if (isset($_POST['envoi'])) {
     if (!empty($_POST['email']) && !empty($_POST['mdp'])) {
         $email = htmlspecialchars($_POST['email']);
         $mdp = $_POST['mdp'];
+        $_SESSION['email'] = $email;
 
         $recupUser = 'SELECT * FROM users WHERE email = :email';
         $stmt = $dbh->prepare($recupUser);
@@ -16,8 +17,13 @@ if (isset($_POST['envoi'])) {
 
 
         if($recupUser && password_verify($mdp, $recupUser['passwd'])){
-            header('Location: index.php');
-            exit();
+            if($recupUser['email'] == 'admin@gmail.com'){
+                header('Location: indexBO.php');
+                exit();
+            } else {
+                header('Location: index.php');
+                exit();
+            }
         }else {
             echo "Votre mot de passe ou pseudo est incorrect";
         }
