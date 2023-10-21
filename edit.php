@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (isset($_SESSION['email'])) {
+// if (isset($_SESSION['email'])) {
     require 'bootstrap.php';
 
     echo head('Modifier un plat');
@@ -9,13 +9,13 @@ if (isset($_SESSION['email'])) {
     <body>
         <div class="container">
             <?php
-            if (isGetMethod()) {
-                // identifiant du plat
+            if ($_SERVER['REQUEST_METHOD'] === 'GET') { // Change 'isGetMethod()' to '$_SERVER['REQUEST_METHOD'] === 'GET''
+                // Identifiant du plat
                 $id_plat = (int)$_GET['id_plat'];
-                // récupérer les informations sur le plat
+                // Récupérer les informations sur le plat
                 $sql = 'SELECT *
                         FROM plats
-                        WHERE plats.id_plat = :id_plat';
+                        WHERE id_plat = :id_plat';
                 $stmt = $dbh->prepare($sql);
                 $stmt->execute([
                     'id_plat' => $id_plat,
@@ -33,12 +33,12 @@ if (isset($_SESSION['email'])) {
                                 <input name="nom" id="nom" type="text" required value="<?php echo $plats['nom'] ?>">
                             </div>
                             <div>
-                                <label for="composition">Compostion du plat</label>
-                                <input name="composition" id="composition" type="number"required value="<?php echo $plats['composition'] ?>">
+                                <label for="composition">Composition du plat</label>
+                                <input name="composition" id="composition" required value="<?php echo $plats['composition'] ?>">
                             </div>
                             <div>
                                 <label for="prix">Prix du plat </label>
-                                <input name="prix" id="prix"  minlength="1" maxlength="2" type="number" required value="<?php echo $plats['prix'] ?>">
+                                <input name="prix" id="prix" type="number" required value="<?php echo $plats['prix'] ?>">
                             </div>
                         </div>
                     </div>
@@ -47,54 +47,27 @@ if (isset($_SESSION['email'])) {
                 </form>
             <?php
             } else {
-                // en mode POST, il faut enregistrer les données du formulaire dans la base
+                // En mode POST, il faut enregistrer les données du formulaire dans la base
 
-                // 1. récupérer les données du formulaire
-                $id_plat =  trim($_POST['id_plat']);
-                $id_categorie =  trim($_POST['id_categorie']);
-                $nom = htmlspecialchars(trim($_POST['nom']));
-                $composition = htmlspecialchars(trim($_POST['composition']));
-                $prix = htmlspecialchars(trim($_POST['prix']));
+                // Récupérer les données du formulaire
+                $id_plat = (int)$_POST['id_plat']; // You can keep this as an integer
+                $id_categorie = (int)$_POST['id_categorie']; // You can keep this as an integer
+                $nom = htmlspecialchars($_POST['nom']);
+                $composition = htmlspecialchars($_POST['composition']);
+                $prix = (float)$_POST['prix']; // Cast to float for decimal values
 
-                $errors = [];
-
-                // // Valider le format de poids
-                // if (filter_var($poids_rec, FILTER_VALIDATE_FLOAT) === false) {
-                //   $errors[] = "Format de poids incorrect.";
-                // }
-
-                // // Valider le format de nombre de hausses
-                // if (filter_var($nb_hausse_rec, FILTER_VALIDATE_INT) === false) {
-                //   $errors[] = "Format de nombre de hausses incorrect.";
-                // }
-
-                // // Valider le format de poids (nombre entier ou décimal)
-                // if (!preg_match('/^\d+(\.\d+)?$/', $poids_rec)) {
-                //   $errors[] = "Veuillez entrer un poids de récolte valide (nombre entier ou décimal).";
-                // }
-
-                // // Valider le format de nombre de hausses (nombre entier)
-                // if (!preg_match('/^\d+$/', $nb_hausse_rec)) {
-                //   $errors[] = "Veuillez entrer un nombre de hausses valide (nombre entier).";
-                // }
-
-                if (count($errors) > 0) {
-                  foreach ($errors as $error) {
-                    echo "<p>" . htmlspecialchars($error) . "</p>";
-                  }
-
-                  // 2. construire le SQL de la requête préparée de modification
-                  $sql = 'UPDATE plats SET nom = :nom, composition = :composition, prix = :prix WHERE id_plat = :id_plat';
-                  // exécuter
-                  $stmt = $dbh->prepare($sql);
-                  $stmt->execute([
-                      'nom' => $nom,
-                      'composition' => $composition,
-                      'prix' => $prix,
-                  ]);
-                  // 3. après la modification, retourner sur la page index_recolte.php des récoltes de la ruche sélectionnée
-                  header('Location: indexBO.php');
-                }
+                // 2. Construire le SQL de la requête préparée de modification
+                $sql = 'UPDATE plats SET nom = :nom, composition = :composition, prix = :prix WHERE id_plat = :id_plat';
+                // Exécuter
+                $stmt = $dbh->prepare($sql);
+                $stmt->execute([
+                    'nom' => $nom,
+                    'composition' => $composition,
+                    'prix' => $prix,
+                    'id_plat' => $id_plat,
+                ]);
+                // 3. Après la modification, retourner sur la page indexBO.php
+                header('Location: indexBO.php');
             }
             ?>
 
@@ -103,7 +76,7 @@ if (isset($_SESSION['email'])) {
 
     </html>
 <?php
-} else {
-    header('location: login.php');
-}
+// } else {
+//     header('location: login.php');
+// }
 ?>
