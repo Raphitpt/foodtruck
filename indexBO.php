@@ -62,7 +62,7 @@ echo head('Accueil');
                                 <button type="button" class="btn btn-success" id="ajouter">+</button>
                                 <button type="button" class="btn btn-danger" id="enlever">-</button>
                                 <button type="button"><a href="editPlats.php?id_plat=<?= $plat['id_plat'] ?>">Modifier</a></button>
-                                <button type="button"><a href="suppression.php?id_plat=<?= $plat['id_plat'] ?>">Ajouter</a></button>
+                                <button type="button"><a href="addPlats.php?id_plat=<?= $plat['id_plat'] ?>">Ajouter</a></button>
                                 <button type="button"><a href="suppressionPlats.php?id_plat=<?= $plat['id_plat'] ?>">Effacer</a></button>
 
                             </div>
