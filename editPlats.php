@@ -34,7 +34,7 @@ session_start();
                             </div>
                             <div>
                                 <label for="composition">Composition du plat</label>
-                                <input name="composition" id="composition" required value="<?php echo $plats['composition'] ?>">
+                                <input name="composition" id="composition"  value="<?php echo $plats['composition'] ?>">
                             </div>
                             <div>
                                 <label for="prix">Prix du plat </label>
