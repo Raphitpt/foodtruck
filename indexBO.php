@@ -58,9 +58,9 @@ echo head('Accueil');
                             <p class="card-price"><?= $plat['prix'] ?>€</p>
                             <div class="card-footer-plats">
                                 <!-- <button type="button" class="btn btn-primary">Ajouter</button> -->
-                                <input type="number" class="form-control" value="0" id="input-number">
+                                <!-- <input type="number" class="form-control" value="0" id="input-number">
                                 <button type="button" class="btn btn-success" id="ajouter">+</button>
-                                <button type="button" class="btn btn-danger" id="enlever">-</button>
+                                <button type="button" class="btn btn-danger" id="enlever">-</button> -->
                                 <button type="button"><a href="editPlats.php?id_plat=<?= $plat['id_plat'] ?>">Modifier</a></button>
                                 <button type="button"><a href="addPlats.php?id_plat=<?= $plat['id_plat'] ?>">Ajouter</a></button>
                                 <button type="button"><a href="suppressionPlats.php?id_plat=<?= $plat['id_plat'] ?>">Effacer</a></button>
@@ -86,9 +86,9 @@ echo head('Accueil');
                             <p class="card-price"><?= $plat['prix'] ?>€</p>
                             <div class="card-footer-plats">
                                 <!-- <button type="button" class="btn btn-primary">Ajouter</button> -->
-                                <input type="number" class="form-control" value="0" id="input-number">
+                                <!-- <input type="number" class="form-control" value="0" id="input-number">
                                 <button type="button" class="btn btn-success" id="ajouter">+</button>
-                                <button type="button" class="btn btn-danger" id="enlever">-</button>
+                                <button type="button" class="btn btn-danger" id="enlever">-</button> -->
                                 <button type="button"><a href="suppressionPlats.php?id_plat=<?= $plat['id_plat'] ?>">Effacer</a></button>
                                 <button type="button"><a href="editPlats.php?id_plat=<?= $plat['id_plat'] ?>">Modifier</a></button>
                             </div>
@@ -97,10 +97,6 @@ echo head('Accueil');
 
                 <?php endforeach; ?>
             </div>
-        </div>
-        <div class="commande">
-            <div class="panier"></div>
-            <a href="./order.php" class="order-button">Commander</a>
         </div>
         
 
