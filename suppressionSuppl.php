@@ -1,6 +1,10 @@
 <?php
 session_start();
-// if (isset($_SESSION['email'])) {
+if (!isset($_SESSION['email']) || $_SESSION['email'] !== 'admin@gmail.com') {
+    // Rediriger vers une page d'erreur ou une autre page appropriée si l'utilisateur n'est pas autorisé.
+    echo "Vous n'êtes pas le bienvenu ici";
+    exit();
+}
    
 
     // intégration des librairies
@@ -19,9 +23,4 @@ session_start();
     // redirection vers la page de listing
     header('Location: indexBO.php');
 
-?>
-<?php
-// } else {
-//   header('location: index.php');
-// }
 ?>

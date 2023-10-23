@@ -34,7 +34,7 @@ use Konekt\PdfInvoice\InvoicePrinter;
 
 // Envoyez la facture par e-mail
 // Destinataire de l'e-mail
-$to = 'mariusyvt@gmail.com';
+$to = 'anookpanier@gmail.com';
 
 // Sujet de l'e-mail
 $subject = 'Facture';

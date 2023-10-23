@@ -1,5 +1,12 @@
 <?php
 require './bootstrap.php';
+session_start();
+
+if (!isset($_SESSION['email']) || $_SESSION['email'] !== 'admin@gmail.com') {
+    // Rediriger vers une page d'erreur ou une autre page appropriée si l'utilisateur n'est pas autorisé.
+    echo "Vous n'êtes pas le bienvenu ici";
+    exit();
+}
 
 $plats_sale = "SELECT * FROM plats WHERE id_categorie = 2";
 $plats_sale = $dbh->query($plats_sale);
@@ -47,6 +54,7 @@ echo head('Accueil');
         <div class="plats sale">
             <h1>Fouées salées</h1>
             </br>
+            <button type="button"><a href="addPlats.php?">Ajouter</a></button>
             <div class="plats_card">
                 <?php foreach ($plats_sale as $plat) : ?>
                     <div class="card" style="width: 18rem;">
@@ -62,7 +70,6 @@ echo head('Accueil');
                                 <button type="button" class="btn btn-success" id="ajouter">+</button>
                                 <button type="button" class="btn btn-danger" id="enlever">-</button> -->
                                 <button type="button"><a href="editPlats.php?id_plat=<?= $plat['id_plat'] ?>">Modifier</a></button>
-                                <button type="button"><a href="addPlats.php?id_plat=<?= $plat['id_plat'] ?>">Ajouter</a></button>
                                 <button type="button"><a href="suppressionPlats.php?id_plat=<?= $plat['id_plat'] ?>">Effacer</a></button>
 
                             </div>
@@ -89,8 +96,9 @@ echo head('Accueil');
                                 <!-- <input type="number" class="form-control" value="0" id="input-number">
                                 <button type="button" class="btn btn-success" id="ajouter">+</button>
                                 <button type="button" class="btn btn-danger" id="enlever">-</button> -->
-                                <button type="button"><a href="suppressionPlats.php?id_plat=<?= $plat['id_plat'] ?>">Effacer</a></button>
                                 <button type="button"><a href="editPlats.php?id_plat=<?= $plat['id_plat'] ?>">Modifier</a></button>
+                                <button type="button"><a href="suppressionPlats.php?id_plat=<?= $plat['id_plat'] ?>">Effacer</a></button>
+
                             </div>
                         </div>
                     </div>

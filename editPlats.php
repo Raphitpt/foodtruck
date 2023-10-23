@@ -1,6 +1,10 @@
 <?php
 session_start();
-// if (isset($_SESSION['email'])) {
+if (!isset($_SESSION['email']) || $_SESSION['email'] !== 'admin@gmail.com') {
+    // Rediriger vers une page d'erreur ou une autre page appropriée si l'utilisateur n'est pas autorisé.
+    echo "Vous n'êtes pas le bienvenu ici";
+    exit();
+}
     require 'bootstrap.php';
 
     echo head('Modifier un plat');
@@ -75,8 +79,3 @@ session_start();
     </body>
 
     </html>
-<?php
-// } else {
-//     header('location: login.php');
-// }
-?>

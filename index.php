@@ -1,6 +1,9 @@
 <?php
 require './bootstrap.php';
 
+session_start();
+
+
 $plats_sale = "SELECT * FROM plats WHERE id_categorie = 2";
 $plats_sale = $dbh->query($plats_sale);
 $plats_sale = $plats_sale->fetchAll();
@@ -101,7 +104,7 @@ echo head('Accueil');
 
         <!-- affichage des suppléments -->
 
-        <div class="supplements" style="display:none;">
+        <div class="supplements" style="display:block;">
                 <h1>Suppléments</h1>
                 </br>
                 <div class="cross_close">
