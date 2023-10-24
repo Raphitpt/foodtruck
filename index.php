@@ -64,6 +64,9 @@ echo head('Accueil');
                                 <input type="number" class="form-control" value="0" id="input-number-<?= $plat['id_plat'] ?>">
                                 <button type="button" class="btn btn-success" id="ajouter">+</button>
                                 <button type="button" class="btn btn-danger" id="enlever">-</button>
+                                <div  id="supplement-card-<?= $plat['id_plat'] ?>">
+
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -97,7 +100,7 @@ echo head('Accueil');
         </div>
         <div class="commande">
             <div class="panier"></div>
-            <a href="./order.php" class="order-button">Commander</a>
+            <!-- <a href="./order.php" class="order-button">Commander</a> -->
         </div>
         
 

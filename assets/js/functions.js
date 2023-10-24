@@ -9,21 +9,29 @@ document.addEventListener("DOMContentLoaded", function () {
   const divSupplement = document.querySelector(".supplements");
   const closeSupplement = document.querySelector(".cross_close");
   const ajouterBoutons = document.querySelectorAll(".btn-success");
-  const orderButton = document.querySelector(".order-button");
-  orderButton.style.display = "none";
+
 
   let panier = JSON.parse(sessionStorage.getItem("panier")) || [];
 
-  function updateInputNumbers() {
-    console.log(panier);
-    panier.forEach(function (item) {
-      const id = item.id;
-      const inputNumber = document.getElementById(`input-number-${id}`);
-      if (inputNumber) {
-        inputNumber.value = item.quantite;
-      }
-    });
-  }
+// Fonction pour mettre à jour les inputs lors du chargement de la page (sessionStorage)
+function updateInputNumbers() {
+  console.log(panier);
+  panier.forEach(function (item) {
+    const id = item.id;
+    const inputNumber = document.getElementById(`input-number-${id}`);
+    const footerCard = document.getElementById(`supplement-card-${id}`);
+    if (inputNumber) {
+      inputNumber.value = item.quantite;
+    }
+    
+    if (footerCard.childElementCount === 0) {
+      let footerHTML = '<button class="btn btn-danger btn-sm">Ajouter un supplément</button>';
+      footerCard.innerHTML = footerHTML;
+    }
+  });
+}
+
+
 
   updateInputNumbers();
 
@@ -65,10 +73,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
         let id = idPlat[index].value;
         let itemIndex = panier.findIndex((item) => item.id === id);
+        const footerCard = document.getElementById(`supplement-card-${id}`);
 
         if (itemIndex !== -1) {
           if (elementCounter === 0) {
             panier.splice(itemIndex, 1);
+            footerCard.innerHTML = "";
           } else {
             panier[itemIndex].quantite = elementCounter;
           }
@@ -90,26 +100,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  function generatePanierHTML(panier) {
-    let html = "<ul>";
-    panier.forEach(function (plat) {
-      // Convertir le prix et la quantité en nombre à virgule flottante
-      const prix = parseFloat(plat.prix);
-      const quantite = parseFloat(plat.quantite);
-
-      // Calculer le total pour cet article
-      const articleTotal = prix * quantite;
-
-      html += `<li>${plat.nom} - ${prix}€ - Quantité: ${quantite} - Total: ${articleTotal}€</li>`;
-    });
-
-    // Calculer le total de l'ensemble du panier
-    const panierTotal = calculateTotal(panier);
-
-    html += "</ul>";
-    html += `<p>Total du panier : ${panierTotal}€</p>`;
-    return html;
-  }
+  // Fonction pour calculer le total du panier
 
   function calculateTotal(panier) {
     let total = 0;
@@ -126,7 +117,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
     return total;
   }
-
+  // Fonction pour générer le HTML du panier
   function generatePanierHTML(panier, panierTotal) {
     let html = "<ul>";
     panier.forEach(function (plat) {
@@ -141,15 +132,17 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     html += "</ul>";
-    if(panier.length > 0){
+    if (panier.length > 0) {
       html += `<p>Total du panier : ${panierTotal}€</p>`;
+      html += `<a href="./order.php" class="btn btn-primary">Commander</a>`;
     } else {
       html += `<i class="fa-solid fa-cart-shopping"></i>`;
     }
-    
+
     return html;
   }
 
+  // Fonction pour mettre à jour l'affichage du panier lors du chargement de la page (sessionStorage)
   function updateCartDisplay() {
     const panierTotal = calculateTotal(panier);
     console.log(panierTotal);

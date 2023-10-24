@@ -77,6 +77,9 @@ echo head('Panier');
             let articleTotal = prix * quantite;
             html += `<td>${articleTotal} €</td>`;
             html += `<td><button><i class="fa-solid fa-trash"></button></i></td>`;
+            if(element.suplement != null){
+                html += `<td>${element.suplement.nom}</td>`;
+            }
             html += '</tr>';
             total += articleTotal;
         });
@@ -89,7 +92,7 @@ echo head('Panier');
         }
 
         commanderButton.addEventListener('click', function() {
-            window.location.href = './order.php';
+            window.location.href = './facture.php?';
         });
     </script>
     <script src="./assets/js/functions.js"></script>
