@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const closeSupplement = document.querySelector(".cross_close");
   const ajouterBoutons = document.querySelectorAll(".btn-success");
 
+// update js functions
 
   let panier = JSON.parse(sessionStorage.getItem("panier")) || [];
 
