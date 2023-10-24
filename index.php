@@ -61,7 +61,7 @@ echo head('Accueil');
                             <p class="card-price"><?= $plat['prix'] ?>€</p>
                             <div class="card-footer-plats">
                                 <!-- <button type="button" class="btn btn-primary">Ajouter</button> -->
-                                <input type="number" class="form-control" value="0" id="input-number">
+                                <input type="number" class="form-control" value="0" id="input-number-<?= $plat['id_plat'] ?>">
                                 <button type="button" class="btn btn-success" id="ajouter">+</button>
                                 <button type="button" class="btn btn-danger" id="enlever">-</button>
                             </div>
@@ -85,7 +85,7 @@ echo head('Accueil');
                             <p class="card-price"><?= $plat['prix'] ?>€</p>
                             <div class="card-footer-plats">
                                 <!-- <button type="button" class="btn btn-primary">Ajouter</button> -->
-                                <input type="number" class="form-control" value="0" id="input-number">
+                                <input type="number" class="form-control" value="0" id="input-number-<?= $plat['id_plat'] ?>">
                                 <button type="button" class="btn btn-success" id="ajouter">+</button>
                                 <button type="button" class="btn btn-danger" id="enlever">-</button>
                             </div>
@@ -104,7 +104,7 @@ echo head('Accueil');
 
         <!-- affichage des suppléments -->
 
-        <div class="supplements" style="display:block;">
+        <div class="supplements" style="display:none;">
                 <h1>Suppléments</h1>
                 </br>
                 <div class="cross_close">
@@ -120,7 +120,7 @@ echo head('Accueil');
                             <p class="card-price"><?= $supplement['prix'] ?>€</p>
                             <div class="card-footer-plats">
                                 <!-- <button type="button" class="btn btn-primary">Ajouter</button> -->
-                                <input type="number" class="form-control" value="0" id="input-number">
+                                <input type="number" class="form-control" value="0" id="input-number-<?= $plat['id_plat'] ?>">
                                 <button type="button" class="btn btn-success" id="ajouter">+</button>
                                 <button type="button" class="btn btn-danger" id="enlever">-</button>
                             </div>
@@ -136,6 +136,7 @@ echo head('Accueil');
         <a href="./mail.php">Mail</a>
     </main>
     <script src="./assets/js/functions.js"></script>
+    <script src="https://kit.fontawesome.com/45762c6469.js" crossorigin="anonymous"></script>
 </body>
 
 </html>

@@ -97,6 +97,10 @@ button:hover{
     position: fixed;
     bottom: 25px;
     right: 25px;
+    background-color: #4CAF50;
+    margin: 2rem;
+    padding: 1rem;
+    border-radius: 15px;
 }
 
 main{
