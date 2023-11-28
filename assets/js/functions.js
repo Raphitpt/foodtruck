@@ -118,6 +118,7 @@ function updateInputNumbers() {
     });
     return total;
   }
+
   // Fonction pour générer le HTML du panier
   function generatePanierHTML(panier, panierTotal) {
     let html = "<ul>";

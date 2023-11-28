@@ -25,7 +25,7 @@ if (isset($_POST['envoi'])) {
                 exit();
             }
         }else {
-            echo "Votre mot de passe ou pseudo est incorrrect";
+            echo "Votre mot de passe ou pseudo est incorrect";
         }
        
     } else {
