@@ -11,8 +11,7 @@ class Auth
         nom = :nom,
         prenom = :prenom,
         email = :email,
-        passwd = :passwd,
-        pts_fidelite = :pts_fidelite");
+        passwd = :passwd,");
         $query->execute([ //Execute la requête
             'nom' => $userData['nom'],
             'prenom' => $userData['prenom'],
@@ -49,7 +48,6 @@ class Auth
         prenom = :prenom,
         email = :email,
         passwd = :passwd,
-        pts_fidelite = :pts_fidelite
         WHERE id = :id");
         $query->execute([
             'id' => $userData['id'],
