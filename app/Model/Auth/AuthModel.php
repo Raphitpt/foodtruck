@@ -66,3 +66,48 @@ class Auth
 
 }
 ?>
+
+
+
+
+
+<?php
+
+class PostController {
+    
+        public function index(){
+            $post = new Post();
+            $posts = $post->findAllPublished();
+            require 'view/posts.php';
+        }
+    
+        public function show($postId){
+            $post = new Post();
+            $post = $post->find($postId);
+            require 'view/post.php';
+        }
+    
+        public function create(){
+            $post = new Post();
+            $post->create($_POST);
+            header('Location: /posts');
+        }
+    
+        public function edit($postId){
+            $post = new Post();
+            $post = $post->find($postId);
+            require 'view/editPost.php';
+        }
+    
+        public function update($postId){
+            $post = new Post();
+            $post->update($_POST);
+            header('Location: /posts');
+        }
+    
+        public function delete($postId){
+            $post = new Post();
+            $post->delete($postId);
+            header('Location: /posts');
+        }
+}
