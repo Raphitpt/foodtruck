@@ -111,4 +111,3 @@ class PostController {
             header('Location: /posts');
         }
 }
-bonjour
