@@ -130,7 +130,7 @@ function updateInputNumbers() {
       // Calculer le total pour cet article
       const articleTotal = prix * quantite;
 
-      html += `<li>${plat.nom} - ${prix}€ - Quantité: ${quantite} - Total: ${articleTotal}€ <button>Supprimer</button></li>`;
+      html += `<li>${plat.nom} - ${prix}€ - Quantité: ${quantite} - Total: ${articleTotal}€</li>`;
     });
 
     html += "</ul>";
@@ -143,7 +143,18 @@ function updateInputNumbers() {
 
     return html;
   }
+  // Fonction pour supprimer un article du panier
+  const commandeSuppr = document.querySelectorAll(".commandeSuppr");
 
+  commandeSuppr.forEach((suppr) => {
+    suppr.addEventListener("click", function () {
+      console.log("suppr");
+      const itemIndex = panier.findIndex((item) => item.id === id);
+      panier.splice(itemIndex, 1);
+      updateCartDisplay();
+      sessionStorage.setItem("panier", JSON.stringify(panier));
+    });
+  });
   // Fonction pour mettre à jour l'affichage du panier lors du chargement de la page (sessionStorage)
   function updateCartDisplay() {
     const panierTotal = calculateTotal(panier);
