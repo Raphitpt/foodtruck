@@ -11,3 +11,4 @@
     </form>
 <?php
     echo footer();
+?>
