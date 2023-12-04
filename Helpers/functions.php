@@ -47,3 +47,16 @@ function isPostMethod(): bool
 {
     return  ($_SERVER['REQUEST_METHOD'] === 'POST') ;
 }
+/**
+ * Affiche le footer du HTML.
+ *
+ * @return void
+ */
+function footer(): string
+{
+    return  <<<HTML_FOOTER
+<footer></footer>
+</body>
+</html>
+HTML_FOOTER;
+}
