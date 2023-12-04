@@ -7,14 +7,14 @@ class AuthController
     {
         $post = new Auth();
         $post->create($_POST);
-        header('location: /AuthVue.php');
+        header('location: /register.php');
     }
 
     public function find($postId)
     {
         $post = new Auth();
         $post = $post->find($postId);
-        require 'Vue/AuthVue.php';
+        require 'Vue/login.php';
     }
 
     public function update($postId)

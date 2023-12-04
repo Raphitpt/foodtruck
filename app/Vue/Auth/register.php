@@ -1,5 +1,5 @@
 <?php 
-    require 'bootstrap.php';
+    require '/functions.php';
     echo head('Création de compte');
 ?>
     <form method="POST">
@@ -9,4 +9,5 @@
         <input type="text" name="passwd" placeholder="Password">
         <input type="submit" value="Créer votre compte">
     </form>
-      
+<?php
+    echo footer();
