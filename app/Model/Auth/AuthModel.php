@@ -18,7 +18,6 @@ class Auth
             'prenom' => $userData['prenom'],
             'email' => $userData['email'],
             'passwd' => $hash,
-            'pts_fidelite' => $userData['pts_fidelite']
         ]);
         return $pdo->lastInsertId(); //Retourne l'ID du dernier utilisateur inséré
     }
@@ -58,7 +57,6 @@ class Auth
             'prenom' => $userData['prenom'],
             'email' => $userData['email'],
             'passwd' => $userData['passwd'],
-            'pts_fidelite' => $userData['pts_fidelite']
         ]);
     }
 
