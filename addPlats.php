@@ -9,7 +9,7 @@ if (!isset($_SESSION['email']) || $_SESSION['email'] !== 'admin@gmail.com') {
 }
 
 echo head('Ajouter un plat');
-$id_plat = isset($_GET['id_plat']) ? htmlspecialchars($_GET['id_plat']) : '';
+$id_plat = isset($_GET['id_plat']) ? htlspecialchars($_GET['id_plat']) : '';
 
 ?>
 
