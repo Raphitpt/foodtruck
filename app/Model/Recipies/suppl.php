@@ -1,5 +1,5 @@
 <?php
-
+require('./../../Config/config.local.php');
 class Suppl {
 
     public function create($supplData) {
