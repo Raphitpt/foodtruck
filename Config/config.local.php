@@ -4,10 +4,10 @@
 define('APP_DB_NAME', 'foodtruck');
 
 // le nom de la machine qui héberge le serveur MYSQL
-define('APP_DB_HOST', 'localhost');
+define('APP_DB_HOST', 'localhost:8889');
 
 // le nom de l'utilisateur MYSQL
 define('APP_DB_USER', 'root');
 
 // le mot de passe de l'utilisateur MYSQL
-define('APP_DB_PASSWORD', '');
+define('APP_DB_PASSWORD', 'root');
