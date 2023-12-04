@@ -1,5 +1,5 @@
 <?php 
-    require '/functions.php';
+    require './../../../Helpers/functions.php';
     echo head('Création de compte');
 ?>
     <form method="POST">
