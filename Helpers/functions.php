@@ -39,7 +39,26 @@ function isGetMethod(): bool
 {
     return  ($_SERVER['REQUEST_METHOD'] === 'GET') ;
 }
-
+/**
+ * Envoyer un mail de confirmation.
+ */
+function sendConfirmationMail(string $email, string $token): void
+{
+    $to = $email;
+    $subject = 'Confirmation de votre inscription';
+    $message = <<<HTML
+    <h1>Confirmation de votre inscription</h1>
+    <p>Merci de cliquer sur le lien suivant pour confirmer votre inscription :</p>
+    <a href="http://localhost:8000/confirmMail.php?token=$token&email=$email">Confirmer mon inscription</a>
+HTML;
+    $headers = [
+        'MIME-Version: 1.0',
+        'Content-type: text/html; charset=utf-8',
+        'From:  <rtiphonet@gmail.com>'
+        
+    ];
+    mail($to, $subject, $message, implode("\r\n", $headers));
+}
 /**
  * Retourne vrai si la méthode d'appel est POST.
  */

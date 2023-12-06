@@ -1,13 +1,13 @@
 <?php
 
 // le nom de la base
-define('APP_DB_NAME', 'foodtruck');
+define('APP_DB_NAME', 'rtiphonet_foodtruck');
 
 // le nom de la machine qui héberge le serveur MYSQL
-define('APP_DB_HOST', 'localhost:8889');
+define('APP_DB_HOST', 'mysql-rtiphonet.alwaysdata.net');
 
 // le nom de l'utilisateur MYSQL
-define('APP_DB_USER', 'root');
+define('APP_DB_USER', 'rtiphonet_2');
 
 // le mot de passe de l'utilisateur MYSQL
-define('APP_DB_PASSWORD', 'root');
+define('APP_DB_PASSWORD', 'lemotdepassecesteliot');

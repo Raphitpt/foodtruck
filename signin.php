@@ -1,4 +1,5 @@
 <?php
+session_start();
 require './bootstrap.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -16,13 +17,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $error = 'Les mots de passe ne correspondent pas';
   } else {
     $password = password_hash($password, PASSWORD_DEFAULT);
+    $token = bin2hex(random_bytes(16));
     // Insert form data in the database
-    $sql = "INSERT INTO users (nom, prenom, email, passwd) VALUES (:nom, :prenom, :email, :passwd)";
+    $sql = "INSERT INTO users (nom, prenom, email, passwd, mailverif) VALUES (:nom, :prenom, :email, :passwd, :mailverif)";
     $stmt = $dbh->prepare($sql);
-    $stmt->execute(['nom' => $nom, 'prenom' => $prenom, 'email' => $email, 'passwd' => $password]);
+    $stmt->execute(['nom' => $nom, 'prenom' => $prenom, 'email' => $email, 'passwd' => $password, 'mailverif' => $token]);
+
     if ($stmt->rowCount() == 1) {
       $success = 'Vous êtes maintenant enregistré !';
-      header('Location: index.php');
+      sendConfirmationMail($email, $token);
+      $_SESSION['email'] = $email;
+      header('Location: verifMail.php');
     } else {
       $error = "Quelque chose s'est mal passé...";
     }
