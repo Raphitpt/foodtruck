@@ -1,5 +1,4 @@
 vendor/
-Config/*
+Config/
 composer.json
 composer.lock
-```
