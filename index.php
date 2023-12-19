@@ -56,7 +56,7 @@ echo head('Accueil');
                 <div class="plats_card">
                     <?php foreach ($plats_sale as $plat): ?>
                         <div class="card" style="width: 18rem;">
-                            <img src="..." class="card-img-top" alt="...">
+                            
                             <div class="card-body">
                                 <h5 class="card-title">
                                     <?= $plat['nom'] ?>

@@ -1,14 +1,8 @@
 <?php
-$year = 2023;
 
-$startDate = new DateTime("$year-01-01");
-$endDate = new DateTime("$year-12-31");
+?>
 
-$dateInterval = new DateInterval('P10M'); // P1D signifie une période de 1 jour
-$dateRange = new DatePeriod($startDate, $dateInterval, $endDate);
-
-
-/*
+<!-- /*
 
 // Afficher le calendrier
 echo '<table border="1">';
@@ -42,7 +36,7 @@ echo '</table>';
 
 <button onclick="submitReservations()">Valider les réservations</button>
 */
-
+/*
 session_start();
 require 'bootstrap.php';
 echo head('Modifier un plat');
@@ -52,24 +46,24 @@ echo head('Modifier un plat');
     <form action="" method="post">
         <select name="choix_heure" id="choix_heure" required>
             <?php
-            foreach ($dateRange as $date) {
-                $currentDate = $date->format('Y-m-d');
+            // foreach ($dateRange as $date) {
+            //     $currentDate = $date->format('Y-m-d');
 
-                for ($hour = 12; $hour < 15; $hour++) {
-                    $cellClass = isset($organizedReservations[$currentDate][$hour]) ? 'booked' : '';
-                    echo '<option class="calendar-cell ' . $cellClass . '" data-date="' . $currentDate . '" data-hour="' . $hour . '" onclick="selectCell(this)">';
-                    echo $currentDate . ' ' . sprintf("%02d", $hour) . ':00';  // Format date et heure
-                    echo '</option>';
-                }
-            }
+            //     for ($hour = 12; $hour < 15; $hour++) {
+            //         $cellClass = isset($organizedReservations[$currentDate][$hour]) ? 'booked' : '';
+            //         echo '<option class="calendar-cell ' . $cellClass . '" data-date="' . $currentDate . '" data-hour="' . $hour . '" onclick="selectCell(this)">';
+            //         echo $currentDate . ' ' . sprintf("%02d", $hour) . ':00';  // Format date et heure
+            //         echo '</option>';
+            //     }
+            // }
 
 
 
             ?>
 
     </form>
-</body>
-<script>
+</body> -->
+<!-- <script>
     var selectedCells = [];
 
     function selectCell(cell) {
@@ -92,7 +86,8 @@ echo head('Modifier un plat');
             }
         }
     }
-</script>
+</script> -->
+*/
 
 <!DOCTYPE html>
 <html>
@@ -123,6 +118,25 @@ echo head('Modifier un plat');
     <h2>Réserver son repas</h2>
 
     <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+        <select name="choix_date" id="choix_date" required>
+            <?php
+            $currentDate = new DateTime(); // La date actuelle
+
+            // Cloner la date actuelle pour avoir la date de fin
+            $endDate = clone $currentDate;
+            $endDate->add(new DateInterval('P2W')); 
+            
+            $dateInterval = new DateInterval('P1D'); 
+            $dateRange = new DatePeriod($currentDate, $dateInterval, $endDate);
+            foreach ($dateRange as $date) {
+                $currentDate = $date->format('Y-m-d');
+                echo '<option class="calendar-cell data-date="' . $currentDate . '" onclick="selectCell(this)">';
+                echo $currentDate ;  // Format date et heure
+                echo '</option>';
+            }
+            ?>
+        </select>
+
         <table>
             <tr>
                 <th>Horaire</th>
