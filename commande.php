@@ -1,5 +1,5 @@
 <?php
-
+    require 'bootstrap.php';
 ?>
 
 <!-- /*
@@ -87,7 +87,7 @@ echo head('Modifier un plat');
         }
     }
 </script> -->
-*/
+
 
 <!DOCTYPE html>
 <html>
@@ -131,7 +131,7 @@ echo head('Modifier un plat');
             foreach ($dateRange as $date) {
                 $currentDate = $date->format('Y-m-d');
                 echo '<option class="calendar-cell data-date="' . $currentDate . '" onclick="selectCell(this)">';
-                echo $currentDate ;  // Format date et heure
+                echo $currentDate ; 
                 echo '</option>';
             }
             ?>
@@ -161,10 +161,15 @@ echo head('Modifier un plat');
     <?php
     if (isset($_POST['submit'])) {
         $selectedTime = $_POST['selectedTime'];
+        $selectedDay = $_POST['choix_date'];
         echo 'Vous avez sélectionné l\'horaire suivant: ' . $selectedTime;
     }
+    $sql = "INSERT INTO four (date, heure, nombre_fouees) VALUES (:date, :heure, :nombre_fouees)";
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute(['date' => $selectedTime, 'heure' => $selectedDay, 'nombre_fouees' => $email]);
     ?>
 
 </body>
+
 
 </html>

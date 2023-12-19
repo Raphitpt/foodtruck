@@ -92,7 +92,7 @@ echo head('Panier');
         }
 
         commanderButton.addEventListener('click', function() {
-            window.location.href = './facture.php?';
+            window.location.href = './commande.php?nb_fouee='.quantite;
         });
     </script>
     <script src="./assets/js/functions.js"></script>
