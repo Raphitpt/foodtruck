@@ -61,6 +61,7 @@ function updateInputNumbers() {
       panierDiv.innerHTML = generatePanierHTML(panier);
       updateInputNumbers();
       updateCartDisplay();
+      
       sessionStorage.setItem("panier", JSON.stringify(panier));
 
       // Afficher le bouton "order-button" uniquement s'il y a des articles dans le panier

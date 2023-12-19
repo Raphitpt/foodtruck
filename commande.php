@@ -63,7 +63,7 @@ echo '</table>';
 
     </form>
 </body>
-<!-- <script>
+ <script>
     var selectedCells = [];
 
     function selectCell(cell) {
@@ -87,7 +87,7 @@ echo '</table>';
         }
     }
 </script> -->
-*/
+
 
 <!DOCTYPE html>
 <html>
@@ -168,7 +168,8 @@ echo '</table>';
 
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+            const panier = JSON.parse(sessionStorage.getItem('panier')) || [];
+            console.log(panier);
             var form = document.getElementById('myform');
 
             form.addEventListener('submit', function (event) {
@@ -180,7 +181,6 @@ echo '</table>';
                     document.getElementById('result').innerHTML = 'Vous avez sélectionné l\'horaire suivant: ' + selectedOption.value;
                 }
             });
-        });
 
 
     </script>
