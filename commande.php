@@ -4,7 +4,7 @@ $year = 2023;
 $startDate = new DateTime("$year-01-01");
 $endDate = new DateTime("$year-12-31");
 
-$dateInterval = new DateInterval('P1D'); // P1D signifie une période de 1 jour
+$dateInterval = new DateInterval('P10M'); // P1D signifie une période de 1 jour
 $dateRange = new DatePeriod($startDate, $dateInterval, $endDate);
 
 
@@ -55,7 +55,7 @@ echo head('Modifier un plat');
             foreach ($dateRange as $date) {
                 $currentDate = $date->format('Y-m-d');
 
-                for ($hour = 8; $hour <= 18; $hour++) {
+                for ($hour = 12; $hour < 15; $hour++) {
                     $cellClass = isset($organizedReservations[$currentDate][$hour]) ? 'booked' : '';
                     echo '<option class="calendar-cell ' . $cellClass . '" data-date="' . $currentDate . '" data-hour="' . $hour . '" onclick="selectCell(this)">';
                     echo $currentDate . ' ' . sprintf("%02d", $hour) . ':00';  // Format date et heure
