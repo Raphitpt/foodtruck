@@ -4,10 +4,10 @@
 define('APP_DB_NAME', 'rtiphonet_foodtruck');
 
 // le nom de la machine qui héberge le serveur MYSQL
-define('APP_DB_HOST', 'mysql-rtiphonet.alwaysdata.net');
+define('APP_DB_HOST', 'localhost');
 
 // le nom de l'utilisateur MYSQL
-define('APP_DB_USER', 'rtiphonet_2');
+define('APP_DB_USER', 'root');
 
 // le mot de passe de l'utilisateur MYSQL
-define('APP_DB_PASSWORD', 'lemotdepassecesteliot');
+define('APP_DB_PASSWORD', '');
