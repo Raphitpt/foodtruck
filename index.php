@@ -68,7 +68,7 @@ echo head('Accueil');
                 </br>
                 <div class="plats_card">
                     <?php foreach ($plats_sale as $plat): ?>
-                        <div class="card" style="width: 18rem;">
+                        <div class="card">
                             
                             <div class="card-body">
                                 <h5 class="card-title">
@@ -129,42 +129,6 @@ echo head('Accueil');
             <div class="commande">
                 <div class="panier"></div>
                 <!-- <a href="./order.php" class="order-button">Commander</a> -->
-            </div>
-
-
-
-            <!-- affichage des suppléments -->
-
-            <div class="supplements" style="display:none;">
-                <h1>Suppléments</h1>
-                </br>
-                <div class="cross_close">
-                    <img src="./assets/img/cross_close.png" alt="croix fermer">
-                </div>
-                <div class="plats_card">
-                    <?php foreach ($supplements as $supplement): ?>
-
-                        <div class="card" style="width: 18rem;">
-                            <img src="..." class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">
-                                    <?= $supplement['nom'] ?>
-                                </h5>
-                                <p class="card-price">
-                                    <?= $supplement['prix'] ?>€
-                                </p>
-                                <div class="card-footer-plats">
-                                    <!-- <button type="button" class="btn btn-primary">Ajouter</button> -->
-                                    <input type="number" class="form-control" value="0"
-                                        id="input-number-<?= $plat['id_plat'] ?>">
-                                    <button type="button" class="btn btn-success" id="ajouter">+</button>
-                                    <button type="button" class="btn btn-danger" id="enlever">-</button>
-                                </div>
-                            </div>
-                        </div>
-
-                    <?php endforeach; ?>
-                </div>
             </div>
         </section>
         <section>
