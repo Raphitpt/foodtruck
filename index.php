@@ -4,6 +4,7 @@ require './bootstrap.php';
 session_start();
 
 
+
 $plats_sale = "SELECT * FROM plats WHERE id_categorie = 2";
 $plats_sale = $dbh->query($plats_sale);
 $plats_sale = $plats_sale->fetchAll();
@@ -36,25 +37,39 @@ echo head('Accueil');
 <body>
     <nav>
         <ul>
-            <li> <img src="./assets/img/FOUEE2.png" alt="logo fouee">
+            
             </li>
-            <li><button><a href="./index.php"><i class="fa-solid fa-truck"></i></a></button></li>
-            <li><button><a href=""><i class="fa-solid fa-phone"></i></a></button></li>
-            <li><button><a href=""><i class="fa-solid fa-house"></i></a></button></li>
-            <li><button><a href="./login.php"><i class="fa-solid fa-user"></i></a></button></li>
+            <li><a href="./index.php"><i class="fa-solid fa-house"></i></a></li>
+            <li><a href=""><i class="fa-solid fa-truck"></i></a></li>
+            <li> <img src="./assets/img/FOUEE2.png" alt="logo fouee">
+            <li><a href=""><i class="fa-solid fa-phone"></i></a></li>
+            <li><a href="./login.php"><i class="fa-solid fa-user"></i></a></li>
         </ul>
     </nav>
     <main>
 
         <!-- affichage des plats -->
         <section class="plats">
+            <div class="plats_title">
+                <div class="plats_titles">
+                    <div class="plats_title_salées">
+                        <i class="fa-solid fa-circle-dot"></i>
+                        <h1>Fouées salées</h1>
+                    </div>
+                    <div class="plats_title_sucrées">
+                        <i class="fa-solid fa-circle-dot"></i>
+                        <h1>Fouées sucrées</h1>
+                    </div>
+                </div>
+                <div class="line">
+                </div>
+            </div>
             <div class="plats_sale">
-                <h1>Fouées salées</h1>
                 </br>
                 <div class="plats_card">
                     <?php foreach ($plats_sale as $plat): ?>
                         <div class="card" style="width: 18rem;">
-                            <img src="..." class="card-img-top" alt="...">
+                            
                             <div class="card-body">
                                 <h5 class="card-title">
                                     <?= $plat['nom'] ?>
@@ -81,14 +96,12 @@ echo head('Accueil');
                     <?php endforeach; ?>
                 </div>
             </div>
-            <div class="plats_sucre">
-                <h1>Fouées sucrées</h1>
+            <div class="plats_sucre" style="display: none;">
                 </br>
                 <div class="plats_card">
                     <?php foreach ($plats_sucre as $plat): ?>
 
-                        <div class="card" style="width: 18rem;">
-                            <img src="..." class="card-img-top" alt="...">
+                        <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title">
                                     <?= $plat['nom'] ?>
@@ -153,15 +166,11 @@ echo head('Accueil');
                     <?php endforeach; ?>
                 </div>
             </div>
-            <div class="fouee-recap">
-
-            </div>
-            <a href="./mail.php">Mail</a>
         </section>
         <section>
-            <div>Je suis gay </div>
         </section>
     </main>
+
     <script src="./assets/js/functions.js"></script>
     <script src="https://kit.fontawesome.com/45762c6469.js" crossorigin="anonymous"></script>
 </body>

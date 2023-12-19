@@ -146,3 +146,9 @@ function getOrderForCreneau($jour, $mois, $annee, $heure, $dbh) {
     $stmt->execute();
     return $stmt->fetch();
 }
+
+function  enregistrerCommandes($jour, $mois, $annee, $heureCreneauSuivant, $commandesCreneau, $dbh){
+    $sql = "INSERT INTO four (date, heure, nombre_fouees) VALUES ( :date, :heure, :nb) ";
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute(['date' => $annee . "-" . $mois . "-" . $jour, 'heure' => $heureCreneauSuivant, 'nb' => $commandesCreneau]);
+}

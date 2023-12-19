@@ -4,6 +4,10 @@
   box-sizing: border-box;
 }
 
+:root{
+  font-size: 16px;
+}
+
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -16,18 +20,26 @@ input[type="number"] {
   -moz-appearance: textfield;
 }
 body {
-  background-color: #b3b3b3;
+  color: #000000;
+  background: url(./../img/background_el.webp);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  
 }
 
 nav {
-  background-color: white;
-  list-style: none;
   display: flex;
+  position: fixed;
+  top: 0;
+  left: 25%;
+  width: 50vw;
+  height: 15vh;
   justify-content: center;
   align-items: center;
-  width: 60vw;
-  border-radius: 0 0 20px 20px;
-  margin-left: 50px;
+  border-radius: 0px 0px 21px 21px;
+  background: #FFF;
 }
 
 nav a {
@@ -40,8 +52,19 @@ nav ul {
   justify-content: center;
   align-items: center;
   margin-bottom: 0;
+  gap: 50px;
+  font-size: 2rem;
 }
 
+nav img{
+  width: 6.25vw;
+  height: 12.5vh;
+  flex-shrink: 0;
+}
+
+nav button {
+  text-decoration: none;
+}
 li {
   list-style: none;
   color: black;
@@ -50,7 +73,7 @@ li i {
   color: black;
 }
 
-button {
+.plats button {
   background-color: #4caf50;
   color: white;
   padding: 7px 10px;
@@ -65,13 +88,53 @@ button:hover {
 .plats {
   background-color: white;
   border-radius: 20px;
-  width: 60vw;
+  width: 65vw;
   height: auto;
-  margin-top: 50px;
-  margin-left: 50px;
+  margin-top: 25vh;
+  margin-left: 3.5vw;
+  padding: 20px;
+}
+
+.plats_title {
+  display: flex;
+  flex-direction: column;
+}
+
+.plats_titles {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-direction: row;
+  gap: 3rem;
+}
+
+.plats_titles h1{
+  font-size: 2rem;
+  margin-left: 0.3rem;
+}
+
+.plats_titles i{
+  font-size: 0.750rem;
+}
+.plats_title_salées{
+  display: flex;
+  align-items: center;
+}
+
+.plats_title_sucrées{
+  display: flex;
+  align-items: center;
+}
+
+.line{
+  width: auto;
+  height: 0.15rem;
+  background-color: #000000;
+  border-radius: 20px;
 }
 .card {
   background-color: #b3b3b3;
+
   box-shadow: 5px 5px 0px #ff5c28;
 }
 .plats_sale {
