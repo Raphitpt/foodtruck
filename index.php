@@ -3,6 +3,7 @@ require './bootstrap.php';
 
 session_start();
 
+enregistrerCommandes(5, 10, 2018, 1, 5, $dbh);
 
 $plats_sale = "SELECT * FROM plats WHERE id_categorie = 2";
 $plats_sale = $dbh->query($plats_sale);
@@ -162,6 +163,7 @@ echo head('Accueil');
             <div>Je suis gay </div>
         </section>
     </main>
+
     <script src="./assets/js/functions.js"></script>
     <script src="https://kit.fontawesome.com/45762c6469.js" crossorigin="anonymous"></script>
 </body>
