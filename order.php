@@ -66,7 +66,7 @@ echo head('Panier');
         let html = '';
         const totalCommande = document.getElementById('totalCommande');
         let total = 0;
-        
+
         panier.forEach(element => {
             html += '<tr>';
             html += `<th scope="row">${element.nom}</th>`;
@@ -77,7 +77,7 @@ echo head('Panier');
             let articleTotal = prix * quantite;
             html += `<td>${articleTotal} €</td>`;
             html += `<td><button><i class="fa-solid fa-trash"></button></i></td>`;
-            if(element.suplement != null){
+            if (element.suplement != null) {
                 html += `<td>${element.suplement.nom}</td>`;
             }
             html += '</tr>';
@@ -91,7 +91,7 @@ echo head('Panier');
             commanderButton.style.display = 'none';
         }
 
-        commanderButton.addEventListener('click', function() {
+        commanderButton.addEventListener('click', function () {
             window.location.href = './commande.php?nb_fouee='.quantite;
         });
     </script>

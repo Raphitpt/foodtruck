@@ -36,33 +36,33 @@ echo '</table>';
 
 <button onclick="submitReservations()">Valider les réservations</button>
 */
-/*
-session_start();
-require 'bootstrap.php';
-echo head('Modifier un plat');
+
+// session_start();
+// require 'bootstrap.php';
+// echo head('Modifier un plat');
 ?>
 
 <body>
     <form action="" method="post">
         <select name="choix_heure" id="choix_heure" required>
             <?php
-            // foreach ($dateRange as $date) {
-            //     $currentDate = $date->format('Y-m-d');
+            foreach ($dateRange as $date) {
+                $currentDate = $date->format('Y-m-d');
 
-            //     for ($hour = 12; $hour < 15; $hour++) {
-            //         $cellClass = isset($organizedReservations[$currentDate][$hour]) ? 'booked' : '';
-            //         echo '<option class="calendar-cell ' . $cellClass . '" data-date="' . $currentDate . '" data-hour="' . $hour . '" onclick="selectCell(this)">';
-            //         echo $currentDate . ' ' . sprintf("%02d", $hour) . ':00';  // Format date et heure
-            //         echo '</option>';
-            //     }
-            // }
+                for ($hour = 12; $hour < 15; $hour++) {
+                    $cellClass = isset($organizedReservations[$currentDate][$hour]) ? 'booked' : '';
+                    echo '<option class="calendar-cell ' . $cellClass . '" data-date="' . $currentDate . '" data-hour="' . $hour . '" onclick="selectCell(this)">';
+                    echo $currentDate . ' ' . sprintf("%02d", $hour) . ':00';  // Format date et heure
+                    echo '</option>';
+                }
+            }
 
 
 
             ?>
 
     </form>
-</body> -->
+</body>
 <!-- <script>
     var selectedCells = [];
 
@@ -87,7 +87,7 @@ echo head('Modifier un plat');
         }
     }
 </script> -->
-
+*/
 
 <!DOCTYPE html>
 <html>
@@ -131,7 +131,7 @@ echo head('Modifier un plat');
             foreach ($dateRange as $date) {
                 $currentDate = $date->format('Y-m-d');
                 echo '<option class="calendar-cell data-date="' . $currentDate . '" onclick="selectCell(this)">';
-                echo $currentDate ; 
+                echo $currentDate ;  // Format date et heure
                 echo '</option>';
             }
             ?>
@@ -148,7 +148,7 @@ echo head('Modifier un plat');
                     $time = str_pad($hour, 2, '0', STR_PAD_LEFT) . 'h' . str_pad($minute, 2, '0', STR_PAD_LEFT);
                     echo '<tr>';
                     echo '<td>' . $time . '</td>';
-                    echo '<td><input type="radio" name="selectedTime" value="' . $time . '"></td>';
+                    echo '<td><input type="radio" name="selectedTime" value="' . $time . '" class="td"> </td>';
                     echo '</tr>';
                 }
             }
@@ -164,11 +164,26 @@ echo head('Modifier un plat');
         $selectedDay = $_POST['choix_date'];
         echo 'Vous avez sélectionné l\'horaire suivant: ' . $selectedTime;
     }
-    $sql = "INSERT INTO four (date, heure, nombre_fouees) VALUES (:date, :heure, :nombre_fouees)";
-    $stmt = $dbh->prepare($sql);
-    $stmt->execute(['date' => $selectedTime, 'heure' => $selectedDay, 'nombre_fouees' => $email]);
     ?>
 
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var form = document.getElementById('myform');
+
+            form.addEventListener('submit', function (event) {
+                event.preventDefault();
+
+                var selectedOption = document.querySelector('input[name="selectedTime"]:checked');
+
+                if (selectedOption) {
+                    document.getElementById('result').innerHTML = 'Vous avez sélectionné l\'horaire suivant: ' + selectedOption.value;
+                }
+            });
+        });
+
+
+    </script>
 </body>
 
 
