@@ -3,6 +3,8 @@ require './bootstrap.php';
 
 session_start();
 
+
+
 $plats_sale = "SELECT * FROM plats WHERE id_categorie = 2";
 $plats_sale = $dbh->query($plats_sale);
 $plats_sale = $plats_sale->fetchAll();
@@ -35,11 +37,12 @@ echo head('Accueil');
 <body>
     <nav>
         <ul>
-            <li> <img src="./assets/img/FOUEE2.png" alt="logo fouee">
+            
             </li>
-            <li><button><a href="./index.php"><i class="fa-solid fa-truck"></i></a></button></li>
+            <li><button><a href="./index.php"><i class="fa-solid fa-house"></i></a></button></li>
+            <li><button><a href=""><i class="fa-solid fa-truck"></i></a></button></li>
+            <li> <img src="./assets/img/FOUEE2.png" alt="logo fouee">
             <li><button><a href=""><i class="fa-solid fa-phone"></i></a></button></li>
-            <li><button><a href=""><i class="fa-solid fa-house"></i></a></button></li>
             <li><button><a href="./login.php"><i class="fa-solid fa-user"></i></a></button></li>
         </ul>
     </nav>
