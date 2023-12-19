@@ -1,5 +1,5 @@
 vendor/
-Config/config.local.php
+config/config.local.php
 composer.json
 composer.lock
 ```

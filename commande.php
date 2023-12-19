@@ -54,7 +54,7 @@ echo head('Modifier un plat');
             <?php
             foreach ($dateRange as $date) {
                 $currentDate = $date->format('Y-m-d');
-                
+
                 for ($hour = 8; $hour <= 18; $hour++) {
                     $cellClass = isset($organizedReservations[$currentDate][$hour]) ? 'booked' : '';
                     echo '<option class="calendar-cell ' . $cellClass . '" data-date="' . $currentDate . '" data-hour="' . $hour . '" onclick="selectCell(this)">';
@@ -62,7 +62,7 @@ echo head('Modifier un plat');
                     echo '</option>';
                 }
             }
-            
+
 
 
             ?>
@@ -78,7 +78,7 @@ echo head('Modifier un plat');
             var date = cell.getAttribute('data-date');
             var hour = cell.getAttribute('data-hour');
 
-            var index = selectedCells.findIndex(function(item) {
+            var index = selectedCells.findIndex(function (item) {
                 return item.date === date && item.hour == hour;
             });
 
@@ -93,3 +93,64 @@ echo head('Modifier un plat');
         }
     }
 </script>
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Réserver son repas</title>
+    <style>
+        table {
+            width: 15vw;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            border: 1px solid black;
+            padding: 5px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Réserver son repas</h2>
+
+    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+        <table>
+            <tr>
+                <th>Horaire</th>
+                <th>Sélection</th>
+            </tr>
+            <?php
+            for ($hour = 12; $hour < 15; $hour++) {
+                for ($minute = 0; $minute <= 55; $minute += 10) {
+                    $time = str_pad($hour, 2, '0', STR_PAD_LEFT) . 'h' . str_pad($minute, 2, '0', STR_PAD_LEFT);
+                    echo '<tr>';
+                    echo '<td>' . $time . '</td>';
+                    echo '<td><input type="radio" name="selectedTime" value="' . $time . '"></td>';
+                    echo '</tr>';
+                }
+            }
+            ?>
+        </table>
+        <br>
+        <input type="submit" name="submit" value="Réserver">
+    </form>
+
+    <?php
+    if (isset($_POST['submit'])) {
+        $selectedTime = $_POST['selectedTime'];
+        echo 'Vous avez sélectionné l\'horaire suivant: ' . $selectedTime;
+    }
+    ?>
+
+</body>
+
+</html>
