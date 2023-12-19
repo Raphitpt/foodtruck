@@ -89,10 +89,11 @@ button:hover {
   background-color: white;
   border-radius: 20px;
   width: 65vw;
-  height: auto;
+  height: 70vh;
   margin-top: 25vh;
   margin-left: 3.5vw;
   padding: 20px;
+  overflow-y: scroll;
 }
 
 .plats_title {
@@ -134,9 +135,12 @@ button:hover {
 }
 .card {
   background-color: #b3b3b3;
-
+  height: auto;
+  width: 15vw;
   box-shadow: 5px 5px 0px #ff5c28;
 }
+
+
 .plats_sale {
   display: flex;
   justify-content: center;

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql-rtiphonet.alwaysdata.net
--- Generation Time: Dec 19, 2023 at 03:44 PM
+-- Generation Time: Oct 15, 2023 at 03:20 PM
 -- Server version: 10.6.14-MariaDB
 -- PHP Version: 7.4.33
 
@@ -168,10 +168,8 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id_user`, `nom`, `prenom`, `email`, `passwd`, `pts_fidelite`, `mailverif`, `active`) VALUES
-(1, 'Galonnier', 'Didier', 'didi@gmail.com', 'zfesdfdf', 25012, '', 0),
-(5, 'Test mail', 'Test mail', 'tiphonetraphi@gmail.com', '$2y$10$MYwh..idK5fl5nUVjRYh0.pTqAFj2OYQL1aCyoqdnUsKFXCO4EMkC', NULL, '', 1),
-(6, 'admin', 'admin', 'admin@gmail.com', 'admin', NULL, 'admin@gmail.com', 0);
+INSERT INTO `users` (`id_user`, `nom`, `prenom`, `email`, `passwd`, `pts_fidelite`) VALUES
+(1, 'Galonnier', 'Didier', 'didi@gmail.com', 'zfesdfdf', 25012);
 
 --
 -- Indexes for dumped tables
@@ -270,7 +268,7 @@ ALTER TABLE `supplements`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables
