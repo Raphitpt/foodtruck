@@ -17,9 +17,9 @@
 //   - config.prod.php quand le site est placé chez un hébergeur
 // On détecte le local car l'IP de la machine est 127.0.0.1
 if (($_SERVER['REMOTE_ADDR'] == '127.0.0.1' or $_SERVER['REMOTE_ADDR'] == '::1')) {
-    require 'Config/config.local.php';
+    require 'config/config.local.php';
 } else {
-    require 'Config/config.prod.php';
+    require 'config/config.prod.php';
 }
 // les fonctions de debug
 require 'Helpers/debug.php';
