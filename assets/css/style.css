@@ -16,18 +16,25 @@ input[type="number"] {
   -moz-appearance: textfield;
 }
 body {
-  background-color: #b3b3b3;
+  color: #fff;
+  background: url(./../img/background_el.webp);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
 }
 
 nav {
-  background-color: white;
-  list-style: none;
   display: flex;
+  width: 940px;
+  height: 120px;
+  padding: 15px 618px 14px 505px;
   justify-content: center;
   align-items: center;
-  width: 60vw;
-  border-radius: 0 0 20px 20px;
-  margin-left: 50px;
+  gap: 88px;
+  flex-shrink: 0;
+  border-radius: 0px 0px 21px 21px;
+  background: #FFF;
 }
 
 nav a {
@@ -40,6 +47,12 @@ nav ul {
   justify-content: center;
   align-items: center;
   margin-bottom: 0;
+}
+
+nav img{
+  width: 93px;
+  height: 93px;
+  flex-shrink: 0;
 }
 
 li {
