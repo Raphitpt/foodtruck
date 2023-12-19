@@ -52,7 +52,7 @@ echo head('Panier');
                             <h2 id="totalCommande"></h2>
                         </div>
                         <div class="btn">
-                            <button type="button" class="btn btn-primary">Commander</button>
+                            <button type="button" class="btn btn-primary btn_commander">Commander</button>
                         </div>
                     </div>
                 </div>
@@ -65,6 +65,8 @@ echo head('Panier');
         const tbody = document.querySelector('tbody');
         let html = '';
         const totalCommande = document.getElementById('totalCommande');
+        const commanderButton = document.querySelector('.btn_commander')
+       
         let total = 0;
 
         panier.forEach(element => {
@@ -92,7 +94,7 @@ echo head('Panier');
         }
 
         commanderButton.addEventListener('click', function () {
-            window.location.href = './commande.php?nb_fouee='.quantite;
+            window.location.href = 'commande.php';
         });
     </script>
     <script src="./assets/js/functions.js"></script>
