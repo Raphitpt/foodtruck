@@ -1,5 +1,5 @@
 <?php
-    require 'bootstrap.php';
+require 'bootstrap.php';
 ?>
 
 <!-- /*
@@ -117,21 +117,22 @@ echo '</table>';
 
     <h2>Réserver son repas</h2>
 
+    <div class="quantite"></div>
     <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
         <select name="choix_date" id="choix_date" required>
             <?php
             $currentDate = new DateTime(); // La date actuelle
-
+            
             // Cloner la date actuelle pour avoir la date de fin
             $endDate = clone $currentDate;
-            $endDate->add(new DateInterval('P2W')); 
-            
-            $dateInterval = new DateInterval('P1D'); 
+            $endDate->add(new DateInterval('P2W'));
+
+            $dateInterval = new DateInterval('P1D');
             $dateRange = new DatePeriod($currentDate, $dateInterval, $endDate);
             foreach ($dateRange as $date) {
                 $currentDate = $date->format('Y-m-d');
                 echo '<option class="calendar-cell data-date="' . $currentDate . '" onclick="selectCell(this)">';
-                echo $currentDate ;  // Format date et heure
+                echo $currentDate;  // Format date et heure
                 echo '</option>';
             }
             ?>
@@ -168,19 +169,19 @@ echo '</table>';
 
 
     <script>
-            const panier = JSON.parse(sessionStorage.getItem('panier')) || [];
-            console.log(panier);
-            var form = document.getElementById('myform');
+        const panier = JSON.parse(sessionStorage.getItem('panier')) || [];
+        console.log(panier);
+        var form = document.getElementById('myform');
 
-            form.addEventListener('submit', function (event) {
-                event.preventDefault();
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
 
-                var selectedOption = document.querySelector('input[name="selectedTime"]:checked');
+            var selectedOption = document.querySelector('input[name="selectedTime"]:checked');
 
-                if (selectedOption) {
-                    document.getElementById('result').innerHTML = 'Vous avez sélectionné l\'horaire suivant: ' + selectedOption.value;
-                }
-            });
+            if (selectedOption) {
+                document.getElementById('result').innerHTML = 'Vous avez sélectionné l\'horaire suivant: ' + selectedOption.value;
+            }
+        });
 
 
     </script>
