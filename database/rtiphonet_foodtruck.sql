@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql-rtiphonet.alwaysdata.net
--- Generation Time: Oct 15, 2023 at 03:20 PM
+-- Generation Time: Dec 19, 2023 at 03:35 PM
 -- Server version: 10.6.14-MariaDB
 -- PHP Version: 7.4.33
 
@@ -84,6 +84,18 @@ CREATE TABLE `detail_supplements` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `four`
+--
+
+CREATE TABLE `four` (
+  `date` date NOT NULL,
+  `heure` time NOT NULL,
+  `nombre_fouees` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `plats`
 --
 
@@ -147,15 +159,18 @@ CREATE TABLE `users` (
   `prenom` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `passwd` varchar(255) NOT NULL,
-  `pts_fidelite` int(11) DEFAULT NULL
+  `pts_fidelite` int(11) DEFAULT NULL,
+  `mailverif` varchar(255) NOT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id_user`, `nom`, `prenom`, `email`, `passwd`, `pts_fidelite`) VALUES
-(1, 'Galonnier', 'Didier', 'didi@gmail.com', 'zfesdfdf', 25012);
+INSERT INTO `users` (`id_user`, `nom`, `prenom`, `email`, `passwd`, `pts_fidelite`, `mailverif`, `active`) VALUES
+(1, 'Galonnier', 'Didier', 'didi@gmail.com', 'zfesdfdf', 25012, '', 0),
+(5, 'Test mail', 'Test mail', 'tiphonetraphi@gmail.com', '$2y$10$MYwh..idK5fl5nUVjRYh0.pTqAFj2OYQL1aCyoqdnUsKFXCO4EMkC', NULL, '', 1);
 
 --
 -- Indexes for dumped tables
@@ -254,7 +269,7 @@ ALTER TABLE `supplements`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Constraints for dumped tables
