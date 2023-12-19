@@ -3,7 +3,7 @@ require './bootstrap.php';
 
 session_start();
 
-enregistrerCommandes(5, 10, 2018, 1, 5, $dbh);
+enregistrerCommandes(5, 10, 2018, "10:30:00", 5, $dbh);
 
 $plats_sale = "SELECT * FROM plats WHERE id_categorie = 2";
 $plats_sale = $dbh->query($plats_sale);
