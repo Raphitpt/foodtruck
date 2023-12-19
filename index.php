@@ -52,12 +52,12 @@ echo head('Accueil');
         <section class="plats">
             <div class="plats_title">
                 <div class="plats_titles">
-                    <div class="plats_title_salées">
-                        <i class="fa-solid fa-circle-dot"></i>
+                    <div class="plats_title_salées" onclick="togglePlat('plats_salées')">
+                        <i class="fa-solid fa-circle-dot" style="font-size:2rem; color:#FF5C28;" ></i>
                         <h1>Fouées salées</h1>
                     </div>
-                    <div class="plats_title_sucrées">
-                        <i class="fa-solid fa-circle-dot"></i>
+                    <div class="plats_title_sucrées" onclick="togglePlat('plats_sucrées')">
+                        <i class="fa-solid fa-circle-dot" ></i>
                         <h1>Fouées sucrées</h1>
                     </div>
                 </div>

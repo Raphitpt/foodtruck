@@ -166,3 +166,28 @@ function updateInputNumbers() {
 
   updateCartDisplay();
 });
+
+
+//Toggle plats
+function togglePlat(platType) {
+  const sucreIcon = document.querySelector('.plats_title_sucrées .fa-circle-dot');
+  const saleIcon = document.querySelector('.plats_title_salées .fa-circle-dot');
+  const platsSucre = document.querySelector('.plats_sucre');
+  const platsSale = document.querySelector('.plats_sale');
+
+  if (platType === 'plats_sucrées') {
+      sucreIcon.style.color = '#FF5C28';
+      sucreIcon.style.fontSize = '2rem';
+      saleIcon.style.color = '';
+      saleIcon.style.fontSize = '';
+      platsSucre.style.display = 'block';
+      platsSale.style.display = 'none';
+  } else if (platType === 'plats_salées') {
+      saleIcon.style.color = '#FF5C28';
+      saleIcon.style.fontSize = '2em';
+      sucreIcon.style.color = '';
+      sucreIcon.style.fontSize = '';
+      platsSale.style.display = 'block';
+      platsSucre.style.display = 'none';
+  }
+}

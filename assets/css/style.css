@@ -96,6 +96,22 @@ button:hover {
   overflow-y: scroll;
 }
 
+
+/*animation*/
+
+
+.fa-circle-dot {
+    transition: all 0.3s;
+}
+.plats_sucre, .plats_sale {
+    display: block;
+    transition: all 1s;
+}
+.hidden {
+    display: none;
+}
+
+
 .plats_title {
   display: flex;
   flex-direction: column;
