@@ -192,7 +192,7 @@ button:hover {
   cursor: pointer;
 }
 
-.commande {
+/* .commande {
   position: fixed;
   bottom: 25px;
   right: 25px;
@@ -200,6 +200,29 @@ button:hover {
   margin: 2rem;
   padding: 1rem;
   border-radius: 15px;
+} */
+.commande {
+  position: relative;
+  background-color: #ffffff;
+  border: 2px solid #000000;
+  border-radius: 10px;
+  padding: 10px;
+  width: 200px;
+  height: 100px;
+}
+
+.commande::after {
+  content: '';
+  position: absolute;
+  transform: rotate(90deg);
+  top: 10px;
+  right: 10px;
+  width: 10px;
+  height: 10px;
+  border-top: 10px solid #ffffff;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-left: 10px solid #000000;
 }
 
 main {
