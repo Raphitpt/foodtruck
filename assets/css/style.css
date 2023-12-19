@@ -4,6 +4,10 @@
   box-sizing: border-box;
 }
 
+:root{
+  font-size: 16px;
+}
+
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -22,17 +26,19 @@ body {
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
+  
 }
 
 nav {
   display: flex;
-  width: 940px;
-  height: 120px;
+  position: fixed;
+  top: 0;
+  left: 12.5%;
+  width: 2vw;
+  height: 15vh;
   padding: 15px 618px 14px 505px;
   justify-content: center;
   align-items: center;
-  gap: 88px;
-  flex-shrink: 0;
   border-radius: 0px 0px 21px 21px;
   background: #FFF;
 }
@@ -47,14 +53,19 @@ nav ul {
   justify-content: center;
   align-items: center;
   margin-bottom: 0;
+  gap: 88px;
+  font-size: 2rem;
 }
 
 nav img{
-  width: 93px;
-  height: 93px;
+  width: 6.25vw;
+  height: 12.5vh;
   flex-shrink: 0;
 }
 
+nav button {
+  text-decoration: none;
+}
 li {
   list-style: none;
   color: black;
@@ -63,7 +74,7 @@ li i {
   color: black;
 }
 
-button {
+.plats button {
   background-color: #4caf50;
   color: white;
   padding: 7px 10px;
@@ -80,7 +91,7 @@ button:hover {
   border-radius: 20px;
   width: 60vw;
   height: auto;
-  margin-top: 50px;
+  margin-top: 25vh;
   margin-left: 50px;
 }
 .card {
