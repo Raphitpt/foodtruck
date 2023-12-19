@@ -20,7 +20,7 @@ input[type="number"] {
   -moz-appearance: textfield;
 }
 body {
-  color: #fff;
+  color: #000000;
   background: url(./../img/background_el.webp);
   background-repeat: no-repeat;
   background-size: cover;
@@ -33,10 +33,9 @@ nav {
   display: flex;
   position: fixed;
   top: 0;
-  left: 12.5%;
-  width: 2vw;
+  left: 25%;
+  width: 50vw;
   height: 15vh;
-  padding: 15px 618px 14px 505px;
   justify-content: center;
   align-items: center;
   border-radius: 0px 0px 21px 21px;
@@ -53,7 +52,7 @@ nav ul {
   justify-content: center;
   align-items: center;
   margin-bottom: 0;
-  gap: 88px;
+  gap: 50px;
   font-size: 2rem;
 }
 
@@ -89,13 +88,53 @@ button:hover {
 .plats {
   background-color: white;
   border-radius: 20px;
-  width: 60vw;
+  width: 65vw;
   height: auto;
   margin-top: 25vh;
-  margin-left: 50px;
+  margin-left: 3.5vw;
+  padding: 20px;
+}
+
+.plats_title {
+  display: flex;
+  flex-direction: column;
+}
+
+.plats_titles {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-direction: row;
+  gap: 3rem;
+}
+
+.plats_titles h1{
+  font-size: 2rem;
+  margin-left: 0.3rem;
+}
+
+.plats_titles i{
+  font-size: 0.750rem;
+}
+.plats_title_salées{
+  display: flex;
+  align-items: center;
+}
+
+.plats_title_sucrées{
+  display: flex;
+  align-items: center;
+}
+
+.line{
+  width: auto;
+  height: 0.15rem;
+  background-color: #000000;
+  border-radius: 20px;
 }
 .card {
   background-color: #b3b3b3;
+
   box-shadow: 5px 5px 0px #ff5c28;
 }
 .plats_sale {
