@@ -33,8 +33,8 @@ nav {
   display: flex;
   position: fixed;
   top: 0;
-  left: 25%;
-  width: 50vw;
+  left: 30%;
+  width: 40vw;
   height: 15vh;
   justify-content: center;
   align-items: center;
@@ -54,6 +54,7 @@ nav ul {
   margin-bottom: 0;
   gap: 50px;
   font-size: 2rem;
+  padding-left: 0;
 }
 
 nav img{
@@ -73,7 +74,7 @@ li i {
   color: black;
 }
 
-.plats button {
+.plats button, .platsBO button {
   background-color: #ff5c28;
   color: white;
   padding: 7px 10px;
@@ -82,6 +83,8 @@ li i {
   cursor: pointer;
   width: 100%;
 }
+
+
 
 button a {
   color:#000000;
@@ -101,7 +104,19 @@ button:hover {
   overflow-y: scroll;
 }
 
-.plats::-webkit-scrollbar{
+.platsBO{
+  background-color: white;
+  border-radius: 20px;
+  width: 67vw;
+  height: 70vh;
+  margin-top: 5vh;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 20px;
+  overflow-y: scroll;
+}
+
+.plats::-webkit-scrollbar,.platsBO::-webkit-scrollbar{
   width: 0.5rem;
   scrollbar-face-color: #ff5c28;
   scrollbar-arrow-color: #fff;
@@ -111,11 +126,11 @@ button:hover {
   scrollbar-darkshadow-color: #f1f1f1;
 }
   
-.plats::-webkit-scrollbar-thumb{
+.plats::-webkit-scrollbar-thumb,.platsBO::-webkit-scrollbar-thumb{
   border-radius: 6px;
   background-color: #ff5c28;
 }
-.plats::-webkit-scrollbar-track {
+.plats::-webkit-scrollbar-track,.platsBO::-webkit-scrollbar-track {
   scrollbar-track-color: #191a20
 }
 /*animation*/
@@ -275,3 +290,28 @@ button:hover {
 main {
   position: relative;
 }
+
+.commandeTable{
+  margin-top: 25vh;
+  margin-left: 10vw;
+  width: 80vw;
+  margin-right: 10vw;
+}
+.table>:not(caption)>*{
+  padding: 5vw;
+  border-radius: 20px !important;
+ }
+
+ .action{
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 25vh;
+    background-color: #ffffff;
+    width: 50vw;
+    height: 8vh;
+    border-radius: 20px;
+    gap: 5vw;
+ }

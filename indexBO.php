@@ -50,10 +50,16 @@ echo head('Accueil');
     </nav>
 
     <main>
+        <div class="action">
+            <button><a href="orderHist.php">Historique des commandes</a></button>
+            <button><a href="index.php">Voir le site web</a></button>
+            <button><a href="modifPtsFid.php">Points de fidélité</a></button>
+            
+        </div>
 
         <!-- affichage des plats -->
 
-        <section class="plats">
+        <section class="platsBO">
             <div class="plats_title">
                 <div class="plats_titles">
                     <div class="plats_title_salées" onclick="togglePlat('plats_salées')">
@@ -157,7 +163,7 @@ echo head('Accueil');
                 </div>
             </div>
         </section>
-        <a href="orderHist.php">Historique des commandes</a>
+        
     </main>
     <script src="./assets/js/functions.js"></script>
 </body>
