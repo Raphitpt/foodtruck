@@ -186,6 +186,7 @@ function togglePlat(platType) {
       supplIcon.style.fontSize = '';
       platsSucre.style.display = 'block';
       platsSale.style.display = 'none';
+      platsSuppl.style.display = 'none';
   } else if (platType === 'plats_salées') {
       saleIcon.style.color = '#FF5C28';
       saleIcon.style.fontSize = '2em';
@@ -195,6 +196,7 @@ function togglePlat(platType) {
       supplIcon.style.fontSize = '';
       platsSale.style.display = 'block';
       platsSucre.style.display = 'none';
+      platsSuppl.style.display = 'none';
   } else if ( platType === 'suppléments') {
       supplIcon.style.color = '#FF5C28';
       supplIcon.style.fontSize = '2em';

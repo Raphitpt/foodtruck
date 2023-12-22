@@ -53,7 +53,7 @@ $id_suppl = isset($_GET['id_suppl']) ? htmlspecialchars($_GET['id_suppl']) : '';
       } else {
         // 2. Construire le SQL de la requête préparée d'insertion
         $sql = 'INSERT INTO supplements(`nom`,`prix`)
-                VALUES (:nom, :prix,)';
+                VALUES (:nom, :prix)';
         // Exécuter
         $sth = $dbh->prepare($sql);
         $sth->execute([

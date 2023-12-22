@@ -73,8 +73,9 @@ echo head('Accueil');
             </div>
             <div class="plats_sale">
                 </br>
-                <div class="plats_card">
                 <button type="button"><a href="addPlats.php?">Ajouter</a></button>
+                <div class="plats_card">
+                
                     <?php foreach ($plats_sale as $plat): ?>
                         <div class="card">
                             
@@ -100,8 +101,9 @@ echo head('Accueil');
             </div>
             <div class="plats_sucre" style="display: none;">
                 </br>
-                <div class="plats_card">
                 <button type="button"><a href="addPlats.php?">Ajouter</a></button>
+
+                <div class="plats_card">
                     <?php foreach ($plats_sucre as $plat): ?>
 
                         <div class="card">
@@ -129,8 +131,9 @@ echo head('Accueil');
             </div>
             <div class="plats_suppl" style="display: none;">
                 </br>
+                <button type="button"><a href="addSuppl.php">Ajouter</a></button>
                 <div class="plats_card">
-                <button type="button"><a href="addSuppl.php?">Ajouter</a></button>
+                
                     <?php foreach ($supplements as $supplement): ?>
 
                         <div class="card">

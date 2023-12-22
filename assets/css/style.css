@@ -103,14 +103,20 @@ button:hover {
 
 .plats::-webkit-scrollbar{
   width: 0.5rem;
+  scrollbar-face-color: #ff5c28;
+    scrollbar-arrow-color: #fff;
+    scrollbar-shadow-color: #f1f1f1;
+    scrollbar-highlight-color: #f1f1f1;
+    scrollbar-3dlight-color: #f1f1f1;
+    scrollbar-darkshadow-color: #f1f1f1;
 }
   
 .plats::-webkit-scrollbar-thumb{
-  background: #ff5c28;
-  border-radius: 20px;
+  border-radius: 6px;
+  background-color: #ff5c28;
 }
 .plats::-webkit-scrollbar-track {
-  background: #ff5c28;
+  scrollbar-track-color: #191a20
 }
 /*animation*/
 
