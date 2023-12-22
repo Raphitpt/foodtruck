@@ -58,7 +58,7 @@ nav ul {
 
 nav img{
   width: 6.25vw;
-  height: 12.5vh;
+  height: auto;
   flex-shrink: 0;
 }
 
@@ -74,7 +74,7 @@ li i {
 }
 
 .plats button {
-  background-color: #4caf50;
+  background-color: #ff5c28;
   color: white;
   padding: 7px 10px;
   margin: 2px;
@@ -82,13 +82,18 @@ li i {
   cursor: pointer;
   width: 100%;
 }
+
+button a {
+  color:#000000;
+  text-decoration: none;
+}
 button:hover {
   opacity: 0.8;
 }
 .plats {
   background-color: white;
   border-radius: 20px;
-  width: 65vw;
+  width: 67vw;
   height: 70vh;
   margin-top: 25vh;
   margin-left: 3.5vw;
@@ -96,7 +101,17 @@ button:hover {
   overflow-y: scroll;
 }
 
-
+.plats::-webkit-scrollbar{
+  width: 0.5rem;
+}
+  
+.plats::-webkit-scrollbar-thumb{
+  background: #ff5c28;
+  border-radius: 20px;
+}
+.plats::-webkit-scrollbar-track {
+  background: #ff5c28;
+}
 /*animation*/
 
 
@@ -123,6 +138,7 @@ button:hover {
   align-items: center;
   flex-direction: row;
   gap: 3rem;
+  cursor: pointer;
 }
 
 .plats_titles h1{
@@ -139,6 +155,11 @@ button:hover {
 }
 
 .plats_title_sucrées{
+  display: flex;
+  align-items: center;
+}
+
+.plats_title_suppléments{
   display: flex;
   align-items: center;
 }

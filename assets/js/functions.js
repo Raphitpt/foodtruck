@@ -172,14 +172,18 @@ function updateInputNumbers() {
 function togglePlat(platType) {
   const sucreIcon = document.querySelector('.plats_title_sucrées .fa-circle-dot');
   const saleIcon = document.querySelector('.plats_title_salées .fa-circle-dot');
+  const supplIcon = document.querySelector('.plats_title_suppléments .fa-circle-dot');
   const platsSucre = document.querySelector('.plats_sucre');
   const platsSale = document.querySelector('.plats_sale');
+  const platsSuppl = document.querySelector('.plats_suppl');
 
   if (platType === 'plats_sucrées') {
       sucreIcon.style.color = '#FF5C28';
       sucreIcon.style.fontSize = '2rem';
       saleIcon.style.color = '';
       saleIcon.style.fontSize = '';
+      supplIcon.style.color = '';
+      supplIcon.style.fontSize = '';
       platsSucre.style.display = 'block';
       platsSale.style.display = 'none';
   } else if (platType === 'plats_salées') {
@@ -187,7 +191,20 @@ function togglePlat(platType) {
       saleIcon.style.fontSize = '2em';
       sucreIcon.style.color = '';
       sucreIcon.style.fontSize = '';
+      supplIcon.style.color = '';
+      supplIcon.style.fontSize = '';
       platsSale.style.display = 'block';
       platsSucre.style.display = 'none';
+  } else if ( platType === 'suppléments') {
+      supplIcon.style.color = '#FF5C28';
+      supplIcon.style.fontSize = '2em';
+      sucreIcon.style.color = '';
+      sucreIcon.style.fontSize = '';
+      saleIcon.style.color = '';
+      saleIcon.style.fontSize = '';
+      platsSuppl.style.display = 'block';
+      platsSucre.style.display = 'none';
+      platsSale.style.display = 'none';
   }
+
 }
