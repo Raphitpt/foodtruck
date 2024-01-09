@@ -52,14 +52,16 @@ echo head('Accueil');
         <section class="plats">
             <div class="plats_title">
                 <div class="plats_titles">
-                    <div class="plats_title_salées" onclick="togglePlat('plats_salées')">
+                    <!-- <div class="" onclick="togglePlat('plats_salées')">
                         <i class="fa-solid fa-circle-dot" style="font-size:2rem; color:#FF5C28;" ></i>
                         <h1>Fouées salées</h1>
                     </div>
-                    <div class="plats_title_sucrées" onclick="togglePlat('plats_sucrées')">
+                    <div class="" onclick="togglePlat('plats_sucrées')">
                         <i class="fa-solid fa-circle-dot" ></i>
                         <h1>Fouées sucrées</h1>
-                    </div>
+                    </div> -->
+                    <button type="button" class="button_fouee sel plats_title_salées" onclick="togglePlat('plats_salées')">Fouées salées</button>
+                    <button type="button" class="button_fouee plats_title_sucrées" onclick="togglePlat('plats_sucrées')">Fouées sucrées</button>
                 </div>
                 <div class="line">
                 </div>
@@ -81,16 +83,14 @@ echo head('Accueil');
                                 <p class="card-price">
                                     <?= $plat['prix'] ?>€
                                 </p>
-                                <div class="card-footer-plats">
-                                    <!-- <button type="button" class="btn btn-primary">Ajouter</button> -->
-                                    <input type="number" class="form-control" value="0"
+                                    <button type="button" class="button_add">Ajouter</button>
+                                    <!-- <input type="number" class="form-control" value="0"
                                         id="input-number-<?= $plat['id_plat'] ?>">
                                     <button type="button" class="btn btn-success" id="ajouter">+</button>
                                     <button type="button" class="btn btn-danger" id="enlever">-</button>
-                                    <div id="supplement-card-<?= $plat['id_plat'] ?>">
+                                    <div id="supplement-card-<?= $plat['id_plat'] ?>"> -->
 
-                                    </div>
-                                </div>
+                                    <!-- </div> -->
                             </div>
                         </div>
                     <?php endforeach; ?>
