@@ -67,6 +67,23 @@ nav > ul > li {
   cursor: pointer;
 }
 
+.button_nav{
+  font-size: 1em;
+  padding: 0.4rem;
+  color: #000;
+  border: none;
+  border-radius: 50px;
+  text-decoration: none;
+  cursor: pointer;
+  width: 12rem;
+  transition: background 0.3s;
+  border: solid 0.2px #ff5c28;
+}
+.button_nav:hover{
+  background: #ff5c28;
+  color: #fff;
+}
+
 /* nav > ul > li > a {
   text-decoration: none;
   color: #000000;
@@ -116,13 +133,13 @@ nav > ul > li > img {
  */
 
 
-button a {
+/* button a {
   color:#000000;
   text-decoration: none;
 }
 button:hover {
   opacity: 0.8;
-}
+} */
 .plats {
   background-color: white;
   border-radius: 20px;

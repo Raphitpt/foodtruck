@@ -40,7 +40,7 @@ echo head('Accueil');
             <li><a href="./index.php" class="button_fouee">accueil</a></li>
             <li><a href="" class="button_fouee">commander</a></li>
             <li><a href="" class="button_fouee">nous contacter</a></li>
-            <li><a href="./login.php" class="button_fouee">se connecter</a></li>
+            <li><button onclick="location.href = './login.php' " class="button_nav">se connecter</button></li>
         </ul>
     </nav>
     <main>
