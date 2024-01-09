@@ -36,13 +36,11 @@ echo head('Accueil');
 <body>
     <nav>
         <ul>
-
-            </li>
-            <li><a href="./index.php"><i class="fa-solid fa-house"></i></a></li>
-            <li><a href=""><i class="fa-solid fa-truck"></i></a></li>
             <li> <img src="./assets/img/FOUEE2.png" alt="logo fouee">
-            <li><a href=""><i class="fa-solid fa-phone"></i></a></li>
-            <li><a href="./login.php"><i class="fa-solid fa-user"></i></a></li>
+            <li><a href="./index.php" class="button_fouee">accueil</a></li>
+            <li><a href="" class="button_fouee">commander</a></li>
+            <li><a href="" class="button_fouee">nous contacter</a></li>
+            <li><a href="./login.php" class="button_fouee">se connecter</a></li>
         </ul>
     </nav>
     <main>
@@ -59,8 +57,9 @@ echo head('Accueil');
                         <i class="fa-solid fa-circle-dot" ></i>
                         <h1>Fouées sucrées</h1>
                     </div> -->
-                    <button type="button" class="button_fouee sel plats_title_salées" onclick="togglePlat('plats_salées')">Fouées salées</button>
-                    <button type="button" class="button_fouee plats_title_sucrées" onclick="togglePlat('plats_sucrées')">Fouées sucrées</button>
+                    <button type="button" class="button_fouee sel plats_title_salées" onclick="togglePlat('plats_salées')">fouées salées</button>
+                    <button type="button" class="button_fouee plats_title_sucrées" onclick="togglePlat('plats_sucrées')">fouées sucrées</button>
+                    
                 </div>
                 <div class="line"></div>
             </div>
@@ -82,7 +81,7 @@ echo head('Accueil');
                                 <p class="card-price">
                                     <?= $plat['prix'] ?>€
                                 </p>
-                                    <button type="button" class="button_add"><i class="fa-solid fa-plus"></i>Ajouter</button>
+                                    <button type="button" class="button_add"><i class="fa-solid fa-plus"></i>ajouter</button>
                                     <!-- <input type="number" class="form-control" value="0"
                                         id="input-number-<?= $plat['id_plat'] ?>">
                                     <button type="button" class="btn btn-success" id="ajouter">+</button>
