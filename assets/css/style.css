@@ -36,7 +36,6 @@ html{
 
 nav {
   display: flex;
-  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -120,7 +119,27 @@ nav > ul > li {
 
 }
 
+.title_infos{
+  margin-top: 2vh;
+  margin-bottom: -3vh;
+  margin-left: 1vw;
+}
+.title_infos > h1 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #28272B;
+}
+.title_infos > h2 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #28272B;
+}
+.title_infos > h3 {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #28272B;
 
+}
 nav > ul > li > img {
   width: 4rem;
   height: 4rem;
@@ -133,7 +152,7 @@ nav > ul > li > img {
   width: 67vw;
   height: 70vh;
   margin-top: 14vh;
-  margin-left: 4vw;
+  margin-left: 1vw;
   padding: 20px;
   overflow-y: scroll;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -229,7 +248,7 @@ nav > ul > li > img {
   justify-content: space-between;
   align-items: center;
   margin: 10px;
-  padding: 20px;
+  /* padding: 10px; */
   background-color: #ffffff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   border-radius: 4px;
@@ -374,6 +393,7 @@ nav > ul > li > img {
   display: flex;
   justify-content: center;
   align-items: end;
+  height: 75vh;
 }
 
 .commande {

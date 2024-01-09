@@ -47,9 +47,17 @@ echo head('Accueil');
             <li><button onclick="location.href = './login.php'" class="button_nav connect">se connecter</button></li>
         </ul>
     </nav>
+    <div class="title_infos">
+        <h1>Bonjour Michel, que allez-vous manger aujourd'hui ?</h1>
+        <h2>Le foodtruck est fermé actuellement.</h2>
+        <h3>Les horaires d'ouverture sont de 12h00 à 15h00.</h3>
+    </div>
+    
     <main class="main_commande">
         <!-- affichage des plats -->
+        
         <section class="plats">
+            
             <div class="plats_title">
                 <div class="plats_titles">
                     <button type="button" class="button_fouee sel plats_title_salées" onclick="togglePlat('plats_salées')">fouées salées</button>
