@@ -37,9 +37,9 @@ echo head('Accueil');
 </head>
 
 <body>
-<nav>
+    <nav>
         <ul>
-            
+
             </li>
             <li><a href="./index.php"><i class="fa-solid fa-house"></i></a></li>
             <li><a href=""><i class="fa-solid fa-truck"></i></a></li>
@@ -49,13 +49,20 @@ echo head('Accueil');
         </ul>
     </nav>
 
-    <main>
-        <div class="action">
-            <button><a href="orderHist.php">Historique des commandes</a></button>
-            <button><a href="index.php">Voir le site web</a></button>
-            <button><a href="modifPtsFid.php">Points de fidélité</a></button>
-            
-        </div>
+    <main id="BO">
+        <section class="col-left">
+            <div>
+                <h1>Bienvenue sur le Back Office</h1>
+            </div>
+           
+            <div class="action">
+                <a href="orderHist.php">Historique des commandes</a>
+                <a href="index.php">Voir le site web</a></button>
+                <a href="modifPtsFid.php">Points de fidélité</a>
+
+            </div>
+        </section>
+
 
         <!-- affichage des plats -->
 
@@ -63,15 +70,15 @@ echo head('Accueil');
             <div class="plats_title">
                 <div class="plats_titles">
                     <div class="plats_title_salées" onclick="togglePlat('plats_salées')">
-                        <i class="fa-solid fa-circle-dot" style="font-size:2rem; color:#FF5C28;" ></i>
+                        <i class="fa-solid fa-circle-dot" style="font-size:2rem; color:#FF5C28;"></i>
                         <h1>Fouées salées</h1>
                     </div>
                     <div class="plats_title_sucrées" onclick="togglePlat('plats_sucrées')">
-                        <i class="fa-solid fa-circle-dot" ></i>
+                        <i class="fa-solid fa-circle-dot"></i>
                         <h1>Fouées sucrées</h1>
                     </div>
                     <div class="plats_title_suppléments" onclick="togglePlat('suppléments')">
-                        <i class="fa-solid fa-circle-dot" ></i>
+                        <i class="fa-solid fa-circle-dot"></i>
                         <h1>Suppléments</h1>
                     </div>
                 </div>
@@ -82,10 +89,10 @@ echo head('Accueil');
                 </br>
                 <button type="button"><a href="addPlats.php?">Ajouter</a></button>
                 <div class="plats_card">
-                
-                    <?php foreach ($plats_sale as $plat): ?>
+
+                    <?php foreach ($plats_sale as $plat) : ?>
                         <div class="card">
-                            
+
                             <div class="card-body">
                                 <h5 class="card-title">
                                     <?= $plat['nom'] ?>
@@ -111,7 +118,7 @@ echo head('Accueil');
                 <button type="button"><a href="addPlats.php?">Ajouter</a></button>
 
                 <div class="plats_card">
-                    <?php foreach ($plats_sucre as $plat): ?>
+                    <?php foreach ($plats_sucre as $plat) : ?>
 
                         <div class="card">
                             <div class="card-body">
@@ -128,7 +135,7 @@ echo head('Accueil');
                                 <div class="card-footer-plats">
                                     <button type="button"><a href="editPlats.php?id_plat=<?= $plat['id_plat'] ?>">Modifier</a></button>
                                     <button type="button"><a href="suppressionPlats.php?id_plat=<?= $plat['id_plat'] ?>">Effacer</a></button>
-                                    
+
                                 </div>
                             </div>
                         </div>
@@ -140,8 +147,8 @@ echo head('Accueil');
                 </br>
                 <button type="button"><a href="addSuppl.php">Ajouter</a></button>
                 <div class="plats_card">
-                
-                    <?php foreach ($supplements as $supplement): ?>
+
+                    <?php foreach ($supplements as $supplement) : ?>
 
                         <div class="card">
                             <div class="card-body">
@@ -163,7 +170,7 @@ echo head('Accueil');
                 </div>
             </div>
         </section>
-        
+
     </main>
     <script src="./assets/js/functions.js"></script>
 </body>

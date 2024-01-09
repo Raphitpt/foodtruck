@@ -204,12 +204,14 @@ button:hover {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  transition: all 0.5s ease;
 }
 .plats_sucre {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  transition: all 0.5s ease;
 }
 .plats_card {
   display: grid;
@@ -244,6 +246,7 @@ button:hover {
   margin-top: -45vh;
   margin-left: -45vw;
   border-radius: 15px;
+  transition: all 0.5s ease;
 }
 .cross_close {
   position: absolute;
@@ -257,7 +260,7 @@ button:hover {
 .commande {
   position: fixed;
   bottom: 25px;
-  right: 25px;
+  right: 1px;
   background-color: #ffffff;
   margin: 2rem;
   padding: 1rem;
@@ -303,15 +306,51 @@ main {
  }
 
  .action{
-    margin-left: auto;
-    margin-right: auto;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 25vh;
-    background-color: #ffffff;
-    width: 50vw;
-    height: 8vh;
-    border-radius: 20px;
-    gap: 5vw;
+    flex-direction: column;
+    gap: 1rem;
+    
+ }
+
+ .action a{
+  text-decoration: none;
+  color: #000000;
+  font-size: 1rem;
+  font-weight: bold;
+  margin-left: 1vw;
+  margin-right: 1vw;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 0.5vw;
+
+ }
+
+ .recap{
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 15vh;
+ }
+
+ #BO{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  gap: 3rem;
+  margin: 1rem;
+  margin-top: 15vh;
+ }
+
+ .col-left{
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-direction: column;
+  gap: 3rem;
+  width: 20vw;
+  right: 10vw;
+  height: auto;
+  margin-top: 5vh;
  }

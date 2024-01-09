@@ -38,43 +38,47 @@ echo head('Panier');
 
 <body>
     <nav>
-        <img src="" alt="logo fouee">
         <ul>
-            <li><button><a href="./index.php">Accueil</a></button></li>
-            <li><button><a href="">Commander</a></button></li>
-            <li><button><a href="">Panier</a></button></li>
-            <li><button><a href="./login.php">Se connecter</a></button></li>
-            <li><button><a href="signin.php">S'inscrire</a></button></li>
+
+            </li>
+            <li><a href="./index.php"><i class="fa-solid fa-house"></i></a></li>
+            <li><a href=""><i class="fa-solid fa-truck"></i></a></li>
+            <li> <img src="./assets/img/FOUEE2.png" alt="logo fouee">
+            <li><a href=""><i class="fa-solid fa-phone"></i></a></li>
+            <li><a href="./login.php"><i class="fa-solid fa-user"></i></a></li>
         </ul>
     </nav>
     <main>
         <main>
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <h1>Mon panier</h1>
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Nom</th>
-                                    <th scope="col">Prix</th>
-                                    <th scope="col">Quantité</th>
-                                    <th scope="col">Total</th>
-                                    <th scope="col">Supprimer</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
-                        <div class="total">
-                            <h2 id="totalCommande"></h2>
-                        </div>
-                        <div class="btn">
-                            <button type="button" class="btn btn-primary btn_commander">Commander</button>
+            <section class="recap">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <h1>Mon panier</h1>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Nom</th>
+                                        <th scope="col">Prix</th>
+                                        <th scope="col">Quantité</th>
+                                        <th scope="col">Total</th>
+                                        <th scope="col">Supprimer</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                            <div class="total">
+                                <h2 id="totalCommande"></h2>
+                            </div>
+                            <div class="btn">
+                                <button type="button" class="btn btn-primary btn_commander">Commander</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </section>
+
             <h2>Réserver son repas</h2>
 
             <div class="quantite"></div>
@@ -82,7 +86,7 @@ echo head('Panier');
                 <select name="choix_date" id="choix_date" required>
                     <?php
                     $currentDate = new DateTime(); // La date actuelle
-                    
+
                     // Cloner la date actuelle pour avoir la date de fin
                     $endDate = clone $currentDate;
                     $endDate->add(new DateInterval('P2W'));
@@ -133,7 +137,7 @@ echo head('Panier');
                 console.log(panier);
                 var form = document.getElementById('myform');
 
-                form.addEventListener('submit', function (event) {
+                form.addEventListener('submit', function(event) {
                     event.preventDefault();
 
                     var selectedOption = document.querySelector('input[name="selectedTime"]:checked');
@@ -142,8 +146,6 @@ echo head('Panier');
                         document.getElementById('result').innerHTML = 'Vous avez sélectionné l\'horaire suivant: ' + selectedOption.value;
                     }
                 });
-
-
             </script>
         </main>
         <script>
@@ -178,7 +180,7 @@ echo head('Panier');
                 commanderButton.style.display = 'none';
             }
 
-            commanderButton.addEventListener('click', function () {
+            commanderButton.addEventListener('click', function() {
                 window.location.href = 'commande.php';
             });
         </script>
