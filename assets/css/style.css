@@ -21,26 +21,30 @@ input[type="number"] {
 }
 body {
   color: #000000;
-  background: url(./../img/background_el.webp);
+  /* background: url(./../img/background_el.webp); */
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
   font-family: Montserrat;
+  background-color: #f5F5F5;
   
+}
+html{
+  scroll-behavior: smooth;
 }
 
 nav {
   display: flex;
   position: fixed;
   top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 50%;
+  left: 0;
+  /* transform: translateX(-50%); */
+  width: 100%;
   height: 4.5rem;
   justify-content: center;
   align-items: center;
-  border-radius: 0 0 21px 21px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   background: #fff;
   z-index: 6;
 }
@@ -124,10 +128,11 @@ button:hover {
   border-radius: 20px;
   width: 67vw;
   height: 70vh;
-  margin-top: 25vh;
-  margin-left: 3.5vw;
+  margin-top: 14vh;
+  margin-left: 4vw;
   padding: 20px;
   overflow-y: scroll;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .platsBO{
@@ -140,11 +145,12 @@ button:hover {
   margin-right: auto;
   padding: 20px;
   overflow-y: scroll;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .plats::-webkit-scrollbar,.platsBO::-webkit-scrollbar{
   width: 0.5rem;
-  scrollbar-face-color: #ff5c28;
+  scrollbar-face-color: #f5F5F5;
   scrollbar-arrow-color: #fff;
   scrollbar-shadow-color: #f1f1f1;
   scrollbar-highlight-color: #f1f1f1;
@@ -154,7 +160,7 @@ button:hover {
   
 .plats::-webkit-scrollbar-thumb,.platsBO::-webkit-scrollbar-thumb{
   border-radius: 6px;
-  background-color: #ff5c28;
+  background-color: #f0f0f0;
 }
 .plats::-webkit-scrollbar-track,.platsBO::-webkit-scrollbar-track {
   scrollbar-track-color: #191a20
@@ -222,6 +228,7 @@ button:hover {
   border-radius: 20px;
 }
 /* Style the card */
+
 .plats_card .card {
   display: flex;
   flex-direction: column;
@@ -247,7 +254,11 @@ button:hover {
  .plats_card .card .card-price {
   font-size: 18px;
   color: #f60;
-  margin-bottom: 10px;
+  margin-top: auto; /* Push the button to the bottom of the card */
+  position: absolute; /* Position the button absolutely within the card */
+  bottom: 2.4rem; /* Adjust the distance from the bottom as needed */
+  left: 50%; /* Center the button horizontally */
+  transform: translateX(-50%); /* Center the button horizontally */
  }
  
  /* Style the product description */
@@ -277,6 +288,9 @@ button:hover {
 /* Add a hover effect to the add button */
 .button_add:hover {
   background: #ff5c28;
+}
+.fa-plus{
+  margin-right: 1rem;
 }
 
 .button_fouee{
@@ -318,7 +332,6 @@ button:hover {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
   gap: 1rem;
-  margin: 1rem;
   background-color: white;
   width: 100%;
   max-width: 1200px;

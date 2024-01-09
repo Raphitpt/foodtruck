@@ -82,7 +82,7 @@ echo head('Accueil');
                                 <p class="card-price">
                                     <?= $plat['prix'] ?>€
                                 </p>
-                                    <button type="button" class="button_add">Ajouter</button>
+                                    <button type="button" class="button_add"><i class="fa-solid fa-plus"></i>Ajouter</button>
                                     <!-- <input type="number" class="form-control" value="0"
                                         id="input-number-<?= $plat['id_plat'] ?>">
                                     <button type="button" class="btn btn-success" id="ajouter">+</button>
