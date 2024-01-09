@@ -254,7 +254,7 @@ button:hover {
   cursor: pointer;
 }
 
-/* .commande {
+.commande {
   position: fixed;
   bottom: 25px;
   right: 25px;
@@ -262,8 +262,8 @@ button:hover {
   margin: 2rem;
   padding: 1rem;
   border-radius: 15px;
-} */
-.commande {
+}
+/* .commande {
   position: relative;
   background-color: #ffffff;
   border: 2px solid #000000;
@@ -271,7 +271,7 @@ button:hover {
   padding: 10px;
   width: 200px;
   height: 100px;
-}
+} */
 
 .commande::after {
   content: '';
