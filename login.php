@@ -45,16 +45,20 @@ if (isset($_POST['envoi'])) {
 </head>
 
 <body>
-    <h1>Connexion</h1>
-    <form method="POST" action="">
-        <label for="username">Mail :</label>
-        <input type="text" name="email">
-        <br>
-        <label for="password">Mot de passe :</label>
-        <input type="password" name="mdp">
-        <br><br>
-        <input type="submit" name="envoi" value="Envoyer">
-    </form>
+    <section class="form">
+        <h1>Connectez-vous</h1>
+        <form method="POST" action="">
+            <label for="username">Mail :</label>
+            <input type="text" name="email">
+            <br>
+            <label for="password">Mot de passe :</label>
+            <input type="password" name="mdp">
+            <br><br>
+            <input type="submit" name="envoi" value="Envoyer">
+        </form>
+    </section>
+    
+
 </body>
 
 </html>
