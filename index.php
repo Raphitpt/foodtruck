@@ -112,12 +112,13 @@ echo head('Accueil');
                                 <p class="card-price">
                                     <?= $plat['prix'] ?>€
                                 </p>
-                                <div class="card-footer-plats">
-                                    <!-- <button type="button" class="btn btn-primary">Ajouter</button> -->
+                                <button type="button" class="button_add">Ajouter</button>
+                                <!-- <div class="card-footer-plats">
+                                    <button type="button" class="btn btn-primary">Ajouter</button>
                                     <input type="number" class="form-control" value="0" id="input-number-<?= $plat['id_plat'] ?>">
                                     <button type="button" class="btn btn-success" id="ajouter">+</button>
                                     <button type="button" class="btn btn-danger" id="enlever">-</button>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
 
