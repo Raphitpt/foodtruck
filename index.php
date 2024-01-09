@@ -29,15 +29,14 @@ echo head('Accueil');
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="./assets/css/style.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
-        integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous" />
     <title>Connexion</title>
 </head>
 
 <body>
     <nav>
         <ul>
-            
+
             </li>
             <li><a href="./index.php"><i class="fa-solid fa-house"></i></a></li>
             <li><a href=""><i class="fa-solid fa-truck"></i></a></li>
@@ -63,15 +62,15 @@ echo head('Accueil');
                     <button type="button" class="button_fouee sel plats_title_salées" onclick="togglePlat('plats_salées')">Fouées salées</button>
                     <button type="button" class="button_fouee plats_title_sucrées" onclick="togglePlat('plats_sucrées')">Fouées sucrées</button>
                 </div>
-                <div class="line">
-                </div>
+                <div class="line"></div>
+            </div>
             </div>
             <div class="plats_sale">
                 </br>
                 <div class="plats_card">
-                    <?php foreach ($plats_sale as $plat): ?>
+                    <?php foreach ($plats_sale as $plat) : ?>
                         <div class="card">
-                            
+
                             <div class="card-body">
                                 <h5 class="card-title">
                                     <?= $plat['nom'] ?>
@@ -99,7 +98,7 @@ echo head('Accueil');
             <div class="plats_sucre" style="display: none;">
                 </br>
                 <div class="plats_card">
-                    <?php foreach ($plats_sucre as $plat): ?>
+                    <?php foreach ($plats_sucre as $plat) : ?>
 
                         <div class="card">
                             <div class="card-body">
@@ -115,8 +114,7 @@ echo head('Accueil');
                                 </p>
                                 <div class="card-footer-plats">
                                     <!-- <button type="button" class="btn btn-primary">Ajouter</button> -->
-                                    <input type="number" class="form-control" value="0"
-                                        id="input-number-<?= $plat['id_plat'] ?>">
+                                    <input type="number" class="form-control" value="0" id="input-number-<?= $plat['id_plat'] ?>">
                                     <button type="button" class="btn btn-success" id="ajouter">+</button>
                                     <button type="button" class="btn btn-danger" id="enlever">-</button>
                                 </div>
