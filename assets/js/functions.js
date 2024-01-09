@@ -146,7 +146,7 @@ function updateInputNumbers() {
 
     html += "</ul>";
     if (panier.length > 0) {
-      html += '<div class="bottom_panier"';
+      html += '<div class="bottom_panier">';
       html += `<p>Total du panier : ${panierTotal}€</p>`;
       html += `<button onclick="location.href = './order.php'" class="button_command">Commander</button>`;
       html += "</div>";

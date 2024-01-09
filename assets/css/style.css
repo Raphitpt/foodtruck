@@ -20,7 +20,7 @@ input[type="number"] {
   -moz-appearance: textfield;
 }
 body {
-  color: #000000;
+  color: #28272B;
   /* background: url(./../img/background_el.webp); */
   background-repeat: no-repeat;
   background-size: cover;
@@ -67,7 +67,7 @@ nav > ul > li {
 .button_nav {
   font-size: 1em;
   padding: 0.4rem;
-  color: #000;
+  color: #28272B;
   border: none;
   border-radius: 10px;
   text-decoration: none;
@@ -78,12 +78,12 @@ nav > ul > li {
 }
 
 .button_nav:hover {
-  background: #ff5c28;
+  background: #e56D00;
   color: #fff;
 }
 
 .connect {
-  border: solid 0.2px #ff5c28;
+  border: solid 0.2px #e56D00;
   float: right;
 }
 .nav_title{
@@ -97,7 +97,7 @@ nav > ul > li {
 .nav_title > p {
   font-size: 1.1rem;
   font-weight: bold;
-  color: #ff5c28;
+  color: #e56D00;
   margin-top: auto;
   margin-bottom: auto;
 }
@@ -239,14 +239,14 @@ nav > ul > li > img {
 
  .plats_card .card .card-title {
   font-size: 24px;
-  color: #333;
+  color: #28272B;
   margin-bottom: 10px;
  }
  
 
  .plats_card .card .card-price {
   font-size: 18px;
-  color: #f60;
+  color: #e56D00;
   margin-top: auto;
   position: absolute;
   bottom: 2.4rem;
@@ -268,7 +268,7 @@ nav > ul > li > img {
  .button_add {
   font-size: 1em;
   padding: 0.4rem;
-  color: #000;
+  color: #28272B;
   border: none;
   border-radius: 10px;
   text-decoration: none;
@@ -283,7 +283,7 @@ nav > ul > li > img {
 }
 
 .button_add:hover {
-  background: #ff5c28;
+  background: #e56D00;
   color: #fff;
 }
 .fa-plus{
@@ -293,7 +293,7 @@ nav > ul > li > img {
 .button_fouee{
   font-size: 1em;
   padding: 0.4rem;
-  color: #000;
+  color: #28272B;
   border: none;
   border-radius: 10px;
   text-decoration: none;
@@ -303,12 +303,12 @@ nav > ul > li > img {
 
 }
 .button_fouee:hover{
-  background: #ff5c28;
+  background: #e56D00;
   color: #fff;
 
 }
 .sel{
-  background: #ff5c28;
+  background: #e56D00;
   color: #fff;
 }
 
@@ -387,7 +387,7 @@ nav > ul > li > img {
 .button_command{
   font-size: 1em;
   padding: 0.4rem;
-  color: #000;
+  color: #28272B;
   border: none;
   border-radius: 10px;
   text-decoration: none;
@@ -400,6 +400,14 @@ nav > ul > li > img {
   justify-content: space-between;
   align-items: center;
   flex-direction: row-reverse;
+}
+.bottom_panier p {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #28272B;
+  margin-top: auto;
+  margin-bottom: auto;
+
 }
 main {
   position: relative;
@@ -500,7 +508,7 @@ main {
 }
 
 .form input[type="submit"]:hover {
-  background-color: #ff5c28;
+  background-color: #e56D00;
 }
 
 .form h1 {
