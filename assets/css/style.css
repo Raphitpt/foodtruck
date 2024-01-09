@@ -86,35 +86,40 @@ nav > ul > li {
   border: solid 0.2px #ff5c28;
   float: right;
 }
+.nav_title{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  margin-right: 2rem;
 
-/* nav > ul > li > a {
-  text-decoration: none;
-  color: #000000;
-  font-size: 2rem;
-  font-weight: 600;
-  transition: color 0.3s;
 }
-
-nav > ul > li > a:hover,
-nav > ul > li > a.active {
+.nav_title > p {
+  font-size: 1.1rem;
+  font-weight: bold;
   color: #ff5c28;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+.nav_left{
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-direction: row;
+  gap: 1rem;
+  margin-left: 1rem;
 }
 
-nav > ul > li > a.active::after,
-nav > ul > li > a::after {
-  content: '';
-  position: absolute;
-  bottom: -5px;
-  left: 0;
-  width: 100%;
-  height: 5px;
-  background-color: transparent;
-  border-radius: 10px 10px 0 0;
+.nav_right {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  flex-direction: row;
+  gap: 1rem;
+  margin-right: 1rem;
+
 }
 
-nav > ul > li > a.active::after {
-  background-color: #ff5c28;
-} */
 
 nav > ul > li > img {
   width: 4rem;
@@ -122,27 +127,6 @@ nav > ul > li > img {
   margin-right: 1rem;
 }
 
-
-/* 
-.plats button, .platsBO button {
-  background-color: #ff5c28;
-  color: white;
-  padding: 7px 10px;
-  margin: 2px;
-  border: none;
-  cursor: pointer;
-  width: 100%;
-}
- */
-
-
-/* button a {
-  color:#000000;
-  text-decoration: none;
-}
-button:hover {
-  opacity: 0.8;
-} */
 .plats {
   background-color: white;
   border-radius: 10px;
@@ -225,16 +209,6 @@ button:hover {
 
 
 
-/* .plats_title_salées{
-  display: flex;
-  align-items: center;
-}
-
-.plats_title_sucrées{
-  display: flex;
-  align-items: center;
-} */
-
 .plats_title_suppléments{
   display: flex;
   align-items: center;
@@ -247,7 +221,7 @@ button:hover {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   border-radius: 20px;
 }
-/* Style the card */
+
 
 .plats_card .card {
   display: flex;
@@ -260,28 +234,31 @@ button:hover {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   border-radius: 4px;
   text-align: center;
-  height: 15rem;
+  height: 20rem;
  }
- 
- /* Style the product name */
+
  .plats_card .card .card-title {
   font-size: 24px;
   color: #333;
   margin-bottom: 10px;
  }
  
- /* Style the product price */
+
  .plats_card .card .card-price {
   font-size: 18px;
   color: #f60;
-  margin-top: auto; /* Push the button to the bottom of the card */
-  position: absolute; /* Position the button absolutely within the card */
-  bottom: 2.4rem; /* Adjust the distance from the bottom as needed */
-  left: 50%; /* Center the button horizontally */
-  transform: translateX(-50%); /* Center the button horizontally */
+  margin-top: auto;
+  position: absolute;
+  bottom: 2.4rem;
+  left: 50%;
+  transform: translateX(-50%);
  }
- 
- /* Style the product description */
+ .plats_card .card .card_img {
+  width: 70%;
+  height: auto;
+  object-fit: cover;
+  margin-bottom: 1rem;
+ }
  .plats_card .card .card-text {
   font-size: 14px;
   color: #777;
@@ -298,16 +275,16 @@ button:hover {
   cursor: pointer;
   width: 12rem;
   transition: background 0.3s;
-  margin-top: auto; /* Push the button to the bottom of the card */
-  position: absolute; /* Position the button absolutely within the card */
-  bottom: 10px; /* Adjust the distance from the bottom as needed */
-  left: 50%; /* Center the button horizontally */
-  transform: translateX(-50%); /* Center the button horizontally */
+  margin-top: auto;
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
-/* Add a hover effect to the add button */
 .button_add:hover {
   background: #ff5c28;
+  color: #fff;
 }
 .fa-plus{
   margin-right: 1rem;
@@ -327,10 +304,12 @@ button:hover {
 }
 .button_fouee:hover{
   background: #ff5c28;
+  color: #fff;
 
 }
 .sel{
   background: #ff5c28;
+  color: #fff;
 }
 
 
@@ -391,42 +370,41 @@ button:hover {
   cursor: pointer;
 }
 
+.main_commande{
+  display: flex;
+  justify-content: center;
+  align-items: end;
+}
+
 .commande {
-  position: fixed;
-  bottom: 25px;
-  right: 1px;
+  width: 30vw;
   background-color: #ffffff;
-  margin: 2rem;
+  margin: 0 2rem;
   padding: 1rem;
   border-radius: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-/* .commande {
-  position: relative;
-  background-color: ;
-  border: 2px solid #000000;
+.button_command{
+  font-size: 1em;
+  padding: 0.4rem;
+  color: #000;
+  border: none;
   border-radius: 10px;
-  padding: 10px;
-  width: 200px;
-  height: 100px;
-} */
-
-.commande::after {
-  content: '';
-  position: absolute;
-  transform: rotate(90deg);
-  top: 10px;
-  right: 10px;
-  width: 10px;
-  height: 10px;
-  border-top: 10px solid #ffffff;
-  border-right: 10px solid transparent;
-  border-bottom: 10px solid transparent;
-  border-left: 10px solid #000000;
+  text-decoration: none;
+  cursor: pointer;
+  width: 12rem;
+  transition: background 0.3s;
 }
-
+.bottom_panier {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row-reverse;
+}
 main {
   position: relative;
 }
+
 
 .commandeTable{
   margin-top: 25vh;

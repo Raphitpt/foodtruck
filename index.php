@@ -35,30 +35,23 @@ echo head('Accueil');
 
 <body>
     <nav>
-        <ul>
-            <li><img src="./assets/img/FOUEE2.png" alt="logo fouee"></li>
+        <ul class="nav_left">
+            <li class="nav_title"><img src="./assets/img/Frame 3.png" alt="logo fouee">
+                <p>Fouée't Moi
+            </li>
             <li><button onclick="location.href = './index.php'" class="button_nav">accueil</button></li>
             <li><button onclick="location.href = ''" class="button_nav">commander</button></li>
             <li><button onclick="location.href = ''" class="button_nav">nous contacter</button></li>
         </ul>
-        <ul>
+        <ul class="nav_right">
             <li><button onclick="location.href = './login.php'" class="button_nav connect">se connecter</button></li>
         </ul>
     </nav>
-    <main>
-
+    <main class="main_commande">
         <!-- affichage des plats -->
         <section class="plats">
             <div class="plats_title">
                 <div class="plats_titles">
-                    <!-- <div class="" onclick="togglePlat('plats_salées')">
-                        <i class="fa-solid fa-circle-dot" style="font-size:2rem; color:#FF5C28;" ></i>
-                        <h1>Fouées salées</h1>
-                    </div>
-                    <div class="" onclick="togglePlat('plats_sucrées')">
-                        <i class="fa-solid fa-circle-dot" ></i>
-                        <h1>Fouées sucrées</h1>
-                    </div> -->
                     <button type="button" class="button_fouee sel plats_title_salées" onclick="togglePlat('plats_salées')">fouées salées</button>
                     <button type="button" class="button_fouee plats_title_sucrées" onclick="togglePlat('plats_sucrées')">fouées sucrées</button>
 
@@ -76,6 +69,7 @@ echo head('Accueil');
                                 <h5 class="card-title">
                                     <?= $plat['nom'] ?>
                                 </h5>
+                                <img class="card_img" src="./assets/img/Fouées_angevines_avec_rillettes.JPG" alt="Photo d'un fouées à la rillette">
                                 <input type="hidden" name="id_plats" class="id_plats" value="<?= $plat['id_plat'] ?>">
                                 <p class="card-text">
                                     <?= $plat['composition'] ?>
@@ -126,12 +120,14 @@ echo head('Accueil');
                     <?php endforeach; ?>
                 </div>
             </div>
-            <div class="commande">
-                <div class="panier"></div>
-                <!-- <a href="./order.php" class="order-button">Commander</a> -->
-            </div>
+
         </section>
-        <section>
+
+        <section>        
+            <div class="commande rectangle">
+            <div class="panier"><i class="fa-solid fa-cart-shopping"></i></div>
+            <!-- <a href="./order.php" class="order-button">Commander</a> -->
+        </div>
         </section>
     </main>
 

@@ -5,10 +5,20 @@ document.addEventListener("DOMContentLoaded", function () {
   const idPlat = document.querySelectorAll(".id_plats");
   const addBoutons = document.querySelectorAll(".btn-primary");
   const enleverBoutons = document.querySelectorAll(".btn-danger");
-  const inputNumbers = document.querySelectorAll(".form-control");
+  // const inputNumbers = document.querySelectorAll(".form-control");
   const divSupplement = document.querySelector(".supplements");
   const closeSupplement = document.querySelector(".cross_close");
-  const ajouterBoutons = document.querySelectorAll(".btn-success");
+  const ajouterBoutons = document.querySelectorAll(".button_add");
+
+  let panierDiv = document.querySelector('.panier');
+
+  // Vérifier si la div est vide
+  if (panierDiv.innerHTML.trim() === '') {
+      // Ajouter une classe pour styliser l'icône dans un rond
+      panierDiv.classList.add('icon-in-circle');
+      let icon = '<i class="fa-solid fa-cart-shopping"></i>';
+      panierDiv.appendChild(icon);
+  }
 
 // update js functions
 
@@ -25,10 +35,10 @@ function updateInputNumbers() {
       inputNumber.value = item.quantite;
     }
     
-    if (footerCard.childElementCount === 0) {
-      let footerHTML = '<button class="btn btn-danger btn-sm">Ajouter un supplément</button>';
-      footerCard.innerHTML = footerHTML;
-    }
+    // if (footerCard.childElementCount === 0) {
+    //   let footerHTML = '<button class="btn btn-danger btn-sm">Ajouter un supplément</button>';
+    //   footerCard.innerHTML = footerHTML;
+    // }
   });
 }
 
@@ -37,11 +47,11 @@ function updateInputNumbers() {
   updateInputNumbers();
 
   ajouterBoutons.forEach((ajouterBouton, index) => {
-    let elementCounter = inputNumbers[index].value;
-
+    // let elementCounter = inputNumbers[index].value;
+    let elementCounter = 0
     ajouterBouton.addEventListener("click", function () {
       elementCounter++;
-      inputNumbers[index].value = elementCounter;
+      // inputNumbers[index].value = elementCounter;
       let id = idPlat[index].value;
       let itemIndex = panier.findIndex((item) => item.id === id);
 
@@ -68,38 +78,38 @@ function updateInputNumbers() {
       orderButton.style.display = panier.length > 0 ? "block" : "none";
     });
 
-    enleverBoutons[index].addEventListener("click", function () {
-      if (elementCounter > 0) {
-        elementCounter--;
-        inputNumbers[index].value = elementCounter;
+    // enleverBoutons[index].addEventListener("click", function () {
+    //   if (elementCounter > 0) {
+    //     elementCounter--;
+    //     inputNumbers[index].value = elementCounter;
 
-        let id = idPlat[index].value;
-        let itemIndex = panier.findIndex((item) => item.id === id);
-        const footerCard = document.getElementById(`supplement-card-${id}`);
+    //     let id = idPlat[index].value;
+    //     let itemIndex = panier.findIndex((item) => item.id === id);
+    //     const footerCard = document.getElementById(`supplement-card-${id}`);
 
-        if (itemIndex !== -1) {
-          if (elementCounter === 0) {
-            panier.splice(itemIndex, 1);
-            footerCard.innerHTML = "";
-          } else {
-            panier[itemIndex].quantite = elementCounter;
-          }
-        }
+    //     if (itemIndex !== -1) {
+    //       if (elementCounter === 0) {
+    //         panier.splice(itemIndex, 1);
+    //         footerCard.innerHTML = "";
+    //       } else {
+    //         panier[itemIndex].quantite = elementCounter;
+    //       }
+    //     }
 
-        // Recalculer le total du panier
-        const panierTotal = calculateTotal(panier);
+    //     // Recalculer le total du panier
+    //     const panierTotal = calculateTotal(panier);
 
-        // Mettre à jour le contenu du panier
-        const panierDiv = document.querySelector(".panier");
-        updateInputNumbers();
-        panierDiv.innerHTML = generatePanierHTML(panier, panierTotal);
+    //     // Mettre à jour le contenu du panier
+    //     const panierDiv = document.querySelector(".panier");
+    //     updateInputNumbers();
+    //     panierDiv.innerHTML = generatePanierHTML(panier, panierTotal);
 
-        // Afficher le bouton "order-button" uniquement s'il y a des articles dans le panier
-        orderButton.style.display = panier.length > 0 ? "block" : "none";
-      }
-      updateCartDisplay();
-      sessionStorage.setItem("panier", JSON.stringify(panier));
-    });
+    //     // Afficher le bouton "order-button" uniquement s'il y a des articles dans le panier
+    //     orderButton.style.display = panier.length > 0 ? "block" : "none";
+    //   }
+    //   updateCartDisplay();
+    //   sessionStorage.setItem("panier", JSON.stringify(panier));
+    // });
   });
 
   // Fonction pour calculer le total du panier
@@ -136,12 +146,16 @@ function updateInputNumbers() {
 
     html += "</ul>";
     if (panier.length > 0) {
+      html += '<div class="bottom_panier"';
       html += `<p>Total du panier : ${panierTotal}€</p>`;
-      html += `<a href="./order.php" class="btn btn-primary">Commander</a>`;
+      html += `<button onclick="location.href = './order.php'" class="button_command">Commander</button>`;
+      html += "</div>";
     } else {
       html += `<i class="fa-solid fa-cart-shopping"></i>`;
     }
-
+    if (panier.length == 0){
+      html = "";
+    }
     return html;
   }
   // Fonction pour supprimer un article du panier
