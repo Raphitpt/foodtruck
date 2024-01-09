@@ -36,11 +36,13 @@ echo head('Accueil');
 <body>
     <nav>
         <ul>
-            <li> <img src="./assets/img/FOUEE2.png" alt="logo fouee">
-            <li><a href="./index.php" class="button_fouee">accueil</a></li>
-            <li><a href="" class="button_fouee">commander</a></li>
-            <li><a href="" class="button_fouee">nous contacter</a></li>
-            <li><button onclick="location.href = './login.php' " class="button_nav">se connecter</button></li>
+            <li><img src="./assets/img/FOUEE2.png" alt="logo fouee"></li>
+            <li><button onclick="location.href = './index.php'" class="button_nav">accueil</button></li>
+            <li><button onclick="location.href = ''" class="button_nav">commander</button></li>
+            <li><button onclick="location.href = ''" class="button_nav">nous contacter</button></li>
+        </ul>
+        <ul>
+            <li><button onclick="location.href = './login.php'" class="button_nav connect">se connecter</button></li>
         </ul>
     </nav>
     <main>
@@ -59,7 +61,7 @@ echo head('Accueil');
                     </div> -->
                     <button type="button" class="button_fouee sel plats_title_salées" onclick="togglePlat('plats_salées')">fouées salées</button>
                     <button type="button" class="button_fouee plats_title_sucrées" onclick="togglePlat('plats_sucrées')">fouées sucrées</button>
-                    
+
                 </div>
                 <div class="line"></div>
             </div>
@@ -81,14 +83,14 @@ echo head('Accueil');
                                 <p class="card-price">
                                     <?= $plat['prix'] ?>€
                                 </p>
-                                    <button type="button" class="button_add"><i class="fa-solid fa-plus"></i>ajouter</button>
-                                    <!-- <input type="number" class="form-control" value="0"
+                                <button type="button" class="button_add"><i class="fa-solid fa-plus"></i>ajouter</button>
+                                <!-- <input type="number" class="form-control" value="0"
                                         id="input-number-<?= $plat['id_plat'] ?>">
                                     <button type="button" class="btn btn-success" id="ajouter">+</button>
                                     <button type="button" class="btn btn-danger" id="enlever">-</button>
                                     <div id="supplement-card-<?= $plat['id_plat'] ?>"> -->
 
-                                    <!-- </div> -->
+                                <!-- </div> -->
                             </div>
                         </div>
                     <?php endforeach; ?>

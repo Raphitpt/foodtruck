@@ -39,10 +39,9 @@ nav {
   position: fixed;
   top: 0;
   left: 0;
-  /* transform: translateX(-50%); */
   width: 100%;
   height: 4.5rem;
-  justify-content: center;
+  justify-content: space-between; /* Use space-between to separate items at both ends */
   align-items: center;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   background: #fff;
@@ -51,11 +50,10 @@ nav {
 
 nav > ul {
   display: flex;
-  justify-content: space-around;
+  justify-content: flex-start; /* Align items to the start (left) */
   align-items: center;
   list-style: none;
   width: 100%;
-  /* gap: 2rem; */
   margin-top: 1rem;
 }
 
@@ -63,25 +61,30 @@ nav > ul > li {
   display: flex;
   justify-content: center;
   align-items: center;
-  /* gap: 1rem; */
   cursor: pointer;
 }
 
-.button_nav{
+.button_nav {
   font-size: 1em;
   padding: 0.4rem;
   color: #000;
   border: none;
-  border-radius: 50px;
+  border-radius: 10px;
   text-decoration: none;
   cursor: pointer;
   width: 12rem;
   transition: background 0.3s;
-  border: solid 0.2px #ff5c28;
+  background-color: #F5F5F5;
 }
-.button_nav:hover{
+
+.button_nav:hover {
   background: #ff5c28;
   color: #fff;
+}
+
+.connect {
+  border: solid 0.2px #ff5c28;
+  float: right;
 }
 
 /* nav > ul > li > a {
@@ -142,7 +145,7 @@ button:hover {
 } */
 .plats {
   background-color: white;
-  border-radius: 20px;
+  border-radius: 10px;
   width: 67vw;
   height: 70vh;
   margin-top: 14vh;
@@ -290,7 +293,7 @@ button:hover {
   padding: 0.4rem;
   color: #000;
   border: none;
-  border-radius: 50px;
+  border-radius: 10px;
   text-decoration: none;
   cursor: pointer;
   width: 12rem;
@@ -315,7 +318,7 @@ button:hover {
   padding: 0.4rem;
   color: #000;
   border: none;
-  border-radius: 50px;
+  border-radius: 10px;
   text-decoration: none;
   cursor: pointer;
   width: 12rem;
