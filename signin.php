@@ -33,6 +33,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
   }
 }
+$infos = "SELECT * FROM settings";
+$infos = $dbh->query($infos);
+$infos = $infos->fetch();
 
 // Display the registration form
 ?>

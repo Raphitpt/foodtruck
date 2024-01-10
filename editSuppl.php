@@ -6,6 +6,9 @@ if (!isset($_SESSION['email']) || $_SESSION['email'] !== 'admin@gmail.com') {
     exit();
 }
     require 'bootstrap.php';
+    $infos = "SELECT * FROM settings";
+    $infos = $dbh->query($infos);
+    $infos = $infos->fetch();
 
     echo head('Modifier un supplément');
     ?>

@@ -18,6 +18,10 @@ $supplements = "SELECT * FROM supplements";
 $supplements = $dbh->query($supplements);
 $supplements = $supplements->fetchAll();
 
+$infos = "SELECT * FROM settings";
+$infos = $dbh->query($infos);
+$infos = $infos->fetch();
+
 echo head('Accueil');
 
 ?>
@@ -36,7 +40,7 @@ echo head('Accueil');
 <body>
     <nav>
         <ul class="nav_left">
-            <li class="nav_title"><img src="./assets/img/Frame 3.png" alt="logo fouee">
+            <li class="nav_title"><img src="<?= $infos['url_logo'] ?>" alt="logo fouee">
                 <p>Fouée't Moi
             </li>
             <li><button onclick="location.href = './index.php'" class="button_nav">accueil</button></li>
