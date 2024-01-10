@@ -22,9 +22,15 @@ $supplements = "SELECT * FROM supplements";
 $supplements = $dbh->query($supplements);
 $supplements = $supplements->fetchAll();
 
-$horaires = "SELECT * FROM settings";
+$infos = "SELECT nom_entreprise FROM settings";
+$infos = $dbh->query($infos);
+$infos = $infos->fetch();
+
+$horaires = "SELECT * FROM planning";
 $horaires = $dbh->query($horaires);
 $horaires = $horaires->fetchAll();
+
+
 
 echo head('Accueil');
 
@@ -54,17 +60,6 @@ echo head('Accueil');
             <li><button onclick="location.href = './login.php'" class="button_nav connect">Se connecter</button></li>
         </ul>
     </nav>
-    <!-- <div class="title_infos">
-        <h1>Les horaires d'ouverture sont :</h1>
-        
-        <h2><?= $horaires[0]['horaires_debut'] ?></h2>
-        <h3><?= $horaires[0]['horaires_fin'] ?></h3>
-        <div class="buttons">
-            <button type="button" class="actions"><a href="editHoraires.php">Modifier les horaires</a></button>
-        </div>
-
-
-    </div> -->
 
     <main id="BO">
         <section class="col-left">
@@ -76,6 +71,7 @@ echo head('Accueil');
                 <a href="orderHist.php">Historique des commandes</a>
                 <a href="index.php">Voir le site web</a></button>
                 <a href="modifPtsFid.php">Points de fidélité</a>
+                <a href="editEntreprise.php">Données de votre entreprise</a>
 
             </div>
         </section>
