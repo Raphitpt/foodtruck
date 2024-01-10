@@ -22,7 +22,7 @@ $supplements = "SELECT * FROM supplements";
 $supplements = $dbh->query($supplements);
 $supplements = $supplements->fetchAll();
 
-$infos = "SELECT nom_entreprise FROM settings";
+$infos = "SELECT * FROM settings";
 $infos = $dbh->query($infos);
 $infos = $infos->fetch();
 
@@ -49,11 +49,10 @@ echo head('Accueil');
 <body>
     <nav>
         <ul class="nav_left">
-            <li class="nav_title"><img src="./assets/img/Frame 3.png" alt="logo fouee">
-                <p>Fouée't Moi
+            <li class="nav_title"><img src="<?= $infos['url_logo'] ?>" alt="logo fouee">
+                <p><?php echo $infos['nom_entreprise'] ?></p>
             </li>
-            <li><button onclick="location.href = './index.php'" class="button_nav">Accueil</button></li>
-            <li><button onclick="location.href = ''" class="button_nav">Commander</button></li>
+            <li><button onclick="location.href = './indexBO.php'" class="button_nav">Accueil</button></li>
             <li><button onclick="location.href = ''" class="button_nav">Nous contacter</button></li>
         </ul>
         <ul class="nav_right">
@@ -71,7 +70,7 @@ echo head('Accueil');
                 <a href="orderHist.php">Historique des commandes</a>
                 <a href="index.php">Voir le site web</a></button>
                 <a href="modifPtsFid.php">Points de fidélité</a>
-                <a href="editEntreprise.php">Données de votre entreprise</a>
+                <a href="infosEntreprise.php">Données de votre entreprise</a>
 
             </div>
         </section>

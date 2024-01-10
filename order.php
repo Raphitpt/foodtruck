@@ -5,6 +5,9 @@ session_start();
 
 
 echo head('Panier');
+$infos = "SELECT * FROM settings";
+$infos = $dbh->query($infos);
+$infos = $infos->fetch();
 
 ?>
 <!DOCTYPE html>
@@ -38,14 +41,16 @@ echo head('Panier');
 
 <body>
     <nav>
-        <ul>
-
+        <ul class="nav_left">
+            <li class="nav_title"><img src="<?= $infos['url_logo'] ?>" alt="logo fouee">
+                <p>Fouée't Moi
             </li>
-            <li><a href="./index.php"><i class="fa-solid fa-house"></i></a></li>
-            <li><a href=""><i class="fa-solid fa-truck"></i></a></li>
-            <li> <img src="./assets/img/FOUEE2.png" alt="logo fouee">
-            <li><a href=""><i class="fa-solid fa-phone"></i></a></li>
-            <li><a href="./login.php"><i class="fa-solid fa-user"></i></a></li>
+            <li><button onclick="location.href = './index.php'" class="button_nav">Accueil</button></li>
+            <li><button onclick="location.href = ''" class="button_nav">Commander</button></li>
+            <li><button onclick="location.href = ''" class="button_nav">Nous contacter</button></li>
+        </ul>
+        <ul class="nav_right">
+            <li><button onclick="location.href = './login.php'" class="button_nav connect">Se connecter</button></li>
         </ul>
     </nav>
     <main>

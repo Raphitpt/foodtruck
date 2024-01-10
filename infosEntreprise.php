@@ -10,13 +10,14 @@ if (!isset($_SESSION['email']) || $_SESSION['email'] !== 'admin@gmail.com') {
 }
 
 
-$infos = "SELECT nom_entreprise FROM settings";
-$infos = $dbh->query($infos);
-$infos = $infos->fetch();
 
 $horaires = "SELECT * FROM planning";
 $horaires = $dbh->query($horaires);
 $horaires = $horaires->fetchAll();
+
+$infos = "SELECT * FROM settings";
+$infos = $dbh->query($infos);
+$infos = $infos->fetch();
 
 
 
@@ -26,17 +27,16 @@ echo head('Accueil');
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Horaires</title>
+    <title>Informations entreprise</title>
 </head>
-
 <body>
+    
     <nav>
         <ul class="nav_left">
-            <li class="nav_title"><img src="./assets/img/Frame 3.png" alt="logo fouee">
+            <li class="nav_title"><img src="<?= $infos['url_logo'] ?>" alt="logo fouee">
                 <p>Fouée't Moi
             </li>
             <li><button onclick="location.href = './index.php'" class="button_nav">Accueil</button></li>
@@ -48,29 +48,27 @@ echo head('Accueil');
         </ul>
     </nav>
     <main>
-        <a href="indexBO.php" class="btn"><i class="fa-solid fa-arrow-left"></i></a>
-        <section class="horaires">
+        
+        <section>
+            <a href="indexBO.php" class="btn"><i class="fa-solid fa-arrow-left"></i></a>
             <div class="title_infos">
-                <h1>Les horaires d'ouverture de l'entreprise <?php echo $infos['nom_entreprise'] ?> sont :</h1>
+                <h1>Les informations de l'entreprise sont :</h1>
+                <div class="infos">
+                    <p>Nom de l'entreprise : <?= $infos['nom_entreprise'] ?></p>
+                    <p>Adresse : <?= $infos['adresse_entreprise'] ?></p>
+                    <p>Logo : <img src="<?= $infos['url_logo'] ?>" alt="logo fouee"></p>
+                </div>
+                <h1>Les horaires d'ouverture et de fermeture sont :</h1>
                 <div class="infos">
                     <?php foreach ($horaires as $horaire) : ?>
                         <p><?= $horaire['Jour'] ?> : <?= $horaire['HeureOuverture']?> - <?= $horaire['HeureFermeture'] ?></p>
                     <?php endforeach; ?>
-
-                </div>
-                <div class="buttons">
-                    <button type="button" class="actions"><a href="editHoraires.php">Modifier</a></button>
                 </div>
             </div>
-            
+            <div class="buttons">
+                <button type="button" class="actions"><a href="editEntreprise.php">Modifier</a></button>
+            </div>
         </section>
     </main>
-
-    <div>
-
-    </div>
-    </section>
-
 </body>
-
 </html>
