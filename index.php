@@ -52,12 +52,12 @@ echo head('Accueil');
         <h2>Le foodtruck est fermé actuellement.</h2>
         <h3>Les horaires d'ouverture sont de 12h00 à 15h00.</h3>
     </div>
-    
+
     <main class="main_commande">
         <!-- affichage des plats -->
-        
+
         <section class="plats">
-            
+
             <div class="plats_title">
                 <div class="plats_titles">
                     <button type="button" class="button_fouee sel plats_title_salées" onclick="togglePlat('plats_salées')">fouées salées</button>
@@ -131,16 +131,57 @@ echo head('Accueil');
 
         </section>
 
-        <section>        
+        <section>
             <div class="commande rectangle">
-            <div class="panier"><i class="fa-solid fa-cart-shopping"></i></div>
-            <!-- <a href="./order.php" class="order-button">Commander</a> -->
-        </div>
+                <div class="panier">
+                    <ul>
+                        <li class="list_commande">
+                            <i class="fa-solid fa-xmark"></i>
+                            <div class="div_img_commande"><img src="./assets/img/Fouées_angevines_avec_rillettes.JPG" class="img_commande"></div>
+                            <div class="name_plat_commande">
+                                <p>${plat.nom}</p>
+                                <p>Suppléments</p>
+                                <p>15.5€</p>
+                            </div>
+                            <fieldset class="number_add">
+                                <button type="button" title="-" class="sub" control-id="ControlID-20">-</button>
+                                <input type="number" name="quantity" pattern="[0-9]+" control-id="ControlID-21" min="1" value="1">
+                                <button type="button" title="+" class="add" control-id="ControlID-22">+</button>
+                            </fieldset>
+                        </li>
+                        <div class="line"></div>
+                    </ul>
+                    <div class="bottom_panier">
+                        <p>Total du panier : ${panierTotal}€</p>
+                        <button onclick="location.href = './order.php'" class="button_command">Commander</button>
+                    </div>
+                </div>
+                <!-- <a href="./order.php" class="order-button">Commander</a> -->
+            </div>
         </section>
     </main>
 
     <script src="./assets/js/functions.js"></script>
     <script src="https://kit.fontawesome.com/45762c6469.js" crossorigin="anonymous"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const numberAddElements = document.querySelectorAll('.number_add');
+
+            numberAddElements.forEach(function(element) {
+                const inputElement = element.querySelector('input');
+                const addButton = element.querySelector('.add');
+                const subButton = element.querySelector('.sub');
+
+                addButton.addEventListener('click', function() {
+                    inputElement.stepUp();
+                });
+
+                subButton.addEventListener('click', function() {
+                    inputElement.stepDown();
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>

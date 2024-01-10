@@ -130,34 +130,34 @@ function updateInputNumbers() {
     return total;
   }
 
-  // Fonction pour générer le HTML du panier
-  function generatePanierHTML(panier, panierTotal) {
-    let html = "<ul>";
-    panier.forEach(function (plat) {
-      // Convertir le prix et la quantité en nombre à virgule flottante
-      const prix = parseFloat(plat.prix);
-      const quantite = parseFloat(plat.quantite);
+  // // Fonction pour générer le HTML du panier
+  // function generatePanierHTML(panier, panierTotal) {
+  //   let html = "<ul>";
+  //   panier.forEach(function (plat) {
+  //     // Convertir le prix et la quantité en nombre à virgule flottante
+  //     const prix = parseFloat(plat.prix);
+  //     const quantite = parseFloat(plat.quantite);
 
-      // Calculer le total pour cet article
-      const articleTotal = prix * quantite;
+  //     // Calculer le total pour cet article
+  //     const articleTotal = prix * quantite;
 
-      html += `<li>${plat.nom} - ${prix}€ - Quantité: ${quantite} - Total: ${articleTotal}€</li>`;
-    });
+  //     html += `<li>${plat.nom} - ${prix}€ - Quantité: ${quantite} - Total: ${articleTotal}€</li>`;
+  //   });
 
-    html += "</ul>";
-    if (panier.length > 0) {
-      html += '<div class="bottom_panier">';
-      html += `<p>Total du panier : ${panierTotal}€</p>`;
-      html += `<button onclick="location.href = './order.php'" class="button_command">Commander</button>`;
-      html += "</div>";
-    } else {
-      html += `<i class="fa-solid fa-cart-shopping"></i>`;
-    }
-    if (panier.length == 0){
-      html = "";
-    }
-    return html;
-  }
+  //   html += "</ul>";
+  //   if (panier.length > 0) {
+  //     html += '<div class="bottom_panier">';
+  //     html += `<p>Total du panier : ${panierTotal}€</p>`;
+  //     html += `<button onclick="location.href = './order.php'" class="button_command">Commander</button>`;
+  //     html += "</div>";
+  //   } else {
+  //     html += `<i class="fa-solid fa-cart-shopping"></i>`;
+  //   }
+  //   if (panier.length == 0){
+  //     html = "";
+  //   }
+  //   return html;
+  // }
   // Fonction pour supprimer un article du panier
   const commandeSuppr = document.querySelectorAll(".commandeSuppr");
 
