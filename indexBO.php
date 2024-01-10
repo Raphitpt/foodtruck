@@ -54,7 +54,7 @@ echo head('Accueil');
             <li><button onclick="location.href = './login.php'" class="button_nav connect">Se connecter</button></li>
         </ul>
     </nav>
-    <div class="title_infos">
+    <!-- <div class="title_infos">
         <h1>Les horaires d'ouverture sont :</h1>
         
         <h2><?= $horaires[0]['horaires_debut'] ?></h2>
@@ -64,7 +64,7 @@ echo head('Accueil');
         </div>
 
 
-    </div>
+    </div> -->
 
     <main id="BO">
         <section class="col-left">
