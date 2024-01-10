@@ -194,9 +194,10 @@ nav > ul > li > img {
 .fa-circle-dot {
     transition: all 0.3s;
 }
-.plats_sucre, .plats_sale {
+.plats_sucre, .plats_sale, .plats_suppl {
     display: block;
     transition: all 1s;
+    text-align: center;
 }
 .hidden {
     display: none;
@@ -216,22 +217,7 @@ nav > ul > li > img {
   cursor: pointer;
 }
 
-.plats_titles h1 {
-  font-size: 1.5rem; /* Adjusted font size for better readability */
-  margin-left: 0.5rem; /* Adjusted margin for better spacing */
-}
 
-.plats_titles i {
-  font-size: 0.75rem;
-  color: #888; /* Added a subtle color for better visibility */
-}
-
-
-
-.plats_title_suppléments{
-  display: flex;
-  align-items: center;
-}
 
 .line{
   width: auto;
@@ -257,7 +243,7 @@ nav > ul > li > img {
  }
 
  .plats_card .card .card-title {
-  font-size: 24px;
+  font-size: 1.2rem;
   color: #28272B;
   margin-bottom: 10px;
  }
@@ -305,6 +291,45 @@ nav > ul > li > img {
   background: #e56D00;
   color: #fff;
 }
+
+.buttons{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  margin-top: 1rem;
+  position: absolute;
+  bottom: 10px;
+  left: 5%;
+  gap: 0.2rem;
+}
+
+.actions{
+  font-size: 1em;
+  padding: 0.4rem;
+  color: #28272B;
+  border: none;
+  border-radius: 10px;
+  text-decoration: none;
+  cursor: pointer;
+  width: 8rem;
+  transition: background 0.3s;
+  margin-top: auto;
+}
+
+.actions:hover{
+  background: #e56D00;
+  color: #fff;
+}
+.actions a{
+  text-decoration: none;
+  color: #28272B;
+}
+
+.actions i{
+  margin-left: 1rem;
+}
+
 .fa-plus{
   margin-right: 1rem;
 }
@@ -452,20 +477,26 @@ main {
     flex-direction: column;
     gap: 1rem;
     
+    
  }
 
  .action a{
-  text-decoration: none;
-  color: #000000;
-  font-size: 1rem;
-  font-weight: bold;
-  margin-left: 1vw;
-  margin-right: 1vw;
-  background-color: #fff;
+  color: #28272B;
+  border: 1px solid #28272B;
   border-radius: 10px;
-  padding: 0.5vw;
+  text-decoration: none;
+  cursor: pointer;
+  width: auto;
+  transition: background 0.3s;
+  margin-top: auto;
+  padding: 0.5rem;
 
  }
+
+  .action a:hover{
+    background: #e56D00;
+    color: #fff;
+  }
 
  .recap{
   margin-left: auto;
@@ -480,7 +511,6 @@ main {
   flex-direction: row;
   gap: 3rem;
   margin: 1rem;
-  margin-top: 15vh;
  }
 
  .col-left{

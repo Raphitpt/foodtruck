@@ -194,26 +194,26 @@ function togglePlat(platType) {
   if (platType === 'plats_sucrées') {
       saleIcon.classList.remove("sel");
       sucreIcon.classList.add("sel");
+      supplIcon.classList.remove("sel");
       platsSucre.style.display = 'block';
       platsSale.style.display = 'none';
       platsSuppl.style.display = 'none';
   } else if (platType === 'plats_salées') {
       saleIcon.classList.add("sel");
       sucreIcon.classList.remove("sel");
+      supplIcon.classList.remove("sel");
       platsSale.style.display = 'block';
       platsSucre.style.display = 'none';
       platsSuppl.style.display = 'none';
 
   } else if ( platType === 'suppléments') {
-      supplIcon.style.color = '#FF5C28';
-      supplIcon.style.fontSize = '2em';
-      sucreIcon.style.color = '';
-      sucreIcon.style.fontSize = '';
-      saleIcon.style.color = '';
-      saleIcon.style.fontSize = '';
       platsSuppl.style.display = 'block';
       platsSucre.style.display = 'none';
       platsSale.style.display = 'none';
+      supplIcon.classList.add("sel");
+      saleIcon.classList.remove("sel");
+      sucreIcon.classList.remove("sel");
+
   }
 
 }
