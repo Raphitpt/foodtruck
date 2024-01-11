@@ -11,8 +11,14 @@ document.addEventListener("DOMContentLoaded", function () {
   const ajouterBoutons = document.querySelectorAll(".button_add");
 
   let panierDiv = document.querySelector(".panier");
+  let panierDiv = document.querySelector(".panier");
 
   // Vérifier si la div est vide
+  if (panierDiv.innerHTML.trim() === "") {
+    // Ajouter une classe pour styliser l'icône dans un rond
+    panierDiv.classList.add("icon-in-circle");
+    let icon = '<i class="fa-solid fa-cart-shopping"></i>';
+    panierDiv.appendChild(icon);
   if (panierDiv.innerHTML.trim() === "") {
     // Ajouter une classe pour styliser l'icône dans un rond
     panierDiv.classList.add("icon-in-circle");
@@ -21,9 +27,27 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // update js functions
+  // update js functions
 
   let panier = JSON.parse(sessionStorage.getItem("panier")) || [];
 
+  // Fonction pour mettre à jour les inputs lors du chargement de la page (sessionStorage)
+  function updateInputNumbers() {
+    console.log(panier);
+    panier.forEach(function (item) {
+      const id = item.id;
+      const inputNumber = document.getElementById(`input-number-${id}`);
+      const footerCard = document.getElementById(`supplement-card-${id}`);
+      if (inputNumber) {
+        inputNumber.value = item.quantite;
+      }
+
+      // if (footerCard.childElementCount === 0) {
+      //   let footerHTML = '<button class="btn btn-danger btn-sm">Ajouter un supplément</button>';
+      //   footerCard.innerHTML = footerHTML;
+      // }
+    });
+  }
   // Fonction pour mettre à jour les inputs lors du chargement de la page (sessionStorage)
   function updateInputNumbers() {
     console.log(panier);
@@ -47,6 +71,7 @@ document.addEventListener("DOMContentLoaded", function () {
   ajouterBoutons.forEach((ajouterBouton, index) => {
     // let elementCounter = inputNumbers[index].value;
     let elementCounter = 0;
+    let elementCounter = 0;
     ajouterBouton.addEventListener("click", function () {
       elementCounter++;
       // inputNumbers[index].value = elementCounter;
@@ -69,6 +94,7 @@ document.addEventListener("DOMContentLoaded", function () {
       panierDiv.innerHTML = generatePanierHTML(panier);
       updateInputNumbers();
       updateCartDisplay();
+
 
       sessionStorage.setItem("panier", JSON.stringify(panier));
 
