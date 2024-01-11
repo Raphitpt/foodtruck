@@ -5,32 +5,31 @@ document.addEventListener("DOMContentLoaded", function () {
   const idPlat = document.querySelectorAll(".id_plats");
   const addBoutons = document.querySelectorAll(".btn-primary");
   const enleverBoutons = document.querySelectorAll(".btn-danger");
-  // const inputNumbers = document.querySelectorAll(".form-control");
-  const divSupplement = document.querySelector(".supplements");
-  const closeSupplement = document.querySelector(".cross_close");
   const ajouterBoutons = document.querySelectorAll(".button_add");
 
   let panierDiv = document.querySelector(".panier");
 
-  // Vérifier si la div est vide
   if (panierDiv.innerHTML.trim() === "") {
-    // Ajouter une classe pour styliser l'icône dans un rond
     panierDiv.classList.add("icon-in-circle");
     let icon = document.createElement('i');
+<<<<<<< HEAD
     icon.classList.add("fa-solid", "fa-cart-shopping");
     panierDiv.appendChild(icon);
   }
 
   // update js functions
+=======
+    icon.className = "fa-solid fa-cart-shopping";
+    panierDiv.appendChild(icon);
+  }
+
+>>>>>>> 3c39f63a5a190491cab908aef06d276ea1851c34
   let panier = JSON.parse(sessionStorage.getItem("panier")) || [];
 
-  // Fonction pour mettre à jour les inputs lors du chargement de la page (sessionStorage)
   function updateInputNumbers() {
-    console.log(panier);
     panier.forEach(function (item) {
       const id = item.id;
       const inputNumber = document.getElementById(`input-number-${id}`);
-      const footerCard = document.getElementById(`supplement-card-${id}`);
       if (inputNumber) {
         inputNumber.value = item.quantite;
       }
@@ -58,7 +57,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
       }
 
-      const panierDiv = document.querySelector(".panier");
       panierDiv.innerHTML = generatePanierHTML(panier);
       updateInputNumbers();
       updateCartDisplay();
@@ -91,8 +89,13 @@ document.addEventListener("DOMContentLoaded", function () {
           <img src="./assets/img/Fouées_angevines_avec_rillettes.JPG" class="img_commande">
         </div>
         <div class="name_plat_commande">
+<<<<<<< HEAD
           <p>${plat.nom}</p>
           <p>Supléments</p>
+=======
+          <p>${plat.nom}<p>
+          <p>Supléments<p>
+>>>>>>> 3c39f63a5a190491cab908aef06d276ea1851c34
           <p>${prix} €</p>
         </div>
         <fieldset class="number_add">
@@ -107,7 +110,12 @@ document.addEventListener("DOMContentLoaded", function () {
     html += "</ul>";
     if (panier.length > 0) {
       html += '<div class="bottom_panier">';
+<<<<<<< HEAD
       html += `<p>Total du panier : ${calculateTotal(panier)}€</p>`;
+=======
+      const panierTotal = calculateTotal(panier);
+      html += `<p>Total du panier : ${panierTotal}€</p>`;
+>>>>>>> 3c39f63a5a190491cab908aef06d276ea1851c34
       html += `<button onclick="location.href = './order.php'" class="button_command">Commander</button>`;
       html += "</div>";
     } else {
@@ -119,6 +127,7 @@ document.addEventListener("DOMContentLoaded", function () {
     return html;
   }
 
+<<<<<<< HEAD
   const commandeSuppr = document.querySelectorAll(".commandeSuppr");
 
   commandeSuppr.forEach((suppr) => {
@@ -131,6 +140,8 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
+=======
+>>>>>>> 3c39f63a5a190491cab908aef06d276ea1851c34
   function updateCartDisplay() {
     const panierTotal = calculateTotal(panier);
     const panierDiv = document.querySelector(".panier");
@@ -152,7 +163,11 @@ function togglePlat(platType) {
   if (platType === "plats_sucrées") {
     saleIcon.classList.remove("sel");
     sucreIcon.classList.add("sel");
+<<<<<<< HEAD
     if (supplIcon !== null) {
+=======
+    if (supplIcon != null){
+>>>>>>> 3c39f63a5a190491cab908aef06d276ea1851c34
       supplIcon.classList.remove("sel");
     }
     platsSucre.style.display = "block";
@@ -161,9 +176,16 @@ function togglePlat(platType) {
   } else if (platType === "plats_salées") {
     saleIcon.classList.add("sel");
     sucreIcon.classList.remove("sel");
+<<<<<<< HEAD
     if (supplIcon !== null) {
       supplIcon.classList.remove("sel");
     }
+=======
+    if (supplIcon != null){
+      supplIcon.classList.remove("sel");
+    }
+    
+>>>>>>> 3c39f63a5a190491cab908aef06d276ea1851c34
     platsSale.style.display = "block";
     platsSucre.style.display = "none";
     platsSuppl.style.display = "none";
