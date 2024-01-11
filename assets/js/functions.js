@@ -77,7 +77,10 @@ document.addEventListener("DOMContentLoaded", function () {
       const articleTotal = prix * quantite;
 
       html += `<li class="list_commande">
-        <i class="fa-solid fa-xmark"></i>
+        <div class="supprCommande">
+          <i class="fa-solid fa-xmark"></i>
+        </div>
+        
         <div class="div_img_commande">
           <img src="./assets/img/Fouées_angevines_avec_rillettes.JPG" class="img_commande">
         </div>
@@ -110,7 +113,7 @@ document.addEventListener("DOMContentLoaded", function () {
     return html;
   }
 
-  const commandeSuppr = document.querySelectorAll(".commandeSuppr");
+  const commandeSuppr = document.querySelectorAll(".supprCommande");
 
   commandeSuppr.forEach((suppr) => {
     suppr.addEventListener("click", function () {

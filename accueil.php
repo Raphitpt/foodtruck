@@ -74,8 +74,8 @@ echo head('Page d\'accueil');
                 <li class="nav_title"><img src="<?= $infos['url_logo'] ?>" alt="logo fouee">
                     <p>Fouée't Moi
                 </li>
-                <li><button onclick="location.href = './index.php'" class="button_nav">Accueil</button></li>
-                <li><button onclick="location.href = ''" class="button_nav">Commander</button></li>
+                <li><button onclick="location.href = '#'" class="button_nav">Accueil</button></li>
+                <li><button onclick="location.href = './index.php'" class="button_nav">Commander</button></li>
                 <li><button onclick="location.href = ''" class="button_nav">Nous contacter</button></li>
             </ul>
             <ul class="nav_right">
