@@ -22,6 +22,12 @@ $infos = "SELECT * FROM settings";
 $infos = $dbh->query($infos);
 $infos = $infos->fetch();
 
+$day = date('l');
+$horaires = "SELECT HeureOuverture, HeureFermeture FROM planning WHERE Jour = '$day'";
+$horaires = $dbh->query($horaires);
+$horaires = $horaires->fetch();
+
+
 echo head('Accueil');
 
 ?>
@@ -52,10 +58,9 @@ echo head('Accueil');
             <li><button onclick="location.href = './login.php'" class="button_nav connect">Se connecter</button></li>
         </ul>
     </nav>
-    <div class="title_infos">
-        <h1>Bonjour Michel, que allez-vous manger aujourd'hui ?</h1>
-        <h2>Le foodtruck est fermé actuellement.</h2>
-        <h3>Les horaires d'ouverture sont de 12h00 à 15h00.</h3>
+    <div class="infos_generale">
+        <p>Bonjour, qu'allez-vous manger aujourd'hui ?</p>
+        <p>Les horaires d'ouverture aujourd'hui sont : <?php echo $horaires['HeureOuverture'] ?> - <?php echo $horaires['HeureFermeture'] ?></p>
     </div>
 
     <main class="main_commande">

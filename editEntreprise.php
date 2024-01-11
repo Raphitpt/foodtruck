@@ -39,7 +39,7 @@ echo head('Modifier les informations de l\'entreprise');
     </nav>
     <main id="editEntr">
         <section>
-            <a href="indexBO.php" class="btn"><i class="fa-solid fa-arrow-left"></i></a>
+            <a href="infosEntreprise.php" class="btn"><i class="fa-solid fa-arrow-left"></i></a>
             <div class="form">
                 <?php
                 // Vérifier si la requête est de type GET
