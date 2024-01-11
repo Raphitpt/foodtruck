@@ -39,27 +39,32 @@ echo head('Accueil');
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="./assets/css/style.css" rel="stylesheet">
+<<<<<<< HEAD
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous" />
+=======
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+        integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous" />
+>>>>>>> 6bc3c5fd8faf8b94d88e46ecee6c95df034a46b8
     <title>Commander</title>
 </head>
 
 <body>
-<nav>
-    <ul class="nav_left">
-        <li class="nav_title"><img src="<?= $infos['url_logo'] ?>" alt="logo fouee">
-            <p>Fouée't Moi</p>
-        </li>
-        <li><button onclick="location.href = './accueil.php'" class="button_nav">Accueil</button></li>
-        <li><button onclick="location.href = './index.php'" class="button_nav">Commander</button></li>
-        <li><button onclick="location.href = ''" class="button_nav">Nous contacter</button></li>
-        <?php if (isset($_SESSION['email']) && $_SESSION['email'] === 'admin@gmail.com') : ?>
-        <li><button onclick="location.href = 'indexBO.php'" class="button_nav">Back Office</button></li>
-        <?php endif; ?>
-    </ul>
-    <ul class="nav_right">
-        <li><button onclick="location.href = './login.php'" class="button_nav connect">Se connecter</button></li>
-    </ul>
-</nav>
+    <nav>
+        <ul class="nav_left">
+            <li class="nav_title"><img src="<?= $infos['url_logo'] ?>" alt="logo fouee">
+                <p>Fouée't Moi</p>
+            </li>
+            <li><button onclick="location.href = './accueil.php'" class="button_nav">Accueil</button></li>
+            <li><button onclick="location.href = './index.php'" class="button_nav">Commander</button></li>
+            <li><button onclick="location.href = ''" class="button_nav">Nous contacter</button></li>
+            <?php if (isset($_SESSION['email']) && $_SESSION['email'] === 'admin@gmail.com'): ?>
+                <li><button onclick="location.href = 'indexBO.php'" class="button_nav">Back Office</button></li>
+            <?php endif; ?>
+        </ul>
+        <ul class="nav_right">
+            <li><button onclick="location.href = './login.php'" class="button_nav connect">Se connecter</button></li>
+        </ul>
+    </nav>
 
 
 
@@ -77,8 +82,10 @@ echo head('Accueil');
 
             <div class="plats_title">
                 <div class="plats_titles">
-                    <button type="button" class="button_fouee sel plats_title_salées" onclick="togglePlat('plats_salées')">fouées salées</button>
-                    <button type="button" class="button_fouee plats_title_sucrées" onclick="togglePlat('plats_sucrées')">fouées sucrées</button>
+                    <button type="button" class="button_fouee sel plats_title_salées"
+                        onclick="togglePlat('plats_salées')">fouées salées</button>
+                    <button type="button" class="button_fouee plats_title_sucrées"
+                        onclick="togglePlat('plats_sucrées')">fouées sucrées</button>
 
                 </div>
                 <div class="line"></div>
@@ -87,14 +94,15 @@ echo head('Accueil');
             <div class="plats_sale">
                 </br>
                 <div class="plats_card">
-                    <?php foreach ($plats_sale as $plat) : ?>
+                    <?php foreach ($plats_sale as $plat): ?>
                         <div class="card">
 
                             <div class="card-body">
                                 <h5 class="card-title">
                                     <?= $plat['nom'] ?>
                                 </h5>
-                                <img class="card_img" src="./assets/img/Fouées_angevines_avec_rillettes.JPG" alt="Photo d'un fouées à la rillette">
+                                <img class="card_img" src="./assets/img/Fouées_angevines_avec_rillettes.JPG"
+                                    alt="Photo d'un fouées à la rillette">
                                 <input type="hidden" name="id_plats" class="id_plats" value="<?= $plat['id_plat'] ?>">
                                 <p class="card-text">
                                     <?= $plat['composition'] ?>
@@ -118,7 +126,7 @@ echo head('Accueil');
             <div class="plats_sucre" style="display: none;">
                 </br>
                 <div class="plats_card">
-                    <?php foreach ($plats_sucre as $plat) : ?>
+                    <?php foreach ($plats_sucre as $plat): ?>
 
                         <div class="card">
                             <div class="card-body">
@@ -148,6 +156,7 @@ echo head('Accueil');
         <section>
             <div class="commande rectangle">
                 <div class="panier">
+<<<<<<< HEAD
                     <ul>
                         <li class="list_commande">
                             <i class="fa-solid fa-xmark"></i>
@@ -169,7 +178,11 @@ echo head('Accueil');
                         <p>Total du panier : ${panierTotal}€</p>
                         <button onclick="location.href = './order.php'" class="button_command">Commander</button>
                     </div>
+=======
+                    <p>votre panier est vide</P>
+>>>>>>> 6bc3c5fd8faf8b94d88e46ecee6c95df034a46b8
                 </div>
+                <!-- <a href="./order.php" class="order-button">Commander</a> -->
             </div>
         </section>
     </main>
@@ -177,19 +190,23 @@ echo head('Accueil');
     <script src="./assets/js/functions.js"></script>
     <script src="https://kit.fontawesome.com/45762c6469.js" crossorigin="anonymous"></script>
     <script>
+<<<<<<< HEAD
         document.addEventListener('DOMContentLoaded', function() {
+=======
+        document.addEventListener('DOMContentLoaded', function () {
+>>>>>>> 6bc3c5fd8faf8b94d88e46ecee6c95df034a46b8
             const numberAddElements = document.querySelectorAll('.number_add');
 
-            numberAddElements.forEach(function(element) {
+            numberAddElements.forEach(function (element) {
                 const inputElement = element.querySelector('input');
                 const addButton = element.querySelector('.add');
                 const subButton = element.querySelector('.sub');
 
-                addButton.addEventListener('click', function() {
+                addButton.addEventListener('click', function () {
                     inputElement.stepUp();
                 });
 
-                subButton.addEventListener('click', function() {
+                subButton.addEventListener('click', function () {
                     inputElement.stepDown();
                 });
             });
