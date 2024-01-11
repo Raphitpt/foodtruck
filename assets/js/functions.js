@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (panierDiv.innerHTML.trim() === "") {
     panierDiv.classList.add("icon-in-circle");
-    let icon = document.createElement('i');
+    let icon = document.createElement("i");
     icon.classList.add("fa-solid", "fa-cart-shopping");
     panierDiv.appendChild(icon);
   }
@@ -170,3 +170,30 @@ function togglePlat(platType) {
     sucreIcon.classList.remove("sel");
   }
 }
+
+français = document.querySelector(".français");
+anglais = document.querySelector(".anglais");
+fra = document.querySelector(".fra");
+ang = document.querySelector(".ang");
+navang = document.querySelector(".navang");
+navfr = document.querySelector(".navfr");
+anglais.addEventListener("click", function () {
+  français.style.display = "block";
+  navfr.style.display="none";
+  fra.style.display="none";
+  navang.style.display="flex";
+  ang.style.display="flex";
+  anglais.style.display="none";
+
+});
+français.addEventListener("click", function () {
+  anglais.style.display = "block";
+  navang.style.display="none";
+  ang.style.display="none";
+  navfr.style.display="flex";
+  fra.style.display="flex";
+  français.style.display="none";
+
+});
+
+

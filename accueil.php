@@ -11,7 +11,8 @@ echo head('Page d\'accueil');
         overflow-x: hidden;
 
     }
-    *{
+
+    * {
         font-family: 'Montserrat', sans-serif;
     }
 
@@ -21,8 +22,9 @@ echo head('Page d\'accueil');
         font-weight: 700;
 
     }
-    h2{
-        text-align:center;
+
+    h2 {
+        text-align: center;
         font-weight: 700;
 
     }
@@ -43,7 +45,14 @@ echo head('Page d\'accueil');
     .accueil button {
         width: 15vw;
         padding: 1rem;
-        border: 1px solid #E56D00;
+        border: none;
+        background-color: #f5F5F5;
+        font-weight: 700;
+        border-radius: 11px;
+        color: black;
+        border: 2px solid #e56D00;
+
+
     }
 
     .accueil div:nth-child(3) {
@@ -81,22 +90,37 @@ echo head('Page d\'accueil');
         width: 100vw;
         background-color: black;
     }
-    span{
-        color:#E56D00;
+
+    span {
+        color: #e56D00;
         font-weight: bold;
+    }
+
+    button:hover {
+        color: white;
+        background-color: #e56D00;
+    }
+    .choixlangue div{
+        cursor:pointer;
+        padding:1rem;
+        text-align:end;
+    }
+    .choixlangue img{
+        width:4vw;
     }
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+
 <body>
     <header>
-        <nav>
+        <nav class="navfr">
             <ul class="nav_left">
-                <li class="nav_title"><img src="<?= $infos['url_logo'] ?>" alt="logo fouee">
+                <li class="nav_title"><img src="<?=$infos['url_logo'] ?>" alt="logo fouee">
                     <p>Fouée't Moi
                 </li>
-                <li><button onclick="location.href = '#'" class="button_nav">Accueil</button></li>
+                <li><button onclick="location.href = 'accueil.php'" class="button_nav">Accueil</button></li>
                 <li><button onclick="location.href = './index.php'" class="button_nav">Commander</button></li>
                 <li><button onclick="location.href = ''" class="button_nav">Nous contacter</button></li>
             </ul>
@@ -104,9 +128,55 @@ echo head('Page d\'accueil');
                 <li><button onclick="location.href = './login.php'" class="button_nav connect">Se connecter</button></li>
             </ul>
         </nav>
+        <nav style="display:none;" class="navang">
+            <ul class="nav_left">
+                <li class="nav_title"><img src="<?= $infos['url_logo'] ?>" alt="logo fouee">
+                    <p>Fouée't Moi
+                </li>
+                <li><button onclick="location.href = '#'" class="button_nav">Home</button></li>
+                <li><button onclick="location.href = './index.php'" class="button_nav">Order</button></li>
+                <li><button onclick="location.href = ''" class="button_nav">Contact us</button></li>
+            </ul>
+            <ul class="nav_right">
+                <li><button onclick="location.href = './login.php'" class="button_nav connect">Connexion</button></li>
+            </ul>
+        </nav>
     </header>
     <main>
-        <section class="accueil">
+        <div class="choixlangue">
+            <div class="français" style="display:none;"><img src="./assets/img/FR_MARIN.png"></div>
+            <div class="anglais"><img src="./assets/img/Flag_of_Great_Britain_(1707–1800).svg.png"></div>
+        </div>
+ 
+        <section class="accueil ang" style="display:none">
+            <h1>Welcome on Fouée't Moi </h1>
+            <button onclick="location.href = './index.php'">Order</button>
+            <div>
+                <img src="./assets/img/Fichier 2.png" />
+                <div>
+                    <h2>What is a fouée ?</h2>
+                    <p>
+                        The fouée is a small <span>ball of bread</span>, baked and still warm filled with rillettes,
+                        of cricket, mushrooms, mogettes or butter, depending on the region. The fouée comes from the
+                        <span>gastronomy</span> of western France (Touraine, Saumurois, Poitou, Charentes).
+                </div>
+            </div>
+            <div>
+                <div>
+                    <h2>Who are we ?</h2>
+                    <p>
+                        We are a recent couple <span>Charentais passionate</span> about the creation of fouée, <span>family tradition </span>
+                        since 50, we are committed to prepare you <span>high quality</span> fouées and to delight
+                        your taste buds. <span>Sweet and savory </span> fouées are made to please everyone. <span>Come</span> share
+                        A meal with us, you will not regret it.
+                    </p>
+                </div>
+                <img src="./assets/img/vue-du-couple-3d.jpg" />
+
+            </div>
+
+        </section>
+        <section class="accueil fra">
             <h1>Bienvenue sur Fouée't Moi </h1>
             <button onclick="location.href = './index.php'">Commander</button>
             <div>
@@ -137,5 +207,6 @@ echo head('Page d\'accueil');
         </section>
     </main>
     <footer></footer>
+    <script src="./assets/js/functions.js"></script>
 
 </body>

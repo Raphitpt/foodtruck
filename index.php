@@ -59,7 +59,10 @@ echo head('Accueil');
         </ul>
     </nav>
     <div class="infos_generale">
-        <p>Les horaires d'ouverture aujourd'hui sont : <?php echo $horaires['HeureOuverture'] ?>h - <?php echo $horaires['HeureFermeture'] ?>h</p>
+        <p>Les horaires d'ouverture aujourd'hui sont :
+            <?php echo $horaires['HeureOuverture'] ?>h -
+            <?php echo $horaires['HeureFermeture'] ?>h
+        </p>
     </div>
 
     <main class="main_commande">
@@ -67,12 +70,14 @@ echo head('Accueil');
 
         <section class="plats">
 
-        <div class="plats_title">
-                    <div class="plats_titles">
-                        <button type="button" class="button_fouee sel plats_title_salées" onclick="togglePlat('plats_salées')">fouées salées</button>
-                        <button type="button" class="button_fouee plats_title_sucrées" onclick="togglePlat('plats_sucrées')">fouées sucrées</button>
+            <div class="plats_title">
+                <div class="plats_titles">
+                    <button type="button" class="button_fouee sel plats_title_salées"
+                        onclick="togglePlat('plats_salées')">fouées salées</button>
+                    <button type="button" class="button_fouee plats_title_sucrées"
+                        onclick="togglePlat('plats_sucrées')">fouées sucrées</button>
 
-                    </div>
+                </div>
                 <div class="line"></div>
             </div>
             </div>
