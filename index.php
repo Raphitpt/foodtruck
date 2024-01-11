@@ -40,7 +40,11 @@ echo head('Accueil');
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="./assets/css/style.css" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous" />
+<<<<<<< HEAD
     <title>Commander</title>
+=======
+    <title>Connexion</title>
+>>>>>>> 92dc8885fb656ed78ad08fdd1fb553ab10e65e33
 </head>
 
 <body>
@@ -148,6 +152,7 @@ echo head('Accueil');
         <section>
             <div class="commande rectangle">
                 <div class="panier">
+<<<<<<< HEAD
                     <ul>
                         <li class="list_commande">
                             <i class="fa-solid fa-xmark"></i>
@@ -169,8 +174,10 @@ echo head('Accueil');
                         <p>Total du panier : ${panierTotal}€</p>
                         <button onclick="location.href = './order.php'" class="button_command">Commander</button>
                     </div>
+=======
+                    <div><p>Votre panier est vide !</p></div>
+>>>>>>> 92dc8885fb656ed78ad08fdd1fb553ab10e65e33
                 </div>
-                <!-- <a href="./order.php" class="order-button">Commander</a> -->
             </div>
         </section>
     </main>
@@ -179,6 +186,7 @@ echo head('Accueil');
     <script src="https://kit.fontawesome.com/45762c6469.js" crossorigin="anonymous"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+<<<<<<< HEAD
             const numberAddElements = document.querySelectorAll('.number_add');
 
             numberAddElements.forEach(function(element) {
@@ -194,6 +202,21 @@ echo head('Accueil');
                     inputElement.stepDown();
                 });
             });
+=======
+                    const panierDiv = document.querySelector('.panier');
+
+                    panierDiv.addEventListener('click', function(event) {
+                        // Vérifiez si le clic est sur un bouton d'ajout ou de soustraction
+                        if (event.target.classList.contains('add')) {
+                            const inputElement = event.target.closest('.number_add').querySelector('input');
+                            inputElement.stepUp();
+                        } else if (event.target.classList.contains('sub')) {
+                            const inputElement = event.target.closest('.number_add').querySelector('input');
+                            inputElement.stepDown();
+                        }
+
+                    });
+>>>>>>> 92dc8885fb656ed78ad08fdd1fb553ab10e65e33
         });
     </script>
 </body>
