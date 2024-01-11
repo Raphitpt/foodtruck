@@ -48,9 +48,9 @@ echo head('Accueil');
         </ul>
     </nav>
     <main>
-        
-        <section>
-            <a href="indexBO.php" class="btn"><i class="fa-solid fa-arrow-left"></i></a>
+        <a href="indexBO.php" class="btn"><i class="fa-solid fa-arrow-left"></i></a>
+        <section class="infosEntr">
+            
             <div class="title_infos">
                 <h1>Les informations de l'entreprise sont :</h1>
                 <div class="infos">
@@ -65,7 +65,7 @@ echo head('Accueil');
                     <?php endforeach; ?>
                 </div>
             </div>
-            <div class="buttons">
+            <div>
                 <button type="button" class="actions"><a href="editEntreprise.php">Modifier</a></button>
             </div>
         </section>
