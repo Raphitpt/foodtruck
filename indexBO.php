@@ -67,9 +67,10 @@ echo head('Accueil');
             </div>
 
             <div class="action">
+                <a href="orderCheck.php">Commandes en cours</a>
                 <a href="orderHist.php">Historique des commandes</a>
                 <a href="index.php">Voir le site web</a></button>
-                <a href="modifPtsFid.php">Points de fidélité</a>
+                <a href="ptsFid.php">Points de fidélité</a>
                 <a href="infosEntreprise.php">Données de votre entreprise</a>
 
             </div>
