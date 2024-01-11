@@ -41,22 +41,29 @@ echo head('Accueil');
     <link href="./assets/css/style.css" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
         integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous" />
+    <title>Commander</title>
 </head>
 
 <body>
     <nav>
         <ul class="nav_left">
             <li class="nav_title"><img src="<?= $infos['url_logo'] ?>" alt="logo fouee">
-                <p>Fouée't Moi
+                <p>Fouée't Moi</p>
             </li>
             <li><button onclick="location.href = './accueil.php'" class="button_nav">Accueil</button></li>
-            <li><button onclick="location.href = ''" class="button_nav">Commander</button></li>
+            <li><button onclick="location.href = './index.php'" class="button_nav">Commander</button></li>
             <li><button onclick="location.href = ''" class="button_nav">Nous contacter</button></li>
+            <?php if (isset($_SESSION['email']) && $_SESSION['email'] === 'admin@gmail.com'): ?>
+                <li><button onclick="location.href = 'indexBO.php'" class="button_nav">Back Office</button></li>
+            <?php endif; ?>
         </ul>
         <ul class="nav_right">
             <li><button onclick="location.href = './login.php'" class="button_nav connect">Se connecter</button></li>
         </ul>
     </nav>
+
+
+
     <div class="infos_generale">
         <p>Les horaires d'ouverture aujourd'hui sont :
             <?php echo $horaires['HeureOuverture'] ?>h -
@@ -145,7 +152,7 @@ echo head('Accueil');
         <section>
             <div class="commande rectangle">
                 <div class="panier">
-                    <p> votre panier est vide</p>
+                    <p>votre panier est vide</P>
                 </div>
                 <!-- <a href="./order.php" class="order-button">Commander</a> -->
             </div>
