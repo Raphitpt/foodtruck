@@ -122,7 +122,11 @@ $infos = $infos->fetch();
         let total = 0;
 
         function formatDate(selectedDate) {
-            const options = { day: 'numeric', month: 'numeric', year: 'numeric' };
+            const options = {
+                day: 'numeric',
+                month: 'numeric',
+                year: 'numeric'
+            };
             const dateObject = new Date(selectedDate);
             return dateObject.toLocaleDateString('fr-FR', options);
         }
@@ -158,7 +162,7 @@ $infos = $infos->fetch();
 
         }
 
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             // Initialise la date du jour lors du chargement de la page
             const today = new Date();
             const formattedToday = today.toISOString().split('T')[0]; // Format YYYY-MM-DD
@@ -168,11 +172,11 @@ $infos = $infos->fetch();
             listPanier("12h00", formattedToday);
 
             // Associe l'événement de changement de date
-            dateReservationInput.addEventListener('change', function () {
+            dateReservationInput.addEventListener('change', function() {
                 const selectedDate = dateReservationInput.value;
                 if (btnHeure) {
                     btnHeure.forEach((elem) => {
-                        elem.addEventListener("click", function (event) {
+                        elem.addEventListener("click", function(event) {
                             listPanier(event.target.textContent, selectedDate);
                             btnHeure.forEach((elem) => {
                                 elem.classList.remove('heureSelected');
@@ -190,11 +194,46 @@ $infos = $infos->fetch();
             commanderButton.style.display = 'none';
         }
 
-        commanderButton.addEventListener('click', function () {
+        /*commanderButton.addEventListener('click', function() {
             window.location.href = 'commande.php';
+        });*/
+        commanderButton.addEventListener('click', function() {
+            /*if (!heureSelectionnee) {
+                alert("Veuillez sélectionner une heure avant de commander.");
+                return;
+            }
+            */
+           console.log(document.querySelector('.heureSelected .selectedTime').textContent);
+           console.log(selectedDate);
+           
+            console.log(date_retrait);
+            const commande = {
+                panier: panier,
+                date: document.getElementById('choix_date').value,
+                heure: document.querySelector('.heureSelected .selectedTime').textContent
+            };
+
+            // Utilisez Fetch API pour envoyer les données au serveur
+            fetch('enregistrer_commande.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(commande),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        alert("Commande enregistrée avec succès!");
+                        // Vous pouvez rediriger l'utilisateur ou effectuer d'autres actions après l'enregistrement
+                    } else {
+                        alert("Erreur lors de l'enregistrement de la commande.");
+                    }
+                })
+                .catch((error) => {
+                    console.error('Erreur lors de l\'enregistrement de la commande:', error);
+                });
         });
-
-
     </script>
     <script src="./assets/js/functions.js"></script>
     <script src="https://kit.fontawesome.com/45762c6469.js" crossorigin="anonymous"></script>
