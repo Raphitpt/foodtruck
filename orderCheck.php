@@ -38,7 +38,10 @@ $infos = $infos->fetch();
         </ul>
     </nav>
     <main>
-        <a href="indexBO.php" class="btn"><i class="fa-solid fa-arrow-left"></i></a>
+        <div class="btn-retour">
+            <a href="indexBO.php" class="btn"><i class="fa-solid fa-arrow-left"></i></a>
+        </div>
+        
         <section class="commandeTable">
             <h1>Commande en direct</h1>
             <table class="table" id="table" data-toggle="table" data-show-columns="true" data-search="true" auto-refresh="true">

@@ -53,8 +53,6 @@ echo head('Accueil');
             <p>Fouée't Moi</p>
         </li>
         <li><button onclick="location.href = './accueil.php'" class="button_nav">Accueil</button></li>
-        <li><button onclick="location.href = './index.php'" class="button_nav">Commander</button></li>
-        <li><button onclick="location.href = ''" class="button_nav">Nous contacter</button></li>
         <?php if (isset($_SESSION['email']) && $_SESSION['email'] === 'admin@gmail.com') : ?>
         <li><button onclick="location.href = 'indexBO.php'" class="button_nav">Back Office</button></li>
         <?php endif; ?>

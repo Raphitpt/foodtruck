@@ -27,14 +27,15 @@ $users = $users->fetchAll();
 ?>
 
 <body>
-    <nav>
+<nav>
         <ul class="nav_left">
             <li class="nav_title"><img src="<?= $infos['url_logo'] ?>" alt="logo fouee">
-                <p>Fouée't Moi
+                <p>Fouée't Moi</p>
             </li>
-            <li><button onclick="location.href = './index.php'" class="button_nav">Accueil</button></li>
-            <li><button onclick="location.href = ''" class="button_nav">Commander</button></li>
-            <li><button onclick="location.href = ''" class="button_nav">Nous contacter</button></li>
+            <li><button onclick="location.href = './accueil.php'" class="button_nav">Accueil</button></li>
+            <?php if (isset($_SESSION['email']) && $_SESSION['email'] === 'admin@gmail.com') : ?>
+                <li><button onclick="location.href = 'indexBO.php'" class="button_nav">Back Office</button></li>
+            <?php endif; ?>
         </ul>
         <ul class="nav_right">
             <li><button onclick="location.href = './login.php'" class="button_nav connect">Se connecter</button></li>

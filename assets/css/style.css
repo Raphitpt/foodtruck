@@ -538,9 +538,9 @@ main {
   align-items: center;
   flex-direction: column;
   gap: 1rem;
-  margin-left: 5vw;
+  margin-top: 5vh;
   width: auto;
-  margin-right: 5vw;
+
 }
 .table > :not(caption) > * {
   padding: 5vw;
@@ -770,4 +770,13 @@ input[type="date"] {
       color: blue;
     }
   }
+}
+
+
+.btn-retour{
+  position:absolute;
+  top: 0;
+  left: 0;
+  margin: 1rem;
+  font-size: 2rem;
 }
