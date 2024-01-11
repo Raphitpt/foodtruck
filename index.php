@@ -157,9 +157,14 @@ echo head('Accueil');
 
             </div>
             <a href="./mail.php">Mail</a>
+
         </section>
         <section>
             <div>Je suis gay </div>
+            <a href="./commande.php">coammnder</a>
+            <div>bonjour je m'appelle
+
+            </div>
         </section>
     </main>
     <script src="./assets/js/functions.js"></script>
