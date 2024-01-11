@@ -44,12 +44,12 @@ echo head('Accueil');
             <li class="nav_title"><img src="<?= $infos['url_logo'] ?>" alt="logo fouee">
                 <p>Fouée't Moi
             </li>
-            <li><button onclick="location.href = './index.php'" class="button_nav">accueil</button></li>
-            <li><button onclick="location.href = ''" class="button_nav">commander</button></li>
-            <li><button onclick="location.href = ''" class="button_nav">nous contacter</button></li>
+            <li><button onclick="location.href = './index.php'" class="button_nav">Accueil</button></li>
+            <li><button onclick="location.href = ''" class="button_nav">Commander</button></li>
+            <li><button onclick="location.href = ''" class="button_nav">Nous contacter</button></li>
         </ul>
         <ul class="nav_right">
-            <li><button onclick="location.href = './login.php'" class="button_nav connect">se connecter</button></li>
+            <li><button onclick="location.href = './login.php'" class="button_nav connect">Se connecter</button></li>
         </ul>
     </nav>
     <div class="title_infos">
@@ -66,9 +66,9 @@ echo head('Accueil');
             <div class="plats_title">
                 <div class="plats_titles">
                     <button type="button" class="button_fouee sel plats_title_salées"
-                        onclick="togglePlat('plats_salées')">fouées salées</button>
+                        onclick="togglePlat('plats_salées')">Fouées salées</button>
                     <button type="button" class="button_fouee plats_title_sucrées"
-                        onclick="togglePlat('plats_sucrées')">fouées sucrées</button>
+                        onclick="togglePlat('plats_sucrées')">Fouées sucrées</button>
 
                 </div>
                 <div class="line"></div>
