@@ -9,15 +9,15 @@ if (!isset($_SESSION['email']) || $_SESSION['email'] !== 'admin@gmail.com') {
     exit();
 }
 
-echo head('Historique de commande');
-
-$hist = "SELECT * FROM commandes inner join users on commandes.id_user = users.id_user";
-$hist = $dbh->query($hist);
-$hist = $hist->fetchAll();
-
-$infos = "SELECT * FROM settings";
+echo head('Points de fidélité');
+$infos = "SELECT * FROM commandes inner join users on commandes.id_user = users.id_user WHERE statut = 'En cours'";
 $infos = $dbh->query($infos);
 $infos = $infos->fetch();
+
+
+$users = "SELECT * FROM users";
+$users = $dbh->query($users);
+$users = $users->fetchAll();
 
 
 ?>
@@ -39,35 +39,24 @@ $infos = $infos->fetch();
     <main>
         <a href="indexBO.php" class="btn"><i class="fa-solid fa-arrow-left"></i></a>
         <section class="commandeTable">
-            <h1>Historique de commande</h1>
+            <h1>Points de fidélité des clients</h1>
             <table class="table" id="table" data-toggle="table" data-show-columns="true" data-search="true" auto-refresh="true">
                 <thead>
                     <tr>
-                        <th scope="col" data-sortable="true" data-field="id">Numéro de commande</th>
                         <th scope="col">Nom/Prénom du client</th>
-                        <th scope="col">Date de commande</th>
-                        <th scope="col">Date de retrait</th>
-                        <th scope="col">Statut</th>
-                        <th scope="col">Commentaire</th>
-                        <th scope="col">Total</th>
+                        <th scope="col" data-sortable="true">Points de fidélité</th>
+                        
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($hist as $histo) { ?>
+                    <?php foreach ($users as $user) { ?>
                         <tr>
-                            <td><?php echo $histo['id_commande']; ?></td>
-                            <td><?php echo $histo['nom'] . " " . $histo['prenom'] ?></td>
-                            <td><?php echo $histo['date_commande']; ?></td>
-                            <td><?php echo $histo['date_retrait']; ?></td>
-                            <td><?php echo $histo['statut']; ?></td>
-                            <td><?php echo $histo['commentaire']; ?></td>
-                            <td><?php echo $histo['total']; ?>€</td>
-
+                            <td><?php echo $user['nom'] . " " . $user['prenom'] ?></td>
+                            <td><?php echo $user['pts_fidelite']; ?></td>
                         </tr>
                     <?php } ?>
                 </tbody>
             </table>
-
         </section>
     </main>
 

@@ -9,9 +9,9 @@ if (!isset($_SESSION['email']) || $_SESSION['email'] !== 'admin@gmail.com') {
     exit();
 }
 
-echo head('Historique de commande');
+echo head('Commandes en cours');
 
-$hist = "SELECT * FROM commandes inner join users on commandes.id_user = users.id_user";
+$hist = "SELECT * FROM commandes inner join users on commandes.id_user = users.id_user WHERE statut = 'En cours'";
 $hist = $dbh->query($hist);
 $hist = $hist->fetchAll();
 
@@ -50,6 +50,8 @@ $infos = $infos->fetch();
                         <th scope="col">Statut</th>
                         <th scope="col">Commentaire</th>
                         <th scope="col">Total</th>
+
+                        
                     </tr>
                 </thead>
                 <tbody>
@@ -63,7 +65,7 @@ $infos = $infos->fetch();
                             <td><?php echo $histo['commentaire']; ?></td>
                             <td><?php echo $histo['total']; ?>€</td>
 
-                        </tr>
+                            <td><a href="./ptsFid.php?id_commande=<?php echo $histo['id_commande']; ?>">Valider</a></td>                        </tr>
                     <?php } ?>
                 </tbody>
             </table>
