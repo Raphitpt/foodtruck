@@ -254,3 +254,4 @@ function togglePlat(platType) {
     sucreIcon.classList.remove("sel");
   }
 }
+
