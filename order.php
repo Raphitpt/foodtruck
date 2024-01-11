@@ -9,6 +9,7 @@ $infos = "SELECT * FROM settings";
 $infos = $dbh->query($infos);
 $infos = $infos->fetch();
 
+
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -91,7 +92,7 @@ $infos = $infos->fetch();
             <select name="choix_date" id="choix_date" required>
                 <?php
                 $currentDate = new DateTime(); // La date actuelle
-                
+
                 // Cloner la date actuelle pour avoir la date de fin
                 $endDate = clone $currentDate;
                 $endDate->add(new DateInterval('P2W'));
@@ -135,6 +136,7 @@ $infos = $infos->fetch();
             let heure = "";
 
             let total = 0;
+
             function listPanier(x) {
                 html = '';
                 let prix = 0;
@@ -164,7 +166,7 @@ $infos = $infos->fetch();
             listPanier();
             if (btnHeure) {
                 btnHeure.forEach((elem) => {
-                    elem.addEventListener("click", function (event) {
+                    elem.addEventListener("click", function(event) {
                         listPanier(event.target.textContent);
                         btnHeure.forEach((elem) => {
                             elem.classList.remove('heureSelected');
@@ -178,10 +180,44 @@ $infos = $infos->fetch();
                 commanderButton.style.display = 'none';
             }
 
-            commanderButton.addEventListener('click', function () {
-                window.location.href = 'commande.php';
+            /*commanderButton.addEventListener('click', function() {
+                window.location.href = 'index.php';
             });
+            */
+            commanderButton.addEventListener('click', function() {
+                if (!heureSelectionnee) {
+                    alert("Veuillez sélectionner une heure avant de commander.");
+                    return;
+                }
+             
+                console.log('idpanier');
+                const commande = {
+                    id_commande:idpanier,
+                    date: document.getElementById('choix_date').value,
+                    heure: document.querySelector('.heureSelected .selectedTime').textContent
+                };
 
+                // Utilisez Fetch API pour envoyer les données au serveur
+                fetch('enregistrer_commande.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(commande),
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status === 'success') {
+                            alert("Commande enregistrée avec succès!");
+                            // Vous pouvez rediriger l'utilisateur ou effectuer d'autres actions après l'enregistrement
+                        } else {
+                            alert("Erreur lors de l'enregistrement de la commande.");
+                        }
+                    })
+                    .catch((error) => {
+                        console.error('Erreur lors de l\'enregistrement de la commande:', error);
+                    });
+            });
         </script>
         <script src="./assets/js/functions.js"></script>
         <script src="https://kit.fontawesome.com/45762c6469.js" crossorigin="anonymous"></script>
