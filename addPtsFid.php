@@ -2,6 +2,7 @@
 
 require 'bootstrap.php';
 session_start();
+
 if (!isset($_SESSION['email']) || $_SESSION['email'] !== 'admin@gmail.com') {
     // Rediriger vers une page d'erreur ou une autre page appropriée si l'utilisateur n'est pas autorisé.
     echo "Vous n'êtes pas le bienvenu ici";
@@ -9,61 +10,50 @@ if (!isset($_SESSION['email']) || $_SESSION['email'] !== 'admin@gmail.com') {
     exit();
 }
 
-echo head('Points de fidélité');
-$infos = "SELECT * FROM commandes inner join users on commandes.id_user = users.id_user WHERE statut = 'En cours'";
-$infos = $dbh->query($infos);
-$infos = $infos->fetch();
+$id_commande = isset($_GET['id_commande']) ? $_GET['id_commande'] : null;
 
+// Récupérer les détails de la commande
+$commande = "SELECT * FROM commandes WHERE id_commande = $id_commande";
+$commande = $dbh->query($commande);
+$commande = $commande->fetch();
 
-$users = "SELECT * FROM users";
-$users = $dbh->query($users);
-$users = $users->fetchAll();
+// Vérifier si la commande existe
+if ($commande) {
+    // Mettre à jour le statut de la commande à "Récupérée"
+    $updateStatut = "UPDATE commandes SET statut = 'Récupérée' WHERE id_commande = $id_commande";
+    $dbh->exec($updateStatut);
 
+    // Calculer la valeur pour pts_fidelite (1/10 du prix total de la commande)
+    $pts_fidelite = $commande['total'] / 10;
+
+    // Récupérer les points de fidélité actuels de l'utilisateur
+    $getPtsFidelite = "SELECT pts_fidelite FROM users WHERE id_user = :id_user";
+    $statement = $dbh->prepare($getPtsFidelite);
+    $statement->bindParam(':id_user', $commande['id_user'], PDO::PARAM_INT);
+    $statement->execute();
+    $points_actuels = $statement->fetchColumn();
+
+    // Ajouter les nouveaux points aux points actuels
+    $pts_fidelite += $points_actuels;
+
+    // Mettre à jour le champ pts_fidelite de la table users
+    $updatePtsFidelite = "UPDATE users SET pts_fidelite = :pts_fidelite WHERE id_user = :id_user";
+
+    $statement = $dbh->prepare($updatePtsFidelite);
+    $statement->bindParam(':pts_fidelite', $pts_fidelite, PDO::PARAM_INT);
+    $statement->bindParam(':id_user', $commande['id_user'], PDO::PARAM_INT);
+
+    $success = $statement->execute();
+
+    if ($success) {
+        header('Location: orderCheck.php');
+    } else {
+        echo "Une erreur s'est produite lors de la mise à jour des points de fidélité.";
+    }
+
+} else {
+    echo "La commande n'existe pas.";
+    // Gérer le cas où la commande n'existe pas, peut-être rediriger l'utilisateur ou afficher un message approprié.
+}
 
 ?>
-
-<body>
-    <nav>
-        <ul class="nav_left">
-            <li class="nav_title"><img src="<?= $infos['url_logo'] ?>" alt="logo fouee">
-                <p>Fouée't Moi
-            </li>
-            <li><button onclick="location.href = './index.php'" class="button_nav">Accueil</button></li>
-            <li><button onclick="location.href = ''" class="button_nav">Commander</button></li>
-            <li><button onclick="location.href = ''" class="button_nav">Nous contacter</button></li>
-        </ul>
-        <ul class="nav_right">
-            <li><button onclick="location.href = './login.php'" class="button_nav connect">Se connecter</button></li>
-        </ul>
-    </nav>
-    <main>
-        <a href="indexBO.php" class="btn"><i class="fa-solid fa-arrow-left"></i></a>
-        <section class="commandeTable">
-            <h1>Points de fidélité des clients</h1>
-            <table class="table" id="table" data-toggle="table" data-show-columns="true" data-search="true" auto-refresh="true">
-                <thead>
-                    <tr>
-                        <th scope="col">Nom/Prénom du client</th>
-                        <th scope="col" data-sortable="true">Points de fidélité</th>
-                        
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($users as $user) { ?>
-                        <tr>
-                            <td><?php echo $user['nom'] . " " . $user['prenom'] ?></td>
-                            <td><?php echo $user['pts_fidelite']; ?></td>
-                        </tr>
-                    <?php } ?>
-                </tbody>
-            </table>
-        </section>
-    </main>
-
-
-</body>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/bootstrap-table@1.22.1/dist/bootstrap-table.min.js"></script>
-
-</html>

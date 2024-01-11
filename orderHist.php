@@ -29,8 +29,7 @@ $infos = $infos->fetch();
                 <p>Fouée't Moi
             </li>
             <li><button onclick="location.href = './index.php'" class="button_nav">Accueil</button></li>
-            <li><button onclick="location.href = ''" class="button_nav">Commander</button></li>
-            <li><button onclick="location.href = ''" class="button_nav">Nous contacter</button></li>
+            
         </ul>
         <ul class="nav_right">
             <li><button onclick="location.href = './login.php'" class="button_nav connect">Se connecter</button></li>

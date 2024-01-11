@@ -35,18 +35,20 @@ echo head('Accueil');
 </head>
 <body>
     
-    <nav>
-        <ul class="nav_left">
-            <li class="nav_title"><img src="<?= $infos['url_logo'] ?>" alt="logo fouee">
-                <p>Fouée't Moi
-            </li>
-            <li><button onclick="location.href = './accueil.php'" class="button_nav">Accueil</button></li>
-            <li><button onclick="location.href = ''" class="button_nav">Nous contacter</button></li>
-        </ul>
-        <ul class="nav_right">
-            <li><button onclick="location.href = './login.php'" class="button_nav connect">Se connecter</button></li>
-        </ul>
-    </nav>
+<nav>
+    <ul class="nav_left">
+        <li class="nav_title"><img src="<?= $infos['url_logo'] ?>" alt="logo fouee">
+            <p>Fouée't Moi</p>
+        </li>
+        <li><button onclick="location.href = './accueil.php'" class="button_nav">Accueil</button></li>
+        <?php if (isset($_SESSION['email']) && $_SESSION['email'] === 'admin@gmail.com') : ?>
+        <li><button onclick="location.href = 'indexBO.php'" class="button_nav">Back Office</button></li>
+        <?php endif; ?>
+    </ul>
+    <ul class="nav_right">
+        <li><button onclick="location.href = './login.php'" class="button_nav connect">Se connecter</button></li>
+    </ul>
+</nav>
     <main>
         <a href="indexBO.php" class="btn"><i class="fa-solid fa-arrow-left"></i></a>
         <section class="infosEntr">
