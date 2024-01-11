@@ -54,33 +54,31 @@ $infos = $infos->fetch();
             <li><button onclick="location.href = './login.php'" class="button_nav connect">Se connecter</button></li>
         </ul>
     </nav>
-    <main>
-        <main>
-            <section class="recap">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12">
-                            <h1>Mon panier</h1>
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Nom</th>
-                                        <th scope="col">Prix</th>
-                                        <th scope="col">Quantité</th>
-                                        <th scope="col">Total</th>
-                                        <th scope="col">Supprimer</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                            </table>
-                            <div class="resultDiv"></div>
-                            <div class="total">
-                                <h2 id="totalCommande"></h2>
-                            </div>
-                            <div class="btn">
-                                <button type="button" class="btn btn-primary btn_commander">Commander</button>
-                            </div>
+    <main class="recap_commande">
+        <section class="recap">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <h1>Mon panier</h1>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Nom</th>
+                                    <th scope="col">Prix</th>
+                                    <th scope="col">Quantité</th>
+                                    <th scope="col">Total</th>
+                                    <th scope="col">Supprimer</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                        <div class="total">
+                            <h2 id="totalCommande"></h2>
+                            <h2 id=totalDate></h2>
+                        </div>
+                        <div class="btn">
+                            <button type="button" class="btn btn-primary btn_commander">Commander</button>
                         </div>
                     </div>
                 </div>
@@ -119,19 +117,8 @@ $infos = $infos->fetch();
                 }
                 ?>
             </div>
-            <script>
-                const panier = JSON.parse(sessionStorage.getItem('panier')) || [];
-                console.log(panier);
-            </script>
-        </main>
-        <script>
-            const tbody = document.querySelector('tbody');
-            let html = '';
-            const totalCommande = document.getElementById('totalCommande');
-            const commanderButton = document.querySelector('.btn_commander')
-            const heureReservation = document.querySelectorAll('.selectedTime');
-            const btnHeure = document.querySelectorAll('.btnHeure');
-            const resultDiv = document.querySelector('.resultDiv');
+            <div>
+                <h2>Réserver son repas</h2>
 
             let heure = "";
 
@@ -175,6 +162,72 @@ $infos = $infos->fetch();
                     });
                 });
             }
+        let total = 0;
+
+        function formatDate(selectedDate) {
+            const options = { day: 'numeric', month: 'numeric', year: 'numeric' };
+            const dateObject = new Date(selectedDate);
+            return dateObject.toLocaleDateString('fr-FR', options);
+        }
+
+        function listPanier(heure, date) {
+            html = '';
+            let prix = 0;
+            let quantite = 0;
+            total = 0;
+            heure = heure || "12h00";
+
+            panier.forEach(element => {
+                html += '<tr>';
+                html += `<th scope="row">${element.nom}</th>`;
+                html += `<td>${element.prix}</td>`;
+                html += `<td>${element.quantite}</td>`;
+                prix = parseFloat(element.prix);
+                quantite = parseFloat(element.quantite);
+                const articleTotal = prix * quantite;
+                html += `<td>${articleTotal} €</td>`;
+                html += `<td><button><i class="fa-solid fa-trash"></button></i></td>`;
+                if (element.suplement != null) {
+                    html += `<td>${element.suplement.nom}</td>`;
+                }
+                html += '</tr>';
+                total += articleTotal;
+            });
+
+            tbody.innerHTML = html;
+            const formattedDate = formatDate(date);
+            totalCommande.innerHTML = `Total de la commande : ${total} €`;
+            totalDate.innerHTML = `Date de la commande : ${heure} le ${formattedDate}`;
+
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // Initialise la date du jour lors du chargement de la page
+            const today = new Date();
+            const formattedToday = today.toISOString().split('T')[0]; // Format YYYY-MM-DD
+            dateReservationInput.value = formattedToday;
+
+            // Initialise la liste de panier avec la date actuelle
+            listPanier("12h00", formattedToday);
+
+            // Associe l'événement de changement de date
+            dateReservationInput.addEventListener('change', function () {
+                const selectedDate = dateReservationInput.value;
+                if (btnHeure) {
+                    btnHeure.forEach((elem) => {
+                        elem.addEventListener("click", function (event) {
+                            listPanier(event.target.textContent, selectedDate);
+                            btnHeure.forEach((elem) => {
+                                elem.classList.remove('heureSelected');
+                            });
+                            elem.classList.add('heureSelected');
+                        });
+                    });
+                }
+
+                listPanier("12h00", selectedDate);
+            });
+        });
 
             if (panier.length === 0) {
                 commanderButton.style.display = 'none';

@@ -359,8 +359,7 @@ nav > ul > li > img {
   margin: 0;
 }
 
-
-.img_commande{
+.img_commande {
   width: 6rem;
   height: auto;
   object-fit: cover;
@@ -530,8 +529,7 @@ main {
   position: relative;
 }
 
-
-.commandeTable{
+.commandeTable {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -652,22 +650,44 @@ main {
 }
 
 .btn {
-  padding: 3rem;
+  padding: 1rem;
+  width: 100%;
+}
+.resultDiv {
+  font-weight: bold;
 }
 .radio-inputs {
   display: flex;
   justify-content: space-between;
   flex-direction: column;
-  width: 40vh;
-  height: 300px;
+  width: 25vh;
+  height: 400px;
+  overflow-y: scroll;
 }
-
+.radio-inputs::-webkit-scrollbar,
+.radio-inputs::-webkit-scrollbar {
+  width: 0.5rem;
+  scrollbar-face-color: #f5f5f5;
+  scrollbar-arrow-color: #fff;
+  scrollbar-shadow-color: #f1f1f1;
+  scrollbar-highlight-color: #f1f1f1;
+  scrollbar-3dlight-color: #f1f1f1;
+  scrollbar-darkshadow-color: #f1f1f1;
+}
+.radio-inputs::-webkit-scrollbar-thumb,
+.radio-inputs::-webkit-scrollbar-thumb {
+  border-radius: 6px;
+  background-color: #ffffff;
+}
+.radio-inputs::-webkit-scrollbar-track,
+.plradio-inputsatsBO::-webkit-scrollbar-track {
+  scrollbar-track-color: #191a20;
+}
 .btnHeure {
   padding: 10px;
   margin: 5px;
-  border: black solid 1px;
+  border: #e56d00 solid 1px;
   border-radius: 5px;
-  width: 100%;
   height: 100%;
   text-align: center;
   display: flex;
@@ -683,9 +703,68 @@ main {
 .btnHeure.heureSelected {
   background-color: #e56d00;
   color: white;
+  font-weight: 600;
 }
 
 p {
   margin-bottom: 0;
   cursor: pointer;
+}
+.recap {
+  display: flex;
+  justify-content: center;
+  background-color: white;
+  border-radius: 10px;
+  padding: 5rem;
+  margin: 2rem;
+}
+.container {
+  margin: 0 10px;
+}
+input[type="date"] {
+  margin: 0 auto;
+  width: 25vh;
+  font-family: arial, sans-serif;
+  font-size: 18px;
+  text-transform: uppercase;
+  background-color: #f1edeb;
+  outline: none;
+  border: 0;
+  border-radius: 5px;
+  color: #000;
+  box-sizing: border-box;
+  padding: 10px;
+
+  &::-webkit-datetime-edit-month-field {
+    color: #000;
+  }
+  &::-webkit-datetime-edit-day-field {
+    color: #000;
+  }
+  &::-webkit-datetime-edit-year-field {
+    color: #000;
+  }
+
+  &::-webkit-clear-button {
+    font-size: 18px;
+    height: 30px;
+    position: relative;
+    right: 5px;
+    margin-right: 4px;
+  }
+  &::-webkit-inner-spin-button {
+    height: 30px;
+  }
+  &::-webkit-calendar-picker-indicator {
+    font-size: 18px;
+
+    :hover {
+      background-color: #2f2f2f;
+      color: #232323;
+      cursor: pointer;
+    }
+    ::active {
+      color: blue;
+    }
+  }
 }
