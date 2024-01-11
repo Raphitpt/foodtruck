@@ -26,6 +26,9 @@ function head(string $title = ''): string
   <link rel="stylesheet" href="assets/css/style.css">
   <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.22.1/dist/bootstrap-table.min.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
   <link rel="icon" type="image/png" href="./assets/img/659fabf161f3c_FOUEE2.png" />
   <title>$title</title>
 </head>
@@ -39,7 +42,7 @@ HTML_HEAD;
  */
 function isGetMethod(): bool
 {
-    return  ($_SERVER['REQUEST_METHOD'] === 'GET') ;
+    return ($_SERVER['REQUEST_METHOD'] === 'GET');
 }
 /**
  * Envoyer un mail de confirmation.
@@ -57,7 +60,7 @@ HTML;
         'MIME-Version: 1.0',
         'Content-type: text/html; charset=utf-8',
         'From:  <rtiphonet@gmail.com>'
-        
+
     ];
     mail($to, $subject, $message, implode("\r\n", $headers));
 }
@@ -66,7 +69,7 @@ HTML;
  */
 function isPostMethod(): bool
 {
-    return  ($_SERVER['REQUEST_METHOD'] === 'POST') ;
+    return ($_SERVER['REQUEST_METHOD'] === 'POST');
 }
 /**
  * Affiche le footer du HTML.
@@ -82,7 +85,8 @@ function footer(): string
 HTML_FOOTER;
 }
 
-function DecalageFour($date, $nb, $dbh) {
+function DecalageFour($date, $nb, $dbh)
+{
     // Séparer la date en jour, mois, année, heure et minute
     list($annee, $mois, $jour, $heure, $minute) = explode("-", explode(" ", $date)[0] . "-" . explode(" ", $date)[1]);
 
@@ -126,7 +130,8 @@ function DecalageFour($date, $nb, $dbh) {
     }
 }
 
-function calculerProchainCreneau($date, $dbh) {
+function calculerProchainCreneau($date, $dbh)
+{
     $sql = "SELECT * FROM `four` WHERE date = :date AND heure > :heure AND nombre_fouees < 8 ORDER BY heure ASC";
     $stmt = $dbh->prepare($sql);
     $stmt->bindParam(':date', explode(" ", $date)[0]);
@@ -140,7 +145,8 @@ function calculerProchainCreneau($date, $dbh) {
     }
 }
 
-function getOrderForCreneau($jour, $mois, $annee, $heure, $dbh) {
+function getOrderForCreneau($jour, $mois, $annee, $heure, $dbh)
+{
     $sql = "SELECT * FROM `four` WHERE date = :date AND heure = :heure";
     $stmt = $dbh->prepare($sql);
     $stmt->bindParam(':date', $jour . "-" . $mois . "-" . $annee);
@@ -149,7 +155,8 @@ function getOrderForCreneau($jour, $mois, $annee, $heure, $dbh) {
     return $stmt->fetch();
 }
 
-function  enregistrerCommandes($jour, $mois, $annee, $heureCreneauSuivant, $commandesCreneau, $dbh){
+function  enregistrerCommandes($jour, $mois, $annee, $heureCreneauSuivant, $commandesCreneau, $dbh)
+{
     $sql = "INSERT INTO four (date, heure, nombre_fouees) VALUES ( :date, :heure, :nb) ";
     $stmt = $dbh->prepare($sql);
     $stmt->execute(['date' => $annee . "-" . $mois . "-" . $jour, 'heure' => $heureCreneauSuivant, 'nb' => $commandesCreneau]);
