@@ -5,10 +5,20 @@ document.addEventListener("DOMContentLoaded", function () {
   const idPlat = document.querySelectorAll(".id_plats");
   const addBoutons = document.querySelectorAll(".btn-primary");
   const enleverBoutons = document.querySelectorAll(".btn-danger");
-  const inputNumbers = document.querySelectorAll(".form-control");
+  // const inputNumbers = document.querySelectorAll(".form-control");
   const divSupplement = document.querySelector(".supplements");
   const closeSupplement = document.querySelector(".cross_close");
-  const ajouterBoutons = document.querySelectorAll(".btn-success");
+  const ajouterBoutons = document.querySelectorAll(".button_add");
+
+  let panierDiv = document.querySelector('.panier');
+
+  // Vérifier si la div est vide
+  if (panierDiv.innerHTML.trim() === '') {
+      // Ajouter une classe pour styliser l'icône dans un rond
+      panierDiv.classList.add('icon-in-circle');
+      let icon = '<i class="fa-solid fa-cart-shopping"></i>';
+      panierDiv.appendChild(icon);
+  }
 
 // update js functions
 
@@ -25,10 +35,10 @@ function updateInputNumbers() {
       inputNumber.value = item.quantite;
     }
     
-    if (footerCard.childElementCount === 0) {
-      let footerHTML = '<button class="btn btn-danger btn-sm">Ajouter un supplément</button>';
-      footerCard.innerHTML = footerHTML;
-    }
+    // if (footerCard.childElementCount === 0) {
+    //   let footerHTML = '<button class="btn btn-danger btn-sm">Ajouter un supplément</button>';
+    //   footerCard.innerHTML = footerHTML;
+    // }
   });
 }
 
@@ -37,11 +47,11 @@ function updateInputNumbers() {
   updateInputNumbers();
 
   ajouterBoutons.forEach((ajouterBouton, index) => {
-    let elementCounter = inputNumbers[index].value;
-
+    // let elementCounter = inputNumbers[index].value;
+    let elementCounter = 0
     ajouterBouton.addEventListener("click", function () {
       elementCounter++;
-      inputNumbers[index].value = elementCounter;
+      // inputNumbers[index].value = elementCounter;
       let id = idPlat[index].value;
       let itemIndex = panier.findIndex((item) => item.id === id);
 
@@ -61,44 +71,45 @@ function updateInputNumbers() {
       panierDiv.innerHTML = generatePanierHTML(panier);
       updateInputNumbers();
       updateCartDisplay();
+      
       sessionStorage.setItem("panier", JSON.stringify(panier));
 
       // Afficher le bouton "order-button" uniquement s'il y a des articles dans le panier
       orderButton.style.display = panier.length > 0 ? "block" : "none";
     });
 
-    enleverBoutons[index].addEventListener("click", function () {
-      if (elementCounter > 0) {
-        elementCounter--;
-        inputNumbers[index].value = elementCounter;
+    // enleverBoutons[index].addEventListener("click", function () {
+    //   if (elementCounter > 0) {
+    //     elementCounter--;
+    //     inputNumbers[index].value = elementCounter;
 
-        let id = idPlat[index].value;
-        let itemIndex = panier.findIndex((item) => item.id === id);
-        const footerCard = document.getElementById(`supplement-card-${id}`);
+    //     let id = idPlat[index].value;
+    //     let itemIndex = panier.findIndex((item) => item.id === id);
+    //     const footerCard = document.getElementById(`supplement-card-${id}`);
 
-        if (itemIndex !== -1) {
-          if (elementCounter === 0) {
-            panier.splice(itemIndex, 1);
-            footerCard.innerHTML = "";
-          } else {
-            panier[itemIndex].quantite = elementCounter;
-          }
-        }
+    //     if (itemIndex !== -1) {
+    //       if (elementCounter === 0) {
+    //         panier.splice(itemIndex, 1);
+    //         footerCard.innerHTML = "";
+    //       } else {
+    //         panier[itemIndex].quantite = elementCounter;
+    //       }
+    //     }
 
-        // Recalculer le total du panier
-        const panierTotal = calculateTotal(panier);
+    //     // Recalculer le total du panier
+    //     const panierTotal = calculateTotal(panier);
 
-        // Mettre à jour le contenu du panier
-        const panierDiv = document.querySelector(".panier");
-        updateInputNumbers();
-        panierDiv.innerHTML = generatePanierHTML(panier, panierTotal);
+    //     // Mettre à jour le contenu du panier
+    //     const panierDiv = document.querySelector(".panier");
+    //     updateInputNumbers();
+    //     panierDiv.innerHTML = generatePanierHTML(panier, panierTotal);
 
-        // Afficher le bouton "order-button" uniquement s'il y a des articles dans le panier
-        orderButton.style.display = panier.length > 0 ? "block" : "none";
-      }
-      updateCartDisplay();
-      sessionStorage.setItem("panier", JSON.stringify(panier));
-    });
+    //     // Afficher le bouton "order-button" uniquement s'il y a des articles dans le panier
+    //     orderButton.style.display = panier.length > 0 ? "block" : "none";
+    //   }
+    //   updateCartDisplay();
+    //   sessionStorage.setItem("panier", JSON.stringify(panier));
+    // });
   });
 
   // Fonction pour calculer le total du panier
@@ -119,30 +130,34 @@ function updateInputNumbers() {
     return total;
   }
 
-  // Fonction pour générer le HTML du panier
-  function generatePanierHTML(panier, panierTotal) {
-    let html = "<ul>";
-    panier.forEach(function (plat) {
-      // Convertir le prix et la quantité en nombre à virgule flottante
-      const prix = parseFloat(plat.prix);
-      const quantite = parseFloat(plat.quantite);
+  // // Fonction pour générer le HTML du panier
+  // function generatePanierHTML(panier, panierTotal) {
+  //   let html = "<ul>";
+  //   panier.forEach(function (plat) {
+  //     // Convertir le prix et la quantité en nombre à virgule flottante
+  //     const prix = parseFloat(plat.prix);
+  //     const quantite = parseFloat(plat.quantite);
 
-      // Calculer le total pour cet article
-      const articleTotal = prix * quantite;
+  //     // Calculer le total pour cet article
+  //     const articleTotal = prix * quantite;
 
-      html += `<li>${plat.nom} - ${prix}€ - Quantité: ${quantite} - Total: ${articleTotal}€</li>`;
-    });
+  //     html += `<li>${plat.nom} - ${prix}€ - Quantité: ${quantite} - Total: ${articleTotal}€</li>`;
+  //   });
 
-    html += "</ul>";
-    if (panier.length > 0) {
-      html += `<p>Total du panier : ${panierTotal}€</p>`;
-      html += `<a href="./order.php" class="btn btn-primary">Commander</a>`;
-    } else {
-      html += `<i class="fa-solid fa-cart-shopping"></i>`;
-    }
-
-    return html;
-  }
+  //   html += "</ul>";
+  //   if (panier.length > 0) {
+  //     html += '<div class="bottom_panier">';
+  //     html += `<p>Total du panier : ${panierTotal}€</p>`;
+  //     html += `<button onclick="location.href = './order.php'" class="button_command">Commander</button>`;
+  //     html += "</div>";
+  //   } else {
+  //     html += `<i class="fa-solid fa-cart-shopping"></i>`;
+  //   }
+  //   if (panier.length == 0){
+  //     html = "";
+  //   }
+  //   return html;
+  // }
   // Fonction pour supprimer un article du panier
   const commandeSuppr = document.querySelectorAll(".commandeSuppr");
 
@@ -165,3 +180,40 @@ function updateInputNumbers() {
 
   updateCartDisplay();
 });
+
+
+//Toggle plats
+function togglePlat(platType) {
+  const sucreIcon = document.querySelector('.plats_title_sucrées');
+  const saleIcon = document.querySelector('.plats_title_salées');
+  const supplIcon = document.querySelector('.plats_title_suppléments');
+  const platsSucre = document.querySelector('.plats_sucre');
+  const platsSale = document.querySelector('.plats_sale');
+  const platsSuppl = document.querySelector('.plats_suppl');
+
+  if (platType === 'plats_sucrées') {
+      saleIcon.classList.remove("sel");
+      sucreIcon.classList.add("sel");
+      supplIcon.classList.remove("sel");
+      platsSucre.style.display = 'block';
+      platsSale.style.display = 'none';
+      platsSuppl.style.display = 'none';
+  } else if (platType === 'plats_salées') {
+      saleIcon.classList.add("sel");
+      sucreIcon.classList.remove("sel");
+      supplIcon.classList.remove("sel");
+      platsSale.style.display = 'block';
+      platsSucre.style.display = 'none';
+      platsSuppl.style.display = 'none';
+
+  } else if ( platType === 'suppléments') {
+      platsSuppl.style.display = 'block';
+      platsSucre.style.display = 'none';
+      platsSale.style.display = 'none';
+      supplIcon.classList.add("sel");
+      saleIcon.classList.remove("sel");
+      sucreIcon.classList.remove("sel");
+
+  }
+
+}

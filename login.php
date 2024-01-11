@@ -31,6 +31,9 @@ if (isset($_POST['envoi'])) {
         echo "Veuillez compléter les champs.";
     }
 }
+$infos = "SELECT * FROM settings";
+$infos = $dbh->query($infos);
+$infos = $infos->fetch();
 ?>
 
 <!DOCTYPE html>
@@ -45,16 +48,36 @@ if (isset($_POST['envoi'])) {
 </head>
 
 <body>
-    <h1>Connexion</h1>
-    <form method="POST" action="">
-        <label for="username">Mail :</label>
-        <input type="text" name="email">
-        <br>
-        <label for="password">Mot de passe :</label>
-        <input type="password" name="mdp">
-        <br><br>
-        <input type="submit" name="envoi" value="Envoyer">
-    </form>
+    <nav>
+        <ul class="nav_left">
+            <li class="nav_title"><img src="<?= $infos['url_logo'] ?>" alt="logo fouee">
+                <p>Fouée't Moi
+            </li>
+            <li><button onclick="location.href = './index.php'" class="button_nav">Accueil</button></li>
+            <li><button onclick="location.href = ''" class="button_nav">Commander</button></li>
+            <li><button onclick="location.href = ''" class="button_nav">Nous contacter</button></li>
+        </ul>
+        <ul class="nav_right">
+            <li><button onclick="location.href = './login.php'" class="button_nav connect">Se connecter</button></li>
+        </ul>
+    </nav>
+    <main>
+        <section class="form">
+            <h1>Connectez-vous</h1>
+            <form method="POST" action="">
+                <label for="username">Mail :</label>
+                <input type="text" name="email">
+                <br>
+                <label for="password">Mot de passe :</label>
+                <input type="password" name="mdp">
+                <br><br>
+                <input type="submit" name="envoi" value="Envoyer">
+            </form>
+        </section>
+    </main>
+
+
+
 </body>
 
 </html>

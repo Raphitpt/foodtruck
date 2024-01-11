@@ -4,6 +4,7 @@ require './bootstrap.php';
 session_start();
 
 
+
 $plats_sale = "SELECT * FROM plats WHERE id_categorie = 2";
 $plats_sale = $dbh->query($plats_sale);
 $plats_sale = $plats_sale->fetchAll();
@@ -16,6 +17,10 @@ $plats_sucre = $plats_sucre->fetchAll();
 $supplements = "SELECT * FROM supplements";
 $supplements = $dbh->query($supplements);
 $supplements = $supplements->fetchAll();
+
+$infos = "SELECT * FROM settings";
+$infos = $dbh->query($infos);
+$infos = $infos->fetch();
 
 echo head('Accueil');
 
@@ -35,30 +40,52 @@ echo head('Accueil');
 
 <body>
     <nav>
-        <ul>
-            <li> <img src="./assets/img/FOUEE2.png" alt="logo fouee">
+        <ul class="nav_left">
+            <li class="nav_title"><img src="<?= $infos['url_logo'] ?>" alt="logo fouee">
+                <p>Fouée't Moi
             </li>
-            <li><button><a href="./index.php"><i class="fa-solid fa-truck"></i></a></button></li>
-            <li><button><a href=""><i class="fa-solid fa-phone"></i></a></button></li>
-            <li><button><a href=""><i class="fa-solid fa-house"></i></a></button></li>
-            <li><button><a href="./login.php"><i class="fa-solid fa-user"></i></a></button></li>
+            <li><button onclick="location.href = './index.php'" class="button_nav">accueil</button></li>
+            <li><button onclick="location.href = ''" class="button_nav">commander</button></li>
+            <li><button onclick="location.href = ''" class="button_nav">nous contacter</button></li>
+        </ul>
+        <ul class="nav_right">
+            <li><button onclick="location.href = './login.php'" class="button_nav connect">se connecter</button></li>
         </ul>
     </nav>
-    <main>
+    <div class="title_infos">
+        <h1>Bonjour Michel, que allez-vous manger aujourd'hui ?</h1>
+        <h2>Le foodtruck est fermé actuellement.</h2>
+        <h3>Les horaires d'ouverture sont de 12h00 à 15h00.</h3>
+    </div>
 
+    <main class="main_commande">
         <!-- affichage des plats -->
+
         <section class="plats">
+
+            <div class="plats_title">
+                <div class="plats_titles">
+                    <button type="button" class="button_fouee sel plats_title_salées"
+                        onclick="togglePlat('plats_salées')">fouées salées</button>
+                    <button type="button" class="button_fouee plats_title_sucrées"
+                        onclick="togglePlat('plats_sucrées')">fouées sucrées</button>
+
+                </div>
+                <div class="line"></div>
+            </div>
+            </div>
             <div class="plats_sale">
-                <h1>Fouées salées</h1>
                 </br>
                 <div class="plats_card">
                     <?php foreach ($plats_sale as $plat): ?>
-                        <div class="card" style="width: 18rem;">
-                            <img src="..." class="card-img-top" alt="...">
+                        <div class="card">
+
                             <div class="card-body">
                                 <h5 class="card-title">
                                     <?= $plat['nom'] ?>
                                 </h5>
+                                <img class="card_img" src="./assets/img/Fouées_angevines_avec_rillettes.JPG"
+                                    alt="Photo d'un fouées à la rillette">
                                 <input type="hidden" name="id_plats" class="id_plats" value="<?= $plat['id_plat'] ?>">
                                 <p class="card-text">
                                     <?= $plat['composition'] ?>
@@ -66,29 +93,25 @@ echo head('Accueil');
                                 <p class="card-price">
                                     <?= $plat['prix'] ?>€
                                 </p>
-                                <div class="card-footer-plats">
-                                    <!-- <button type="button" class="btn btn-primary">Ajouter</button> -->
-                                    <input type="number" class="form-control" value="0"
+                                <button type="button" class="button_add"><i class="fa-solid fa-plus"></i>ajouter</button>
+                                <!-- <input type="number" class="form-control" value="0"
                                         id="input-number-<?= $plat['id_plat'] ?>">
                                     <button type="button" class="btn btn-success" id="ajouter">+</button>
                                     <button type="button" class="btn btn-danger" id="enlever">-</button>
-                                    <div id="supplement-card-<?= $plat['id_plat'] ?>">
+                                    <div id="supplement-card-<?= $plat['id_plat'] ?>"> -->
 
-                                    </div>
-                                </div>
+                                <!-- </div> -->
                             </div>
                         </div>
                     <?php endforeach; ?>
                 </div>
             </div>
-            <div class="plats_sucre">
-                <h1>Fouées sucrées</h1>
+            <div class="plats_sucre" style="display: none;">
                 </br>
                 <div class="plats_card">
                     <?php foreach ($plats_sucre as $plat): ?>
 
-                        <div class="card" style="width: 18rem;">
-                            <img src="..." class="card-img-top" alt="...">
+                        <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title">
                                     <?= $plat['nom'] ?>
@@ -100,75 +123,75 @@ echo head('Accueil');
                                 <p class="card-price">
                                     <?= $plat['prix'] ?>€
                                 </p>
-                                <div class="card-footer-plats">
-                                    <!-- <button type="button" class="btn btn-primary">Ajouter</button> -->
-                                    <input type="number" class="form-control" value="0"
-                                        id="input-number-<?= $plat['id_plat'] ?>">
+                                <button type="button" class="button_add">Ajouter</button>
+                                <!-- <div class="card-footer-plats">
+                                    <button type="button" class="btn btn-primary">Ajouter</button>
+                                    <input type="number" class="form-control" value="0" id="input-number-<?= $plat['id_plat'] ?>">
                                     <button type="button" class="btn btn-success" id="ajouter">+</button>
                                     <button type="button" class="btn btn-danger" id="enlever">-</button>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
 
                     <?php endforeach; ?>
                 </div>
             </div>
-            <div class="commande">
-                <div class="panier"></div>
-                <!-- <a href="./order.php" class="order-button">Commander</a> -->
-            </div>
-
-
-
-            <!-- affichage des suppléments -->
-
-            <div class="supplements" style="display:none;">
-                <h1>Suppléments</h1>
-                </br>
-                <div class="cross_close">
-                    <img src="./assets/img/cross_close.png" alt="croix fermer">
-                </div>
-                <div class="plats_card">
-                    <?php foreach ($supplements as $supplement): ?>
-
-                        <div class="card" style="width: 18rem;">
-                            <img src="..." class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">
-                                    <?= $supplement['nom'] ?>
-                                </h5>
-                                <p class="card-price">
-                                    <?= $supplement['prix'] ?>€
-                                </p>
-                                <div class="card-footer-plats">
-                                    <!-- <button type="button" class="btn btn-primary">Ajouter</button> -->
-                                    <input type="number" class="form-control" value="0"
-                                        id="input-number-<?= $plat['id_plat'] ?>">
-                                    <button type="button" class="btn btn-success" id="ajouter">+</button>
-                                    <button type="button" class="btn btn-danger" id="enlever">-</button>
-                                </div>
-                            </div>
-                        </div>
-
-                    <?php endforeach; ?>
-                </div>
-            </div>
-            <div class="fouee-recap">
-
-            </div>
-            <a href="./mail.php">Mail</a>
 
         </section>
-        <section>
-            <div>Je suis gay </div>
-            <a href="./commande.php">coammnder</a>
-            <div>bonjour je m'appelle
 
+        <section>
+            <div class="commande rectangle">
+                <div class="panier">
+                    <ul>
+                        <li class="list_commande">
+                            <i class="fa-solid fa-xmark"></i>
+                            <div class="div_img_commande"><img src="./assets/img/Fouées_angevines_avec_rillettes.JPG"
+                                    class="img_commande"></div>
+                            <div class="name_plat_commande">
+                                <p>${plat.nom}</p>
+                                <p>Suppléments</p>
+                                <p>15.5€</p>
+                            </div>
+                            <fieldset class="number_add">
+                                <button type="button" title="-" class="sub" control-id="ControlID-20">-</button>
+                                <input type="number" name="quantity" pattern="[0-9]+" control-id="ControlID-21" min="1"
+                                    value="1">
+                                <button type="button" title="+" class="add" control-id="ControlID-22">+</button>
+                            </fieldset>
+                        </li>
+                        <div class="line"></div>
+                    </ul>
+                    <div class="bottom_panier">
+                        <p>Total du panier : ${panierTotal}€</p>
+                        <button onclick="location.href = './order.php'" class="button_command">Commander</button>
+                    </div>
+                </div>
+                <!-- <a href="./order.php" class="order-button">Commander</a> -->
             </div>
         </section>
     </main>
+
     <script src="./assets/js/functions.js"></script>
     <script src="https://kit.fontawesome.com/45762c6469.js" crossorigin="anonymous"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const numberAddElements = document.querySelectorAll('.number_add');
+
+            numberAddElements.forEach(function (element) {
+                const inputElement = element.querySelector('input');
+                const addButton = element.querySelector('.add');
+                const subButton = element.querySelector('.sub');
+
+                addButton.addEventListener('click', function () {
+                    inputElement.stepUp();
+                });
+
+                subButton.addEventListener('click', function () {
+                    inputElement.stepDown();
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>

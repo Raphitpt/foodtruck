@@ -84,6 +84,18 @@ CREATE TABLE `detail_supplements` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `four`
+--
+
+CREATE TABLE `four` (
+  `date` date NOT NULL,
+  `heure` time NOT NULL,
+  `nombre_fouees` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `plats`
 --
 
@@ -147,7 +159,9 @@ CREATE TABLE `users` (
   `prenom` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `passwd` varchar(255) NOT NULL,
-  `pts_fidelite` int(11) DEFAULT NULL
+  `pts_fidelite` int(11) DEFAULT NULL,
+  `mailverif` varchar(255) NOT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --

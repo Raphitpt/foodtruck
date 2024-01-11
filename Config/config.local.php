@@ -1,5 +1,7 @@
 <?php
 
+/* Fichier : /config/config.prod.php */
+
 // le nom de la base
 define('APP_DB_NAME', 'rtiphonet_foodtruck');
 

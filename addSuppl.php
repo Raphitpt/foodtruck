@@ -11,8 +11,8 @@ $infos = "SELECT * FROM settings";
 $infos = $dbh->query($infos);
 $infos = $infos->fetch();
 
-echo head('Ajouter un plat');
-$id_plat = isset($_GET['id_plat']) ? htmlspecialchars($_GET['id_plat']) : '';
+echo head('Ajouter un supplément');
+$id_suppl = isset($_GET['id_suppl']) ? htmlspecialchars($_GET['id_suppl']) : '';
 
 ?>
 
@@ -20,30 +20,17 @@ $id_plat = isset($_GET['id_plat']) ? htmlspecialchars($_GET['id_plat']) : '';
   <div class="container">
     <?php
     if ($_SERVER['REQUEST_METHOD'] === 'GET') { ?>
-      <h1>Ajouter un plat</h1>
+      <h1>Ajouter un supplément</h1>
       <form action="" method="post">
         <div class="grid">
           <div>
             <div>
-              <label for="nom">Nom du plat:</label>
+              <label for="nom">Nom du supplément:</label>
               <input name="nom" id="nom" type="text" required>
             </div>
             <div>
-              <label for="composition">Composition du plat</label>
-              <input name="composition" id="composition" required>
-            </div>
-            <div>
-              <label for="prix">Prix du plat</label>
+              <label for="prix">Prix du supplément</label>
               <input name="prix" id="prix" type="number" required>
-            </div>
-            <div>
-              <label>
-                    <input type="radio" name="choix" value="1">Sucrée 
-                </label>
-                <br>
-                <label>
-                    <input type="radio" name="choix" value="2">Salée 
-                </label>
             </div>
           </div>
           <button type="submit">Ajouter</button>
@@ -55,9 +42,7 @@ $id_plat = isset($_GET['id_plat']) ? htmlspecialchars($_GET['id_plat']) : '';
 
       // 1. Récupérer les données du formulaire
       $nom = htmlspecialchars(trim($_POST['nom']));
-      $composition = htmlspecialchars(trim($_POST['composition']));
       $prix = htmlspecialchars(trim($_POST['prix']));
-      $id_categorie = $_POST['choix'];
 
       $errors = [];
 
@@ -70,15 +55,13 @@ $id_plat = isset($_GET['id_plat']) ? htmlspecialchars($_GET['id_plat']) : '';
         <?php }
       } else {
         // 2. Construire le SQL de la requête préparée d'insertion
-        $sql = 'INSERT INTO plats(`nom`, `composition`, `prix`,`id_categorie`)
-                VALUES (:nom, :composition, :prix, :id_categorie)';
+        $sql = 'INSERT INTO supplements(`nom`,`prix`)
+                VALUES (:nom, :prix)';
         // Exécuter
         $sth = $dbh->prepare($sql);
         $sth->execute([
           'nom' => $nom,
-          'composition' => $composition,
           'prix' => $prix,
-          'id_categorie' => $id_categorie,
         ]);
 
         // 3. Après l'insertion, retourner sur la page d'accueil avec un message
