@@ -12,10 +12,11 @@ document.addEventListener("DOMContentLoaded", function () {
   if (panierDiv.innerHTML.trim() === "") {
     panierDiv.classList.add("icon-in-circle");
     let icon = document.createElement('i');
-    icon.className = "fa-solid fa-cart-shopping";
+    icon.classList.add("fa-solid", "fa-cart-shopping");
     panierDiv.appendChild(icon);
   }
 
+  // update js functions
   let panier = JSON.parse(sessionStorage.getItem("panier")) || [];
 
   function updateInputNumbers() {
@@ -76,13 +77,16 @@ document.addEventListener("DOMContentLoaded", function () {
       const articleTotal = prix * quantite;
 
       html += `<li class="list_commande">
-        <i class="fa-solid fa-xmark"></i>
+        <div class="supprCommande">
+          <i class="fa-solid fa-xmark"></i>
+        </div>
+        
         <div class="div_img_commande">
           <img src="./assets/img/Fouées_angevines_avec_rillettes.JPG" class="img_commande">
         </div>
         <div class="name_plat_commande">
-          <p>${plat.nom}<p>
-          <p>Supléments<p>
+          <p>${plat.nom}</p>
+          <p>Supléments</p>
           <p>${prix} €</p>
         </div>
         <fieldset class="number_add">
@@ -97,18 +101,29 @@ document.addEventListener("DOMContentLoaded", function () {
     html += "</ul>";
     if (panier.length > 0) {
       html += '<div class="bottom_panier">';
-      const panierTotal = calculateTotal(panier);
-      html += `<p>Total du panier : ${panierTotal}€</p>`;
+      html += `<p>Total du panier : ${calculateTotal(panier)}€</p>`;
       html += `<button onclick="location.href = './order.php'" class="button_command">Commander</button>`;
       html += "</div>";
     } else {
       html += `<i class="fa-solid fa-cart-shopping"></i>`;
     }
-    if (panier.length == 0) {
+    if (panier.length === 0) {
       html = "";
     }
     return html;
   }
+
+  const commandeSuppr = document.querySelectorAll(".supprCommande");
+
+  commandeSuppr.forEach((suppr) => {
+    suppr.addEventListener("click", function () {
+      const id = suppr.dataset.id;
+      const itemIndex = panier.findIndex((item) => item.id === id);
+      panier.splice(itemIndex, 1);
+      updateCartDisplay();
+      sessionStorage.setItem("panier", JSON.stringify(panier));
+    });
+  });
 
   function updateCartDisplay() {
     const panierTotal = calculateTotal(panier);
@@ -131,7 +146,7 @@ function togglePlat(platType) {
   if (platType === "plats_sucrées") {
     saleIcon.classList.remove("sel");
     sucreIcon.classList.add("sel");
-    if (supplIcon != null){
+    if (supplIcon !== null) {
       supplIcon.classList.remove("sel");
     }
     platsSucre.style.display = "block";
@@ -140,10 +155,9 @@ function togglePlat(platType) {
   } else if (platType === "plats_salées") {
     saleIcon.classList.add("sel");
     sucreIcon.classList.remove("sel");
-    if (supplIcon != null){
+    if (supplIcon !== null) {
       supplIcon.classList.remove("sel");
     }
-    
     platsSale.style.display = "block";
     platsSucre.style.display = "none";
     platsSuppl.style.display = "none";

@@ -52,7 +52,7 @@ echo head('Accueil');
             <li class="nav_title"><img src="<?= $infos['url_logo'] ?>" alt="logo fouee">
                 <p><?php echo $infos['nom_entreprise'] ?></p>
             </li>
-            <li><button onclick="location.href = './indexBO.php'" class="button_nav">Accueil</button></li>
+            <li><button onclick="location.href = './accueil.php'" class="button_nav">Accueil</button></li>
             <li><button onclick="location.href = ''" class="button_nav">Nous contacter</button></li>
         </ul>
         <ul class="nav_right">
