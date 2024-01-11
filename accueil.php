@@ -43,7 +43,13 @@ echo head('Page d\'accueil');
     .accueil button {
         width: 15vw;
         padding: 1rem;
-        border: 1px solid #E56D00;
+        border:none;
+        background-color: #E56D00;
+        font-weight: 700;
+        border-radius:11px;
+        color:white;
+
+
     }
 
     .accueil div:nth-child(3) {
