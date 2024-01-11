@@ -53,7 +53,7 @@ $infos = $infos->fetch();
             <li><button onclick="location.href = './login.php'" class="button_nav connect">Se connecter</button></li>
         </ul>
     </nav>
-    <main>
+    <main class="recap_commande">
         <section class="recap">
             <div class="container">
                 <div class="row">
@@ -74,6 +74,7 @@ $infos = $infos->fetch();
                         </table>
                         <div class="total">
                             <h2 id="totalCommande"></h2>
+                            <h2 id=totalDate></h2>
                         </div>
                         <div class="btn">
                             <button type="button" class="btn btn-primary btn_commander">Commander</button>
@@ -85,23 +86,7 @@ $infos = $infos->fetch();
                 <h2>Réserver son repas</h2>
 
                 <div class="quantite"></div>
-                <select name="choix_date" id="choix_date" required>
-                    <?php
-                    $currentDate = new DateTime(); // La date actuelle
-                    
-                    // Cloner la date actuelle pour avoir la date de fin
-                    $endDate = clone $currentDate;
-                    $endDate->add(new DateInterval('P2W'));
-
-                    $dateInterval = new DateInterval('P1D');
-                    $dateRange = new DatePeriod($currentDate, $dateInterval, $endDate);
-                    foreach ($dateRange as $date) {
-                        $currentDate = $date->format('Y-m-d');
-                        echo '<option class="calendar-cell data-date="' . $currentDate . '" onclick="selectCell(this)">';
-                        echo $currentDate;  // Format date et heure
-                        echo '</option>';
-                    }
-                    ?>
+                <input type="date" id="dateReservation">
                 </select>
                 <div class="radio-inputs">
                     <?php
@@ -127,19 +112,28 @@ $infos = $infos->fetch();
         const tbody = document.querySelector('tbody');
         let html = '';
         const totalCommande = document.getElementById('totalCommande');
-        const commanderButton = document.querySelector('.btn_commander')
+        const totalDate = document.getElementById('totalDate');
+
+        const commanderButton = document.querySelector('.btn_commander');
         const heureReservation = document.querySelectorAll('.selectedTime');
         const btnHeure = document.querySelectorAll('.btnHeure');
-
-        let heure = "";
+        const dateReservationInput = document.getElementById('dateReservation');
 
         let total = 0;
-        function listPanier(x) {
+
+        function formatDate(selectedDate) {
+            const options = { day: 'numeric', month: 'numeric', year: 'numeric' };
+            const dateObject = new Date(selectedDate);
+            return dateObject.toLocaleDateString('fr-FR', options);
+        }
+
+        function listPanier(heure, date) {
             html = '';
             let prix = 0;
             let quantite = 0;
             total = 0;
-            x = x || "12h00";
+            heure = heure || "12h00";
+
             panier.forEach(element => {
                 html += '<tr>';
                 html += `<th scope="row">${element.nom}</th>`;
@@ -147,7 +141,7 @@ $infos = $infos->fetch();
                 html += `<td>${element.quantite}</td>`;
                 prix = parseFloat(element.prix);
                 quantite = parseFloat(element.quantite);
-                articleTotal = prix * quantite;
+                const articleTotal = prix * quantite;
                 html += `<td>${articleTotal} €</td>`;
                 html += `<td><button><i class="fa-solid fa-trash"></button></i></td>`;
                 if (element.suplement != null) {
@@ -156,21 +150,41 @@ $infos = $infos->fetch();
                 html += '</tr>';
                 total += articleTotal;
             });
+
             tbody.innerHTML = html;
-            totalCommande.innerHTML = `Total de la commande : ${total} € pour ${x}`;
+            const formattedDate = formatDate(date);
+            totalCommande.innerHTML = `Total de la commande : ${total} €`;
+            totalDate.innerHTML = `Date de la commande : ${heure} le ${formattedDate}`;
+
         }
-        listPanier();
-        if (btnHeure) {
-            btnHeure.forEach((elem) => {
-                elem.addEventListener("click", function (event) {
-                    listPanier(event.target.textContent);
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // Initialise la date du jour lors du chargement de la page
+            const today = new Date();
+            const formattedToday = today.toISOString().split('T')[0]; // Format YYYY-MM-DD
+            dateReservationInput.value = formattedToday;
+
+            // Initialise la liste de panier avec la date actuelle
+            listPanier("12h00", formattedToday);
+
+            // Associe l'événement de changement de date
+            dateReservationInput.addEventListener('change', function () {
+                const selectedDate = dateReservationInput.value;
+                if (btnHeure) {
                     btnHeure.forEach((elem) => {
-                        elem.classList.remove('heureSelected');
+                        elem.addEventListener("click", function (event) {
+                            listPanier(event.target.textContent, selectedDate);
+                            btnHeure.forEach((elem) => {
+                                elem.classList.remove('heureSelected');
+                            });
+                            elem.classList.add('heureSelected');
+                        });
                     });
-                    elem.classList.add('heureSelected');
-                });
+                }
+
+                listPanier("12h00", selectedDate);
             });
-        }
+        });
 
         if (panier.length === 0) {
             commanderButton.style.display = 'none';
@@ -179,6 +193,7 @@ $infos = $infos->fetch();
         commanderButton.addEventListener('click', function () {
             window.location.href = 'commande.php';
         });
+
 
     </script>
     <script src="./assets/js/functions.js"></script>

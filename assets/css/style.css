@@ -359,8 +359,7 @@ nav > ul > li > img {
   margin: 0;
 }
 
-
-.img_commande{
+.img_commande {
   width: 6rem;
   height: auto;
   object-fit: cover;
@@ -530,8 +529,7 @@ main {
   position: relative;
 }
 
-
-.commandeTable{
+.commandeTable {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -652,7 +650,8 @@ main {
 }
 
 .btn {
-  padding: 3rem;
+  padding: 1rem;
+  width: 100%;
 }
 .resultDiv {
   font-weight: bold;
@@ -714,7 +713,58 @@ p {
 .recap {
   display: flex;
   justify-content: center;
+  background-color: white;
+  border-radius: 10px;
+  padding: 5rem;
+  margin: 2rem;
 }
 .container {
   margin: 0 10px;
+}
+input[type="date"] {
+  margin: 0 auto;
+  width: 25vh;
+  font-family: arial, sans-serif;
+  font-size: 18px;
+  text-transform: uppercase;
+  background-color: #f1edeb;
+  outline: none;
+  border: 0;
+  border-radius: 5px;
+  color: #000;
+  box-sizing: border-box;
+  padding: 10px;
+
+  &::-webkit-datetime-edit-month-field {
+    color: #000;
+  }
+  &::-webkit-datetime-edit-day-field {
+    color: #000;
+  }
+  &::-webkit-datetime-edit-year-field {
+    color: #000;
+  }
+
+  &::-webkit-clear-button {
+    font-size: 18px;
+    height: 30px;
+    position: relative;
+    right: 5px;
+    margin-right: 4px;
+  }
+  &::-webkit-inner-spin-button {
+    height: 30px;
+  }
+  &::-webkit-calendar-picker-indicator {
+    font-size: 18px;
+
+    :hover {
+      background-color: #2f2f2f;
+      color: #232323;
+      cursor: pointer;
+    }
+    ::active {
+      color: blue;
+    }
+  }
 }
