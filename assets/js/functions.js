@@ -12,18 +12,11 @@ document.addEventListener("DOMContentLoaded", function () {
   if (panierDiv.innerHTML.trim() === "") {
     panierDiv.classList.add("icon-in-circle");
     let icon = document.createElement('i');
-<<<<<<< HEAD
     icon.classList.add("fa-solid", "fa-cart-shopping");
     panierDiv.appendChild(icon);
   }
 
   // update js functions
-=======
-    icon.className = "fa-solid fa-cart-shopping";
-    panierDiv.appendChild(icon);
-  }
-
->>>>>>> 3c39f63a5a190491cab908aef06d276ea1851c34
   let panier = JSON.parse(sessionStorage.getItem("panier")) || [];
 
   function updateInputNumbers() {
@@ -89,13 +82,8 @@ document.addEventListener("DOMContentLoaded", function () {
           <img src="./assets/img/Fouées_angevines_avec_rillettes.JPG" class="img_commande">
         </div>
         <div class="name_plat_commande">
-<<<<<<< HEAD
           <p>${plat.nom}</p>
           <p>Supléments</p>
-=======
-          <p>${plat.nom}<p>
-          <p>Supléments<p>
->>>>>>> 3c39f63a5a190491cab908aef06d276ea1851c34
           <p>${prix} €</p>
         </div>
         <fieldset class="number_add">
@@ -110,12 +98,7 @@ document.addEventListener("DOMContentLoaded", function () {
     html += "</ul>";
     if (panier.length > 0) {
       html += '<div class="bottom_panier">';
-<<<<<<< HEAD
       html += `<p>Total du panier : ${calculateTotal(panier)}€</p>`;
-=======
-      const panierTotal = calculateTotal(panier);
-      html += `<p>Total du panier : ${panierTotal}€</p>`;
->>>>>>> 3c39f63a5a190491cab908aef06d276ea1851c34
       html += `<button onclick="location.href = './order.php'" class="button_command">Commander</button>`;
       html += "</div>";
     } else {
@@ -127,7 +110,6 @@ document.addEventListener("DOMContentLoaded", function () {
     return html;
   }
 
-<<<<<<< HEAD
   const commandeSuppr = document.querySelectorAll(".commandeSuppr");
 
   commandeSuppr.forEach((suppr) => {
@@ -140,8 +122,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-=======
->>>>>>> 3c39f63a5a190491cab908aef06d276ea1851c34
   function updateCartDisplay() {
     const panierTotal = calculateTotal(panier);
     const panierDiv = document.querySelector(".panier");
@@ -163,11 +143,7 @@ function togglePlat(platType) {
   if (platType === "plats_sucrées") {
     saleIcon.classList.remove("sel");
     sucreIcon.classList.add("sel");
-<<<<<<< HEAD
     if (supplIcon !== null) {
-=======
-    if (supplIcon != null){
->>>>>>> 3c39f63a5a190491cab908aef06d276ea1851c34
       supplIcon.classList.remove("sel");
     }
     platsSucre.style.display = "block";
@@ -176,16 +152,9 @@ function togglePlat(platType) {
   } else if (platType === "plats_salées") {
     saleIcon.classList.add("sel");
     sucreIcon.classList.remove("sel");
-<<<<<<< HEAD
     if (supplIcon !== null) {
       supplIcon.classList.remove("sel");
     }
-=======
-    if (supplIcon != null){
-      supplIcon.classList.remove("sel");
-    }
-    
->>>>>>> 3c39f63a5a190491cab908aef06d276ea1851c34
     platsSale.style.display = "block";
     platsSucre.style.display = "none";
     platsSuppl.style.display = "none";
