@@ -292,8 +292,8 @@ nav > ul > li > img {
   flex-direction: row;
   margin-top: 1rem;
   position: absolute;
+  width: 85%;
   bottom: 10px;
-  left: 5%;
   gap: 0.2rem;
 }
 
@@ -305,7 +305,7 @@ nav > ul > li > img {
   border-radius: 10px;
   text-decoration: none;
   cursor: pointer;
-  width: 8rem;
+
   transition: background 0.3s;
   margin-top: auto;
 }
