@@ -120,8 +120,7 @@ nav > ul > li {
 }
 
 .title_infos{
-  margin-top: 2vh;
-  margin-bottom: -3vh;
+  margin-bottom: -5vh;
   margin-left: 1vw;
 }
 .title_infos > h1 {
@@ -596,14 +595,19 @@ main {
  }
 
  .form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 3rem;
   text-align: center;
   background-color: #fff;
   border-radius: 20px;
-  width: 75vw;
+  width: 80vw;
   height: auto;
   margin-right: auto;
   margin-left: auto;
-  margin-top: 10vh;
+  font-family: Montserrat;
   padding: 20px;
 
 }
@@ -614,7 +618,7 @@ main {
 }
 
 .form input {
-  width: 25%;
+  width: auto;
   padding: 10px;
   margin-bottom: 15px;
   box-sizing: border-box;
@@ -638,8 +642,21 @@ main {
   flex-direction: column;
   gap: 3rem;
   margin: 1rem;
+  font-family: Montserrat;
+
+}
+
+.infosEntr img{
+  width: 4rem;
+  height: 4rem;
 }
 
 .btn{
   padding: 3rem;
+}
+
+.infos_generale{
+  margin-bottom: -5vh;
+  margin-left: 1vw;
+
 }
