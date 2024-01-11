@@ -381,24 +381,20 @@ nav > ul > li > img {
 
 .number_add {
   display: flex;
+  flex-direction: row;
   align-items: center;
+  justify-content: center;
   width: 7rem;
-  margin-left: 8vw;
+
+  
 }
 
 /*  */
 
-@media screen and (max-width: 600px) {
-  .number_add {
-    flex-direction: column;
-    align-items: stretch;
-  }
 
-  .sub,
-  .add {
-    width: 100%; /* Les boutons prennent 100% de la largeur en mode responsive */
-    margin-bottom: 10px; /* Ajoutez une marge entre les boutons */
-  }
+.sub,
+.add {
+  width: 100%; /* Les boutons prennent 100% de la largeur en mode responsive */
 }
 
 .number_add > input {
@@ -426,6 +422,23 @@ nav > ul > li > img {
   margin-right: -1rem;
 
 }
+
+
+
+@media screen and (max-width: 600px) {
+  .number_add {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .sub,
+  .add {
+    width: 100%; /* Les boutons prennent 100% de la largeur en mode responsive */
+    margin-bottom: 10px; /* Ajoutez une marge entre les boutons */
+  }
+}
+
+
 .plats_sale {
   display: flex;
   justify-content: center;
@@ -508,6 +521,12 @@ nav > ul > li > img {
   cursor: pointer;
   width: 12rem;
   transition: background 0.3s;
+}
+
+.button_command:hover{
+  background: #e56D00;
+  color: #fff;
+
 }
 .bottom_panier {
   display: flex;
@@ -601,12 +620,13 @@ main {
   flex-direction: column;
   gap: 3rem;
   text-align: center;
-  background-color: #fff;
+  background-color: #f5f5f5;
   border-radius: 20px;
-  width: 80vw;
+  width: 50vw;
   height: auto;
   margin-right: auto;
   margin-left: auto;
+  margin-top: 10vh;
   font-family: Montserrat;
   padding: 20px;
 
@@ -658,5 +678,5 @@ main {
 .infos_generale{
   margin-bottom: -5vh;
   margin-left: 1vw;
-
+  margin-top: 5vh;
 }
