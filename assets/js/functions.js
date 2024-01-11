@@ -3,8 +3,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const platPrice = document.querySelectorAll(".card-price");
   const platComposition = document.querySelectorAll(".card-text");
   const idPlat = document.querySelectorAll(".id_plats");
-  const addBoutons = document.querySelectorAll(".btn-primary");
-  const enleverBoutons = document.querySelectorAll(".btn-danger");
   const ajouterBoutons = document.querySelectorAll(".button_add");
 
   let panierDiv = document.querySelector(".panier");
@@ -88,6 +86,7 @@ document.addEventListener("DOMContentLoaded", function () {
           <p>${plat.nom}</p>
           <p>Supléments</p>
           <p>${prix} €</p>
+          <p class="id_plats" style="display:none;">${plat.id}</p>
         </div>
         <fieldset class="number_add">
           <button type="button" title="-" class="sub" control-id="ControlID-20">-</button>
@@ -113,21 +112,37 @@ document.addEventListener("DOMContentLoaded", function () {
     return html;
   }
 
-  const commandeSuppr = document.querySelectorAll(".supprCommande");
+  panierDiv.addEventListener("click", function (event) {
+    if (event.target.classList.contains("fa-xmark")) {
+      const listItem = event.target.closest(".list_commande");
+      const id = listItem.querySelector(".id_plats").textContent;
 
-  commandeSuppr.forEach((suppr) => {
-    suppr.addEventListener("click", function () {
-      const id = suppr.dataset.id;
+      listItem.classList.add("fade-out");
       const itemIndex = panier.findIndex((item) => item.id === id);
       panier.splice(itemIndex, 1);
-      updateCartDisplay();
-      sessionStorage.setItem("panier", JSON.stringify(panier));
-    });
+    }
+    if (
+      event.target.classList.contains("add") ||
+      event.target.classList.contains("sub")
+    ) {
+      const listItem = event.target.closest(".list_commande");
+      const id = listItem.querySelector(".id_plats").textContent;
+      const itemIndex = panier.findIndex((item) => item.id === id);
+      if (event.target.classList.contains("add")) {
+        panier[itemIndex].quantite++;
+      } else if (event.target.classList.contains("sub")) {
+        if (panier[itemIndex].quantite > 1) {
+          panier[itemIndex].quantite--;
+        }
+      }
+    }
+    updateCartDisplay();
+
+    sessionStorage.setItem("panier", JSON.stringify(panier));
   });
 
   function updateCartDisplay() {
     const panierTotal = calculateTotal(panier);
-    const panierDiv = document.querySelector(".panier");
     panierDiv.innerHTML = generatePanierHTML(panier);
   }
 
