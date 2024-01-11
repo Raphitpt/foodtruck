@@ -30,7 +30,7 @@ echo head('Modifier les informations de l\'entreprise');
             <li class="nav_title"><img src="<?= $infos['url_logo'] ?>" alt="logo fouee">
                 <p><?php echo $infos['nom_entreprise'] ?></p>
             </li>
-            <li><button onclick="location.href = './indexBO.php'" class="button_nav">Accueil</button></li>
+            <li><button onclick="location.href = './accueil.php'" class="button_nav">Accueil</button></li>
             <li><button onclick="location.href = ''" class="button_nav">Nous contacter</button></li>
         </ul>
         <ul class="nav_right">
@@ -39,7 +39,7 @@ echo head('Modifier les informations de l\'entreprise');
     </nav>
     <main id="editEntr">
         <section>
-            <a href="indexBO.php" class="btn"><i class="fa-solid fa-arrow-left"></i></a>
+            <a href="infosEntreprise.php" class="btn"><i class="fa-solid fa-arrow-left"></i></a>
             <div class="form">
                 <?php
                 // Vérifier si la requête est de type GET

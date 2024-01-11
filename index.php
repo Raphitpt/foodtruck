@@ -22,6 +22,12 @@ $infos = "SELECT * FROM settings";
 $infos = $dbh->query($infos);
 $infos = $infos->fetch();
 
+$day = date('l');
+$horaires = "SELECT HeureOuverture, HeureFermeture FROM planning WHERE Jour = '$day'";
+$horaires = $dbh->query($horaires);
+$horaires = $horaires->fetch();
+
+
 echo head('Accueil');
 
 ?>
@@ -44,7 +50,7 @@ echo head('Accueil');
             <li class="nav_title"><img src="<?= $infos['url_logo'] ?>" alt="logo fouee">
                 <p>Fouée't Moi
             </li>
-            <li><button onclick="location.href = './index.php'" class="button_nav">Accueil</button></li>
+            <li><button onclick="location.href = './accueil.php'" class="button_nav">Accueil</button></li>
             <li><button onclick="location.href = ''" class="button_nav">Commander</button></li>
             <li><button onclick="location.href = ''" class="button_nav">Nous contacter</button></li>
         </ul>
@@ -52,10 +58,8 @@ echo head('Accueil');
             <li><button onclick="location.href = './login.php'" class="button_nav connect">Se connecter</button></li>
         </ul>
     </nav>
-    <div class="title_infos">
-        <h1>Bonjour Michel, que allez-vous manger aujourd'hui ?</h1>
-        <h2>Le foodtruck est fermé actuellement.</h2>
-        <h3>Les horaires d'ouverture sont de 12h00 à 15h00.</h3>
+    <div class="infos_generale">
+        <p>Les horaires d'ouverture aujourd'hui sont : <?php echo $horaires['HeureOuverture'] ?>h - <?php echo $horaires['HeureFermeture'] ?>h</p>
     </div>
 
     <main class="main_commande">
@@ -63,14 +67,12 @@ echo head('Accueil');
 
         <section class="plats">
 
-            <div class="plats_title">
-                <div class="plats_titles">
-                    <button type="button" class="button_fouee sel plats_title_salées"
-                        onclick="togglePlat('plats_salées')">Fouées salées</button>
-                    <button type="button" class="button_fouee plats_title_sucrées"
-                        onclick="togglePlat('plats_sucrées')">Fouées sucrées</button>
+        <div class="plats_title">
+                    <div class="plats_titles">
+                        <button type="button" class="button_fouee sel plats_title_salées" onclick="togglePlat('plats_salées')">fouées salées</button>
+                        <button type="button" class="button_fouee plats_title_sucrées" onclick="togglePlat('plats_sucrées')">fouées sucrées</button>
 
-                </div>
+                    </div>
                 <div class="line"></div>
             </div>
             </div>
@@ -116,6 +118,8 @@ echo head('Accueil');
                                 <h5 class="card-title">
                                     <?= $plat['nom'] ?>
                                 </h5>
+                                <img class="card_img" src="./assets/img/Fouées_angevines_avec_rillettes.JPG">
+
                                 <input type="hidden" name="id_plats" class="id_plats" value="<?= $plat['id_plat'] ?>">
                                 <p class="card-text">
                                     <?= $plat['composition'] ?>
@@ -124,12 +128,7 @@ echo head('Accueil');
                                     <?= $plat['prix'] ?>€
                                 </p>
                                 <button type="button" class="button_add">Ajouter</button>
-                                <!-- <div class="card-footer-plats">
-                                    <button type="button" class="btn btn-primary">Ajouter</button>
-                                    <input type="number" class="form-control" value="0" id="input-number-<?= $plat['id_plat'] ?>">
-                                    <button type="button" class="btn btn-success" id="ajouter">+</button>
-                                    <button type="button" class="btn btn-danger" id="enlever">-</button>
-                                </div> -->
+
                             </div>
                         </div>
 
