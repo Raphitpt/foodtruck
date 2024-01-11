@@ -89,7 +89,7 @@ echo head('Accueil');
                 </div>
                 <div class="plats_sale">
                     </br>
-                    <button type="button" class="actions"><a href="addPlatsl.php">Ajouter<i class="fa-solid fa-plus"></i></a></button>
+                    <button type="button" class="actions"><a href="addPlats.php">Ajouter<i class="fa-solid fa-plus"></i></a></button>
                     <div class="plats_card">
 
                         <?php foreach ($plats_sale as $plat) : ?>
