@@ -413,7 +413,6 @@ nav > ul > li > img {
   cursor: pointer;
 }
 
-
 @media screen and (max-width: 600px) {
   .number_add {
     flex-direction: column;
@@ -540,7 +539,6 @@ main {
   gap: 1rem;
   margin-top: 5vh;
   width: auto;
-
 }
 .table > :not(caption) > * {
   padding: 5vw;
@@ -680,7 +678,7 @@ main {
 .radio-inputs::-webkit-scrollbar-thumb,
 .radio-inputs::-webkit-scrollbar-thumb {
   border-radius: 6px;
-  background-color: #ffffff;
+  background-color: #f0f0f0;
 }
 .radio-inputs::-webkit-scrollbar-track,
 .plradio-inputsatsBO::-webkit-scrollbar-track {
@@ -720,32 +718,33 @@ p {
   border-radius: 10px;
   padding: 5rem;
   margin: 2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 .container {
   margin: 0 10px;
 }
 input[type="date"] {
-  margin: 0 auto;
-  width: 25vh;
+  margin: 5px;
+  width: 23.5vh;
   font-family: arial, sans-serif;
   font-size: 18px;
   text-transform: uppercase;
-  background-color: #f1edeb;
+  background-color: #e56d00;
   outline: none;
   border: 0;
   border-radius: 5px;
-  color: #000;
+  color: white;
   box-sizing: border-box;
   padding: 10px;
 
   &::-webkit-datetime-edit-month-field {
-    color: #000;
+    color: white;
   }
   &::-webkit-datetime-edit-day-field {
-    color: #000;
+    color: white;
   }
   &::-webkit-datetime-edit-year-field {
-    color: #000;
+    color: white;
   }
 
   &::-webkit-clear-button {
@@ -772,11 +771,19 @@ input[type="date"] {
   }
 }
 
-
-.btn-retour{
-  position:absolute;
+.btn-retour {
+  position: absolute;
   top: 0;
   left: 0;
   margin: 1rem;
   font-size: 2rem;
+}
+.fa-solid > fa-xmark {
+  cursor: pointer;
+}
+.icon-xmark {
+  cursor: pointer;
+  border: none;
+  color: red;
+  font-size: 1.5rem;
 }

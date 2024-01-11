@@ -32,6 +32,11 @@ $infos = $infos->fetch();
             text-align: center;
         }
 
+        .icon-cell {
+            border: 0;
+            color: red;
+        }
+
         th {
             background-color: #f2f2f2;
         }
@@ -58,6 +63,9 @@ $infos = $infos->fetch();
             <div class="container">
                 <div class="row">
                     <div class="col-12">
+                        <div class="btn-retour">
+                            <a href="index.php" class="btn"><i class="fa-solid fa-arrow-left"></i></a>
+                        </div>
                         <h1>Mon panier</h1>
                         <table class="table">
                             <thead>
@@ -66,7 +74,7 @@ $infos = $infos->fetch();
                                     <th scope="col">Prix</th>
                                     <th scope="col">Quantité</th>
                                     <th scope="col">Total</th>
-                                    <th scope="col">Supprimer</th>
+                                    <!-- <th scope="col">Supprimer</th> -->
                                 </tr>
                             </thead>
                             <tbody>
@@ -77,8 +85,12 @@ $infos = $infos->fetch();
                             <h2 id=totalDate></h2>
                         </div>
                         <div class="btn">
-                            <button type="button" class="btn btn-primary btn_commander">Commander</button>
+                            <button onclick="location.href = './commandefinal.php'"
+                                class="btn btn-primary btn_commander">Commander</button>
+                            <button onclick="location.href = './index.php'"
+                                class="btn btn-secondary btn_commander">Retour</button>
                         </div>
+                        <div class="monElement"></div>
                     </div>
                 </div>
             </div>
@@ -113,7 +125,6 @@ $infos = $infos->fetch();
         let html = '';
         const totalCommande = document.getElementById('totalCommande');
         const totalDate = document.getElementById('totalDate');
-
         const commanderButton = document.querySelector('.btn_commander');
         const heureReservation = document.querySelectorAll('.selectedTime');
         const btnHeure = document.querySelectorAll('.btnHeure');
@@ -141,28 +152,56 @@ $infos = $infos->fetch();
             panier.forEach(element => {
                 html += '<tr>';
                 html += `<th scope="row">${element.nom}</th>`;
-                html += `<td>${element.prix}</td>`;
-                html += `<td>${element.quantite}</td>`;
+                html += `<td class="monElement" id="${element.id}">${element.prix}</td>`;
+                html += `<td class="monElement" id="${element.id}">${element.quantite}</td>`;
                 prix = parseFloat(element.prix);
                 quantite = parseFloat(element.quantite);
                 const articleTotal = prix * quantite;
-                html += `<td>${articleTotal} €</td>`;
-                html += `<td><button><i class="fa-solid fa-trash"></button></i></td>`;
+                html += `<td class="monElement" id="${element.id}">${articleTotal} €</td>`;
+                html += `<td class="icon-cell"><i class="fa-solid fa-xmark icon-xmark" data-id="${element.id}"></i></td>`;
                 if (element.suplement != null) {
                     html += `<td>${element.suplement.nom}</td>`;
                 }
                 html += '</tr>';
                 total += articleTotal;
+
             });
+            const iconCell = document.querySelector('.icon-cell');
+
+            // Vous pouvez ajouter des styles spécifiques à cette cellule
+            if (iconCell) {
+                iconCell.style.border = 'none'; // Ajoutez d'autres styles selon vos besoins
+            }
 
             tbody.innerHTML = html;
             const formattedDate = formatDate(date);
             totalCommande.innerHTML = `Total de la commande : ${total} €`;
             totalDate.innerHTML = `Date de la commande : ${heure} le ${formattedDate}`;
 
+            const monElements = document.querySelectorAll(".monElement");
+            const ids = Array.from(monElements).map(element => element.id);
+            const iconCells = document.querySelectorAll('.icon-cell');
+
+
+            // Associer un événement de clic à chaque icône de suppression
+            iconCells.forEach(icon => {
+                icon.addEventListener('click', function (event) {
+                    const id = event.target.dataset.id;
+                    if (id) {
+                        // Supprimer l'élément du panier en utilisant son ID
+                        const itemIndex = panier.findIndex(item => item.id === id);
+                        if (itemIndex !== -1) {
+                            panier.splice(itemIndex, 1);
+                            // Mettre à jour l'affichage du panier après la suppression
+                            listPanier(heure, date);
+                        }
+                    }
+                });
+            });
+            sessionStorage.setItem("panier", JSON.stringify(panier));
         }
 
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             // Initialise la date du jour lors du chargement de la page
             const today = new Date();
             const formattedToday = today.toISOString().split('T')[0]; // Format YYYY-MM-DD
@@ -172,68 +211,91 @@ $infos = $infos->fetch();
             listPanier("12h00", formattedToday);
 
             // Associe l'événement de changement de date
-            dateReservationInput.addEventListener('change', function() {
+            dateReservationInput.addEventListener('change', function () {
                 const selectedDate = dateReservationInput.value;
-                if (btnHeure) {
-                    btnHeure.forEach((elem) => {
-                        elem.addEventListener("click", function(event) {
-                            listPanier(event.target.textContent, selectedDate);
-                            btnHeure.forEach((elem) => {
-                                elem.classList.remove('heureSelected');
-                            });
-                            elem.classList.add('heureSelected');
-                        });
-                    });
-                }
-
-                listPanier("12h00", selectedDate);
+                // Vérifie si une heure est déjà sélectionnée, puis met à jour le panier
+                const selectedHeure = document.querySelector('.heureSelected');
+                const heure = selectedHeure ? selectedHeure.textContent : "12h00";
+                listPanier(heure, selectedDate);
             });
+
+            // Associe l'événement de clic sur une heure
+            if (btnHeure) {
+                btnHeure.forEach((elem) => {
+                    elem.addEventListener("click", function (event) {
+                        listPanier(event.target.textContent, dateReservationInput.value);
+                        btnHeure.forEach((elem) => {
+                            elem.classList.remove('heureSelected');
+                        });
+                        elem.classList.add('heureSelected');
+                    });
+                });
+            }
         });
 
         if (panier.length === 0) {
             commanderButton.style.display = 'none';
         }
+        fetch('commandefinal.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json', // Indiquez que vous envoyez des données JSON
+            },
+            body: JSON.stringify({ panier: panier }), // Convertissez le panier en JSON et envoyez-le
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Erreur HTTP ! Statut : ${response.status}`);
+                }
+                return response.json(); // Si la requête est réussie, analysez la réponse JSON
+            })
+            .then(data => {
+                console.log('Réponse du serveur :', data);
+            })
+            .catch(error => {
+                console.error('Erreur lors de la requête :', error);
+            });
 
-        /*commanderButton.addEventListener('click', function() {
-            window.location.href = 'commande.php';
-        });*/
-        commanderButton.addEventListener('click', function() {
-            /*if (!heureSelectionnee) {
-                alert("Veuillez sélectionner une heure avant de commander.");
-                return;
-            }
-            */
-           console.log(document.querySelector('.heureSelected .selectedTime').textContent);
-           console.log(selectedDate);
-           
-            console.log(date_retrait);
-            const commande = {
-                panier: panier,
-                date: document.getElementById('choix_date').value,
-                heure: document.querySelector('.heureSelected .selectedTime').textContent
-            };
+        // /*commanderButton.addEventListener('click', function() {
+        //     window.location.href = 'commande.php';
+        // });*/
+        // commanderButton.addEventListener('click', function () {
+        //     /*if (!heureSelectionnee) {
+        //         alert("Veuillez sélectionner une heure avant de commander.");
+        //         return;
+        //     }
+        //     */
+        //     console.log(document.querySelector('.heureSelected .selectedTime').textContent);
+        //     console.log(selectedDate);
 
-            // Utilisez Fetch API pour envoyer les données au serveur
-            fetch('enregistrer_commande.php', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(commande),
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.status === 'success') {
-                        alert("Commande enregistrée avec succès!");
-                        // Vous pouvez rediriger l'utilisateur ou effectuer d'autres actions après l'enregistrement
-                    } else {
-                        alert("Erreur lors de l'enregistrement de la commande.");
-                    }
-                })
-                .catch((error) => {
-                    console.error('Erreur lors de l\'enregistrement de la commande:', error);
-                });
-        });
+        //     console.log(date_retrait);
+        //     const commande = {
+        //         panier: panier,
+        //         date: document.getElementById('choix_date').value,
+        //         heure: document.querySelector('.heureSelected .selectedTime').textContent
+        //     };
+
+        //     // Utilisez Fetch API pour envoyer les données au serveur
+        //     fetch('enregistrer_commande.php', {
+        //         method: 'POST',
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //         },
+        //         body: JSON.stringify(commande),
+        //     })
+        //         .then(response => response.json())
+        //         .then(data => {
+        //             if (data.status === 'success') {
+        //                 alert("Commande enregistrée avec succès!");
+        //                 // Vous pouvez rediriger l'utilisateur ou effectuer d'autres actions après l'enregistrement
+        //             } else {
+        //                 alert("Erreur lors de l'enregistrement de la commande.");
+        //             }
+        //         })
+        //         .catch((error) => {
+        //             console.error('Erreur lors de l\'enregistrement de la commande:', error);
+        //         });
+        // });
     </script>
     <script src="./assets/js/functions.js"></script>
     <script src="https://kit.fontawesome.com/45762c6469.js" crossorigin="anonymous"></script>
