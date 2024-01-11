@@ -68,12 +68,12 @@ $infos = $infos->fetch();
                                         <th scope="col">Quantité</th>
                                         <th scope="col">Total</th>
                                         <th scope="col">Supprimer</th>
-                                        <th scope="col" id="test">Heure de réservation</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                 </tbody>
                             </table>
+                            <div class="resultDiv"></div>
                             <div class="total">
                                 <h2 id="totalCommande"></h2>
                             </div>
@@ -106,24 +106,18 @@ $infos = $infos->fetch();
                 }
                 ?>
             </select>
-
-            <table>
-                <tr>
-                    <th>Horaire</th>
-                    <th>Sélection</th>
-                </tr>
+            <div class="radio-inputs">
                 <?php
                 for ($hour = 12; $hour <= 15; $hour++) {
                     for ($minute = 0; $minute <= ($hour == 15 ? 0 : 55); $minute += 10) {
                         $time = str_pad($hour, 2, '0', STR_PAD_LEFT) . 'h' . str_pad($minute, 2, '0', STR_PAD_LEFT);
-                        echo '<tr>';
-                        echo '<td>' . $time . '</td>';
-                        echo '<td><input type="radio" name="selectedTime" value="' . $time . '" class="td"> </td>';
-                        echo '</tr>';
+                        echo '<div class="btnHeure">';
+                        echo '<p class="selectedTime">' . $time . '</p>';
+                        echo '</div>';
                     }
                 }
                 ?>
-            </table>
+            </div>
             <script>
                 const panier = JSON.parse(sessionStorage.getItem('panier')) || [];
                 console.log(panier);
@@ -134,7 +128,10 @@ $infos = $infos->fetch();
             let html = '';
             const totalCommande = document.getElementById('totalCommande');
             const commanderButton = document.querySelector('.btn_commander')
-            const heureReservation = document.querySelectorAll('input[name="selectedTime"]');
+            const heureReservation = document.querySelectorAll('.selectedTime');
+            const btnHeure = document.querySelectorAll('.btnHeure');
+            const resultDiv = document.querySelector('.resultDiv');
+
             let heure = "";
 
             let total = 0;
@@ -160,15 +157,19 @@ $infos = $infos->fetch();
                     html += '</tr>';
                     total += articleTotal;
                 });
-                html += `<td>${x}</td>`;
+                resultDiv.innerHTML = `${x}`;
                 tbody.innerHTML = html;
                 totalCommande.innerHTML = `Total de la commande : ${total} €`;
             }
             listPanier();
-            if (heureReservation) {
-                heureReservation.forEach((elem) => {
-                    elem.addEventListener("change", function (event) {
-                        listPanier(event.target.value);
+            if (btnHeure) {
+                btnHeure.forEach((elem) => {
+                    elem.addEventListener("click", function (event) {
+                        listPanier(event.target.textContent);
+                        btnHeure.forEach((elem) => {
+                            elem.classList.remove('heureSelected');
+                        });
+                        elem.classList.add('heureSelected');
                     });
                 });
             }
@@ -180,6 +181,7 @@ $infos = $infos->fetch();
             commanderButton.addEventListener('click', function () {
                 window.location.href = 'commande.php';
             });
+
         </script>
         <script src="./assets/js/functions.js"></script>
         <script src="https://kit.fontawesome.com/45762c6469.js" crossorigin="anonymous"></script>
