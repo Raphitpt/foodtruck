@@ -68,6 +68,7 @@ $infos = $infos->fetch();
                                         <th scope="col">Quantité</th>
                                         <th scope="col">Total</th>
                                         <th scope="col">Supprimer</th>
+                                        <th scope="col" id="test">Heure de réservation</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -87,70 +88,45 @@ $infos = $infos->fetch();
             <h2>Réserver son repas</h2>
 
             <div class="quantite"></div>
-            <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-                <select name="choix_date" id="choix_date" required>
-                    <?php
-                    $currentDate = new DateTime(); // La date actuelle
+            <select name="choix_date" id="choix_date" required>
+                <?php
+                $currentDate = new DateTime(); // La date actuelle
+                
+                // Cloner la date actuelle pour avoir la date de fin
+                $endDate = clone $currentDate;
+                $endDate->add(new DateInterval('P2W'));
 
-                    // Cloner la date actuelle pour avoir la date de fin
-                    $endDate = clone $currentDate;
-                    $endDate->add(new DateInterval('P2W'));
+                $dateInterval = new DateInterval('P1D');
+                $dateRange = new DatePeriod($currentDate, $dateInterval, $endDate);
+                foreach ($dateRange as $date) {
+                    $currentDate = $date->format('Y-m-d');
+                    echo '<option class="calendar-cell data-date="' . $currentDate . '" onclick="selectCell(this)">';
+                    echo $currentDate;  // Format date et heure
+                    echo '</option>';
+                }
+                ?>
+            </select>
 
-                    $dateInterval = new DateInterval('P1D');
-                    $dateRange = new DatePeriod($currentDate, $dateInterval, $endDate);
-                    foreach ($dateRange as $date) {
-                        $currentDate = $date->format('Y-m-d');
-                        echo '<option class="calendar-cell data-date="' . $currentDate . '" onclick="selectCell(this)">';
-                        echo $currentDate;  // Format date et heure
-                        echo '</option>';
+            <table>
+                <tr>
+                    <th>Horaire</th>
+                    <th>Sélection</th>
+                </tr>
+                <?php
+                for ($hour = 12; $hour <= 15; $hour++) {
+                    for ($minute = 0; $minute <= ($hour == 15 ? 0 : 55); $minute += 10) {
+                        $time = str_pad($hour, 2, '0', STR_PAD_LEFT) . 'h' . str_pad($minute, 2, '0', STR_PAD_LEFT);
+                        echo '<tr>';
+                        echo '<td>' . $time . '</td>';
+                        echo '<td><input type="radio" name="selectedTime" value="' . $time . '" class="td"> </td>';
+                        echo '</tr>';
                     }
-                    ?>
-                </select>
-
-                <table>
-                    <tr>
-                        <th>Horaire</th>
-                        <th>Sélection</th>
-                    </tr>
-                    <?php
-                    for ($hour = 12; $hour < 15; $hour++) {
-                        for ($minute = 0; $minute <= 55; $minute += 10) {
-                            $time = str_pad($hour, 2, '0', STR_PAD_LEFT) . 'h' . str_pad($minute, 2, '0', STR_PAD_LEFT);
-                            echo '<tr>';
-                            echo '<td>' . $time . '</td>';
-                            echo '<td><input type="radio" name="selectedTime" value="' . $time . '" class="td"> </td>';
-                            echo '</tr>';
-                        }
-                    }
-                    ?>
-                </table>
-                <br>
-                <input type="submit" name="submit" value="Réserver">
-            </form>
-
-            <?php
-            if (isset($_POST['submit'])) {
-                $selectedTime = $_POST['selectedTime'];
-                $selectedDay = $_POST['choix_date'];
-                echo 'Vous avez sélectionné l\'horaire suivant: ' . $selectedTime;
-            }
-            ?>
-
-
+                }
+                ?>
+            </table>
             <script>
                 const panier = JSON.parse(sessionStorage.getItem('panier')) || [];
                 console.log(panier);
-                var form = document.getElementById('myform');
-
-                form.addEventListener('submit', function(event) {
-                    event.preventDefault();
-
-                    var selectedOption = document.querySelector('input[name="selectedTime"]:checked');
-
-                    if (selectedOption) {
-                        document.getElementById('result').innerHTML = 'Vous avez sélectionné l\'horaire suivant: ' + selectedOption.value;
-                    }
-                });
             </script>
         </main>
         <script>
@@ -158,34 +134,50 @@ $infos = $infos->fetch();
             let html = '';
             const totalCommande = document.getElementById('totalCommande');
             const commanderButton = document.querySelector('.btn_commander')
+            const heureReservation = document.querySelectorAll('input[name="selectedTime"]');
+            let heure = "";
 
             let total = 0;
-
-            panier.forEach(element => {
-                html += '<tr>';
-                html += `<th scope="row">${element.nom}</th>`;
-                html += `<td>${element.prix}</td>`;
-                html += `<td>${element.quantite}</td>`;
-                let prix = parseFloat(element.prix);
-                let quantite = parseFloat(element.quantite);
-                let articleTotal = prix * quantite;
-                html += `<td>${articleTotal} €</td>`;
-                html += `<td><button><i class="fa-solid fa-trash"></button></i></td>`;
-                if (element.suplement != null) {
-                    html += `<td>${element.suplement.nom}</td>`;
-                }
-                html += '</tr>';
-                total += articleTotal;
-            });
-
-            tbody.innerHTML = html;
-            totalCommande.innerHTML = `Total de la commande : ${total} €`;
+            function listPanier(x) {
+                html = '';
+                let prix = 0;
+                let quantite = 0;
+                total = 0;
+                x = x || "12h00";
+                panier.forEach(element => {
+                    html += '<tr>';
+                    html += `<th scope="row">${element.nom}</th>`;
+                    html += `<td>${element.prix}</td>`;
+                    html += `<td>${element.quantite}</td>`;
+                    prix = parseFloat(element.prix);
+                    quantite = parseFloat(element.quantite);
+                    articleTotal = prix * quantite;
+                    html += `<td>${articleTotal} €</td>`;
+                    html += `<td><button><i class="fa-solid fa-trash"></button></i></td>`;
+                    if (element.suplement != null) {
+                        html += `<td>${element.suplement.nom}</td>`;
+                    }
+                    html += '</tr>';
+                    total += articleTotal;
+                });
+                html += `<td>${x}</td>`;
+                tbody.innerHTML = html;
+                totalCommande.innerHTML = `Total de la commande : ${total} €`;
+            }
+            listPanier();
+            if (heureReservation) {
+                heureReservation.forEach((elem) => {
+                    elem.addEventListener("change", function (event) {
+                        listPanier(event.target.value);
+                    });
+                });
+            }
 
             if (panier.length === 0) {
                 commanderButton.style.display = 'none';
             }
 
-            commanderButton.addEventListener('click', function() {
+            commanderButton.addEventListener('click', function () {
                 window.location.href = 'commande.php';
             });
         </script>
