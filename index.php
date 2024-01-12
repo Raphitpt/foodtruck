@@ -41,14 +41,14 @@ echo head('Commander');
             <li><button onclick="location.href = './accueil.php'" class="button_nav">Accueil</button></li>
             <li><button onclick="location.href = './index.php'" class="button_nav">Commander</button></li>
             <li><button onclick="location.href = ''" class="button_nav">Nous contacter</button></li>
-            <?php if (isset($_SESSION['email']) && $_SESSION['email'] === 'admin@gmail.com') : ?>
+            <?php if (isset($_SESSION['email']) && $_SESSION['email'] === 'admin@gmail.com'): ?>
                 <li><button onclick="location.href = 'indexBO.php'" class="button_nav">Back Office</button></li>
             <?php endif; ?>
         </ul>
         <ul class="nav_right">
-            <?php if (isset($_SESSION['email'])) : ?>
+            <?php if (isset($_SESSION['email'])): ?>
                 <li><button onclick="location.href = './logout.php'" class="button_nav connect">Se déconnecter</button></li>
-            <?php else : ?>
+            <?php else: ?>
                 <li><button onclick="location.href = './login.php'" class="button_nav connect">Se connecter</button></li>
             <?php endif; ?>
         </ul>
@@ -71,8 +71,10 @@ echo head('Commander');
 
             <div class="plats_title">
                 <div class="plats_titles">
-                    <button type="button" class="button_fouee sel plats_title_salées" onclick="togglePlat('plats_salées')">Fouées salées</button>
-                    <button type="button" class="button_fouee plats_title_sucrées" onclick="togglePlat('plats_sucrées')">Fouées sucrées</button>
+                    <button type="button" class="button_fouee sel plats_title_salées"
+                        onclick="togglePlat('plats_salées')">Fouées salées</button>
+                    <button type="button" class="button_fouee plats_title_sucrées"
+                        onclick="togglePlat('plats_sucrées')">Fouées sucrées</button>
 
                 </div>
                 <div class="line"></div>
@@ -81,14 +83,15 @@ echo head('Commander');
             <div class="plats_sale">
                 </br>
                 <div class="plats_card">
-                    <?php foreach ($plats_sale as $plat) : ?>
+                    <?php foreach ($plats_sale as $plat): ?>
                         <div class="card">
 
                             <div class="card-body">
                                 <h5 class="card-title">
                                     <?= $plat['nom'] ?>
                                 </h5>
-                                <img class="card_img" src="./assets/img/Fouées_angevines_avec_rillettes.JPG" alt="Photo d'un fouées à la rillette">
+                                <img class="card_img" src="./assets/img/Fouées_angevines_avec_rillettes.JPG"
+                                    alt="Photo d'un fouées à la rillette">
                                 <input type="hidden" name="id_plats" class="id_plats" value="<?= $plat['id_plat'] ?>">
                                 <p class="card-text">
                                     <?= $plat['composition'] ?>
@@ -96,7 +99,7 @@ echo head('Commander');
                                 <p class="card-price">
                                     <?= $plat['prix'] ?>€
                                 </p>
-                                <button type="button" class="button_add"><i class="fa-solid fa-plus"></i>ajouter</button>
+                                <button type="button" class="button_add"><i class="fa-solid fa-plus"></i>Ajouter</button>
                                 <!-- <input type="number" class="form-control" value="0"
                                         id="input-number-<?= $plat['id_plat'] ?>">
                                     <button type="button" class="btn btn-success" id="ajouter">+</button>
@@ -112,7 +115,7 @@ echo head('Commander');
             <div class="plats_sucre" style="display: none;">
                 </br>
                 <div class="plats_card">
-                    <?php foreach ($plats_sucre as $plat) : ?>
+                    <?php foreach ($plats_sucre as $plat): ?>
 
                         <div class="card">
                             <div class="card-body">
@@ -146,7 +149,7 @@ echo head('Commander');
             <div class="suppl_sale">
                 <h3>Suppléments salées</h3>
                 <ul>
-                    <?php foreach ($supplements as $supplement) :
+                    <?php foreach ($supplements as $supplement):
                         if ($supplement['type'] == "sale") { ?>
 
                             <div class="list_suppl">
@@ -160,14 +163,14 @@ echo head('Commander');
                                     <span class="custom-checkbox"></span>
                                 </label>
                             </div>
-                    <?php }
+                        <?php }
                     endforeach; ?>
                 </ul>
             </div>
             <div class="suppl_sucre">
                 <h3>Suppléments sucrées</h3>
                 <ul>
-                    <?php foreach ($supplements as $supplement) :
+                    <?php foreach ($supplements as $supplement):
                         if ($supplement['type'] == "sucre") { ?>
 
                             <div class="list_suppl">
@@ -181,7 +184,7 @@ echo head('Commander');
                                     <span class="custom-checkbox"></span>
                                 </label>
                             </div>
-                    <?php }
+                        <?php }
                     endforeach; ?>
                 </ul>
             </div>
@@ -202,19 +205,19 @@ echo head('Commander');
     <script src="./assets/js/functions.js"></script>
     <script src="https://kit.fontawesome.com/45762c6469.js" crossorigin="anonymous"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const numberAddElements = document.querySelectorAll('.number_add');
 
-            numberAddElements.forEach(function(element) {
+            numberAddElements.forEach(function (element) {
                 const inputElement = element.querySelector('input');
                 const addButton = element.querySelector('.add');
                 const subButton = element.querySelector('.sub');
 
-                addButton.addEventListener('click', function() {
+                addButton.addEventListener('click', function () {
                     inputElement.stepUp();
                 });
 
-                subButton.addEventListener('click', function() {
+                subButton.addEventListener('click', function () {
                     inputElement.stepDown();
                 });
 

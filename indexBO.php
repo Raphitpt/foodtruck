@@ -116,17 +116,8 @@ echo head('Accueil');
                                     </p>
                                     <div class="buttons">
                                         <button type="button" class="actions"><a href="editPlats.php?id_plat=<?= $plat['id_plat'] ?>">Modifier</a></button>
-                                        <button type="button" class="actions"><a href="suppressionPlats.php?id_plat=<?= $plat['id_plat'] ?>">Effacer</a></button>
+                                        <button type="button" class="actions"><a href="suppressionPlats.php?id_plat=<?= $plat['id_plat'] ?>" onclick="return confirm('Effacer le produit <?php echo $plat['nom']; ?>');">Effacer</a></button>
                                     </div>
-
-
-                                    <!-- <input type="number" class="form-control" value="0"
-                                        id="input-number-<?= $plat['id_plat'] ?>">
-                                    <button type="button" class="btn btn-success" id="ajouter">+</button>
-                                    <button type="button" class="btn btn-danger" id="enlever">-</button>
-                                    <div id="supplement-card-<?= $plat['id_plat'] ?>"> -->
-
-                                    <!-- </div> -->
                                 </div>
                             </div>
                         <?php endforeach; ?>
@@ -156,7 +147,7 @@ echo head('Accueil');
                                     </p>
                                     <div class="buttons">
                                         <button type="button" class="actions"><a href="editPlats.php?id_plat=<?= $plat['id_plat'] ?>">Modifier</a></button>
-                                        <button type="button" class="actions"><a href="suppressionPlats.php?id_plat=<?= $plat['id_plat'] ?>">Effacer</a></button>
+                                        <button type="button" class="actions"><a href="suppressionPlats.php?id_plat=<?= $plat['id_plat'] ?>" onclick="return confirm('Effacer le produit <?php echo $plat['nom']; ?>');">Effacer</a></button>
                                     </div>
 
                                 </div>
@@ -185,7 +176,7 @@ echo head('Accueil');
                                     </p>
                                     <div class="buttons">
                                         <button type="button" class="actions"><a href="editSuppl.php?id_suppl=<?= $supplement['id_suppl'] ?>">Modifier</a></button>
-                                        <button type="button" class="actions"><a href="suppressionSuppl.php?id_suppl=<?= $supplement['id_suppl'] ?>">Effacer</a></button>
+                                        <button type="button" class="actions"><a href="suppressionSuppl.php?id_suppl=<?= $supplement['id_suppl'] ?>" onclick="return confirm('Effacer le produit <?php echo $plat['nom']; ?>');">Effacer</a></button>
                                     </div>
                                 </div>
                             </div>
