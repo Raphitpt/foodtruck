@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const ajouterBoutons = document.querySelectorAll(".button_add");
   const divSuppl = document.querySelector(".supplements");
   const divListPlats = document.querySelector(".list_plat");
+  const noThanks = document.querySelector(".noThanks");
 
   let panierDiv = document.querySelector(".panier");
 
@@ -37,21 +38,29 @@ document.addEventListener("DOMContentLoaded", function () {
         divSuppl.style.display = "block";
         divListPlats.style.display = "none";
 
-      elementCounter++;
-      let id = idPlat[index].value;
-      let itemIndex = panier.findIndex((item) => item.id === id);
+        noThanks.addEventListener("click", function () {
+          divSuppl.style.display = "none";
+          divListPlats.style.display = "block";
 
-      if (itemIndex !== -1) {
-        panier[itemIndex].quantite = elementCounter;
-      } else {
-        panier.push({
-          id: id,
-          nom: platName[index].innerHTML,
-          prix: platPrice[index].innerHTML,
-          composition: platComposition[index].innerHTML,
-          quantite: elementCounter,
+          elementCounter++;
+          let id = idPlat[index].value;
+          let itemIndex = panier.findIndex((item) => item.id === id);
+    
+          if (itemIndex !== -1) {
+            panier[itemIndex].quantite = elementCounter;
+          } else {
+            panier.push({
+              id: id,
+              nom: platName[index].innerHTML,
+              prix: platPrice[index].innerHTML,
+              composition: platComposition[index].innerHTML,
+              supplements: "",
+              quantite: elementCounter,
+            });
+          }
         });
-      }
+
+     
 
       panierDiv.innerHTML = generatePanierHTML(panier);
       updateInputNumbers();
