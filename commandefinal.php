@@ -10,7 +10,7 @@ if ($input && isset($input['panier'])) {
     $panier = $input['panier'];
 
     if (!empty($panier)) {
-        
+
         // Met ici la requete sql pour ajouter en base de donnée, $panier doit avoir json_encode dans la requete sql
         echo json_encode(['success' => true]);
     } else {

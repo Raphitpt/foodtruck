@@ -4,6 +4,10 @@ session_start();
 $infosQuery = "SELECT * FROM settings";
 $infosResult = $dbh->query($infosQuery);
 $infos = $infosResult->fetch();
+
+$contenu = "SELECT * FROM elements_accueil";
+$contenu = $dbh->query($contenu);
+$contenu = $contenu->fetchAll();
 echo head('Page d\'accueil');
 ?>
 <style>
