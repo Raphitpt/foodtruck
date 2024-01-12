@@ -234,25 +234,38 @@ $infos = $infos->fetch();
         if (panier.length === 0) {
             commanderButton.style.display = 'none';
         }
-        
+
+        function nettoyerObjet(objet) {
+            for (const [cle, valeur] of Object.entries(objet)) {
+                if (typeof valeur === 'string') {
+                    // Supprimez les espaces et les retours à la ligne dans les chaînes de caractères
+                    objet[cle] = valeur.trim();
+                } else if (typeof valeur === 'object') {
+                    // Si la valeur est un objet, récursion pour nettoyer les valeurs à l'intérieur
+                    objet[cle] = nettoyerObjet(valeur);
+                }
+            }
+            return objet;
+        }
 
         commanderButton.addEventListener('click', function() {
+            const panierNettoye = nettoyerObjet(panier);
             fetch('commandefinal.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    panier: panier
-                }),
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Réponse du serveur :', data);
-            })
-            .catch(error => {
-                console.error('Erreur lors de la requête :', error);
-            });
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        panier: panierNettoye
+                    }, null),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Réponse du serveur :', data);
+                })
+                .catch(error => {
+                    console.error('Erreur lors de la requête :', error);
+                });
         });
     </script>
     <script src="./assets/js/functions.js"></script>

@@ -1,0 +1,1 @@
+{"panier":[{"id":"28","nom":"Marius","prix":"9999999999€","composition":"basic fit","quantite":1}]}
