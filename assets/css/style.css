@@ -487,42 +487,39 @@ nav > ul > li > img {
 .button_addsuppl {
   margin-left: auto;
 }
-.clear {
-  clear: both;
+.input[type="checkbox"] {
+  display: none;
 }
 
-.checkBox {
-  display: block;
-  cursor: pointer;
-  width: 30px;
-  height: 30px;
-  border: 3px solid rgb(0, 0, 0);
-  border-radius: 10px;
+
+  /* Style for the custom checkbox */
+.custom-checkbox {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #333;
+  border-radius: 4px;
   position: relative;
-  overflow: hidden;
-  box-shadow: 0px 0px 0px 2px #fff;
+  cursor: pointer;
 }
 
-.checkBox div {
-  width: 60px;
-  height: 60px;
-  background-color: #f5f5f5;
-  top: -52px;
-  left: -52px;
+  /* Style for the custom checkmark */
+.custom-checkbox::after {
+  content: "";
   position: absolute;
-  transform: rotateZ(45deg);
-  z-index: 100;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 10px;
+  height: 10px;
+  background-color: #333;
+  border-radius: 2px;
+  opacity: 0;
 }
 
-.checkBox input[type=checkbox]:checked + div {
-  left: -10px;
-  top: -10px;
-}
-
-.checkBox input[type=checkbox] {
-  position: absolute;
-  left: 50px;
-  visibility: hidden;
+  /* Show the checkmark when checkbox is checked */
+.input[type="checkbox"]:checked + .custom-checkbox::after {
+  opacity: 1;
 }
 
 .transition {
