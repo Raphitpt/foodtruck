@@ -112,6 +112,7 @@ echo head('Modifier les informations de l\'entreprise');
 
                         // Construisez le chemin complet du fichier sur le serveur
                         $chemin_logo = $dossier_destination . $nom_fichier_logo;
+                        unlink($chemin_logo);
 
                         // Déplacez le fichier téléchargé vers le dossier de destination
                         move_uploaded_file($fichier_logo['tmp_name'], $chemin_logo);
