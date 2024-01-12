@@ -132,6 +132,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const prix = parseFloat(plat.prix);
       const quantite = parseFloat(plat.quantite);
       const articleTotal = prix * quantite;
+      console.log(plat);
 
       html += `<li class="list_commande">
         <div class="supprCommande">
@@ -143,7 +144,7 @@ document.addEventListener("DOMContentLoaded", function () {
         </div>
         <div class="name_plat_commande">
           <p>${plat.nom}</p>
-          <p>${plat.supplements.nom}</p>
+          <p>${plat.supplements[0].nom}</p>
           <p>${prix} €</p>
           <p class="id_plats" style="display:none;">${plat.id}</p>
         </div>
