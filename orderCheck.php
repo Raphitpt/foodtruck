@@ -52,12 +52,14 @@ $infos = $infos->fetch();
                 <thead>
                     <tr>
                         <th scope="col" data-sortable="true" data-field="id">Numéro de commande</th>
+                        <th scope="col">Détail de la commande</th>
                         <th scope="col">Nom/Prénom du client</th>
                         <th scope="col">Date de commande</th>
                         <th scope="col">Date de retrait</th>
                         <th scope="col">Statut</th>
                         <th scope="col">Commentaire</th>
                         <th scope="col">Total</th>
+                        <th scope="col">Valider</th>
 
 
                     </tr>
@@ -66,6 +68,11 @@ $infos = $infos->fetch();
                     <?php foreach ($hist as $histo) { ?>
                         <tr>
                             <td><?php echo $histo['id_commande']; ?></td>
+                            <?php $details = json_decode($histo['detail_commande'], true);
+                            echo "<td><ul>";
+                            foreach ($details as $detail) {
+                                echo "<li>{$detail['nom']} x {$detail['quantite']}</li>";
+                            } ?>
                             <td><?php echo $histo['nom'] . " " . $histo['prenom'] ?></td>
                             <td><?php echo $histo['date_commande']; ?></td>
                             <td><?php echo $histo['date_retrait']; ?></td>
@@ -73,7 +80,7 @@ $infos = $infos->fetch();
                             <td><?php echo $histo['commentaire']; ?></td>
                             <td><?php echo $histo['total']; ?>€</td>
 
-                            <td><a href="./addPtsFid.php?id_commande=<?php echo $histo['id_commande']; ?>">Valider</a></td>
+                            <td><a href="./addPtsFid.php?id_commande=<?php echo $histo['id_commande']; ?>" class="actions">Valider</a></td>
                         </tr>
                     <?php } ?>
                 </tbody>
