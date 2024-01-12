@@ -85,10 +85,8 @@ $infos = $infos->fetch();
                             <h2 id=totalDate></h2>
                         </div>
                         <div class="btn">
-                            <button onclick="location.href = './commandefinal.php'"
-                                class="btn btn-primary btn_commander">Commander</button>
-                            <button onclick="location.href = './index.php'"
-                                class="btn btn-secondary btn_commander">Retour</button>
+                            <button class="btn btn-primary btn_commander">Commander</button>
+                            <button onclick="location.href = './index.php'" class="btn btn-secondary btn_commander">Retour</button>
                         </div>
                         <div class="monElement"></div>
                     </div>
@@ -185,7 +183,7 @@ $infos = $infos->fetch();
 
             // Associer un événement de clic à chaque icône de suppression
             iconCells.forEach(icon => {
-                icon.addEventListener('click', function (event) {
+                icon.addEventListener('click', function(event) {
                     const id = event.target.dataset.id;
                     if (id) {
                         // Supprimer l'élément du panier en utilisant son ID
@@ -201,7 +199,7 @@ $infos = $infos->fetch();
             sessionStorage.setItem("panier", JSON.stringify(panier));
         }
 
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             // Initialise la date du jour lors du chargement de la page
             const today = new Date();
             const formattedToday = today.toISOString().split('T')[0]; // Format YYYY-MM-DD
@@ -211,7 +209,7 @@ $infos = $infos->fetch();
             listPanier("12h00", formattedToday);
 
             // Associe l'événement de changement de date
-            dateReservationInput.addEventListener('change', function () {
+            dateReservationInput.addEventListener('change', function() {
                 const selectedDate = dateReservationInput.value;
                 // Vérifie si une heure est déjà sélectionnée, puis met à jour le panier
                 const selectedHeure = document.querySelector('.heureSelected');
@@ -222,7 +220,7 @@ $infos = $infos->fetch();
             // Associe l'événement de clic sur une heure
             if (btnHeure) {
                 btnHeure.forEach((elem) => {
-                    elem.addEventListener("click", function (event) {
+                    elem.addEventListener("click", function(event) {
                         listPanier(event.target.textContent, dateReservationInput.value);
                         btnHeure.forEach((elem) => {
                             elem.classList.remove('heureSelected');
@@ -236,36 +234,18 @@ $infos = $infos->fetch();
         if (panier.length === 0) {
             commanderButton.style.display = 'none';
         }
-        console.log('Contenu du panier avant la requête fetch :', panier);
-        // function sendPanierToServer() {
-        //     // Assurez-vous que le panier est correctement défini avant d'exécuter la requête fetch
-        //     fetch('commandefinal.php', {
-        //         method: 'POST',
-        //         headers: {
-        //             'Content-Type': 'application/json',
-        //         },
-        //         body: JSON.stringify({ panier: panier }),
-        //     })
-        //         .then(response => {
-        //             if (!response.ok) {
-        //                 throw new Error(`Erreur HTTP ! Statut : ${response.status}`);
-        //             }
-        //             return response.json();
-        //         })
-        //         .then(data => {
-        //             console.log('Réponse du serveur :', data);
-        //         })
-        //         .catch(error => {
-        //             console.error('Erreur lors de la requête :', error);
-        //         });
-        // }
-        fetch('commandefinal.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ panier: panier }),
-        })
+        
+
+        commanderButton.addEventListener('click', function() {
+            fetch('commandefinal.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    panier: panier
+                }),
+            })
             .then(response => response.json())
             .then(data => {
                 console.log('Réponse du serveur :', data);
@@ -273,46 +253,7 @@ $infos = $infos->fetch();
             .catch(error => {
                 console.error('Erreur lors de la requête :', error);
             });
-        // /*commanderButton.addEventListener('click', function() {
-        //     window.location.href = 'commande.php';
-        // });*/
-        // commanderButton.addEventListener('click', function () {
-        //     /*if (!heureSelectionnee) {
-        //         alert("Veuillez sélectionner une heure avant de commander.");
-        //         return;
-        //     }
-        //     */
-        //     console.log(document.querySelector('.heureSelected .selectedTime').textContent);
-        //     console.log(selectedDate);
-
-        //     console.log(date_retrait);
-        //     const commande = {
-        //         panier: panier,
-        //         date: document.getElementById('choix_date').value,
-        //         heure: document.querySelector('.heureSelected .selectedTime').textContent
-        //     };
-
-        //     // Utilisez Fetch API pour envoyer les données au serveur
-        // fetch('commandefinal.php', {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //     },
-        //     body: JSON.stringify(panier),
-        // })
-        //     .then(response => response.json())
-        //     .then(data => {
-        //         if (data.status === 'success') {
-        //             alert("Commande enregistrée avec succès!");
-        //             // Vous pouvez rediriger l'utilisateur ou effectuer d'autres actions après l'enregistrement
-        //         } else {
-        //             alert("Erreur lors de l'enregistrement de la commande.");
-        //         }
-        //     })
-        //     .catch((error) => {
-        //         console.error('Erreur lors de l\'enregistrement de la commande:', error);
-        //     });
-
+        });
     </script>
     <script src="./assets/js/functions.js"></script>
     <script src="https://kit.fontawesome.com/45762c6469.js" crossorigin="anonymous"></script>
