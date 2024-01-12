@@ -6,6 +6,7 @@ session_start();
 $rawData = file_get_contents("php://input");
 $requestData = json_decode($rawData, true);
 
+
 // Vérifiez si les données du panier sont présentes
 if (isset($requestData['panier'])) {
     $panier = $requestData['panier'];
