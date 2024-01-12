@@ -16,7 +16,7 @@ $stmt->execute([
 ]);
 $recupUser = $stmt->fetch();
 $photo = $recupUser['photoprofil'];
-/*
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $fichier_photo_profil = isset($_FILES['fichier_photo_profil']) ? $_FILES['fichier_photo_profil'] : '';
     $chemin_photo_profil = '';
@@ -69,7 +69,7 @@ if (isset($_POST['modifier_mot_de_passe']) && !empty($_POST['nouveau_mot_de_pass
         }
     }
 }
-*/
+
 ?>
 <style>
     h1 {

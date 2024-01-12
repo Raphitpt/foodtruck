@@ -8,6 +8,10 @@ $infos = $infosResult->fetch();
 $contenuQuery = "SELECT * FROM elements_accueil";
 $contenuResult = $dbh->query($contenuQuery);
 $contenu = $contenuResult->fetch();
+$email = $_SESSION['email'];
+$photo = "SELECT * FROM users where email = :email";
+$photo = $dbh->query($infosQuery);
+$infos = $infosResult->fetch();
 
 
 ?>
