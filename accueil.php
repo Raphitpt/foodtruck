@@ -145,9 +145,16 @@ echo head('Page d\'accueil');
                 <li><button onclick="location.href = '#'" class="button_nav">Home</button></li>
                 <li><button onclick="location.href = './index.php'" class="button_nav">Order</button></li>
                 <li><button onclick="location.href = ''" class="button_nav">Contact us</button></li>
+                <?php if (isset($_SESSION['email']) && $_SESSION['email'] === 'admin@gmail.com') : ?>
+                    <li><button onclick="location.href = 'indexBO.php'" class="button_nav">Back Office</button></li>
+                <?php endif; ?>
             </ul>
             <ul class="nav_right">
-                <li><button onclick="location.href = './login.php'" class="button_nav connect">Connexion</button></li>
+            <?php if (isset($_SESSION['email'])) : ?>
+                    <li><button onclick="location.href = './logout.php'" class="button_nav connect">Deconnexion</button></li>
+                <?php else : ?>
+                    <li><button onclick="location.href = './login.php'" class="button_nav connect">Connexion</button></li>
+                <?php endif; ?>
             </ul>
         </nav>
     </header>
