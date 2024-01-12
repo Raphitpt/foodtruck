@@ -63,12 +63,25 @@ echo head('Accueil');
             </div>
 
             <div class="action">
-                <a href="orderCheck.php">Commandes en cours</a>
-                <a href="orderHist.php">Historique des commandes</a>
-                <a href="index.php">Voir le site web</a></button>
-                <a href="ptsFid.php">Points de fidélité</a>
-                <a href="infosEntreprise.php">Données de votre entreprise</a>
-                <a href="editAccueil.php">Modifier la page d'accueil</a>
+                <div class="commandes">
+                    <h2>Commandes</h2>
+                    <a href="orderCheck.php">Commandes en cours</a>
+                    <a href="orderHist.php">Historique des commandes</a>
+                </div>
+                <div class="utilisateurs">
+                    <h2>Utilisateurs</h2>
+                    <a href="users.php">Utilisateurs</a>
+                    <a href="ptsFid.php">Points de fidélité</a>
+                </div>
+                <div class="site">
+                    <h2>Site</h2>
+                    <a href="infosEntreprise.php">Données de votre entreprise</a>
+                    <a href="editAccueil.php">Modifier la page d'accueil</a>
+                    <a href="index.php">Voir le site web</a></button>
+                </div>
+                
+                
+  
 
             </div>
         </section>

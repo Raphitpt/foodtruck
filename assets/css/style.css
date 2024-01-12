@@ -641,7 +641,7 @@ main {
   justify-content: start;
   align-items: center;
   flex-direction: column;
-  gap: 3rem;
+  gap: 1.5rem;
   width: 20vw;
   right: 10vw;
   height: auto;
@@ -886,4 +886,30 @@ input[type="date"] {
 }
 .supprCommande {
   cursor: pointer;
+}
+
+.commandes{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 0.2rem;
+  font-family: Montserrat;
+}
+.utilisateurs{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 0.2rem;
+  font-family: Montserrat;
+}
+
+.site{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 0.2rem;
+  font-family: Montserrat;
 }

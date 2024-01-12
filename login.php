@@ -2,6 +2,9 @@
 session_start();
 require 'bootstrap.php';
 
+// Initialiser les messages d'erreur
+$errorMsg = '';
+
 if (isset($_POST['envoi'])) {
     if (!empty($_POST['email']) && !empty($_POST['mdp'])) {
         $email = htmlspecialchars($_POST['email']);
@@ -15,7 +18,6 @@ if (isset($_POST['envoi'])) {
         ]);
         $recupUser = $stmt->fetch(PDO::FETCH_ASSOC);
 
-
         if ($recupUser && password_verify($mdp, $recupUser['passwd'])) {
             if ($recupUser['email'] == 'admin@gmail.com') {
                 header('Location: indexBO.php');
@@ -25,19 +27,20 @@ if (isset($_POST['envoi'])) {
                 exit();
             }
         } else {
-            echo "Votre mot de passe ou pseudo est incorrect";
+            // Mettre à jour le message d'erreur
+            $errorMsg = "Votre mot de passe ou pseudo est incorrect";
         }
     } else {
-        echo "Veuillez compléter les champs.";
+        // Mettre à jour le message d'erreur
+        $errorMsg = "Veuillez compléter les champs.";
     }
 }
+
 $infos = "SELECT * FROM settings";
 $infos = $dbh->query($infos);
 $infos = $infos->fetch();
 echo head('Connexion');
 ?>
-
-
 
 <body>
     <nav>
@@ -59,24 +62,25 @@ echo head('Connexion');
         </div>
         <section class="form">
             <h1>Connectez-vous</h1>
+            <!-- Afficher le message d'erreur ici -->
+            <?php if (!empty($errorMsg)) : ?>
+                <p style="color: red;"><?= $errorMsg ?></p>
+            <?php endif; ?>
             <form method="POST" action="">
                 <label for="username">Mail :</label>
                 <input type="text" name="email">
                 <br>
                 <label for="password">Mot de passe :</label>
-                <input type="password" name="mdp"> 
+                <input type="password" name="mdp">
                 <br>
                 <a href="./sendReset.php">Mot de passe oublié ?</a>
                 <br>
                 <br>
                 <input type="submit" name="envoi" value="Envoyer">
             </form>
-            
+
         </section>
     </main>
-
-
-
 </body>
 
 </html>
