@@ -43,29 +43,38 @@ $infos = $infos->fetch();
 <html>
 
 <head>
-  <title>Connectez-vous</title>
+  <title>S'inscire</title>
 </head>
 
 <body>
-  <h1>Register</h1>
-  <?php if (isset($error)) { ?>
-    <p>
-      <?php echo $error; ?>
-    </p>
-  <?php } ?>
-  <form method="post">
-    <label>Nom:</label>
-    <input type="text" name="nom"><br>
-    <label>Prénom:</label>
-    <input type="text" name="prenom"><br>
-    <label>Email:</label>
-    <input type="email" name="email"><br>
-    <label>Mot de passe:</label>
-    <input type="password" name="password"><br>
-    <label>Confirmation de Mot de passe</label>
-    <input type="password" name="confirm_password">
-    <input type="submit" value="Register">
-  </form>
+  <main>
+    <div class="btn-retour">
+      <a href="index.php" class="btn"><i class="fa-solid fa-arrow-left"></i></a>
+    </div>
+    <section class="form">
+      <h1>Register</h1>
+      <?php if (isset($error)) { ?>
+        <p>
+          <?php echo $error; ?>
+        </p>
+      <?php } ?>
+      <form method="post">
+        <label>Nom:</label>
+        <input type="text" name="nom"><br>
+        <label>Prénom:</label>
+        <input type="text" name="prenom"><br>
+        <label>Email:</label>
+        <input type="email" name="email"><br>
+        <label>Mot de passe:</label>
+        <input type="password" name="password"><br>
+        <label>Confirmation de Mot de passe</label>
+        <input type="password" name="confirm_password">
+        <input type="submit" value="Register">
+      </form>
+  </main>
+  </section>
+
+
 </body>
 
 </html>

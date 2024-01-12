@@ -4,6 +4,8 @@ document.addEventListener("DOMContentLoaded", function () {
   const platComposition = document.querySelectorAll(".card-text");
   const idPlat = document.querySelectorAll(".id_plats");
   const ajouterBoutons = document.querySelectorAll(".button_add");
+  const divSuppl = document.querySelector(".supplements");
+  const divListPlats = document.querySelector(".list_plat");
 
   let panierDiv = document.querySelector(".panier");
 
@@ -32,6 +34,9 @@ document.addEventListener("DOMContentLoaded", function () {
   ajouterBoutons.forEach((ajouterBouton, index) => {
     let elementCounter = 0;
     ajouterBouton.addEventListener("click", function () {
+        divSuppl.style.display = "block";
+        divListPlats.style.display = "none";
+
       elementCounter++;
       let id = idPlat[index].value;
       let itemIndex = panier.findIndex((item) => item.id === id);
@@ -186,26 +191,30 @@ function togglePlat(platType) {
   }
 }
 
-let français = document.querySelector(".français");
-let anglais = document.querySelector(".anglais");
-let fra = document.querySelector(".fra");
-let ang = document.querySelector(".ang");
-let navang = document.querySelector(".navang");
-let navfr = document.querySelector(".navfr");
+français = document.querySelector(".français");
+anglais = document.querySelector(".anglais");
+fra = document.querySelector(".fra");
+ang = document.querySelector(".ang");
+navang = document.querySelector(".navang");
+navfr = document.querySelector(".navfr");
+
 anglais.addEventListener("click", function () {
   français.style.display = "block";
-  navfr.style.display = "none";
-  fra.style.display = "none";
-  navang.style.display = "flex";
-  ang.style.display = "flex";
-  anglais.style.display = "none";
-  français.style.display = "block";
+  navfr.style.display="none";
+  fra.style.display="none";
+  navang.style.display="flex";
+  ang.style.display="flex";
+  anglais.style.display="none";
+
 });
 français.addEventListener("click", function () {
   anglais.style.display = "block";
-  navang.style.display = "none";
-  ang.style.display = "none";
-  navfr.style.display = "flex";
-  fra.style.display = "flex";
-  français.style.display = "none";
+  navang.style.display="none";
+  ang.style.display="none";
+  navfr.style.display="flex";
+  fra.style.display="flex";
+  français.style.display="none";
+
 });
+
+

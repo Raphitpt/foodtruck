@@ -138,9 +138,9 @@ echo head('Commander');
             </div>
 
         </section>
-        <section class="plats supplements">
+        <section class="plats supplements" style="display: none;">
             <div>
-                <h2>Suppléments</h2>
+                <h2>Voulez vous ajouter un suppléments ?</h2>
                 <div class="line"></div>
             </div>
             <div class="suppl_sale">
@@ -152,14 +152,12 @@ echo head('Commander');
                             <div class="list_suppl">
                                 <div>
                                     <li><?= $supplement['nom'] ?></li>
-                                    <p><?= $supplement['prix'] ?></p>
+                                    <p>+ <?= $supplement['prix'] ?> €</p>
                                 </div>
-                                <div class="content button_addsuppl">
-                                    <label class="checkBox">
-                                        <input id="ch1" type="checkbox">
-                                        <div class="transition"></div>
-                                    </label>
-                                </div>
+                                <label>
+                                    <input type="checkbox" class="input">
+                                    <span class="custom-checkbox"></span>
+                                </label>
                             </div>
                     <?php }
                     endforeach; ?>
@@ -174,14 +172,12 @@ echo head('Commander');
                             <div class="list_suppl">
                                 <div>
                                     <li><?= $supplement['nom'] ?></li>
-                                    <p><?= $supplement['prix'] ?></p>
+                                    <p>+ <?= $supplement['prix'] ?>€</p>
                                 </div>
-                                <div class="content button_addsuppl">
-                                    <label class="checkBox">
-                                        <input id="ch1" type="checkbox">
-                                        <div class="transition"></div>
-                                    </label>
-                                </div>
+                                <label>
+                                    <input type="checkbox" class="input">
+                                    <span class="custom-checkbox"></span>
+                                </label>
                             </div>
                     <?php }
                     endforeach; ?>

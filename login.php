@@ -54,6 +54,9 @@ echo head('Connexion');
         </ul>
     </nav>
     <main>
+        <div class="btn-retour">
+            <a href="index.php" class="btn"><i class="fa-solid fa-arrow-left"></i></a>
+        </div>
         <section class="form">
             <h1>Connectez-vous</h1>
             <form method="POST" action="">

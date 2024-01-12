@@ -71,21 +71,29 @@ if (isset($_POST['modifier_mot_de_passe']) && !empty($_POST['nouveau_mot_de_pass
 ?>
 
 <body>
-    <h1>Profil de <?php echo $recupUser['nom'] . " " . $recupUser['prenom'] ?></h1>
-    <img src="<?php echo $photo == NULL ? "./assets/img/grandprofilfb.jpg" : $photo; ?>" />
-    <form action="" method="post" enctype="multipart/form-data">
-        <label for="fichier_photo_profil">Modifier la photo de profil :</label>
-        <input type="file" name="fichier_photo_profil" id="fichier_photo_profil">
-        <input type="submit" value="Enregistrer">
-    </form>
-    <form action="" method="post">
-        <label for="nouveau_mot_de_passe">Nouveau mot de passe :</label>
-        <input type="password" name="nouveau_mot_de_passe" id="nouveau_mot_de_passe" value="">
-        <input type="password" name="confirmation_mot_de_passe" id="confirmnew" value="">
-        <input type="submit" name="modifier_mot_de_passe">
-    </form>
-    <p><?php echo $recupUser['pts_fidelite'] ?></p>
-    <p><?php echo $recupUser['email']; ?></p>
+    <main>
+        <div class="btn-retour">
+            <a href="index.php" class="btn"><i class="fa-solid fa-arrow-left"></i></a>
+        </div>
+        <section class="form">
+            <h1>Profil de <?php echo $recupUser['nom'] . " " . $recupUser['prenom'] ?></h1>
+            <img src="<?php echo $photo == NULL ? "./assets/img/grandprofilfb.jpg" : $photo; ?>" />
+            <form action="" method="post" enctype="multipart/form-data">
+                <label for="fichier_photo_profil">Modifier la photo de profil :</label>
+                <input type="file" name="fichier_photo_profil" id="fichier_photo_profil">
+                <input type="submit" value="Enregistrer">
+            </form>
+            <form action="" method="post">
+                <label for="nouveau_mot_de_passe">Nouveau mot de passe :</label>
+                <input type="password" name="nouveau_mot_de_passe" id="nouveau_mot_de_passe" value="">
+                <input type="password" name="confirmation_mot_de_passe" id="confirmnew" value="">
+                <input type="submit" name="modifier_mot_de_passe">
+            </form>
+            <p><?php echo $recupUser['pts_fidelite'] ?></p>
+            <p><?php echo $recupUser['email']; ?></p>
+        </section>
+    </main>
+
 </body>
 
 </html>
