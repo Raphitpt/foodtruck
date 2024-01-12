@@ -884,3 +884,6 @@ input[type="date"] {
 .commandeConfirm p {
   margin-bottom: 2rem;
 }
+.supprCommande {
+  cursor: pointer;
+}
