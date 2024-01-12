@@ -67,7 +67,7 @@ echo head('Commander');
     <main class="main_commande">
         <!-- affichage des plats -->
 
-        <section class="plats">
+        <section class="plats list_plat">
 
             <div class="plats_title">
                 <div class="plats_titles">
@@ -138,7 +138,56 @@ echo head('Commander');
             </div>
 
         </section>
+        <section class="plats supplements">
+            <div>
+                <h2>Suppléments</h2>
+                <div class="line"></div>
+            </div>
+            <div class="suppl_sale">
+                <h3>Suppléments salées</h3>
+                <ul>
+                    <?php foreach ($supplements as $supplement) :
+                        if ($supplement['type'] == "sale") { ?>
 
+                            <div class="list_suppl">
+                                <div>
+                                    <li><?= $supplement['nom'] ?></li>
+                                    <p><?= $supplement['prix'] ?></p>
+                                </div>
+                                <div class="content button_addsuppl">
+                                    <label class="checkBox">
+                                        <input id="ch1" type="checkbox">
+                                        <div class="transition"></div>
+                                    </label>
+                                </div>
+                            </div>
+                    <?php }
+                    endforeach; ?>
+                </ul>
+            </div>
+            <div class="suppl_sucre">
+                <h3>Suppléments sucrées</h3>
+                <ul>
+                    <?php foreach ($supplements as $supplement) :
+                        if ($supplement['type'] == "sucre") { ?>
+
+                            <div class="list_suppl">
+                                <div>
+                                    <li><?= $supplement['nom'] ?></li>
+                                    <p><?= $supplement['prix'] ?></p>
+                                </div>
+                                <div class="content button_addsuppl">
+                                    <label class="checkBox">
+                                        <input id="ch1" type="checkbox">
+                                        <div class="transition"></div>
+                                    </label>
+                                </div>
+                            </div>
+                    <?php }
+                    endforeach; ?>
+                </ul>
+            </div>
+        </section>
         <section>
             <div class="commande rectangle">
                 <div class="panier">
