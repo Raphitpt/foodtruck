@@ -68,6 +68,7 @@ echo head('Accueil');
                 <a href="index.php">Voir le site web</a></button>
                 <a href="ptsFid.php">Points de fidélité</a>
                 <a href="infosEntreprise.php">Données de votre entreprise</a>
+                <a href="editAccueil.php">Modifier la page d'accueil</a>
 
             </div>
         </section>
