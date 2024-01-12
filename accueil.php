@@ -117,7 +117,7 @@ echo head('Page d\'accueil');
 
 <body>
     <header>
-        <nav>
+        <nav class="navfr">
             <ul class="nav_left">
                 <li class="nav_title"><img src="<?= $infos['url_logo'] ?>" alt="logo fouee">
                     <p>Fouée't Moi</p>
