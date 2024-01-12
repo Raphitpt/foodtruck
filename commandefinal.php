@@ -1,31 +1,21 @@
 <?php
+require './bootstrap.php';
 header('Content-Type: application/json');
-
-// Récupérez les données JSON de la requête POST
 $inputJSON = file_get_contents('php://input');
-file_put_contents('log.txt', $inputJSON); // Enregistrez le contenu dans un fichier log.txt
+file_put_contents('log.txt', $inputJSON); // Ajout de cette ligne pour enregistrer le contenu dans un fichier log.txt
 
-// Décoder les données JSON
-$data = json_decode($inputJSON, true);
+$input = json_decode($inputJSON, true);
+print_r($input);
+if ($input && isset($input['panier'])) {
+    $panier = $input['panier'];
 
-// Vérifiez si les données du panier sont présentes
-if ($data && isset($data['panier'])) {
-    $panier = $data['panier'];
-    echo json_encode(['success' => true]);
+    if (!empty($panier)) {
+
+        // Met ici la requete sql pour ajouter en base de donnée, $panier doit avoir json_encode dans la requete sql
+        echo json_encode(['success' => true]);
+    } else {
+        echo json_encode(['error' => 'Le panier est vide.'], 400);
+    }
 } else {
     echo json_encode(['error' => 'Aucun panier envoyé.'], 400);
 }
-
-// Décommentez ces lignes si vous avez besoin d'utiliser $requestData au lieu de $data
-// $requestData = json_decode(file_get_contents('php://input'), true);
-// if (isset($requestData['panier'])) {
-//     $panier = $requestData['panier'];
-//     echo json_encode(['success' => true]);
-// } else {
-//     echo json_encode(['error' => 'Aucun panier envoyé.'], 400);
-// }
-
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-?>

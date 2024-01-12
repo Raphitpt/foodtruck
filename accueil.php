@@ -4,6 +4,10 @@ session_start();
 $infosQuery = "SELECT * FROM settings";
 $infosResult = $dbh->query($infosQuery);
 $infos = $infosResult->fetch();
+
+$contenu = "SELECT * FROM elements_accueil";
+$contenu = $dbh->query($contenu);
+$contenu = $contenu->fetchAll();
 echo head('Page d\'accueil');
 ?>
 <style>
@@ -117,7 +121,7 @@ echo head('Page d\'accueil');
 
 <body>
     <header>
-        <nav>
+        <nav class="navfr">
             <ul class="nav_left">
                 <li class="nav_title"><img src="<?= $infos['url_logo'] ?>" alt="logo fouee">
                     <p>Fouée't Moi</p>
@@ -145,9 +149,16 @@ echo head('Page d\'accueil');
                 <li><button onclick="location.href = '#'" class="button_nav">Home</button></li>
                 <li><button onclick="location.href = './index.php'" class="button_nav">Order</button></li>
                 <li><button onclick="location.href = ''" class="button_nav">Contact us</button></li>
+                <?php if (isset($_SESSION['email']) && $_SESSION['email'] === 'admin@gmail.com') : ?>
+                    <li><button onclick="location.href = 'indexBO.php'" class="button_nav">Back Office</button></li>
+                <?php endif; ?>
             </ul>
             <ul class="nav_right">
-                <li><button onclick="location.href = './login.php'" class="button_nav connect">Connexion</button></li>
+            <?php if (isset($_SESSION['email'])) : ?>
+                    <li><button onclick="location.href = './logout.php'" class="button_nav connect">Deconnexion</button></li>
+                <?php else : ?>
+                    <li><button onclick="location.href = './login.php'" class="button_nav connect">Connexion</button></li>
+                <?php endif; ?>
             </ul>
         </nav>
     </header>
