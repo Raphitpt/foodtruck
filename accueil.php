@@ -163,22 +163,22 @@ echo head('Page d\'accueil');
         </div>
 
         <section class="accueil ang" style="display:none">
-            <h1><?= htmlspecialchars("Welcome on") ?> <?php echo htmlspecialchars($contenu['nom_entreprise']) ?></h1>
+            <h1><?= htmlspecialchars("Welcome on") ?> <?php echo htmlspecialchars($contenu['nom_entreprise'], ENT_QUOTES) ?></h1>
             <button onclick="location.href = './index.php'"><?= htmlspecialchars("Order") ?></button>
             <div>
                 <img src="<?php echo htmlspecialchars($contenu['url_img1']) ?>" />
                 <div>
-                    <h2><?php echo htmlspecialchars($contenu['title1EN']) ?></h2>
+                    <h2><?php echo htmlspecialchars($contenu['title1EN'], ENT_QUOTES) ?></h2>
                     <p>
-                    <?php echo htmlspecialchars($contenu['texte1EN']) ?>
+                    <?php echo htmlspecialchars($contenu['texte1EN'], ENT_QUOTES) ?>
                     </p>
                 </div>
             </div>
             <div>
                 <div>
-                    <h2><?php echo htmlspecialchars($contenu['title2EN']) ?></h2>
+                    <h2><?php echo htmlspecialchars($contenu['title2EN'], ENT_QUOTES) ?></h2>
                     <p>
-                    <?php echo htmlspecialchars($contenu['texte2EN']) ?>
+                    <?php echo htmlspecialchars($contenu['texte2EN'], ENT_QUOTES) ?>
                     </p>
                 </div>
                 <img src="<?php echo htmlspecialchars($contenu['url_img2']) ?>" />
@@ -187,22 +187,22 @@ echo head('Page d\'accueil');
 
         </section>
         <section class="accueil fra">
-            <h1><?= htmlspecialchars("Bienvenue sur") ?> <?php echo htmlspecialchars($contenu['nom_entreprise']) ?></h1>
+            <h1><?= htmlspecialchars("Bienvenue sur") ?> <?php echo htmlspecialchars($contenu['nom_entreprise'], ENT_QUOTES) ?></h1>
             <button onclick="location.href = './index.php'"><?= htmlspecialchars("Commander") ?></button>
             <div>
                 <img src="<?php echo htmlspecialchars($contenu['url_img1']) ?>" />
                 <div>
-                    <h2><?php echo htmlspecialchars($contenu['title1']) ?></h2>
+                    <h2><?php echo htmlspecialchars($contenu['title1'], ENT_QUOTES) ?></h2>
                     <p>
-                    <?php echo htmlspecialchars($contenu['texte1']) ?>
+                    <?php echo htmlspecialchars($contenu['texte1'], ENT_QUOTES) ?>
                     </p>
                 </div>
             </div>
             <div>
                 <div>
-                    <h2><?php echo htmlspecialchars($contenu['title2']) ?></h2>
+                    <h2><?php echo htmlspecialchars($contenu['title2'], ENT_QUOTES) ?></h2>
                     <p>
-                    <?php echo htmlspecialchars($contenu['texte2']) ?>
+                    <?php echo htmlspecialchars($contenu['texte2'], ENT_QUOTES) ?>
                     </p>
                 </div>
                 <img src="<?php echo htmlspecialchars($contenu['url_img2']) ?>" />

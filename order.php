@@ -81,12 +81,22 @@ $infos = $infos->fetch();
                             </tbody>
                         </table>
                         <div class="total">
-                            <h2 id="totalCommande"></h2>
-                            <h2 id=totalDate></h2>
+                            <button class="text" onclick="ouvrirTextInput()">Ajouter un commentaire à la
+                                commande</button>
+
+                            <div class="text-input">
+                                <label for="monTexte"></label>
+                                <input type="text" placeholder="Précisez quels couverts, serviettes, pailles et
+                                    condiments vous souhaitez inclure dans votre commande, ainsi que toute instruction
+                                    spécifique à communiquer au restaurant" size="100" id="commentaire">
+                            </div>
+                            <h2>Total de la commande <span id="totalCommande"></span> €</h2>
+                            <h2>Date de retrait : <span id="totalHeure"></span> le <span id="totalDate"></span></h2>
                         </div>
                         <div class="btn">
                             <button class="btn btn-primary btn_commander">Commander</button>
-                            <button onclick="location.href = './index.php'" class="btn btn-secondary btn_commander">Retour</button>
+                            <button onclick="location.href = './index.php'"
+                                class="btn btn-secondary btn_commander">Retour</button>
                         </div>
                         <div class="monElement"></div>
                     </div>
@@ -112,6 +122,19 @@ $infos = $infos->fetch();
                 </div>
             </div>
         </section>
+        <section class="commandeConfirm">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <h1>Commande confirmée</h1>
+                        <p>Votre commande a bien été prise en compte. Vous pouvez la retrouver dans votre historique de
+                            commande.</p>
+                        <button onclick="location.href = './index.php'"
+                            class="btn btn-secondary btn_commander">Retour</button>
+                    </div>
+                </div>
+            </div>
+        </section>
 
         <script>
             const panier = JSON.parse(sessionStorage.getItem('panier')) || [];
@@ -119,14 +142,28 @@ $infos = $infos->fetch();
         </script>
     </main>
     <script>
+        function afficherCommandeConfirm() {
+            // Masquer la section recap
+            document.querySelector('.recap').style.display = 'none';
+            // Afficher la section commandeConfirm
+            document.querySelector('.commandeConfirm').style.display = 'block';
+        }
+
+        function ouvrirTextInput() {
+            // Afficher la zone de texte
+            var textInput = document.querySelector('.text-input');
+            textInput.style.display = 'block';
+        }
         const tbody = document.querySelector('tbody');
         let html = '';
         const totalCommande = document.getElementById('totalCommande');
         const totalDate = document.getElementById('totalDate');
+        const totalHeure = document.getElementById('totalHeure');
         const commanderButton = document.querySelector('.btn_commander');
         const heureReservation = document.querySelectorAll('.selectedTime');
         const btnHeure = document.querySelectorAll('.btnHeure');
         const dateReservationInput = document.getElementById('dateReservation');
+        const commentaire = document.getElementById('commentaire');
 
         let total = 0;
 
@@ -173,8 +210,10 @@ $infos = $infos->fetch();
 
             tbody.innerHTML = html;
             const formattedDate = formatDate(date);
-            totalCommande.innerHTML = `Total de la commande : ${total} €`;
-            totalDate.innerHTML = `Date de la commande : ${heure} le ${formattedDate}`;
+            totalCommande.innerHTML = `${total}`;
+            totalDate.innerHTML = `${formattedDate}`;
+            totalHeure.innerHTML = `${heure}`;
+            commentaire.innerHTML = `${commentaire.value}`;
 
             const monElements = document.querySelectorAll(".monElement");
             const ids = Array.from(monElements).map(element => element.id);
@@ -183,7 +222,7 @@ $infos = $infos->fetch();
 
             // Associer un événement de clic à chaque icône de suppression
             iconCells.forEach(icon => {
-                icon.addEventListener('click', function(event) {
+                icon.addEventListener('click', function (event) {
                     const id = event.target.dataset.id;
                     if (id) {
                         // Supprimer l'élément du panier en utilisant son ID
@@ -196,10 +235,13 @@ $infos = $infos->fetch();
                     }
                 });
             });
+
+            totalCommande.innerHTML = `${total}`;
             sessionStorage.setItem("panier", JSON.stringify(panier));
         }
 
-        document.addEventListener('DOMContentLoaded', function() {
+
+        document.addEventListener('DOMContentLoaded', function () {
             // Initialise la date du jour lors du chargement de la page
             const today = new Date();
             const formattedToday = today.toISOString().split('T')[0]; // Format YYYY-MM-DD
@@ -209,7 +251,7 @@ $infos = $infos->fetch();
             listPanier("12h00", formattedToday);
 
             // Associe l'événement de changement de date
-            dateReservationInput.addEventListener('change', function() {
+            dateReservationInput.addEventListener('change', function () {
                 const selectedDate = dateReservationInput.value;
                 // Vérifie si une heure est déjà sélectionnée, puis met à jour le panier
                 const selectedHeure = document.querySelector('.heureSelected');
@@ -220,7 +262,7 @@ $infos = $infos->fetch();
             // Associe l'événement de clic sur une heure
             if (btnHeure) {
                 btnHeure.forEach((elem) => {
-                    elem.addEventListener("click", function(event) {
+                    elem.addEventListener("click", function (event) {
                         listPanier(event.target.textContent, dateReservationInput.value);
                         btnHeure.forEach((elem) => {
                             elem.classList.remove('heureSelected');
@@ -248,20 +290,37 @@ $infos = $infos->fetch();
             return objet;
         }
 
-        commanderButton.addEventListener('click', function() {
+        commanderButton.addEventListener('click', function () {
             const panierNettoye = nettoyerObjet(panier);
+            let dateRetrait = totalDate.textContent;
+            let [jour, mois, annee] = dateRetrait.split('/');
+            let dateObj = new Date(Date.UTC(annee, mois - 1, jour));
+            let formattedDate = dateObj.toISOString().split('T')[0];
+            let heureFormated = totalHeure.textContent.split('h');
+            let heure = heureFormated[0] + ":" + heureFormated[1];
+            let commentaires = commentaire.value;
+            let date = formattedDate + " " + heure;
             fetch('commandefinal.php', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        panier: panierNettoye
-                    }, null),
-                })
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    panier: panierNettoye,
+                    date_retrait: date,
+                    prix: totalCommande.textContent,
+                    commentaire: commentaires,
+                }, null),
+            })
                 .then(response => response.json())
                 .then(data => {
                     console.log('Réponse du serveur :', data);
+                    if (data.success) {
+                        // Rediriger vers la page de confirmation
+                        afficherCommandeConfirm();
+                    } else {
+                        alert(data.error);
+                    }
                 })
                 .catch(error => {
                     console.error('Erreur lors de la requête :', error);

@@ -58,7 +58,7 @@ echo head('Modifier les informations de la page d\'accueil');
                             <h2>Contenus multilingues</h2>
                             <div>
                                 <label for="nom_entreprise">Nom de l'entreprise</label>
-                                <input name="nom_entreprise" id="nom_entreprise" type="text" required value="<?= htmlspecialchars($accueil['nom_entreprise']); ?>">
+                                <input name="nom_entreprise" id="nom_entreprise" type="text" required value="<?= htmlspecialchars($accueil['nom_entreprise'], ENT_QUOTES); ?>">
                             </div>
                             <div>
                                 <label for="url_img1">Première image</label>
@@ -71,36 +71,36 @@ echo head('Modifier les informations de la page d\'accueil');
                             <h2>Contenu en français</h2>
                             <div>
                                 <label for="title1">Premier titre</label>
-                                <input name="title1" id="title1" value="<?= htmlspecialchars($accueil['title1']); ?>">
+                                <input name="title1" id="title1" value="<?= htmlspecialchars($accueil['title1'], ENT_QUOTES); ?>">
                             </div>
                             <div>
                                 <label for="texte1">Premier texte</label>
-                                <input name="texte1" id="texte1" value="<?= htmlspecialchars($accueil['texte1']); ?>">
+                                <input name="texte1" id="texte1" value="<?= htmlspecialchars($accueil['texte1'], ENT_QUOTES); ?>">
                             </div>
                             <div>
                                 <label for="title2">Deuxième titre</label>
-                                <input name="title2" id="title2" value="<?= htmlspecialchars($accueil['title2']); ?>">
+                                <input name="title2" id="title2" value="<?= htmlspecialchars($accueil['title2'], ENT_QUOTES); ?>">
                             </div>
                             <div>
                                 <label for="texte2">Deuxième texte</label>
-                                <input name="texte2" id="texte2" value="<?= htmlspecialchars($accueil['texte2']); ?>">
+                                <input name="texte2" id="texte2" value="<?= htmlspecialchars($accueil['texte2'], ENT_QUOTES); ?>">
                             </div>
                             <h2>Contenu en anglais</h2>
                             <div>
                                 <label for="title1EN">Premier titre</label>
-                                <input name="title1EN" id="title1EN" value="<?= htmlspecialchars($accueil['title1EN']); ?>">
+                                <input name="title1EN" id="title1EN" value="<?= htmlspecialchars($accueil['title1EN'], ENT_QUOTES); ?>">
                             </div>
                             <div>
                                 <label for="texte1EN">Premier texte</label>
-                                <input name="texte1EN" id="texte1EN" value="<?= htmlspecialchars($accueil['texte1EN']); ?>">
+                                <input name="texte1EN" id="texte1EN" value="<?= htmlspecialchars($accueil['texte1EN'], ENT_QUOTES); ?>">
                             </div>
                             <div>
                                 <label for="title2EN">Deuxième titre</label>
-                                <input name="title2EN" id="title2EN" value="<?= htmlspecialchars($accueil['title2EN']); ?>">
+                                <input name="title2EN" id="title2EN" value="<?= htmlspecialchars($accueil['title2EN'], ENT_QUOTES); ?>">
                             </div>
                             <div>
                                 <label for="texte2EN">Deuxième texte</label>
-                                <input name="texte2EN" id="texte2EN" value="<?= htmlspecialchars($accueil['texte2EN']); ?>">
+                                <input name="texte2EN" id="texte2EN" value="<?= htmlspecialchars($accueil['texte2EN'], ENT_QUOTES); ?>">
                             </div>
                             <div>
                                 <button type="submit" class="actions">Appliquer</button>
@@ -113,17 +113,17 @@ echo head('Modifier les informations de la page d\'accueil');
                     // En mode POST, enregistrez les données du formulaire dans la base de données
 
                     // Récupérez les données du formulaire
-                    $nom_entreprise = isset($_POST['nom_entreprise']) ? htmlspecialchars($_POST['nom_entreprise']) : '';
+                    $nom_entreprise = isset($_POST['nom_entreprise']) ? htmlspecialchars($_POST['nom_entreprise'], ENT_QUOTES) : '';
                     $img1 = isset($_FILES['url_img1']) ? $_FILES['url_img1'] : '';
                     $img2 = isset($_FILES['url_img2']) ? $_FILES['url_img2'] : '';
-                    $title1 = isset($_POST['title1']) ? htmlspecialchars($_POST['title1']) : '';
-                    $texte1 = isset($_POST['texte1']) ? htmlspecialchars($_POST['texte1']) : '';
-                    $title2 = isset($_POST['title2']) ? htmlspecialchars($_POST['title2']) : '';
-                    $texte2 = isset($_POST['texte2']) ? htmlspecialchars($_POST['texte2']) : '';
-                    $title1EN = isset($_POST['title1EN']) ? htmlspecialchars($_POST['title1EN']) : '';
-                    $texte1EN = isset($_POST['texte1EN']) ? htmlspecialchars($_POST['texte1EN']) : '';
-                    $title2EN = isset($_POST['title2EN']) ? htmlspecialchars($_POST['title2EN']) : '';
-                    $texte2EN = isset($_POST['texte2EN']) ? htmlspecialchars($_POST['texte2EN']) : '';
+                    $title1 = isset($_POST['title1']) ? htmlspecialchars($_POST['title1'], ENT_QUOTES) : '';
+                    $texte1 = isset($_POST['texte1']) ? htmlspecialchars($_POST['texte1'], ENT_QUOTES) : '';
+                    $title2 = isset($_POST['title2']) ? htmlspecialchars($_POST['title2'], ENT_QUOTES) : '';
+                    $texte2 = isset($_POST['texte2']) ? htmlspecialchars($_POST['texte2'], ENT_QUOTES) : '';
+                    $title1EN = isset($_POST['title1EN']) ? htmlspecialchars($_POST['title1EN'], ENT_QUOTES) : '';
+                    $texte1EN = isset($_POST['texte1EN']) ? htmlspecialchars($_POST['texte1EN'], ENT_QUOTES) : '';
+                    $title2EN = isset($_POST['title2EN']) ? htmlspecialchars($_POST['title2EN'], ENT_QUOTES) : '';
+                    $texte2EN = isset($_POST['texte2EN']) ? htmlspecialchars($_POST['texte2EN'], ENT_QUOTES) : '';
 
                     // Gestion du changement des images
                     if ($img1['size'] > 0) {
