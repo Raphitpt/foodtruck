@@ -27,7 +27,7 @@ $users = $users->fetchAll();
 ?>
 
 <body>
-<nav>
+    <nav>
         <ul class="nav_left">
             <li class="nav_title"><img src="<?= $infos['url_logo'] ?>" alt="logo fouee">
                 <p>Fouée't Moi</p>
@@ -38,11 +38,17 @@ $users = $users->fetchAll();
             <?php endif; ?>
         </ul>
         <ul class="nav_right">
-            <li><button onclick="location.href = './login.php'" class="button_nav connect">Se connecter</button></li>
+            <?php if (isset($_SESSION['email'])) : ?>
+                <li><button onclick="location.href = './logout.php'" class="button_nav connect">Se déconnecter</button></li>
+            <?php else : ?>
+                <li><button onclick="location.href = './login.php'" class="button_nav connect">Se connecter</button></li>
+            <?php endif; ?>
         </ul>
     </nav>
     <main>
-        <a href="indexBO.php" class="btn"><i class="fa-solid fa-arrow-left"></i></a>
+        <div class="btn-retour">
+            <a href="indexBO.php" class="btn"><i class="fa-solid fa-arrow-left"></i></a>
+        </div>
         <section class="commandeTable">
             <h1>Points de fidélité des clients</h1>
             <table class="table" id="table" data-toggle="table" data-show-columns="true" data-search="true" auto-refresh="true">
@@ -50,7 +56,7 @@ $users = $users->fetchAll();
                     <tr>
                         <th scope="col">Nom/Prénom du client</th>
                         <th scope="col" data-sortable="true">Points de fidélité</th>
-                        
+
                     </tr>
                 </thead>
                 <tbody>

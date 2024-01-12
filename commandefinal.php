@@ -6,7 +6,10 @@ $data = json_decode(file_get_contents('php://input'), true);
 if ($data && isset($data['panier'])) {
     $panier = $data['panier'];
 
-    // Faites quelque chose avec le panier ici
+
+// Vérifiez si les données du panier sont présentes
+if (isset($requestData['panier'])) {
+    $panier = $requestData['panier'];
 
     echo json_encode(['success' => true]);
 } else {
