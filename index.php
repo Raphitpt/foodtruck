@@ -143,7 +143,7 @@ echo head('Commander');
         </section>
         <section class="plats supplements" style="display: none;">
             <div>
-                <h2>Voulez vous ajouter un suppléments ?</h2>
+                <h2>Voulez vous ajouter des suppléments ?</h2>
                 <div class="line"></div>
             </div>
             <div class="suppl_sale">
@@ -157,6 +157,9 @@ echo head('Commander');
                                     <li>
                                         <?= $supplement['nom'] ?>
                                     </li>
+                                    <p class="idSuppl" style="display:none;">
+                                        <?= $supplement['id_suppl'] ?>
+                                    </p>
                                     <p>+
                                         <?= $supplement['prix'] ?> €
                                     </p>
@@ -181,6 +184,9 @@ echo head('Commander');
                                     <li>
                                         <?= $supplement['nom'] ?>
                                     </li>
+                                    <p class="idSuppl" style="display:none;">
+                                        <?= $supplement['id_suppl'] ?>
+                                    </p>
                                     <p>+
                                         <?= $supplement['prix'] ?>€
                                     </p>
@@ -194,6 +200,8 @@ echo head('Commander');
                     endforeach; ?>
                 </ul>
             </div>
+            <button class="noThanks">Non merci</button>
+            <button class="addSupplYes">Ajouter</button>
         </section>
         <section>
             <div class="commande rectangle">
