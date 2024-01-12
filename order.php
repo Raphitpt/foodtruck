@@ -40,6 +40,14 @@ $infos = $infos->fetch();
         th {
             background-color: #f2f2f2;
         }
+
+        .commandeConfirm {
+            display: none;
+        }
+
+        .text-input {
+            display: none;
+        }
     </style>
 
 </head>
@@ -126,7 +134,7 @@ $infos = $infos->fetch();
             <div class="container">
                 <div class="row">
                     <div class="col-12">
-                        <h1>Commande confirmée</h1>
+                        <h1>Commande confirmée !</h1>
                         <p>Votre commande a bien été prise en compte. Vous pouvez la retrouver dans votre historique de
                             commande.</p>
                         <button onclick="location.href = './index.php'"
