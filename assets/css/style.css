@@ -500,7 +500,8 @@ nav > ul > li > img {
   display: none;
 }
 
-/* Style for the custom checkbox */
+
+  /* Style for the custom checkbox */
 .custom-checkbox {
   display: inline-block;
   width: 20px;
@@ -511,7 +512,7 @@ nav > ul > li > img {
   cursor: pointer;
 }
 
-/* Style for the custom checkmark */
+  /* Style for the custom checkmark */
 .custom-checkbox::after {
   content: "";
   position: absolute;
@@ -523,23 +524,11 @@ nav > ul > li > img {
   background-color: #333;
   border-radius: 2px;
   opacity: 0;
-  transform: rotateZ(45deg);
-  z-index: 100;
 }
 
-.checkBox input[type="checkbox"]:checked + div {
-  left: -10px;
-  top: -10px;
-}
-
-/* Show the checkmark when checkbox is checked */
+  /* Show the checkmark when checkbox is checked */
 .input[type="checkbox"]:checked + .custom-checkbox::after {
   opacity: 1;
-  .checkBox input[type="checkbox"] {
-    position: absolute;
-    left: 50px;
-    visibility: hidden;
-  }
 }
 
 .transition {

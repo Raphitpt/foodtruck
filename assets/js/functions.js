@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const divSuppl = document.querySelector(".supplements");
   const divListPlats = document.querySelector(".list_plat");
   const noThanks = document.querySelector(".noThanks");
-
+  const checkSuppl = document.querySelectorAll(".checkSuppl");
   let panierDiv = document.querySelector(".panier");
 
   if (panierDiv.innerHTML.trim() === "") {
@@ -17,7 +17,6 @@ document.addEventListener("DOMContentLoaded", function () {
     panierDiv.appendChild(icon);
   }
 
-  // update js functions
   let panier = JSON.parse(sessionStorage.getItem("panier")) || [];
 
   function updateInputNumbers() {
@@ -32,41 +31,87 @@ document.addEventListener("DOMContentLoaded", function () {
 
   updateInputNumbers();
 
+  const resetSupplementCheckboxes = () => {
+    checkSuppl.forEach((checkbox) => {
+      checkbox.checked = false;
+    });
+  };
+
+  const displaySupplementSection = () => {
+    divSuppl.style.display = "block";
+    divListPlats.style.display = "none";
+  };
+
+  const handleSupplementCheckbox = (check) => {
+    let id = idPlat[index].value;
+    let itemIndex = panier.findIndex((item) => item.id === id);
+
+    let supplID = check.getAttribute("data-id");
+    let supplName = check.getAttribute("data-name");
+    let supplPrice = check.getAttribute("data-price");
+
+    if (check.checked) {
+      if (!panier[itemIndex].supplements) {
+        panier[itemIndex].supplements = [];
+      }
+
+      panier[itemIndex].supplements.push({
+        id: supplID,
+        nom: supplName,
+        prix: supplPrice,
+      });
+    } else {
+      panier[itemIndex].supplements = panier[itemIndex].supplements.filter(
+        (supplement) => supplement.id !== supplID
+      );
+    }
+  };
+
+  const hideSupplementSection = () => {
+    divSuppl.style.display = "none";
+    divListPlats.style.display = "block";
+    resetSupplementCheckboxes(); // Réinitialiser les checkboxes
+  };
+
+  const handleAddToCart = () => {
+    elementCounter++;
+
+    let id = idPlat[index].value;
+    let itemIndex = panier.findIndex((item) => item.id === id);
+
+    if (itemIndex !== -1) {
+      panier[itemIndex].quantite = elementCounter;
+    } else {
+      panier.push({
+        id: id,
+        nom: platName[index].innerHTML,
+        prix: platPrice[index].innerHTML,
+        composition: platComposition[index].innerHTML,
+        supplements: [],
+        quantite: elementCounter,
+      });
+    }
+
+    panierDiv.innerHTML = generatePanierHTML(panier);
+    updateInputNumbers();
+    updateCartDisplay();
+
+    updateSessionStorage();
+  };
+
   ajouterBoutons.forEach((ajouterBouton, index) => {
     let elementCounter = 0;
-    ajouterBouton.addEventListener("click", function () {
-        divSuppl.style.display = "block";
-        divListPlats.style.display = "none";
 
-        noThanks.addEventListener("click", function () {
-          divSuppl.style.display = "none";
-          divListPlats.style.display = "block";
+    ajouterBouton.addEventListener("click", () => {
+      displaySupplementSection();
 
-          elementCounter++;
-          let id = idPlat[index].value;
-          let itemIndex = panier.findIndex((item) => item.id === id);
-    
-          if (itemIndex !== -1) {
-            panier[itemIndex].quantite = elementCounter;
-          } else {
-            panier.push({
-              id: id,
-              nom: platName[index].innerHTML,
-              prix: platPrice[index].innerHTML,
-              composition: platComposition[index].innerHTML,
-              supplements: "",
-              quantite: elementCounter,
-            });
-          }
-        });
+      checkSuppl.forEach((check) => {
+        check.addEventListener("click", () => handleSupplementCheckbox(check));
+      });
 
-     
+      noThanks.addEventListener("click", hideSupplementSection);
 
-      panierDiv.innerHTML = generatePanierHTML(panier);
-      updateInputNumbers();
-      updateCartDisplay();
-
-      sessionStorage.setItem("panier", JSON.stringify(panier));
+      handleAddToCart();
     });
   });
 
@@ -87,6 +132,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const prix = parseFloat(plat.prix);
       const quantite = parseFloat(plat.quantite);
       const articleTotal = prix * quantite;
+      console.log(plat);
 
       html += `<li class="list_commande">
         <div class="supprCommande">
@@ -98,7 +144,7 @@ document.addEventListener("DOMContentLoaded", function () {
         </div>
         <div class="name_plat_commande">
           <p>${plat.nom}</p>
-          <p>Supléments</p>
+          <p>${plat.supplements[0].nom}</p>
           <p>${prix} €</p>
           <p class="id_plats" style="display:none;">${plat.id}</p>
         </div>
@@ -152,7 +198,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     updateCartDisplay();
 
-    sessionStorage.setItem("panier", JSON.stringify(panier));
+    updateSessionStorage();
   });
 
   function updateCartDisplay() {

@@ -154,18 +154,12 @@ echo head('Commander');
 
                             <div class="list_suppl">
                                 <div>
-                                    <li>
-                                        <?= $supplement['nom'] ?>
-                                    </li>
-                                    <p class="idSuppl" style="display:none;">
-                                        <?= $supplement['id_suppl'] ?>
-                                    </p>
-                                    <p>+
-                                        <?= $supplement['prix'] ?> €
-                                    </p>
+                                    <li><?= $supplement['nom'] ?></li>
+                                    <p class="idSuppl" style="display:none;"><?= $supplement['id_suppl'] ?></p>
+                                    <p>+ <?= $supplement['prix'] ?> €</p>
                                 </div>
                                 <label>
-                                    <input type="checkbox" class="input">
+                                    <input type="checkbox" class="input checkSuppl" data-id="<?= $supplement['id_suppl'] ?>" data-name="<?= $supplement['nom'] ?>" data-price="<?= $supplement['prix'] ?>">
                                     <span class="custom-checkbox"></span>
                                 </label>
                             </div>
@@ -181,18 +175,12 @@ echo head('Commander');
 
                             <div class="list_suppl">
                                 <div>
-                                    <li>
-                                        <?= $supplement['nom'] ?>
-                                    </li>
-                                    <p class="idSuppl" style="display:none;">
-                                        <?= $supplement['id_suppl'] ?>
-                                    </p>
-                                    <p>+
-                                        <?= $supplement['prix'] ?>€
-                                    </p>
+                                    <li><?= $supplement['nom'] ?></li>
+                                    <p class="idSuppl" style="display:none;"><?= $supplement['id_suppl'] ?></p>
+                                    <p>+ <?= $supplement['prix'] ?>€</p>
                                 </div>
                                 <label>
-                                    <input type="checkbox" class="input">
+                                    <input type="checkbox" class="input checkSuppl" data-id="<?= $supplement['id_suppl'] ?>" data-name="<?= $supplement['nom'] ?>" data-price="<?= $supplement['prix'] ?>">
                                     <span class="custom-checkbox"></span>
                                 </label>
                             </div>
@@ -201,7 +189,7 @@ echo head('Commander');
                 </ul>
             </div>
             <button class="noThanks">Non merci</button>
-            <button class="addSupplYes">Ajouter</button>
+            <button class="addSupplYes" style="display:none;">Ajouter</button>
         </section>
         <section>
             <div class="commande rectangle">
