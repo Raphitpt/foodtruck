@@ -8,7 +8,8 @@ $infos = $infosResult->fetch();
 $contenuQuery = "SELECT * FROM elements_accueil";
 $contenuResult = $dbh->query($contenuQuery);
 $contenu = $contenuResult->fetch();
-echo head('Page d\'accueil');
+
+
 ?>
 <style>
     body {
@@ -148,7 +149,7 @@ echo head('Page d\'accueil');
                 <?php endif; ?>
             </ul>
             <ul class="nav_right">
-            <?php if (isset($_SESSION['email'])) : ?>
+                <?php if (isset($_SESSION['email'])) : ?>
                     <li><button onclick="location.href = './logout.php'" class="button_nav connect"><?= htmlspecialchars("Deconnexion") ?></button></li>
                 <?php else : ?>
                     <li><button onclick="location.href = './login.php'" class="button_nav connect"><?= htmlspecialchars("Connexion") ?></button></li>
@@ -170,7 +171,7 @@ echo head('Page d\'accueil');
                 <div>
                     <h2><?php echo htmlspecialchars($contenu['title1EN'], ENT_QUOTES) ?></h2>
                     <p>
-                    <?php echo htmlspecialchars($contenu['texte1EN'], ENT_QUOTES) ?>
+                        <?php echo htmlspecialchars($contenu['texte1EN'], ENT_QUOTES) ?>
                     </p>
                 </div>
             </div>
@@ -178,7 +179,7 @@ echo head('Page d\'accueil');
                 <div>
                     <h2><?php echo htmlspecialchars($contenu['title2EN'], ENT_QUOTES) ?></h2>
                     <p>
-                    <?php echo htmlspecialchars($contenu['texte2EN'], ENT_QUOTES) ?>
+                        <?php echo htmlspecialchars($contenu['texte2EN'], ENT_QUOTES) ?>
                     </p>
                 </div>
                 <img src="<?php echo htmlspecialchars($contenu['url_img2']) ?>" />
@@ -194,7 +195,7 @@ echo head('Page d\'accueil');
                 <div>
                     <h2><?php echo htmlspecialchars($contenu['title1'], ENT_QUOTES) ?></h2>
                     <p>
-                    <?php echo htmlspecialchars($contenu['texte1'], ENT_QUOTES) ?>
+                        <?php echo htmlspecialchars($contenu['texte1'], ENT_QUOTES) ?>
                     </p>
                 </div>
             </div>
@@ -202,7 +203,7 @@ echo head('Page d\'accueil');
                 <div>
                     <h2><?php echo htmlspecialchars($contenu['title2'], ENT_QUOTES) ?></h2>
                     <p>
-                    <?php echo htmlspecialchars($contenu['texte2'], ENT_QUOTES) ?>
+                        <?php echo htmlspecialchars($contenu['texte2'], ENT_QUOTES) ?>
                     </p>
                 </div>
                 <img src="<?php echo htmlspecialchars($contenu['url_img2']) ?>" />
@@ -214,4 +215,5 @@ echo head('Page d\'accueil');
     <footer></footer>
     <script src="./assets/js/functions.js"></script>
 </body>
+
 </html>

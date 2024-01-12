@@ -85,15 +85,9 @@ if (isset($_POST['modifier_mot_de_passe']) && !empty($_POST['nouveau_mot_de_pass
         margin-right: auto;
 
     }
-
-    div {
-        display: in
-    }
 </style>
 
 <body>
-
-
     <main>
         <div class="btn-retour">
             <a href="index.php" class="btn"><i class="fa-solid fa-arrow-left"></i></a>
