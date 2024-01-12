@@ -23,7 +23,7 @@ if (isset($_POST['envoi'])) {
                 header('Location: indexBO.php');
                 exit();
             } else {
-                header('Location: index.php');
+                header('Location: accueil.php');
                 exit();
             }
         } else {

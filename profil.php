@@ -16,7 +16,7 @@ $stmt->execute([
 ]);
 $recupUser = $stmt->fetch();
 $photo = $recupUser['photoprofil'];
-/*
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $fichier_photo_profil = isset($_FILES['fichier_photo_profil']) ? $_FILES['fichier_photo_profil'] : '';
     $chemin_photo_profil = '';
@@ -69,7 +69,7 @@ if (isset($_POST['modifier_mot_de_passe']) && !empty($_POST['nouveau_mot_de_pass
         }
     }
 }
-*/
+
 ?>
 <style>
     h1 {
@@ -86,14 +86,26 @@ if (isset($_POST['modifier_mot_de_passe']) && !empty($_POST['nouveau_mot_de_pass
 
     }
 
-    div {
-        display: in
+    .form {
+        margin-top: 0vh;
+        padding-top: 0px;
     }
 </style>
 
 <body>
-
-
+    <nav>
+        <ul class="nav_left">
+            <li class="nav_title"><img src="<?= $infos['url_logo'] ?>" alt="logo fouee">
+                <p>Fouée't Moi</p>
+            </li>
+            <li><button onclick="location.href = './accueil.php'" class="button_nav">Accueil</button></li>
+            <li><button onclick="location.href = './index.php'" class="button_nav">Commander</button></li>
+            <li><button onclick="location.href = ''" class="button_nav">Nous contacter</button></li>
+            <?php if (isset($_SESSION['email']) && $_SESSION['email'] === 'admin@gmail.com') : ?>
+                <li><button onclick="location.href = 'indexBO.php'" class="button_nav">Back Office</button></li>
+            <?php endif; ?>
+        </ul>
+    </nav>
     <main>
         <div class="btn-retour">
             <a href="index.php" class="btn"><i class="fa-solid fa-arrow-left"></i></a>
@@ -114,7 +126,13 @@ if (isset($_POST['modifier_mot_de_passe']) && !empty($_POST['nouveau_mot_de_pass
             </form>
             <p><?php echo $recupUser['pts_fidelite'] ?></p>
             <p><?php echo $recupUser['email']; ?></p>
+            <ul class="nav_right">
+                <?php if (isset($_SESSION['email'])) : ?>
+                    <button onclick="location.href = './logout.php'" class="button_nav connect"><?= htmlspecialchars("Déconnecter") ?></button>
+                <?php endif; ?>
+            </ul>
         </section>
+
     </main>
 
 </body>
