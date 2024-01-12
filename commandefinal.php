@@ -1,26 +1,22 @@
 <?php
-// Assurez-vous que vous avez démarré la session si nécessaire
-session_start();
+header('Content-Type: application/json');
+$data = ["STATUS" => "OK"];
+$data = json_decode(file_get_contents('php://input'), true);
 
-// Récupérez les données du panier
-$rawData = file_get_contents("php://input");
-$requestData = json_decode($rawData, true);
+if ($data && isset($data['panier'])) {
+    $panier = $data['panier'];
 
-// Vérifiez si les données du panier sont présentes
-if (isset($requestData['panier'])) {
-    $panier = $requestData['panier'];
+    // Faites quelque chose avec le panier ici
 
-    // Faites ce que vous voulez avec le panier ici
-    // Par exemple, vous pourriez stocker les données dans la session PHP
-    $_SESSION['panier'] = $panier;
-
-    // Répondez avec un message de succès ou autre chose si nécessaire
-    $response = ['message' => 'Le panier a été reçu avec succès !'];
-    echo json_encode($response);
+    echo json_encode(['success' => true]);
 } else {
-    // Si les données du panier ne sont pas présentes, répondez avec une erreur
-    http_response_code(400); // Code HTTP 400 Bad Request
-    $response = ['error' => 'Erreur : Aucun panier envoyé.'];
-    echo json_encode($response);
+    echo json_encode(['error' => 'Aucun panier envoyé.'], 400);
 }
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+$inputJSON = file_get_contents('php://input');
+file_put_contents('log.txt', $inputJSON); // Ajout de cette ligne pour enregistrer le contenu dans un fichier log.txt
+$input = json_decode($inputJSON, true);
+print_r($input);
 ?>

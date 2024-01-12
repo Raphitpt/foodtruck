@@ -236,26 +236,43 @@ $infos = $infos->fetch();
         if (panier.length === 0) {
             commanderButton.style.display = 'none';
         }
+        console.log('Contenu du panier avant la requête fetch :', panier);
+        // function sendPanierToServer() {
+        //     // Assurez-vous que le panier est correctement défini avant d'exécuter la requête fetch
+        //     fetch('commandefinal.php', {
+        //         method: 'POST',
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //         },
+        //         body: JSON.stringify({ panier: panier }),
+        //     })
+        //         .then(response => {
+        //             if (!response.ok) {
+        //                 throw new Error(`Erreur HTTP ! Statut : ${response.status}`);
+        //             }
+        //             return response.json();
+        //         })
+        //         .then(data => {
+        //             console.log('Réponse du serveur :', data);
+        //         })
+        //         .catch(error => {
+        //             console.error('Erreur lors de la requête :', error);
+        //         });
+        // }
         fetch('commandefinal.php', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json', // Indiquez que vous envoyez des données JSON
+                'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ panier: panier }), // Convertissez le panier en JSON et envoyez-le
+            body: JSON.stringify({ panier: panier }),
         })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`Erreur HTTP ! Statut : ${response.status}`);
-                }
-                return response.json(); // Si la requête est réussie, analysez la réponse JSON
-            })
+            .then(response => response.json())
             .then(data => {
                 console.log('Réponse du serveur :', data);
             })
             .catch(error => {
                 console.error('Erreur lors de la requête :', error);
             });
-
         // /*commanderButton.addEventListener('click', function() {
         //     window.location.href = 'commande.php';
         // });*/
@@ -276,26 +293,26 @@ $infos = $infos->fetch();
         //     };
 
         //     // Utilisez Fetch API pour envoyer les données au serveur
-        //     fetch('enregistrer_commande.php', {
-        //         method: 'POST',
-        //         headers: {
-        //             'Content-Type': 'application/json',
-        //         },
-        //         body: JSON.stringify(commande),
+        // fetch('commandefinal.php', {
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //     },
+        //     body: JSON.stringify(panier),
+        // })
+        //     .then(response => response.json())
+        //     .then(data => {
+        //         if (data.status === 'success') {
+        //             alert("Commande enregistrée avec succès!");
+        //             // Vous pouvez rediriger l'utilisateur ou effectuer d'autres actions après l'enregistrement
+        //         } else {
+        //             alert("Erreur lors de l'enregistrement de la commande.");
+        //         }
         //     })
-        //         .then(response => response.json())
-        //         .then(data => {
-        //             if (data.status === 'success') {
-        //                 alert("Commande enregistrée avec succès!");
-        //                 // Vous pouvez rediriger l'utilisateur ou effectuer d'autres actions après l'enregistrement
-        //             } else {
-        //                 alert("Erreur lors de l'enregistrement de la commande.");
-        //             }
-        //         })
-        //         .catch((error) => {
-        //             console.error('Erreur lors de l\'enregistrement de la commande:', error);
-        //         });
-        // });
+        //     .catch((error) => {
+        //         console.error('Erreur lors de l\'enregistrement de la commande:', error);
+        //     });
+
     </script>
     <script src="./assets/js/functions.js"></script>
     <script src="https://kit.fontawesome.com/45762c6469.js" crossorigin="anonymous"></script>
