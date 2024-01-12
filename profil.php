@@ -36,27 +36,53 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             if ($updatePhotoProfilStmt->rowCount() > 0) {
                 echo 'La photo de profil a été mise à jour avec succès.';
-                header("Location: profil.php");
+                header("Location: accueil.php");
                 unlink($photo);
             }
         } else {
             echo 'Erreur lors du téléchargement du fichier.';
         }
+    }
+}
+if (isset($_POST['modifier_mot_de_passe']) && !empty($_POST['nouveau_mot_de_passe']) && !empty($_POST['confirmation_mot_de_passe'])) {
+    $nouveau_mot_de_passe = isset($_POST['nouveau_mot_de_passe']) ? $_POST['nouveau_mot_de_passe'] : '';
+    $confirmation_mot_de_passe = isset($_POST['confirmation_mot_de_passe']) ? $_POST['confirmation_mot_de_passe'] : '';
+
+    if ($nouveau_mot_de_passe !== $confirmation_mot_de_passe) {
+        echo 'Les champs du mot de passe ne correspondent pas.';
     } else {
-        echo 'Aucun fichier photo de profil n\'a été téléchargé.';
+        $hashed_password = password_hash($nouveau_mot_de_passe, PASSWORD_DEFAULT);
+        var_dump($hashed_password);
+        $updateMotDePasseSql = 'UPDATE users SET passwd = :passwd WHERE id_user = :id_user';
+        $updateMotDePasseStmt = $dbh->prepare($updateMotDePasseSql);
+        $updateMotDePasseStmt->execute([
+            'passwd' => $hashed_password,
+            'id_user' => $id,
+        ]);
+
+        if ($updateMotDePasseStmt->rowCount() > 0) {
+            echo 'Le mot de passe a été modifié avec succès.';
+            header("Location: profil.php");
+        } else {
+            echo 'Erreur lors de la modification du mot de passe.';
+        }
     }
 }
 ?>
 
 <body>
-    <!-- ... Votre code HTML existant ... -->
-
     <h1>Profil de <?php echo $recupUser['nom'] . " " . $recupUser['prenom'] ?></h1>
     <img src="<?php echo $photo == NULL ? "./assets/img/grandprofilfb.jpg" : $photo; ?>" />
     <form action="" method="post" enctype="multipart/form-data">
         <label for="fichier_photo_profil">Modifier la photo de profil :</label>
         <input type="file" name="fichier_photo_profil" id="fichier_photo_profil">
         <input type="submit" value="Enregistrer">
+    </form>
+    <form action="" method="post">
+        <label for="nouveau_mot_de_passe">Nouveau mot de passe :</label>
+        <input type="password" name="nouveau_mot_de_passe" id="nouveau_mot_de_passe" value="">
+        <input type="password" name="confirmation_mot_de_passe" id="confirmnew" value="">
+        <input type="submit" name="modifier_mot_de_passe">
     </form>
     <p><?php echo $recupUser['pts_fidelite'] ?></p>
     <p><?php echo $recupUser['email']; ?></p>
