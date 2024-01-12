@@ -2,10 +2,10 @@
 header('Content-Type: application/json');
 $data = ["STATUS" => "OK"];
 $data = json_decode(file_get_contents('php://input'), true);
-
+var_dump($data);
 if ($data && isset($data['panier'])) {
     $panier = $data['panier'];
-var_dump($panier);
+
 
 // Vérifiez si les données du panier sont présentes
 if (isset($requestData['panier'])) {
