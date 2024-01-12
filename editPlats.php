@@ -30,6 +30,9 @@ echo head('Modifier un plat');
             $plats = $stmt->fetch();
         ?>
             <main>
+                <div class="btn-retour">
+                    <a href="indexBO.php" class="btn"><i class="fa-solid fa-arrow-left"></i></a>
+                </div>
                 <section class="form">
                     <h1>Modifier un plat</h1>
                     <form action="" method="post">

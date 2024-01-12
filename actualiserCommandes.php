@@ -17,14 +17,18 @@ $hist = $hist->fetchAll();
 foreach ($hist as $histo) {
     echo "<tr>";
     echo "<td>{$histo['id_commande']}</td>";
+    $details = json_decode($histo['detail_commande'], true);
+    echo "<td><ul>";
+    foreach ($details as $detail) {
+        echo "<li>{$detail['nom']} x {$detail['quantite']}</li>";
+    }
+    echo "</ul></td>";
     echo "<td>{$histo['nom']} {$histo['prenom']}</td>";
     echo "<td>{$histo['date_commande']}</td>";
     echo "<td>{$histo['date_retrait']}</td>";
     echo "<td>{$histo['statut']}</td>";
     echo "<td>{$histo['commentaire']}</td>";
     echo "<td>{$histo['total']}€</td>";
-    echo "<td><a href='./ptsFid.php?id_commande={$histo['id_commande']}'>Valider</a></td>";
+    echo "<td><a href='./addPtsFid.php?id_commande={$histo['id_commande']}'>Valider</a></td>";
     echo "</tr>";
 }
-
-?>
