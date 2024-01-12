@@ -9,14 +9,16 @@ $infos = $infosResult->fetch();
 $contenuQuery = "SELECT * FROM elements_accueil";
 $contenuResult = $dbh->query($contenuQuery);
 $contenu = $contenuResult->fetch();
+if (isset($_SESSION['email'])) {
+    $email = $_SESSION['email'];
+    $photo = "SELECT * FROM users where email = :email";
+    $stmt = $dbh->prepare($photo);
+    $stmt->execute([
+        'email' => $email,
+    ]);
+    $photo = $stmt->fetch();
+}
 
-$email = $_SESSION['email'];
-$photo = "SELECT * FROM users where email = :email";
-$stmt = $dbh->prepare($photo);
-$stmt->execute([
-    'email' => $email,
-]);
-$photo = $stmt->fetch();
 
 
 ?>
@@ -120,15 +122,15 @@ $photo = $stmt->fetch();
     }
 
     .nav_right img {
-        width: 4rem;
+        width: 3.5rem;
         border-radius: 50%;
-        height: 4rem;
+        height: 3.5rem;
         object-fit: cover;
 
 
     }
 
-    .nav_right button:first-child {
+    .image {
         border: 0;
         background-color: white;
     }
@@ -152,11 +154,11 @@ $photo = $stmt->fetch();
                 <?php endif; ?>
             </ul>
             <ul class="nav_right">
-                <?php if (isset($_SESSION['email'])) : ?>
-                    <button onclick="location.href = 'profil.php'"><img src="<?php echo $photo['photoprofil'] == NULL ? "./assets/img/grandprofilfb.jpg" : $photo['photoprofil']; ?>" /></button>
-                <?php else : ?>
+                <?php if (isset($_SESSION['email'])) { ?>
+                    <button onclick="location.href = 'profil.php'" class="image"><img src="<?php echo $photo['photoprofil'] == NULL ? "./assets/img/grandprofilfb.jpg" : $photo['photoprofil']; ?>" /></button>
+                <?php } else { ?>
                     <li><button onclick="location.href = './login.php'" class="button_nav connect"><?= htmlspecialchars("Se connecter") ?></button></li>
-                <?php endif; ?>
+                <?php } ?>
             </ul>
         </nav>
         <nav style="display:none;" class="navang">

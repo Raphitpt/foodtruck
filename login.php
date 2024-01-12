@@ -21,7 +21,7 @@ if (isset($_POST['envoi'])) {
                 header('Location: indexBO.php');
                 exit();
             } else {
-                header('Location: index.php');
+                header('Location: accueil.php');
                 exit();
             }
         } else {
@@ -64,14 +64,14 @@ echo head('Connexion');
                 <input type="text" name="email">
                 <br>
                 <label for="password">Mot de passe :</label>
-                <input type="password" name="mdp"> 
+                <input type="password" name="mdp">
                 <br>
                 <a href="./sendReset.php">Mot de passe oublié ?</a>
                 <br>
                 <br>
                 <input type="submit" name="envoi" value="Envoyer">
             </form>
-            
+
         </section>
     </main>
 

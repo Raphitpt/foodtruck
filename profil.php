@@ -108,7 +108,13 @@ if (isset($_POST['modifier_mot_de_passe']) && !empty($_POST['nouveau_mot_de_pass
             </form>
             <p><?php echo $recupUser['pts_fidelite'] ?></p>
             <p><?php echo $recupUser['email']; ?></p>
+            <ul class="nav_right">
+                <?php if (isset($_SESSION['email'])) : ?>
+                    <button onclick="location.href = './logout.php'" class="button_nav connect"><?= htmlspecialchars("Déconnecter") ?></button>
+                <?php endif; ?>
+            </ul>
         </section>
+
     </main>
 
 </body>
