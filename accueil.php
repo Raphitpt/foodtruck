@@ -1,6 +1,7 @@
 <?php
 require './bootstrap.php';
 session_start();
+echo head('Page d\'accueil');
 $infosQuery = "SELECT * FROM settings";
 $infosResult = $dbh->query($infosQuery);
 $infos = $infosResult->fetch();
@@ -8,10 +9,14 @@ $infos = $infosResult->fetch();
 $contenuQuery = "SELECT * FROM elements_accueil";
 $contenuResult = $dbh->query($contenuQuery);
 $contenu = $contenuResult->fetch();
+
 $email = $_SESSION['email'];
 $photo = "SELECT * FROM users where email = :email";
-$photo = $dbh->query($infosQuery);
-$infos = $infosResult->fetch();
+$stmt = $dbh->prepare($photo);
+$stmt->execute([
+    'email' => $email,
+]);
+$photo = $stmt->fetch();
 
 
 ?>
@@ -113,6 +118,20 @@ $infos = $infosResult->fetch();
     .choixlangue img {
         width: 4vw;
     }
+
+    .nav_right img {
+        width: 4rem;
+        border-radius: 50%;
+        height: 4rem;
+        object-fit: cover;
+
+
+    }
+
+    .nav_right button:first-child {
+        border: 0;
+        background-color: white;
+    }
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -134,7 +153,7 @@ $infos = $infosResult->fetch();
             </ul>
             <ul class="nav_right">
                 <?php if (isset($_SESSION['email'])) : ?>
-                    <li><button onclick="location.href = './logout.php'" class="button_nav connect"><?= htmlspecialchars("Se déconnecter") ?></button></li>
+                    <button onclick="location.href = 'profil.php'"><img src="<?php echo $photo['photoprofil'] == NULL ? "./assets/img/grandprofilfb.jpg" : $photo['photoprofil']; ?>" /></button>
                 <?php else : ?>
                     <li><button onclick="location.href = './login.php'" class="button_nav connect"><?= htmlspecialchars("Se connecter") ?></button></li>
                 <?php endif; ?>
