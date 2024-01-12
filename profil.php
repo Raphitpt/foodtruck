@@ -85,9 +85,27 @@ if (isset($_POST['modifier_mot_de_passe']) && !empty($_POST['nouveau_mot_de_pass
         margin-right: auto;
 
     }
+
+    .form {
+        margin-top: 0vh;
+        padding-top: 0px;
+    }
 </style>
 
 <body>
+    <nav>
+        <ul class="nav_left">
+            <li class="nav_title"><img src="<?= $infos['url_logo'] ?>" alt="logo fouee">
+                <p>Fouée't Moi</p>
+            </li>
+            <li><button onclick="location.href = './accueil.php'" class="button_nav">Accueil</button></li>
+            <li><button onclick="location.href = './index.php'" class="button_nav">Commander</button></li>
+            <li><button onclick="location.href = ''" class="button_nav">Nous contacter</button></li>
+            <?php if (isset($_SESSION['email']) && $_SESSION['email'] === 'admin@gmail.com') : ?>
+                <li><button onclick="location.href = 'indexBO.php'" class="button_nav">Back Office</button></li>
+            <?php endif; ?>
+        </ul>
+    </nav>
     <main>
         <div class="btn-retour">
             <a href="index.php" class="btn"><i class="fa-solid fa-arrow-left"></i></a>

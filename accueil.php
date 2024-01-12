@@ -120,20 +120,6 @@ if (isset($_SESSION['email'])) {
     .choixlangue img {
         width: 4vw;
     }
-
-    .nav_right img {
-        width: 3.5rem;
-        border-radius: 50%;
-        height: 3.5rem;
-        object-fit: cover;
-
-
-    }
-
-    .image {
-        border: 0;
-        background-color: white;
-    }
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

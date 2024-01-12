@@ -9,6 +9,16 @@ $infos = "SELECT * FROM settings";
 $infos = $dbh->query($infos);
 $infos = $infos->fetch();
 
+if (isset($_SESSION['email'])) {
+    $email = $_SESSION['email'];
+    $photo = "SELECT * FROM users where email = :email";
+    $stmt = $dbh->prepare($photo);
+    $stmt->execute([
+        'email' => $email,
+    ]);
+    $photo = $stmt->fetch();
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -63,7 +73,11 @@ $infos = $infos->fetch();
             <li><button onclick="location.href = ''" class="button_nav">Nous contacter</button></li>
         </ul>
         <ul class="nav_right">
-            <li><button onclick="location.href = './login.php'" class="button_nav connect">Se connecter</button></li>
+            <?php if (isset($_SESSION['email'])) { ?>
+                <button onclick="location.href = 'profil.php'" class="image"><img src="<?php echo $photo['photoprofil'] == NULL ? "./assets/img/grandprofilfb.jpg" : $photo['photoprofil']; ?>" /></button>
+            <?php } else { ?>
+                <li><button onclick="location.href = './login.php'" class="button_nav connect"><?= htmlspecialchars("Se connecter") ?></button></li>
+            <?php } ?>
         </ul>
     </nav>
     <main class="recap_commande">
@@ -103,8 +117,7 @@ $infos = $infos->fetch();
                         </div>
                         <div class="btn">
                             <button class="btn btn-primary btn_commander">Commander</button>
-                            <button onclick="location.href = './index.php'"
-                                class="btn btn-secondary btn_commander">Retour</button>
+                            <button onclick="location.href = './index.php'" class="btn btn-secondary btn_commander">Retour</button>
                         </div>
                         <div class="monElement"></div>
                     </div>
@@ -137,8 +150,7 @@ $infos = $infos->fetch();
                         <h1>Commande confirmée !</h1>
                         <p>Votre commande a bien été prise en compte. Vous pouvez la retrouver dans votre historique de
                             commande.</p>
-                        <button onclick="location.href = './index.php'"
-                            class="btn btn-secondary btn_commander">Retour</button>
+                        <button onclick="location.href = './index.php'" class="btn btn-secondary btn_commander">Retour</button>
                     </div>
                 </div>
             </div>
@@ -230,7 +242,7 @@ $infos = $infos->fetch();
 
             // Associer un événement de clic à chaque icône de suppression
             iconCells.forEach(icon => {
-                icon.addEventListener('click', function (event) {
+                icon.addEventListener('click', function(event) {
                     const id = event.target.dataset.id;
                     if (id) {
                         // Supprimer l'élément du panier en utilisant son ID
@@ -249,7 +261,7 @@ $infos = $infos->fetch();
         }
 
 
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             // Initialise la date du jour lors du chargement de la page
             const today = new Date();
             const formattedToday = today.toISOString().split('T')[0]; // Format YYYY-MM-DD
@@ -259,7 +271,7 @@ $infos = $infos->fetch();
             listPanier("12h00", formattedToday);
 
             // Associe l'événement de changement de date
-            dateReservationInput.addEventListener('change', function () {
+            dateReservationInput.addEventListener('change', function() {
                 const selectedDate = dateReservationInput.value;
                 // Vérifie si une heure est déjà sélectionnée, puis met à jour le panier
                 const selectedHeure = document.querySelector('.heureSelected');
@@ -270,7 +282,7 @@ $infos = $infos->fetch();
             // Associe l'événement de clic sur une heure
             if (btnHeure) {
                 btnHeure.forEach((elem) => {
-                    elem.addEventListener("click", function (event) {
+                    elem.addEventListener("click", function(event) {
                         listPanier(event.target.textContent, dateReservationInput.value);
                         btnHeure.forEach((elem) => {
                             elem.classList.remove('heureSelected');
@@ -298,7 +310,7 @@ $infos = $infos->fetch();
             return objet;
         }
 
-        commanderButton.addEventListener('click', function () {
+        commanderButton.addEventListener('click', function() {
             const panierNettoye = nettoyerObjet(panier);
             let dateRetrait = totalDate.textContent;
             let [jour, mois, annee] = dateRetrait.split('/');
@@ -309,17 +321,17 @@ $infos = $infos->fetch();
             let commentaires = commentaire.value;
             let date = formattedDate + " " + heure;
             fetch('commandefinal.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    panier: panierNettoye,
-                    date_retrait: date,
-                    prix: totalCommande.textContent,
-                    commentaire: commentaires,
-                }, null),
-            })
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        panier: panierNettoye,
+                        date_retrait: date,
+                        prix: totalCommande.textContent,
+                        commentaire: commentaires,
+                    }, null),
+                })
                 .then(response => response.json())
                 .then(data => {
                     console.log('Réponse du serveur :', data);
