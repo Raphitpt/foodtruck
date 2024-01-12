@@ -100,13 +100,15 @@ echo head('Page d\'accueil');
         color: white;
         background-color: #e56D00;
     }
-    .choixlangue div{
-        cursor:pointer;
-        padding:1rem;
-        text-align:end;
+
+    .choixlangue div {
+        cursor: pointer;
+        padding: 1rem;
+        text-align: end;
     }
-    .choixlangue img{
-        width:4vw;
+
+    .choixlangue img {
+        width: 4vw;
     }
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -115,22 +117,26 @@ echo head('Page d\'accueil');
 
 <body>
     <header>
-    <nav>
-    <ul class="nav_left">
-        <li class="nav_title"><img src="<?= $infos['url_logo'] ?>" alt="logo fouee">
-            <p>Fouée't Moi</p>
-        </li>
-        <li><button onclick="location.href = './accueil.php'" class="button_nav">Accueil</button></li>
-        <li><button onclick="location.href = './index.php'" class="button_nav">Commander</button></li>
-        <li><button onclick="location.href = ''" class="button_nav">Nous contacter</button></li>
-        <?php if (isset($_SESSION['email']) && $_SESSION['email'] === 'admin@gmail.com') : ?>
-        <li><button onclick="location.href = 'indexBO.php'" class="button_nav">Back Office</button></li>
-        <?php endif; ?>
-    </ul>
-    <ul class="nav_right">
-        <li><button onclick="location.href = './login.php'" class="button_nav connect">Se connecter</button></li>
-    </ul>
-</nav>
+        <nav>
+            <ul class="nav_left">
+                <li class="nav_title"><img src="<?= $infos['url_logo'] ?>" alt="logo fouee">
+                    <p>Fouée't Moi</p>
+                </li>
+                <li><button onclick="location.href = './accueil.php'" class="button_nav">Accueil</button></li>
+                <li><button onclick="location.href = './index.php'" class="button_nav">Commander</button></li>
+                <li><button onclick="location.href = ''" class="button_nav">Nous contacter</button></li>
+                <?php if (isset($_SESSION['email']) && $_SESSION['email'] === 'admin@gmail.com') : ?>
+                    <li><button onclick="location.href = 'indexBO.php'" class="button_nav">Back Office</button></li>
+                <?php endif; ?>
+            </ul>
+            <ul class="nav_right">
+                <?php if (isset($_SESSION['email'])) : ?>
+                    <li><button onclick="location.href = './logout.php'" class="button_nav connect">Se déconnecter</button></li>
+                <?php else : ?>
+                    <li><button onclick="location.href = './login.php'" class="button_nav connect">Se connecter</button></li>
+                <?php endif; ?>
+            </ul>
+        </nav>
         <nav style="display:none;" class="navang">
             <ul class="nav_left">
                 <li class="nav_title"><img src="<?= $infos['url_logo'] ?>" alt="logo fouee">
@@ -150,7 +156,7 @@ echo head('Page d\'accueil');
             <div class="français" style="display:none;"><img src="./assets/img/FR_MARIN.png"></div>
             <div class="anglais"><img src="./assets/img/Flag_of_Great_Britain_(1707–1800).svg.png"></div>
         </div>
- 
+
         <section class="accueil ang" style="display:none">
             <h1>Welcome on Fouée't Moi </h1>
             <button onclick="location.href = './index.php'">Order</button>
