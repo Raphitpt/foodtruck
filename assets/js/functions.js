@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const noThanks = document.querySelector(".noThanks");
   const checkSupplYes = document.querySelector(".addSupplYes");
   const checkSuppl = document.querySelectorAll(".checkSuppl");
-   let panierDiv = document.querySelector(".panier");
+  let panierDiv = document.querySelector(".panier");
 
   if (panierDiv.innerHTML.trim() === "") {
     panierDiv.classList.add("icon-in-circle");
@@ -116,7 +116,6 @@ document.addEventListener("DOMContentLoaded", function () {
     return html;
   }
 
-
   panierDiv.addEventListener("click", function (event) {
     if (event.target.classList.contains("fa-xmark")) {
       const listItem = event.target.closest(".list_commande");
@@ -200,21 +199,17 @@ navfr = document.querySelector(".navfr");
 
 anglais.addEventListener("click", function () {
   français.style.display = "block";
-  navfr.style.display="none";
-  fra.style.display="none";
-  navang.style.display="flex";
-  ang.style.display="flex";
-  anglais.style.display="none";
-
+  navfr.style.display = "none";
+  fra.style.display = "none";
+  navang.style.display = "flex";
+  ang.style.display = "flex";
+  anglais.style.display = "none";
 });
 français.addEventListener("click", function () {
   anglais.style.display = "block";
-  navang.style.display="none";
-  ang.style.display="none";
-  navfr.style.display="flex";
-  fra.style.display="flex";
-  français.style.display="none";
-
+  navang.style.display = "none";
+  ang.style.display = "none";
+  navfr.style.display = "flex";
+  fra.style.display = "flex";
+  français.style.display = "none";
 });
-
-

@@ -175,8 +175,27 @@ if (isset($_SESSION['email'])) {
                 <?php } ?>
             </ul>
         </nav>
+        <div class="menu-container">
+            <div class="menu-btn" id="menu-btn">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+
+            <nav class="menu">
+                <ul>
+                    <li><a href="#">Accueil</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">Produits</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
+
     <main>
+
+
         <div class="choixlangue">
             <div class="français" style="display:none;"><img src="./assets/img/FR_MARIN.png"></div>
             <div class="anglais"><img src="./assets/img/Flag_of_Great_Britain_(1707–1800).svg.png"></div>
@@ -231,8 +250,16 @@ if (isset($_SESSION['email'])) {
 
         </section>
     </main>
-    <footer></footer>
-    <script src="./assets/js/functions.js"></script>
+    <footer>
+
+    </footer>
+    <script src="./assets/js/functions.js">
+    </script>
+    <script>
+        document.getElementById("menu-btn").addEventListener("click", function() {
+            this.classList.toggle("open");
+        });
+    </script>
 </body>
 
 </html>
