@@ -137,50 +137,49 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function generatePanierHTML(panier) {
-    let html = "<ul>";
-    panier.forEach(function (plat) {
-      const prix = parseFloat(plat.prix);
-      const quantite = parseFloat(plat.quantite);
-      const articleTotal = prix * quantite;
-      console.log(plat);
+  let html = "<ul>";
+  panier.forEach(function (plat) {
+    const prix = parseFloat(plat.prix);
+    const quantite = parseFloat(plat.quantite);
+    const articleTotal = prix * quantite;
 
-      html += `<li class="list_commande">
-        <div class="supprCommande">
-          <i class="fa-solid fa-xmark"></i>
-        </div>
+    html += `<li class="list_commande">
+      <div class="supprCommande">
+        <i class="fa-solid fa-xmark"></i>
+      </div>
+      
+      <div class="div_img_commande">
+        <img src="./assets/img/Fouées_angevines_avec_rillettes.JPG" class="img_commande">
+      </div>
+      <div class="name_plat_commande">
+        <p>${plat.nom}</p>
+        ${plat.supplements && plat.supplements.length > 0 ? `<p>${plat.supplements[0].nom}</p>` : ''}
+        <p>${prix} €</p>
+        <p class="id_plats" style="display:none;">${plat.id}</p>
+      </div>
+      <fieldset class="number_add">
+        <button type="button" title="-" class="sub" control-id="ControlID-20">-</button>
+        <input type="number" name="quantity" pattern="[0-9]+" control-id="ControlID-21" min="1" value="${quantite}">
+        <button type="button" title="+" class="add" control-id="ControlID-22">+</button>
+      </fieldset>
+    </li>
+    <div class="line"></div>`;
+  });
 
-        <div class="div_img_commande">
-          <img src="./assets/img/Fouées_angevines_avec_rillettes.JPG" class="img_commande">
-        </div>
-        <div class="name_plat_commande">
-          <p>${plat.nom}</p>
-          <p>${plat.supplements[0].nom}</p>
-          <p>${prix} €</p>
-          <p class="id_plats" style="display:none;">${plat.id}</p>
-        </div>
-        <fieldset class="number_add">
-          <button type="button" title="-" class="sub" control-id="ControlID-20">-</button>
-          <input type="number" name="quantity" pattern="[0-9]+" control-id="ControlID-21" min="1" value="${quantite}">
-          <button type="button" title="+" class="add" control-id="ControlID-22">+</button>
-        </fieldset>
-      </li>
-      <div class="line"></div>`;
-    });
-
-    html += "</ul>";
-    if (panier.length > 0) {
-      html += '<div class="bottom_panier">';
-      html += `<p>Total du panier : ${calculateTotal(panier)}€</p>`;
-      html += `<button onclick="location.href = './order.php'" class="button_command">Commander</button>`;
-      html += "</div>";
-    } else {
-      html += `<i class="fa-solid fa-cart-shopping"></i>`;
-    }
-    if (panier.length === 0) {
-      html = "";
-    }
-    return html;
+  html += "</ul>";
+  if (panier.length > 0) {
+    html += '<div class="bottom_panier">';
+    html += `<p>Total du panier : ${calculateTotal(panier)}€</p>`;
+    html += `<button onclick="location.href = './order.php'" class="button_command">Commander</button>`;
+    html += "</div>";
+  } else {
+    html += `<i class="fa-solid fa-cart-shopping"></i>`;
   }
+  if (panier.length === 0) {
+    html = "";
+  }
+  return html;
+}
 
 
   panierDiv.addEventListener("click", function (event) {
