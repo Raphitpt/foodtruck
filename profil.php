@@ -84,6 +84,10 @@ if (isset($_POST['modifier_mot_de_passe']) && !empty($_POST['nouveau_mot_de_pass
         margin-right: auto;
 
     }
+
+    .form {
+        margin-top: 5px;
+    }
 </style>
 
 <body>
@@ -122,11 +126,11 @@ if (isset($_POST['modifier_mot_de_passe']) && !empty($_POST['nouveau_mot_de_pass
                 <input type="password" name="nouveau_mot_de_passe" id="nouveau_mot_de_passe" value="">
                 <br>
                 <label for="confirmnew">Confirmer le nouveau mot de passe :</label>
-                <input type="password" name="confirmation_mot_de_passe" id="confirmnew" value="">
+                <input type="password" name="confirmation_mot_de_passe" id="confirmnew" value=""><br>
                 <input type="submit" name="modifier_mot_de_passe">
             </form>
             <p>Vos points de fidélité : <br> <strong><?php echo $recupUser['pts_fidelite'] ?></strong></p>
-            
+
             <ul class="nav_right">
                 <?php if (isset($_SESSION['email'])) : ?>
                     <button onclick="location.href = './logout.php'" class="button_nav connect"><?= htmlspecialchars("Se déconnecter") ?></button>
