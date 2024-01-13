@@ -97,7 +97,7 @@ if (isset($_SESSION['email'])) {
     function mettreAJourTableau() {
         // Effectuer une nouvelle requête AJAX pour récupérer les données actualisées
         $.ajax({
-            url: 'actualiserCommandes.php', // Créez un script PHP pour récupérer les nouvelles données
+            url: 'messageUtilisateurs.php', // Créez un script PHP pour récupérer les nouvelles données
             success: function(nouvellesDonnees) {
                 // Mettez à jour le contenu du corps du tableau avec les nouvelles données
                 $('#table tbody').html(nouvellesDonnees);
