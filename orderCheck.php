@@ -19,11 +19,22 @@ $infos = "SELECT * FROM settings";
 $infos = $dbh->query($infos);
 $infos = $infos->fetch();
 
+if (isset($_SESSION['email'])) {
+    $email = $_SESSION['email'];
+    $photo = "SELECT * FROM users where email = :email";
+    $stmt = $dbh->prepare($photo);
+    $stmt->execute([
+        'email' => $email,
+    ]);
+    $photo = $stmt->fetch();
+}
+
+
 
 ?>
 
 <body>
-<nav>
+    <nav>
         <ul class="nav_left">
             <li class="nav_title"><img src="<?= $infos['url_logo'] ?>" alt="logo fouee">
                 <p>Fouée't Moi</p>

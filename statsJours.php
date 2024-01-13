@@ -20,12 +20,23 @@ $horairesQuery = "SELECT * FROM planning";
 $horairesResult = $dbh->query($horairesQuery);
 $horaires = $horairesResult->fetchAll();
 
+if (isset($_SESSION['email'])) {
+    $email = $_SESSION['email'];
+    $photo = "SELECT * FROM users where email = :email";
+    $stmt = $dbh->prepare($photo);
+    $stmt->execute([
+        'email' => $email,
+    ]);
+    $photo = $stmt->fetch();
+}
+
+
 // Afficher l'en-tête de la page
 echo head('Statistiques de vente par jour');
 ?>
 
 <body>
-<nav>
+    <nav>
         <ul class="nav_left">
             <li class="nav_title"><img src="<?= $infos['url_logo'] ?>" alt="logo fouee">
                 <p>Fouée't Moi</p>

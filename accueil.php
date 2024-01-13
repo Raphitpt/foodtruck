@@ -9,6 +9,7 @@ $infos = $infosResult->fetch();
 $contenuQuery = "SELECT * FROM elements_accueil";
 $contenuResult = $dbh->query($contenuQuery);
 $contenu = $contenuResult->fetch();
+
 if (isset($_SESSION['email'])) {
     $email = $_SESSION['email'];
     $photo = "SELECT * FROM users where email = :email";
