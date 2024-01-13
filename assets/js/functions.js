@@ -75,7 +75,7 @@ document.addEventListener("DOMContentLoaded", function () {
     resetSupplementCheckboxes(); // Reset the checkboxes
   };
 
-    const handleAddToCart = (elementCounter) => {
+    const handleAddToCart = (index) => {
     elementCounter++;
 
     let id = idPlat[index].value;
@@ -117,8 +117,9 @@ document.addEventListener("DOMContentLoaded", function () {
       noThanks.addEventListener("click", hideSupplementSection);
 
       checkSupplYes.addEventListener("click", () => {
-        handleAddToCart(elementCounter);
+        handleAddToCart(index);
         console.log(index);
+        updateSessionStorage();
         hideSupplementSection();
         
       });
