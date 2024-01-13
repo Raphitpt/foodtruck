@@ -46,6 +46,7 @@ echo head('Inscription');
     <div class="btn-retour">
       <a href="index.php" class="btn"><i class="fa-solid fa-arrow-left"></i></a>
     </div>
+
     <section class="form">
       <h1>S'inscrire</h1>
       <?php if (isset($error)) { ?>

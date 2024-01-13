@@ -129,7 +129,7 @@ echo head('Accueil Back Office');
                                     <h5 class="card-title">
                                         <?= $plat['nom'] ?>
                                     </h5>
-                                    <img class="card_img" src="./assets/img/Fouées_angevines_avec_rillettes.JPG" alt="Photo d'un fouées à la rillette">
+                                    <img class="card_img" src="<?= $plat['image_plat'] ?>" alt="Photo d'un fouées à la rillette">
                                     <input type="hidden" name="id_plats" class="id_plats" value="<?= $plat['id_plat'] ?>">
                                     <p class="card-text">
                                         <?= $plat['composition'] ?>
@@ -159,7 +159,7 @@ echo head('Accueil Back Office');
                                     <h5 class="card-title">
                                         <?= $plat['nom'] ?>
                                     </h5>
-                                    <img class="card_img" src="./assets/img/Fouées_angevines_avec_rillettes.JPG" alt="Photo d'un fouées à la rillette">
+                                    <img class="card_img" src="<?= $plat['image_plat'] ?>" alt="Photo d'un fouées à la rillette">
 
                                     <input type="hidden" name="id_plats" class="id_plats" value="<?= $plat['id_plat'] ?>">
                                     <p class="card-text">
@@ -191,7 +191,7 @@ echo head('Accueil Back Office');
                                     <h5 class="card-title">
                                         <?= $supplement['nom'] ?>
                                     </h5>
-                                    <img class="card_img" src="./assets/img/Fouées_angevines_avec_rillettes.JPG" alt="Photo d'un fouées à la rillette">
+                                    <img class="card_img" src="<?= $supplement['image_suppl'] ?>" alt="Photo d'un fouées à la rillette">
 
                                     <input type="hidden" name="id_suppl" class="id_suppl" value="<?= $supplement['id_suppl'] ?>">
                                     <p class="card-price">
