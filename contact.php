@@ -139,12 +139,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
 
         img {
-            width: 5vw;
+            width: 15%;
+            padding-right: 20px;
+            transform: translateX(-10px);
         }
 
         i {
             font-size: 30px;
-            padding-right: 10px;
+            padding-right: 20px;
         }
 
         main section:nth-child(2) {
@@ -153,7 +155,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         .form p {
             text-align: justify;
+            display: flex;
+            align-items: center;
+            font-size: 18px;
+
+
         }
+
+
 
         .bar {
             width: 100%;
