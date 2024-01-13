@@ -42,7 +42,7 @@ if (isset($_SESSION['email'])) {
 
 
 
-echo head('Accueil');
+echo head('Accueil Back Office');
 
 ?>
 

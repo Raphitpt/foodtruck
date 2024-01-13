@@ -32,7 +32,7 @@ if (isset($_SESSION['email'])) {
 
 
 
-echo head('Accueil');
+echo head('Informations de votre entreprise');
 
 ?>
 
