@@ -106,9 +106,7 @@ if (isset($_SESSION['email'])) {
             <div class="container">
                 <div class="row">
                     <div class="col-12">
-                        <div class="btn-retour">
-                            <a href="index.php" class="btn"><i class="fa-solid fa-arrow-left"></i></a>
-                        </div>
+
                         <h1>Mon panier</h1>
                         <table class="table">
                             <thead>
@@ -133,9 +131,9 @@ if (isset($_SESSION['email'])) {
                                     condiments vous souhaitez inclure dans votre commande, ainsi que toute instruction
                                     spécifique à communiquer au restaurant" size="100" id="commentaire"> -->
                                 <textarea name="texte" id="commentaire" cols="30" rows="10"
-                                    placeholder="Couverts, serviettes, pailles ..."></textarea>
+                                    placeholder="Précisez quels couverts, serviettes et condiments vous souhaitez inclure dans votre commande."></textarea>
                             </div>
-                            <div>
+                            <div class="totalRet">
                                 <h2>Total de la commande <span id="totalCommande"></span> €</h2>
                                 <h2>Date de retrait : <span id="totalHeure"></span> le <span id="totalDate"></span></h2>
                             </div>
