@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", function () {
     divListPlats.style.display = "none";
   };
 
-  const handleSupplementCheckbox = (check) => {
+  const handleSupplementCheckbox = (check, index) => {
     let id = idPlat[index].value;
     let itemIndex = panier.findIndex((item) => item.id === id);
 
@@ -70,21 +70,12 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   };
 
-  const hideSupplementSection = () => {
-    divSuppl.style.display = "none";
-    divListPlats.style.display = "block";
-    handleAddToCart();
-    resetSupplementCheckboxes(); // Reset the checkboxes
-  };
-
-  const handleAddToCart = () => {
-    elementCounter++;
-
+const handleAddToCart = (index) => {
     let id = idPlat[index].value;
     let itemIndex = panier.findIndex((item) => item.id === id);
 
     if (itemIndex !== -1) {
-      panier[itemIndex].quantite = elementCounter;
+      panier[itemIndex].quantite++;
     } else {
       panier.push({
         id: id,
@@ -92,7 +83,7 @@ document.addEventListener("DOMContentLoaded", function () {
         prix: platPrice[index].innerHTML,
         composition: platComposition[index].innerHTML,
         supplements: [],
-        quantite: elementCounter,
+        quantite: 1,
       });
     }
 
@@ -103,21 +94,27 @@ document.addEventListener("DOMContentLoaded", function () {
     updateSessionStorage();
   };
 
-  ajouterBoutons.forEach((ajouterBouton, index) => {
-    let elementCounter = 0;
+  const hideSupplementSection = () => {
+    divSuppl.style.display = "none";
+    divListPlats.style.display = "block";
+    handleAddToCart();
+    resetSupplementCheckboxes(); // Reset the checkboxes
+  };
 
+
+  ajouterBoutons.forEach((ajouterBouton, index) => {
     ajouterBouton.addEventListener("click", () => {
       displaySupplementSection();
 
       checkSuppl.forEach((check) => {
-        check.addEventListener("click", () => handleSupplementCheckbox(check));
+        check.addEventListener("click", () => handleSupplementCheckbox(check, index));
       });
 
       noThanks.addEventListener("click", hideSupplementSection);
 
       checkSupplYes.addEventListener("click", () => {
         hideSupplementSection();
-        handleAddToCart();
+        handleAddToCart(index);
       });
     });
   });
