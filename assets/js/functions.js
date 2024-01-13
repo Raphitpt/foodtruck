@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const checkSuppl = document.querySelectorAll(".checkSuppl");
   let panierDiv = document.querySelector(".panier");
   let elementCounter = "";
+
   if (panierDiv.innerHTML.trim() === "") {
     panierDiv.classList.add("icon-in-circle");
     let icon = document.createElement("i");
@@ -52,7 +53,6 @@ document.addEventListener("DOMContentLoaded", function () {
     let supplPrice = check.getAttribute("data-price");
 
     if (check.checked) {
-      checkSupplYes.style.display = "block";
       if (!panier[itemIndex].supplements) {
         panier[itemIndex].supplements = [];
       }
@@ -67,6 +67,9 @@ document.addEventListener("DOMContentLoaded", function () {
         (supplement) => supplement.id !== supplID
       );
     }
+
+    // Toggle the display of checkSupplYes based on whether any supplements are selected
+    checkSupplYes.style.display = panier[itemIndex].supplements.length > 0 ? "block" : "none";
   };
 
   const hideSupplementSection = () => {
