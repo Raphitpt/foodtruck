@@ -153,7 +153,7 @@ if (isset($_POST['modifier_mot_de_passe']) && !empty($_POST['nouveau_mot_de_pass
                 <input type="password" name="confirmation_mot_de_passe" id="confirmnew" value=""><br>
                 <input type="submit" name="modifier_mot_de_passe">
             </form>
-            <p>Vos points de fidélité : <br> <strong><?php echo $recupUser['pts_fidelite'] ?></strong></p>
+            <p>Vos points de fidélité : <br> <strong><?php echo $recupUser['pts_fidelite'] ?></strong> FouéePoints</p>
 
             <ul class="nav_right">
                 <?php if (isset($_SESSION['email'])) : ?>

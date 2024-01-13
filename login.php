@@ -76,7 +76,11 @@ echo head('Connexion');
                 <a href="./sendReset.php">Mot de passe oublié ?</a>
                 <br>
                 <br>
-                <input type="submit" name="envoi" value="Envoyer">
+                <div>
+                    <input type="submit" name="envoi" value="Envoyer">
+                    <button class="actions"><a href="signin.php">S'inscire</a></button>
+                </div>
+                
             </form>
 
         </section>

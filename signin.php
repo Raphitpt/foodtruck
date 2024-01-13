@@ -65,7 +65,7 @@ echo head('Inscription');
         <input type="password" name="password"><br>
         <label>Confirmation de Mot de passe</label>
         <input type="password" name="confirm_password"><br>
-        <input type="submit" value="Register">
+        <input type="submit" value="S'inscrire">
       </form>
   </main>
   </section>
