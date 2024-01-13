@@ -211,7 +211,7 @@ echo head('Commander');
                 </ul>
             </div>
             <button class="noThanks">Non merci</button>
-            <button class="addSupplYes" style="display:none;">Ajouter</button>
+            <button class="addSupplYes">Ajouter</button>
         </section>
         <section>
             <div class="commande rectangle">
