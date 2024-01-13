@@ -112,8 +112,10 @@ document.addEventListener("DOMContentLoaded", function () {
       noThanks.addEventListener("click", hideSupplementSection);
 
       checkSupplYes.addEventListener("click", () => {
-        hideSupplementSection();
         handleAddToCart(index);
+        console.log(index);
+        hideSupplementSection();
+        
       });
     });
   });
