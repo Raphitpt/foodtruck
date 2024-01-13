@@ -138,7 +138,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             display: flex;
         }
 
-        img {
+        .form img {
             width: 15%;
             padding-right: 20px;
             transform: translateX(-10px);
