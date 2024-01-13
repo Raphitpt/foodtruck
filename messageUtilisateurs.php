@@ -67,7 +67,7 @@ $infos = $infos->fetch();
                             <td><?= $message['email'] ?></td>
                             <td><?= $message['message'] ?></td>
                             <td><?= $message['date_message'] ?></td>
-                            <td><a href="deleteMessage.php?id=<?= $message['id_message'] ?>" class="btn btn-danger">Supprimer</a></td>
+                            <td><a href="suppressionMessages.php?id_message=<?= $message['id_message'] ?>" class="btn btn-danger">Supprimer</a></td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>

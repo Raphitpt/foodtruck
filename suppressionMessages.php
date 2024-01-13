@@ -31,7 +31,7 @@ if (isset($_GET['id_message'])) {
     ]);
 }
 // redirection vers la page de listing
-header('Location: messagesUtilisateurs.php');
+header('Location: messageUtilisateurs.php');
 
 ?>
 
