@@ -3,7 +3,15 @@
 require './bootstrap.php';
 session_start();
 
-$id = 4;
+$email = $_SESSION['email'];
+$recupId = 'SELECT id_user FROM users where email = :email';
+$user = $dbh->prepare($recupId);
+$user->execute([
+    'email' => $email,
+]);
+$recupId = $user->fetch();
+$id = $recupId['id_user'];
+
 $infosQuery = "SELECT * FROM settings";
 $infosResult = $dbh->query($infosQuery);
 $infos = $infosResult->fetch();
