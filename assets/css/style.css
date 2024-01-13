@@ -588,7 +588,6 @@ main {
   flex-direction: column;
   gap: 1rem;
   margin-top: 5vh;
-  width: auto;
 }
 .table > :not(caption) > * {
   padding: 5vw;

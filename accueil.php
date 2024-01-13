@@ -112,9 +112,13 @@ if (isset($_SESSION['email'])) {
     }
 
     .choixlangue div {
+        position: absolute;
+        top: 0;
+        right: 1.5rem;
         cursor: pointer;
         padding: 1rem;
         text-align: end;
+        width: 4vw;
     }
 
     .choixlangue img {
@@ -160,11 +164,11 @@ if (isset($_SESSION['email'])) {
                 <?php endif; ?>
             </ul>
             <ul class="nav_right">
-                <?php if (isset($_SESSION['email'])) : ?>
-                    <li><button onclick="location.href = './logout.php'" class="button_nav connect"><?= htmlspecialchars("Deconnexion") ?></button></li>
-                <?php else : ?>
-                    <li><button onclick="location.href = './login.php'" class="button_nav connect"><?= htmlspecialchars("Connexion") ?></button></li>
-                <?php endif; ?>
+                <?php if (isset($_SESSION['email'])) { ?>
+                    <button onclick="location.href = 'profil.php'" class="image"><img src="<?php echo $photo['photoprofil'] == NULL ? "./assets/img/grandprofilfb.jpg" : $photo['photoprofil']; ?>" /></button>
+                <?php } else { ?>
+                    <li><button onclick="location.href = './login.php'" class="button_nav connect"><?= htmlspecialchars("Se connecter") ?></button></li>
+                <?php } ?>
             </ul>
         </nav>
     </header>
