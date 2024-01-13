@@ -97,6 +97,7 @@ nav > ul > li {
   color: #e56d00;
   margin-top: auto;
   margin-bottom: auto;
+  width: 9vw;
 }
 .nav_left {
   display: flex;
