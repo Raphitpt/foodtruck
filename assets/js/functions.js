@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const checkSupplYes = document.querySelector(".addSupplYes");
   const checkSuppl = document.querySelectorAll(".checkSuppl");
   let panierDiv = document.querySelector(".panier");
-
+  let elementCounter = "";
   if (panierDiv.innerHTML.trim() === "") {
     panierDiv.classList.add("icon-in-circle");
     let icon = document.createElement("i");
