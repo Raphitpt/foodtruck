@@ -77,6 +77,8 @@ echo head('Informations de votre entreprise');
                 <div class="infos">
                     <p>Nom de l'entreprise : <?= $infos['nom_entreprise'] ?></p>
                     <p>Adresse : <?= $infos['adresse_entreprise'] ?></p>
+                    <p>N° de téléphone <?= $infos['tel'] ?></p>
+                    <p>Adresse mail : <?= $infos['email'] ?></p>
                     <p>Logo : <img src="<?= $infos['url_logo'] ?>" alt="logo fouee"></p>
                 </div>
                 <h1>Les horaires d'ouverture et de fermeture sont :</h1>
