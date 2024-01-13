@@ -203,17 +203,6 @@ if (isset($_SESSION['email'])) {
         }
 
         function listPanier(heure, date) {
-            const selectedHour = heure.split('h').join(''); // Convertir l'heure en format numérique
-            const articlesAtSelectedHour = panier.filter(element => {
-                const articleHour = element.heure.split('h').join(''); // Convertir l'heure de l'article en format numérique
-                return articleHour === selectedHour;
-            });
-
-            if (articlesAtSelectedHour.length >= 8) {
-                alert('Cette heure est déjà pleine. Veuillez sélectionner une autre heure.');
-                return; // Ne pas mettre à jour l'affichage du panier si l'heure est pleine
-            }
-
             html = '';
             let prix = 0;
             let quantite = 0;
@@ -275,7 +264,16 @@ if (isset($_SESSION['email'])) {
             totalCommande.innerHTML = `${total}`;
             sessionStorage.setItem("panier", JSON.stringify(panier));
         }
+        // const selectedHour = heure.split('h').join(''); // Convertir l'heure en format numérique
+        // const articlesAtSelectedHour = panier.filter(element => {
+        //     const articleHour = element.heure.split('h').join(''); // Convertir l'heure de l'article en format numérique
+        //     return articleHour === selectedHour;
+        // });
 
+        // if (articlesAtSelectedHour.length >= 8) {
+        //     alert('Cette heure est déjà pleine. Veuillez sélectionner une autre heure.');
+        //     return;
+        // }
 
         document.addEventListener('DOMContentLoaded', function () {
             // Initialise la date du jour lors du chargement de la page
