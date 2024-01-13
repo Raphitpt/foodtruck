@@ -112,6 +112,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         .form {
             margin-top: 15px;
+            width: 40vw;
         }
 
         label {
@@ -132,12 +133,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             border-radius: 4px;
             box-sizing: border-box;
         }
+
+        main {
+            display: flex;
+        }
     </style>
     <main>
         <section class="form">
             <div class="container">
                 <h2>Contactez-nous</h2>
-                <p>Pour toute information complémentaire, posez-nous vos questions, et nous serons ravis de vous répondre.</p>
+
                 <form action="" method="post">
                     <label for="nom">Prénom :</label>
                     <input type="text" id="prenom" name="prenom" required>
@@ -157,6 +162,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <button type="submit" class="actions">Envoyer</button>
                 </form>
             </div>
+
+        </section>
+        <section class="form">
+            <p>Pour toute information complémentaire, posez-nous vos questions, et nous serons ravis de vous répondre.</p>
+            <div class="bar"></div>
+            <p><?php echo $infos['nom_entreprise'] ?></p>
+            <p><?php echo $infos['adresse_entreprise'] ?></p>
+            <p><?php echo $infos['tel'] ?></p>
+            <p><?php echo $infos['email'] ?></p>
 
         </section>
     </main>
