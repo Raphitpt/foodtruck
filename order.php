@@ -1,13 +1,24 @@
 <?php
-require './bootstrap.php';
-
 session_start();
+
+// Vérifier si l'utilisateur est connecté
+if (!isset($_SESSION['email'])) {
+    // Rediriger vers login.php si l'utilisateur n'est pas connecté
+    header('Location: login.php');
+    exit();
+}
+
+require 'bootstrap.php';
 
 
 echo head('Panier');
 $infos = "SELECT * FROM settings";
 $infos = $dbh->query($infos);
 $infos = $infos->fetch();
+
+$users = "SELECT * FROM users";
+$users = $dbh->query($users);
+$users = $users->fetchAll();
 
 if (isset($_SESSION['email'])) {
     $email = $_SESSION['email'];

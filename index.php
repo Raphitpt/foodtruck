@@ -108,8 +108,7 @@ echo head('Commander');
                                 <h5 class="card-title">
                                     <?= $plat['nom'] ?>
                                 </h5>
-                                <img class="card_img" src="<?= $plat['image_plat'] ?>"
-                                    alt="Photo d'un fouées à la rillette">
+                                <img class="card_img" src="<?= $plat['image_plat'] ?>" alt="">
                                 <input type="hidden" name="id_plats" class="id_plats" value="<?= $plat['id_plat'] ?>">
                                 <p class="card-text">
                                     <?= $plat['composition'] ?>
