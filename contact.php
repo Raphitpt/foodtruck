@@ -110,6 +110,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
+        .form {
+            margin-top: 15px;
+        }
+
         label {
             display: block;
             margin-bottom: 8px;
