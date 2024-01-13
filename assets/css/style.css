@@ -1138,19 +1138,19 @@ input[type="date"] {
       flex-direction: column;
       gap: 1rem;
     }
-
-    #commentaire{
-      width: 80vw;
-    } 
-
-    .total{
+    .text{
+      display: none;
+    }
+    .text-input{
+      display: none;
+    }
+    .btn{
       display: flex;
       justify-content: center;
       align-items: center;
       flex-direction: column;
       gap: 1rem;
     }
-
   }
 
   

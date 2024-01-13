@@ -141,7 +141,7 @@ if (isset($_SESSION['email'])) {
                         <div class="btn">
                             <button onclick="location.href = './index.php'" class="btn btn-dark btn_continuer">Continuer
                                 mes achats</button>
-                            <button class="btn btn-success btn_commander">Commander</button>
+                            <button class="btn btn-light btn_commander">Confirmer</button>
                         </div>
                         <div class="monElement"></div>
                     </div>
