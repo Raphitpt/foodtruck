@@ -19,22 +19,11 @@ $infos = "SELECT * FROM settings";
 $infos = $dbh->query($infos);
 $infos = $infos->fetch();
 
-if (isset($_SESSION['email'])) {
-    $email = $_SESSION['email'];
-    $photo = "SELECT * FROM users where email = :email";
-    $stmt = $dbh->prepare($photo);
-    $stmt->execute([
-        'email' => $email,
-    ]);
-    $photo = $stmt->fetch();
-}
-
-
 
 ?>
 
 <body>
-    <nav>
+<nav>
         <ul class="nav_left">
             <li class="nav_title"><img src="<?= $infos['url_logo'] ?>" alt="logo fouee">
                 <p>Fouée't Moi</p>
@@ -46,14 +35,14 @@ if (isset($_SESSION['email'])) {
         </ul>
         <ul class="nav_right">
             <?php if (isset($_SESSION['email'])) : ?>
-                <button onclick="location.href = 'profil.php'" class="image"><img src="<?php echo $photo['photoprofil'] == NULL ? "./assets/img/grandprofilfb.jpg" : $photo['photoprofil']; ?>" /></button>
+                <li><button onclick="location.href = './logout.php'" class="button_nav connect">Se déconnecter</button></li>
             <?php else : ?>
                 <li><button onclick="location.href = './login.php'" class="button_nav connect">Se connecter</button></li>
             <?php endif; ?>
         </ul>
     </nav>
     <main>
-        <div class="btn-retour">
+    <div class="btn-retour">
             <a href="indexBO.php" class="btn"><i class="fa-solid fa-arrow-left"></i></a>
         </div>
         <section class="commandeTable">
