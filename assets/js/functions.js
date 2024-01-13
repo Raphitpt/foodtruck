@@ -53,6 +53,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let supplPrice = check.getAttribute("data-price");
 
     if (check.checked) {
+      checkSupplYes.style.display = "block";
       if (!panier[itemIndex].supplements) {
         panier[itemIndex].supplements = [];
       }
@@ -67,16 +68,13 @@ document.addEventListener("DOMContentLoaded", function () {
         (supplement) => supplement.id !== supplID
       );
     }
-
-    // Toggle the display of checkSupplYes based on whether any supplements are selected
-    checkSupplYes.style.display = panier[itemIndex].supplements.length > 0 ? "block" : "none";
   };
 
   const hideSupplementSection = () => {
     divSuppl.style.display = "none";
     divListPlats.style.display = "block";
     handleAddToCart();
-    resetSupplementCheckboxes(); // Réinitialiser les checkboxes
+    resetSupplementCheckboxes(); // Reset the checkboxes
   };
 
   const handleAddToCart = () => {
@@ -116,8 +114,11 @@ document.addEventListener("DOMContentLoaded", function () {
       });
 
       noThanks.addEventListener("click", hideSupplementSection);
-      
-      handleAddToCart();
+
+      checkSupplYes.addEventListener("click", () => {
+        hideSupplementSection();
+        handleAddToCart();
+      });
     });
   });
 
@@ -144,7 +145,7 @@ document.addEventListener("DOMContentLoaded", function () {
         <div class="supprCommande">
           <i class="fa-solid fa-xmark"></i>
         </div>
-        
+
         <div class="div_img_commande">
           <img src="./assets/img/Fouées_angevines_avec_rillettes.JPG" class="img_commande">
         </div>
@@ -177,6 +178,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     return html;
   }
+
 
   panierDiv.addEventListener("click", function (event) {
     if (event.target.classList.contains("fa-xmark")) {
