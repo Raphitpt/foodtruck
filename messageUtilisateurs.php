@@ -37,7 +37,7 @@ if (isset($_SESSION['email'])) {
     <nav>
         <ul class="nav_left">
             <li class="nav_title"><img src="<?= $infos['url_logo'] ?>" alt="logo fouee">
-                <p>Fouée't Moi</p>
+                <p><?= $infos['nom_entreprise'] ?></p>
             </li>
             <li><button onclick="location.href = './accueil.php'" class="button_nav">Accueil</button></li>
             <?php if (isset($_SESSION['email']) && $_SESSION['email'] === 'admin@gmail.com') : ?>
@@ -93,22 +93,13 @@ if (isset($_SESSION['email'])) {
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/bootstrap-table@1.22.1/dist/bootstrap-table.min.js"></script>
 <script>
-    // Fonction pour mettre à jour les données du tableau
-    function mettreAJourTableau() {
-        // Effectuer une nouvelle requête AJAX pour récupérer les données actualisées
-        $.ajax({
-            url: 'messageUtilisateurs.php', // Créez un script PHP pour récupérer les nouvelles données
-            success: function(nouvellesDonnees) {
-                // Mettez à jour le contenu du corps du tableau avec les nouvelles données
-                $('#table tbody').html(nouvellesDonnees);
-            },
-            error: function() {
-                console.log('Erreur lors de la mise à jour des données du tableau.');
-            }
-        });
+    // Function to reload the page every 30 seconds
+    function refreshTable() {
+        location.reload();
     }
 
-    // Mettre à jour le tableau toutes les 10sec (30000 millisecondes)
-    setInterval(mettreAJourTableau, 10000);
+    // Set interval to refresh the page every 30 seconds (30000 milliseconds)
+    setInterval(refreshTable, 30000);
 </script>
+
 </html>

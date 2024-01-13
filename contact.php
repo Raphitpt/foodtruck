@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <nav class="navfr">
             <ul class="nav_left">
                 <li class="nav_title"><img src="<?= htmlspecialchars($infos['url_logo']) ?>" alt="logo fouee">
-                    <p><?= htmlspecialchars("Fouée't Moi") ?></p>
+                    <p><?= $infos['nom_entreprise'] ?></p>
                 </li>
                 <li><button onclick="location.href = './accueil.php'" class="button_nav"><?= htmlspecialchars("Accueil") ?></button></li>
                 <li><button onclick="location.href = './index.php'" class="button_nav"><?= htmlspecialchars("Commander") ?></button></li>

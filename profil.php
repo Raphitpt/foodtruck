@@ -102,7 +102,7 @@ if (isset($_POST['modifier_mot_de_passe']) && !empty($_POST['nouveau_mot_de_pass
     <nav>
         <ul class="nav_left">
             <li class="nav_title"><img src="<?= $infos['url_logo'] ?>" alt="logo fouee">
-                <p>Fouée't Moi</p>
+                <p><?= $infos['nom_entreprise'] ?></p>
             </li>
             <li><button onclick="location.href = './accueil.php'" class="button_nav">Accueil</button></li>
             <li><button onclick="location.href = './index.php'" class="button_nav">Commander</button></li>
