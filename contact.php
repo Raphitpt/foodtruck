@@ -37,6 +37,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         'message' => $message
 
     ]);
+    header('Location: accueil.php');
+    exit();
 }
 
 
