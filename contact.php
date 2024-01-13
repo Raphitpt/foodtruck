@@ -137,6 +137,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         main {
             display: flex;
         }
+
+        img {
+            width: 5vw;
+        }
+
+        i {
+            font-size: 30px;
+            padding-right: 10px;
+        }
+
+        main section:nth-child(2) {
+            align-items: start;
+        }
+
+        .form p {
+            text-align: justify;
+        }
+
+        .bar {
+            width: 100%;
+            height: 2px;
+            background-color: black;
+        }
     </style>
     <main>
         <section class="form">
@@ -167,10 +190,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <section class="form">
             <p>Pour toute information complémentaire, posez-nous vos questions, et nous serons ravis de vous répondre.</p>
             <div class="bar"></div>
-            <p><?php echo $infos['nom_entreprise'] ?></p>
-            <p><?php echo $infos['adresse_entreprise'] ?></p>
-            <p><?php echo $infos['tel'] ?></p>
-            <p><?php echo $infos['email'] ?></p>
+            <p><img src="<?= htmlspecialchars($infos['url_logo']) ?>" alt="logo fouee"><?php echo $infos['nom_entreprise'] ?></p>
+            <p>
+                <i class="fa-solid fa-location-dot"></i>
+                <?php echo $infos['adresse_entreprise'] ?>
+            </p>
+            <p>
+                <i class="fa-solid fa-phone"></i>
+                <?php echo $infos['tel'] ?>
+            </p>
+            <p>
+                <i class="fa-solid fa-envelope"></i>
+                <?php echo $infos['email'] ?>
+            </p>
 
         </section>
     </main>
