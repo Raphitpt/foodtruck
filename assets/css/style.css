@@ -858,16 +858,15 @@ input[type="date"] {
   border-radius: 5px;
   padding: 10px;
   font-weight: bold;
-  margin-bottom: 3vh;
 }
 .text:hover {
   background-color: #e2e2e2;
 }
 #commentaire {
-  /* vertical-align: top; */
-  /* height: 100px; */
-  margin-bottom: 5vh;
-  /* width: 100%; */
+  vertical-align: top;
+  height: 100px;
+  margin-bottom: 2vh;
+  width: 100%;
   resize: none;
 }
 /* .commandeConfirm {
@@ -934,7 +933,10 @@ input[type="date"] {
   margin-bottom: 3vh;
 }
 .table {
-  margin-bottom: 5vh;
+  margin-bottom: 3vh;
+}
+.totalRet {
+  margin-top: 2vh;
 }
 .totalRet :first-child {
   margin-bottom: 2vh;
