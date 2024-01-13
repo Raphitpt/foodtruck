@@ -9,7 +9,7 @@ if (!isset($_SESSION['email']) || $_SESSION['email'] !== 'admin@gmail.com') {
     exit();
 }
 
-echo head('Historique de commande');
+echo head('Messages des utilisateurs');
 
 $messages = "SELECT * FROM messages";
 $messages = $dbh->query($messages);
