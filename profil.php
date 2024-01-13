@@ -96,6 +96,20 @@ if (isset($_POST['modifier_mot_de_passe']) && !empty($_POST['nouveau_mot_de_pass
     .form {
         margin-top: 5px;
     }
+
+    .connect {
+        text-align: center;
+
+    }
+
+    .connect a {
+        text-decoration: none;
+        color: black;
+    }
+
+    ul {
+        text-decoration: none;
+    }
 </style>
 
 <body>
@@ -116,6 +130,8 @@ if (isset($_POST['modifier_mot_de_passe']) && !empty($_POST['nouveau_mot_de_pass
         <div class="btn-retour">
             <a href="index.php" class="btn"><i class="fa-solid fa-arrow-left"></i></a>
         </div>
+        <button onclick="location.href = './historique.php'" class="button_nav connect"><?= htmlspecialchars("Historique") ?></button></li>
+
         <section class="form">
             <h1>Profil de <?php echo $recupUser['nom'] . " " . $recupUser['prenom'] ?></h1>
             <img src="<?php echo $photo == NULL ? "./assets/img/grandprofilfb.jpg" : $photo; ?>" />
