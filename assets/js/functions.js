@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const checkSupplYes = document.querySelector(".addSupplYes");
   const checkSuppl = document.querySelectorAll(".checkSuppl");
   let panierDiv = document.querySelector(".panier");
-
+  let elementCounter = 0;
   if (panierDiv.innerHTML.trim() === "") {
     panierDiv.classList.add("icon-in-circle");
     let icon = document.createElement("i");
@@ -75,7 +75,7 @@ document.addEventListener("DOMContentLoaded", function () {
     resetSupplementCheckboxes(); // Reset the checkboxes
   };
 
-    const handleAddToCart = (index) => {
+    const handleAddToCart = (elementCounter) => {
     elementCounter++;
 
     let id = idPlat[index].value;
@@ -117,7 +117,7 @@ document.addEventListener("DOMContentLoaded", function () {
       noThanks.addEventListener("click", hideSupplementSection);
 
       checkSupplYes.addEventListener("click", () => {
-        handleAddToCart(index);
+        handleAddToCart(elementCounter);
         console.log(index);
         hideSupplementSection();
         
