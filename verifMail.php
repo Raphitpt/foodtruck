@@ -38,12 +38,18 @@ echo head('Accueil');
 ?>
 
 <body>
-    <h1>On t'a envoyé un mail mdr à <?= $_SESSION['email'] ?></h1>
-    <p>Si tu veux confirmer ton inscription, clique sur le lien qu'on t'a envoyé</p>
-    <p>Si tu veux pas, clique sur le lien qu'on t'a envoyé</p>
-    <form method="post">
-    <input type="submit" value="Renvoyer un mail">
-    </form>
+    <main>
+        <section class="form">
+            <h1>On t'a envoyé un mail mdr à <?= $_SESSION['email'] ?></h1>
+            <p>Si tu veux confirmer ton inscription, clique sur le lien qu'on t'a envoyé</p>
+            <p>Si tu veux pas, clique sur le lien qu'on t'a envoyé</p>
+            <form method="post">
+            <input type="submit" value="Renvoyer un mail">
+            </form> 
+        </section>
+       
+    </main>
+    
 
 </body>
 </html>

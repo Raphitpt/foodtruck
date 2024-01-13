@@ -34,7 +34,21 @@ if (isset($_SESSION['email'])) {
 // Afficher l'en-tête de la page
 echo head('Statistiques de vente par jour');
 ?>
+<script>
+    window.onload = function () {
+        // Check screen width
+        var screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
 
+        // Define the minimum width for access
+        var minWidth = 1100;
+
+        // Redirect if the screen width is smaller than the minimum width
+        if (screenWidth < minWidth) {
+            alert("This page is accessible only on large screens with a width greater than 1100px. Please use a larger screen.");
+            window.location.href = 'index.php'; // Redirect to the appropriate page
+        }
+    };
+</script>
 <body>
     <nav>
         <ul class="nav_left">
