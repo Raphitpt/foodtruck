@@ -70,7 +70,7 @@ nav > ul > li {
   border-radius: 10px;
   text-decoration: none;
   cursor: pointer;
-  width: 12rem;
+  width: 12%;
   transition: background 0.3s;
   background-color: #f5f5f5;
 }
@@ -499,7 +499,6 @@ nav > ul > li > img {
   font-weight: bold;
   cursor: pointer;
 }
-
 
 .plats_sale {
   display: flex;
@@ -996,10 +995,9 @@ input[type="date"] {
 .totalRet :first-child {
   margin-bottom: 2vh;
 }
-.h2Pannier{
+.h2Pannier {
   display: none;
 }
-
 
 @media only screen and (max-width: 768px) {
   .main_commande {
@@ -1011,7 +1009,7 @@ input[type="date"] {
     margin-top: 2vh;
     height: auto;
   }
-  .infos_generale{
+  .infos_generale {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1020,13 +1018,13 @@ input[type="date"] {
     margin-top: 5vh;
   }
 
-  .list_plat{
+  .list_plat {
     width: 80vw;
     height: auto;
     margin-right: auto;
     margin-left: auto;
   }
-  .plats{
+  .plats {
     width: 80vw;
     height: 70vh;
     margin-right: auto;
@@ -1035,20 +1033,20 @@ input[type="date"] {
   }
 
   .number_add {
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
-  .name_plat_commande > p{
-      font-size: 0.8rem;
-    }
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .name_plat_commande > p {
+    font-size: 0.8rem;
+  }
   .sub,
   .add {
-      width: 100%; /* Les boutons prennent 100% de la largeur en mode responsive */
-      margin-bottom: 0px; /* Ajoutez une marge entre les boutons */
-    }
+    width: 100%; /* Les boutons prennent 100% de la largeur en mode responsive */
+    margin-bottom: 0px; /* Ajoutez une marge entre les boutons */
+  }
 
-    .rectangle {
+  .rectangle {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1057,8 +1055,8 @@ input[type="date"] {
     gap: 1rem;
     margin: 1rem;
     max-width: 100%; /* Réglez la largeur maximale à 100% pour les écrans plus petits */
-}
-  .panier{
+  }
+  .panier {
     width: 75vw;
     margin-right: auto;
     margin-left: auto;
@@ -1071,10 +1069,10 @@ input[type="date"] {
     max-width: 100%; /* Réglez la largeur maximale à 100% pour les écrans plus petits */
     overflow-y: scroll;
   }
-  nav{
+  nav {
     display: none;
   }
-  .commande{
+  .commande {
     width: 80vw;
     max-height: 100%;
     margin-right: auto;
@@ -1088,73 +1086,65 @@ input[type="date"] {
     max-width: 100%; /* Réglez la largeur maximale à 100% pour les écrans plus petits */
   }
   .number_add {
-      flex-direction: column;
-      align-items: center;
-      flex: 0 0 40px; /* Fixed width for the number_add section */
+    flex-direction: column;
+    align-items: center;
+    flex: 0 0 40px; /* Fixed width for the number_add section */
 
-      gap: 1.2rem;
-      text-align: center;
-
-
-    }
-  
-    .sub,
-    .add {
-      width: 100%; /* Les boutons prennent 100% de la largeur en mode responsive */
-    }
-
-    .h2Pannier{
-      display: block;
-      margin-top: 3vh;
-    }
-    .panierBlock{
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      gap: 1rem;
-    }
-    .bottom_panier{
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 1rem;
-    }
-
-    /* order responsive */  
-    .recap{
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      gap: 1rem;
-      margin: 1rem;
-      font-family: Montserrat;
-    }
-    .container{
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      gap: 1rem;
-    }
-    .text{
-      display: none;
-    }
-    .text-input{
-      display: none;
-    }
-    .btn{
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      gap: 1rem;
-    }
+    gap: 1.2rem;
+    text-align: center;
   }
 
-  
+  .sub,
+  .add {
+    width: 100%; /* Les boutons prennent 100% de la largeur en mode responsive */
+  }
 
-  
-  
-  
+  .h2Pannier {
+    display: block;
+    margin-top: 3vh;
+  }
+  .panierBlock {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .bottom_panier {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  /* order responsive */
+  .recap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 1rem;
+    margin: 1rem;
+    font-family: Montserrat;
+  }
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .text {
+    display: none;
+  }
+  .text-input {
+    display: none;
+  }
+  .btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
