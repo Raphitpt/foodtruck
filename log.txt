@@ -1,1 +1,1 @@
-{"panier":[{"id":"5","nom":"RILLETTES-MOGETTES","prix":"6€","composition":"","quantite":2}],"date_retrait":"2024-01-13 12:30","prix":"12","commentaire":""}
+{"panier":[{"id":"7","nom":"FOUÉE FROMAGE de Chevre","prix":"3€","composition":"","quantite":1},{"id":"6","nom":"FOUÉE ESCARGOTS","prix":"8€","composition":"Escargots-beurre-persil","quantite":1},{"id":"5","nom":"FOUÉE RILLETTES-MOGETTES","prix":"6€","composition":"","quantite":1}],"date_retrait":"2024-01-13 12:00","prix":"17","commentaire":""}
