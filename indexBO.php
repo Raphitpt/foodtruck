@@ -87,6 +87,7 @@ echo head('Accueil');
                 </div>
                 <div class="utilisateurs">
                     <h2>Utilisateurs</h2>
+                    <a href="messageUtilisateurs.php">Messages des utilisateurs</a>
                     <a href="ptsFid.php">Points de fidélité</a>
                 </div>
                 
