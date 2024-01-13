@@ -887,7 +887,7 @@ input[type="date"] {
   cursor: pointer;
 }
 
-.commandes{
+.commandes {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -895,7 +895,7 @@ input[type="date"] {
   gap: 0.2rem;
   font-family: Montserrat;
 }
-.utilisateurs{
+.utilisateurs {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -904,11 +904,14 @@ input[type="date"] {
   font-family: Montserrat;
 }
 
-.site{
+.site {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   gap: 0.2rem;
   font-family: Montserrat;
+}
+.btn {
+  cursor: pointer;
 }
