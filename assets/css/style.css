@@ -1122,6 +1122,34 @@ input[type="date"] {
     }
 
     /* order responsive */  
+    .recap{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      gap: 1rem;
+      margin: 1rem;
+      font-family: Montserrat;
+    }
+    .container{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    #commentaire{
+      width: 80vw;
+    } 
+
+    .total{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      gap: 1rem;
+    }
 
   }
 
