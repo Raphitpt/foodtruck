@@ -40,11 +40,11 @@ echo head('Statistiques de vente par jour');
         var screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
 
         // Define the minimum width for access
-        var minWidth = 1100;
+        var minWidth = 800;
 
         // Redirect if the screen width is smaller than the minimum width
         if (screenWidth < minWidth) {
-            alert("This page is accessible only on large screens with a width greater than 1100px. Please use a larger screen.");
+            alert("Cette page est accessible uniquement sur des écrans larges avec une largeur supérieure à 800px. Veuillez utiliser un écran plus grand.");
             window.location.href = 'index.php'; // Redirect to the appropriate page
         }
     };

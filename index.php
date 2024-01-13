@@ -76,10 +76,19 @@ echo head('Commander');
 
 
     <div class="infos_generale">
-        <p>Les horaires d'ouverture aujourd'hui sont :
-            <?php echo $horaires['HeureOuverture'] ?>h -
-            <?php echo $horaires['HeureFermeture'] ?>h
-        </p>
+        <div>
+            <h1>Commander</h1>
+            <div class="line"></div>
+        </div>
+        <div>
+            <p>Les horaires d'ouverture aujourd'hui sont :</p>
+        <div>
+        </div>     
+            <p><?php echo $horaires['HeureOuverture'] ?>h -
+                <?php echo $horaires['HeureFermeture'] ?>h
+            </p>
+            
+        </div>
     </div>
 
     <main class="main_commande">
@@ -222,7 +231,11 @@ echo head('Commander');
             <button class="noThanks">Non merci</button>
             <button class="addSupplYes">Ajouter</button>
         </section>
-        <section>
+        <section class="panierBlock">
+            <div class="h2Pannier">
+                <h2>Votre commande</h2>
+                <div class="line"></div>
+            </div>
             <div class="commande rectangle">
                 <div class="panier">
 

@@ -13,7 +13,21 @@ $infos = $infos->fetch();
 
 echo head('Modifier un supplément');
 ?>
+<script>
+    window.onload = function () {
+        // Check screen width
+        var screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
 
+        // Define the minimum width for access
+        var minWidth = 800;
+
+        // Redirect if the screen width is smaller than the minimum width
+        if (screenWidth < minWidth) {
+            alert("Cette page est accessible uniquement sur des écrans larges avec une largeur supérieure à 800px. Veuillez utiliser un écran plus grand.");
+            window.location.href = 'index.php'; // Redirect to the appropriate page
+        }
+    };
+</script>
 <body>
 
 <?php
