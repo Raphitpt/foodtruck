@@ -44,7 +44,8 @@ if (isset($_SESSION['email'])) {
     }
 
     img {
-        width: 40%;
+        width: 30vw;
+        height: auto;
     }
 
     .accueil {
@@ -77,6 +78,7 @@ if (isset($_SESSION['email'])) {
         height: 50%;
         width: 30%;
         text-align: justify;
+        padding-left: 3rem;
     }
 
     .accueil div:nth-child(4) {
@@ -250,9 +252,6 @@ if (isset($_SESSION['email'])) {
 
         </section>
     </main>
-    <footer>
-
-    </footer>
     <script src="./assets/js/functions.js">
     </script>
     <script>
