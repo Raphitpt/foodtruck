@@ -119,6 +119,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             margin-bottom: 8px;
         }
 
+        p {
+            padding: 10px;
+        }
 
         input,
         textarea {
@@ -134,8 +137,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <section class="form">
             <div class="container">
                 <h2>Contactez-nous</h2>
+                <p>Pour toute information complémentaire, posez-nous vos questions, et nous serons ravis de vous répondre.</p>
                 <form action="" method="post">
-                    <label for="nom">Prenom :</label>
+                    <label for="nom">Prénom :</label>
                     <input type="text" id="prenom" name="prenom" required>
 
                     <label for="nom">Nom :</label>
@@ -153,6 +157,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <button type="submit" class="actions">Envoyer</button>
                 </form>
             </div>
+
         </section>
     </main>
 
