@@ -7,9 +7,10 @@ document.addEventListener("DOMContentLoaded", function () {
   const divSuppl = document.querySelector(".supplements");
   const divListPlats = document.querySelector(".list_plat");
   const noThanks = document.querySelector(".noThanks");
+  const checkSupplYes = document.querySelector(".addSupplYes");
   const checkSuppl = document.querySelectorAll(".checkSuppl");
   let panierDiv = document.querySelector(".panier");
-
+  let elementCounter = 0;
   if (panierDiv.innerHTML.trim() === "") {
     panierDiv.classList.add("icon-in-circle");
     let icon = document.createElement("i");
@@ -42,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
     divListPlats.style.display = "none";
   };
 
-  const handleSupplementCheckbox = (check) => {
+  const handleSupplementCheckbox = (check, index) => {
     let id = idPlat[index].value;
     let itemIndex = panier.findIndex((item) => item.id === id);
 
@@ -51,6 +52,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let supplPrice = check.getAttribute("data-price");
 
     if (check.checked) {
+      checkSupplYes.style.display = "block";
       if (!panier[itemIndex].supplements) {
         panier[itemIndex].supplements = [];
       }
@@ -70,10 +72,10 @@ document.addEventListener("DOMContentLoaded", function () {
   const hideSupplementSection = () => {
     divSuppl.style.display = "none";
     divListPlats.style.display = "block";
-    resetSupplementCheckboxes(); // Réinitialiser les checkboxes
+    resetSupplementCheckboxes(); // Reset the checkboxes
   };
 
-  const handleAddToCart = () => {
+    const handleAddToCart = (index) => {
     elementCounter++;
 
     let id = idPlat[index].value;
@@ -90,6 +92,11 @@ document.addEventListener("DOMContentLoaded", function () {
         supplements: [],
         quantite: elementCounter,
       });
+      itemIndex = panier.length - 1; // Set itemIndex to the newly added item
+    }
+
+    if (panier[itemIndex] && panier[itemIndex].supplements) {
+      panier[itemIndex].supplements = panier[itemIndex].supplements || [];
     }
 
     panierDiv.innerHTML = generatePanierHTML(panier);
@@ -100,18 +107,22 @@ document.addEventListener("DOMContentLoaded", function () {
   };
 
   ajouterBoutons.forEach((ajouterBouton, index) => {
-    let elementCounter = 0;
-
     ajouterBouton.addEventListener("click", () => {
       displaySupplementSection();
 
       checkSuppl.forEach((check) => {
-        check.addEventListener("click", () => handleSupplementCheckbox(check));
+        check.addEventListener("click", () => handleSupplementCheckbox(check, index));
       });
 
       noThanks.addEventListener("click", hideSupplementSection);
 
-      handleAddToCart();
+      checkSupplYes.addEventListener("click", () => {
+        handleAddToCart(index);
+        console.log(index);
+        updateSessionStorage();
+        hideSupplementSection();
+        
+      });
     });
   });
 
@@ -127,50 +138,50 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function generatePanierHTML(panier) {
-    let html = "<ul>";
-    panier.forEach(function (plat) {
-      const prix = parseFloat(plat.prix);
-      const quantite = parseFloat(plat.quantite);
-      const articleTotal = prix * quantite;
-      console.log(plat);
+  let html = "<ul>";
+  panier.forEach(function (plat) {
+    const prix = parseFloat(plat.prix);
+    const quantite = parseFloat(plat.quantite);
+    const articleTotal = prix * quantite;
 
-      html += `<li class="list_commande">
-        <div class="supprCommande">
-          <i class="fa-solid fa-xmark"></i>
-        </div>
-        
-        <div class="div_img_commande">
-          <img src="./assets/img/Fouées_angevines_avec_rillettes.JPG" class="img_commande">
-        </div>
-        <div class="name_plat_commande">
-          <p>${plat.nom}</p>
-          <p>${plat.supplements[0].nom}</p>
-          <p>${prix} €</p>
-          <p class="id_plats" style="display:none;">${plat.id}</p>
-        </div>
-        <fieldset class="number_add">
-          <button type="button" title="-" class="sub" control-id="ControlID-20">-</button>
-          <input type="number" name="quantity" pattern="[0-9]+" control-id="ControlID-21" min="1" value="${quantite}">
-          <button type="button" title="+" class="add" control-id="ControlID-22">+</button>
-        </fieldset>
-      </li>
-      <div class="line"></div>`;
-    });
+    html += `<li class="list_commande">
+      <div class="supprCommande">
+        <i class="fa-solid fa-xmark"></i>
+      </div>
+      
+      <div class="div_img_commande">
+        <img src="./assets/img/Fouées_angevines_avec_rillettes.JPG" class="img_commande">
+      </div>
+      <div class="name_plat_commande">
+        <p>${plat.nom}</p>
+        ${plat.supplements && plat.supplements.length > 0 ? `<p>${plat.supplements[0].nom}</p>` : ''}
+        <p>${prix} €</p>
+        <p class="id_plats" style="display:none;">${plat.id}</p>
+      </div>
+      <fieldset class="number_add">
+        <button type="button" title="-" class="sub" control-id="ControlID-20">-</button>
+        <input type="number" name="quantity" pattern="[0-9]+" control-id="ControlID-21" min="1" value="${quantite}">
+        <button type="button" title="+" class="add" control-id="ControlID-22">+</button>
+      </fieldset>
+    </li>
+    <div class="line"></div>`;
+  });
 
-    html += "</ul>";
-    if (panier.length > 0) {
-      html += '<div class="bottom_panier">';
-      html += `<p>Total du panier : ${calculateTotal(panier)}€</p>`;
-      html += `<button onclick="location.href = './order.php'" class="button_command">Commander</button>`;
-      html += "</div>";
-    } else {
-      html += `<i class="fa-solid fa-cart-shopping"></i>`;
-    }
-    if (panier.length === 0) {
-      html = "";
-    }
-    return html;
+  html += "</ul>";
+  if (panier.length > 0) {
+    html += '<div class="bottom_panier">';
+    html += `<p>Total du panier : ${calculateTotal(panier)}€</p>`;
+    html += `<button onclick="location.href = './order.php'" class="button_command">Commander</button>`;
+    html += "</div>";
+  } else {
+    html += `<i class="fa-solid fa-cart-shopping"></i>`;
   }
+  if (panier.length === 0) {
+    html = "";
+  }
+  return html;
+}
+
 
   panierDiv.addEventListener("click", function (event) {
     if (event.target.classList.contains("fa-xmark")) {

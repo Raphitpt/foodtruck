@@ -3,11 +3,19 @@
 require './bootstrap.php';
 session_start();
 
-$id = 4;
+$email = $_SESSION['email'];
+$recupId = 'SELECT id_user FROM users where email = :email';
+$user = $dbh->prepare($recupId);
+$user->execute([
+    'email' => $email,
+]);
+$recupId = $user->fetch();
+$id = $recupId['id_user'];
+
 $infosQuery = "SELECT * FROM settings";
 $infosResult = $dbh->query($infosQuery);
 $infos = $infosResult->fetch();
-echo head('Page d\'accueil');
+echo head('Profil');
 
 $recupUser = 'SELECT * FROM users WHERE id_user = :id';
 $stmt = $dbh->prepare($recupUser);
@@ -16,6 +24,9 @@ $stmt->execute([
 ]);
 $recupUser = $stmt->fetch();
 $photo = $recupUser['photoprofil'];
+
+$errors = [];
+$successMessage = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $fichier_photo_profil = isset($_FILES['fichier_photo_profil']) ? $_FILES['fichier_photo_profil'] : '';
@@ -36,24 +47,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ]);
 
             if ($updatePhotoProfilStmt->rowCount() > 0) {
-                echo 'La photo de profil a été mise à jour avec succès.';
-                header("Location: accueil.php");
+                $successMessage = 'La photo de profil a été mise à jour avec succès.';
+                header("Location: profil.php");
                 unlink($photo);
             }
         } else {
-            echo 'Erreur lors du téléchargement du fichier.';
+            $errors[] = 'Erreur lors du téléchargement du fichier.';
         }
     }
 }
+
 if (isset($_POST['modifier_mot_de_passe']) && !empty($_POST['nouveau_mot_de_passe']) && !empty($_POST['confirmation_mot_de_passe'])) {
     $nouveau_mot_de_passe = isset($_POST['nouveau_mot_de_passe']) ? $_POST['nouveau_mot_de_passe'] : '';
     $confirmation_mot_de_passe = isset($_POST['confirmation_mot_de_passe']) ? $_POST['confirmation_mot_de_passe'] : '';
 
     if ($nouveau_mot_de_passe !== $confirmation_mot_de_passe) {
-        echo 'Les champs du mot de passe ne correspondent pas.';
+        $errors[] = 'Les champs du mot de passe ne correspondent pas.';
     } else {
         $hashed_password = password_hash($nouveau_mot_de_passe, PASSWORD_DEFAULT);
-        var_dump($hashed_password);
         $updateMotDePasseSql = 'UPDATE users SET passwd = :passwd WHERE id_user = :id_user';
         $updateMotDePasseStmt = $dbh->prepare($updateMotDePasseSql);
         $updateMotDePasseStmt->execute([
@@ -62,23 +73,19 @@ if (isset($_POST['modifier_mot_de_passe']) && !empty($_POST['nouveau_mot_de_pass
         ]);
 
         if ($updateMotDePasseStmt->rowCount() > 0) {
-            echo 'Le mot de passe a été modifié avec succès.';
+            $successMessage = 'Le mot de passe a été modifié avec succès.';
             header("Location: profil.php");
         } else {
-            echo 'Erreur lors de la modification du mot de passe.';
+            $errors[] = 'Erreur lors de la modification du mot de passe.';
         }
     }
 }
 
 ?>
 <style>
-    h1 {
-        text-align: center;
-    }
-
     img {
-        width: 200px;
-        height: 200px;
+        width: 120px;
+        height: 120px;
         border-radius: 50%;
         object-fit: cover;
         margin-left: auto;
@@ -87,8 +94,7 @@ if (isset($_POST['modifier_mot_de_passe']) && !empty($_POST['nouveau_mot_de_pass
     }
 
     .form {
-        margin-top: 0vh;
-        padding-top: 0px;
+        margin-top: 5px;
     }
 </style>
 
@@ -100,7 +106,7 @@ if (isset($_POST['modifier_mot_de_passe']) && !empty($_POST['nouveau_mot_de_pass
             </li>
             <li><button onclick="location.href = './accueil.php'" class="button_nav">Accueil</button></li>
             <li><button onclick="location.href = './index.php'" class="button_nav">Commander</button></li>
-            <li><button onclick="location.href = ''" class="button_nav">Nous contacter</button></li>
+            <li><button onclick="location.href = './contact.php'" class="button_nav">Nous contacter</button></li>
             <?php if (isset($_SESSION['email']) && $_SESSION['email'] === 'admin@gmail.com') : ?>
                 <li><button onclick="location.href = 'indexBO.php'" class="button_nav">Back Office</button></li>
             <?php endif; ?>
@@ -117,18 +123,25 @@ if (isset($_POST['modifier_mot_de_passe']) && !empty($_POST['nouveau_mot_de_pass
                 <label for="fichier_photo_profil">Modifier la photo de profil :</label>
                 <input type="file" name="fichier_photo_profil" id="fichier_photo_profil">
                 <input type="submit" value="Enregistrer">
+                <br>
+                <?php if (!empty($errors)) : ?>
+                    <span class="error-message" style="color:red;"><?= implode('<br>', $errors) ?></span>
+                <?php endif; ?>
             </form>
+            <p>Votre email : <br><strong><?php echo $recupUser['email']; ?></strong></p>
             <form action="" method="post">
                 <label for="nouveau_mot_de_passe">Nouveau mot de passe :</label>
                 <input type="password" name="nouveau_mot_de_passe" id="nouveau_mot_de_passe" value="">
-                <input type="password" name="confirmation_mot_de_passe" id="confirmnew" value="">
+                <br>
+                <label for="confirmnew">Confirmer le nouveau mot de passe :</label>
+                <input type="password" name="confirmation_mot_de_passe" id="confirmnew" value=""><br>
                 <input type="submit" name="modifier_mot_de_passe">
             </form>
-            <p><?php echo $recupUser['pts_fidelite'] ?></p>
-            <p><?php echo $recupUser['email']; ?></p>
+            <p>Vos points de fidélité : <br> <strong><?php echo $recupUser['pts_fidelite'] ?></strong></p>
+
             <ul class="nav_right">
                 <?php if (isset($_SESSION['email'])) : ?>
-                    <button onclick="location.href = './logout.php'" class="button_nav connect"><?= htmlspecialchars("Déconnecter") ?></button>
+                    <button onclick="location.href = './logout.php'" class="button_nav connect"><?= htmlspecialchars("Se déconnecter") ?></button>
                 <?php endif; ?>
             </ul>
         </section>

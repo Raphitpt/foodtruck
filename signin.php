@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 $infos = "SELECT * FROM settings";
 $infos = $dbh->query($infos);
 $infos = $infos->fetch();
-
+echo head('Inscription');
 // Display the registration form
 ?>
 <!DOCTYPE html>
@@ -68,7 +68,7 @@ $infos = $infos->fetch();
         <label>Mot de passe:</label>
         <input type="password" name="password"><br>
         <label>Confirmation de Mot de passe</label>
-        <input type="password" name="confirm_password">
+        <input type="password" name="confirm_password"><br>
         <input type="submit" value="Register">
       </form>
   </main>
