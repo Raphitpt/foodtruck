@@ -57,6 +57,16 @@ if (isset($_SESSION['email'])) {
         align-items: center;
     }
 
+    .button_nav {
+        width: 12rem;
+    }
+
+    @media screen and (max-width:1345px) {
+        .button_nav {
+            width: 8rem;
+        }
+    }
+
     .accueil button {
         width: 15vw;
         padding: 1rem;
