@@ -33,75 +33,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   updateInputNumbers();
 
-  const resetSupplementCheckboxes = () => {
-    checkSuppl.forEach((checkbox) => {
-      checkbox.checked = false;
-    });
-  };
-
-  const displaySupplementSection = () => {
-    divSuppl.style.display = "block";
-    divListPlats.style.display = "none";
-  };
-
-  const handleSupplementCheckbox = (check, index) => {
-    let id = idPlat[index].value;
-    let itemIndex = panier.findIndex((item) => item.id === id);
-
-    let supplID = check.getAttribute("data-id");
-    let supplName = check.getAttribute("data-name");
-    let supplPrice = check.getAttribute("data-price");
-
-    if (check.checked) {
-      checkSupplYes.style.display = "block";
-      if (!panier[itemIndex].supplements) {
-        panier[itemIndex].supplements = [];
-      }
-
-      panier[itemIndex].supplements.push({
-        id: supplID,
-        nom: supplName,
-        prix: supplPrice,
-      });
-    } else {
-      panier[itemIndex].supplements = panier[itemIndex].supplements.filter(
-        (supplement) => supplement.id !== supplID
-      );
-    }
-  };
-
-const handleAddToCart = (index) => {
-    let id = idPlat[index].value;
-    let itemIndex = panier.findIndex((item) => item.id === id);
-
-    if (itemIndex !== -1) {
-      panier[itemIndex].quantite++;
-    } else {
-      panier.push({
-        id: id,
-        nom: platName[index].innerHTML,
-        prix: platPrice[index].innerHTML,
-        composition: platComposition[index].innerHTML,
-        supplements: [],
-        quantite: 1,
-      });
-    }
-
-    panierDiv.innerHTML = generatePanierHTML(panier);
-    updateInputNumbers();
-    updateCartDisplay();
-
-    updateSessionStorage();
-  };
-
-  const hideSupplementSection = () => {
-    divSuppl.style.display = "none";
-    divListPlats.style.display = "block";
-    handleAddToCart();
-    resetSupplementCheckboxes(); // Reset the checkboxes
-  };
-
-
   ajouterBoutons.forEach((ajouterBouton, index) => {
     ajouterBouton.addEventListener("click", () => {
       displaySupplementSection();
@@ -118,6 +49,41 @@ const handleAddToCart = (index) => {
       });
     });
   });
+
+const handleAddToCart = (index) => {
+    let id = idPlat[index].value;
+    let itemIndex = panier.findIndex((item) => item.id === id);
+
+    if (itemIndex !== -1) {
+      panier[itemIndex].quantite++;
+      panier[itemIndex].supplements = getSelectedSupplements(index);
+    } else {
+      panier.push({
+        id: id,
+        nom: platName[index].innerHTML,
+        prix: platPrice[index].innerHTML,
+        composition: platComposition[index].innerHTML,
+        supplements: getSelectedSupplements(index),
+        quantite: 1,
+      });
+    }
+
+    panierDiv.innerHTML = generatePanierHTML(panier);
+    updateInputNumbers();
+    updateCartDisplay();
+
+    updateSessionStorage();
+  };
+
+const getSelectedSupplements = (index) => {
+    return Array.from(checkSuppl)
+      .filter((check) => check.checked)
+      .map((check) => ({
+        id: check.getAttribute("data-id"),
+        nom: check.getAttribute("data-name"),
+        prix: check.getAttribute("data-price"),
+      }));
+};
 
   function calculateTotal(panier) {
     let total = 0;
