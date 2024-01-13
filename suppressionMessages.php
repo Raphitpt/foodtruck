@@ -19,8 +19,19 @@ $infos = "SELECT * FROM settings";
 $infos = $dbh->query($infos);
 $infos = $infos->fetch();
 
-$id_message = isset($_GET['id_message']) ? $_GET['id_message'] : null;
 
+if (isset($_GET['id_message'])) {
+    $id_message = (int)$_GET['id_message'];
+
+    $sql = 'DELETE FROM messages WHERE id_message = :id_message';
+    // exécuter
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute([
+        ':id_message' => $id_message,
+    ]);
+}
+// redirection vers la page de listing
+header('Location: messagesUtilisateurs.php');
 
 ?>
 
