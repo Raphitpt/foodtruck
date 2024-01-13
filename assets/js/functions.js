@@ -75,29 +75,25 @@ document.addEventListener("DOMContentLoaded", function () {
     resetSupplementCheckboxes(); // Reset the checkboxes
   };
 
-    const handleAddToCart = (index) => {
-    elementCounter++;
+    function handleAddToCart(index) {
+  elementCounter++;
 
-    let id = idPlat[index].value;
-    let itemIndex = panier.findIndex((item) => item.id === id);
+  let id = idPlat[index].value;
+  let itemIndex = panier.findIndex((item) => item.id === id);
 
-    if (itemIndex !== -1) {
-      panier[itemIndex].quantite = elementCounter;
-    } else {
-      panier.push({
-        id: id,
-        nom: platName[index].innerHTML,
-        prix: platPrice[index].innerHTML,
-        composition: platComposition[index].innerHTML,
-        supplements: [],
-        quantite: elementCounter,
-      });
-      itemIndex = panier.length - 1; // Set itemIndex to the newly added item
-    }
+  if (itemIndex !== -1) {
+    panier[itemIndex].quantite = elementCounter;
+  } else {
+    panier.push({
+      id: id,
+      nom: platName[index].innerHTML,
+      prix: platPrice[index].innerHTML,
+      composition: platComposition[index].innerHTML,
+      supplements: [], // Ensure supplements is always an array
+      quantite: elementCounter,
+    });
+  }
 
-    if (panier[itemIndex] && panier[itemIndex].supplements) {
-      panier[itemIndex].supplements = panier[itemIndex].supplements || [];
-    }
 
     panierDiv.innerHTML = generatePanierHTML(panier);
     updateInputNumbers();
