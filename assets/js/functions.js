@@ -75,7 +75,7 @@ document.addEventListener("DOMContentLoaded", function () {
     resetSupplementCheckboxes(); // Reset the checkboxes
   };
 
-  const handleAddToCart = (index) => {
+    const handleAddToCart = (index) => {
     elementCounter++;
 
     let id = idPlat[index].value;
@@ -92,6 +92,11 @@ document.addEventListener("DOMContentLoaded", function () {
         supplements: [],
         quantite: elementCounter,
       });
+      itemIndex = panier.length - 1; // Set itemIndex to the newly added item
+    }
+
+    if (panier[itemIndex] && panier[itemIndex].supplements) {
+      panier[itemIndex].supplements = panier[itemIndex].supplements || [];
     }
 
     panierDiv.innerHTML = generatePanierHTML(panier);
