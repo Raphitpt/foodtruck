@@ -74,9 +74,12 @@ if (isset($_SESSION['email'])) {
         </ul>
         <ul class="nav_right">
             <?php if (isset($_SESSION['email'])) { ?>
-                <button onclick="location.href = 'profil.php'" class="image"><img src="<?php echo $photo['photoprofil'] == NULL ? "./assets/img/grandprofilfb.jpg" : $photo['photoprofil']; ?>" /></button>
+                <button onclick="location.href = 'profil.php'" class="image"><img
+                        src="<?php echo $photo['photoprofil'] == NULL ? "./assets/img/grandprofilfb.jpg" : $photo['photoprofil']; ?>" /></button>
             <?php } else { ?>
-                <li><button onclick="location.href = './login.php'" class="button_nav connect"><?= htmlspecialchars("Se connecter") ?></button></li>
+                <li><button onclick="location.href = './login.php'" class="button_nav connect">
+                        <?= htmlspecialchars("Se connecter") ?>
+                    </button></li>
             <?php } ?>
         </ul>
     </nav>
@@ -117,7 +120,8 @@ if (isset($_SESSION['email'])) {
                         </div>
                         <div class="btn">
                             <button class="btn btn-primary btn_commander">Commander</button>
-                            <button onclick="location.href = './index.php'" class="btn btn-secondary btn_commander">Retour</button>
+                            <button onclick="location.href = './index.php'"
+                                class="btn btn-secondary btn_commander">Retour</button>
                         </div>
                         <div class="monElement"></div>
                     </div>
@@ -150,7 +154,8 @@ if (isset($_SESSION['email'])) {
                         <h1>Commande confirmée !</h1>
                         <p>Votre commande a bien été prise en compte. Vous pouvez la retrouver dans votre historique de
                             commande.</p>
-                        <button onclick="location.href = './index.php'" class="btn btn-secondary btn_commander">Retour</button>
+                        <button onclick="location.href = './index.php'"
+                            class="btn btn-secondary btn_commander">Retour</button>
                     </div>
                 </div>
             </div>
@@ -198,6 +203,17 @@ if (isset($_SESSION['email'])) {
         }
 
         function listPanier(heure, date) {
+            const selectedHour = heure.split('h').join(''); // Convertir l'heure en format numérique
+            const articlesAtSelectedHour = panier.filter(element => {
+                const articleHour = element.heure.split('h').join(''); // Convertir l'heure de l'article en format numérique
+                return articleHour === selectedHour;
+            });
+
+            if (articlesAtSelectedHour.length >= 8) {
+                alert('Cette heure est déjà pleine. Veuillez sélectionner une autre heure.');
+                return; // Ne pas mettre à jour l'affichage du panier si l'heure est pleine
+            }
+
             html = '';
             let prix = 0;
             let quantite = 0;
@@ -242,7 +258,7 @@ if (isset($_SESSION['email'])) {
 
             // Associer un événement de clic à chaque icône de suppression
             iconCells.forEach(icon => {
-                icon.addEventListener('click', function(event) {
+                icon.addEventListener('click', function (event) {
                     const id = event.target.dataset.id;
                     if (id) {
                         // Supprimer l'élément du panier en utilisant son ID
@@ -261,7 +277,7 @@ if (isset($_SESSION['email'])) {
         }
 
 
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             // Initialise la date du jour lors du chargement de la page
             const today = new Date();
             const formattedToday = today.toISOString().split('T')[0]; // Format YYYY-MM-DD
@@ -271,7 +287,7 @@ if (isset($_SESSION['email'])) {
             listPanier("12h00", formattedToday);
 
             // Associe l'événement de changement de date
-            dateReservationInput.addEventListener('change', function() {
+            dateReservationInput.addEventListener('change', function () {
                 const selectedDate = dateReservationInput.value;
                 // Vérifie si une heure est déjà sélectionnée, puis met à jour le panier
                 const selectedHeure = document.querySelector('.heureSelected');
@@ -282,7 +298,7 @@ if (isset($_SESSION['email'])) {
             // Associe l'événement de clic sur une heure
             if (btnHeure) {
                 btnHeure.forEach((elem) => {
-                    elem.addEventListener("click", function(event) {
+                    elem.addEventListener("click", function (event) {
                         listPanier(event.target.textContent, dateReservationInput.value);
                         btnHeure.forEach((elem) => {
                             elem.classList.remove('heureSelected');
@@ -310,7 +326,7 @@ if (isset($_SESSION['email'])) {
             return objet;
         }
 
-        commanderButton.addEventListener('click', function() {
+        commanderButton.addEventListener('click', function () {
             const panierNettoye = nettoyerObjet(panier);
             let dateRetrait = totalDate.textContent;
             let [jour, mois, annee] = dateRetrait.split('/');
@@ -321,17 +337,17 @@ if (isset($_SESSION['email'])) {
             let commentaires = commentaire.value;
             let date = formattedDate + " " + heure;
             fetch('commandefinal.php', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        panier: panierNettoye,
-                        date_retrait: date,
-                        prix: totalCommande.textContent,
-                        commentaire: commentaires,
-                    }, null),
-                })
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    panier: panierNettoye,
+                    date_retrait: date,
+                    prix: totalCommande.textContent,
+                    commentaire: commentaires,
+                }, null),
+            })
                 .then(response => response.json())
                 .then(data => {
                     console.log('Réponse du serveur :', data);
