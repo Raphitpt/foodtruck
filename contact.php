@@ -143,7 +143,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <h2>Contactez-nous</h2>
                 <form action="" method="post">
                     <label for="nom">Prenom :</label>
-                    <input type="text" id="nom" name="nom" required>
+                    <input type="text" id="prenom" name="prenom" required>
 
                     <label for="nom">Nom :</label>
                     <input type="text" id="nom" name="nom" required>
