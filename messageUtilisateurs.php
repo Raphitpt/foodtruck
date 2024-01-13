@@ -9,7 +9,7 @@ if (!isset($_SESSION['email']) || $_SESSION['email'] !== 'admin@gmail.com') {
     exit();
 }
 
-echo head('Historique de commande');
+echo head('Messages des utilisateurs');
 
 $messages = "SELECT * FROM messages";
 $messages = $dbh->query($messages);
@@ -19,14 +19,25 @@ $infos = "SELECT * FROM settings";
 $infos = $dbh->query($infos);
 $infos = $infos->fetch();
 
+if (isset($_SESSION['email'])) {
+    $email = $_SESSION['email'];
+    $photo = "SELECT * FROM users where email = :email";
+    $stmt = $dbh->prepare($photo);
+    $stmt->execute([
+        'email' => $email,
+    ]);
+    $photo = $stmt->fetch();
+}
+
+
 
 ?>
 
 <body>
-<nav>
+    <nav>
         <ul class="nav_left">
             <li class="nav_title"><img src="<?= $infos['url_logo'] ?>" alt="logo fouee">
-                <p>Fouée't Moi</p>
+                <p><?= $infos['nom_entreprise'] ?></p>
             </li>
             <li><button onclick="location.href = './accueil.php'" class="button_nav">Accueil</button></li>
             <?php if (isset($_SESSION['email']) && $_SESSION['email'] === 'admin@gmail.com') : ?>
@@ -35,14 +46,14 @@ $infos = $infos->fetch();
         </ul>
         <ul class="nav_right">
             <?php if (isset($_SESSION['email'])) : ?>
-                <li><button onclick="location.href = './logout.php'" class="button_nav connect">Se déconnecter</button></li>
+                <button onclick="location.href = 'profil.php'" class="image"><img src="<?php echo $photo['photoprofil'] == NULL ? "./assets/img/grandprofilfb.jpg" : $photo['photoprofil']; ?>" /></button>
             <?php else : ?>
                 <li><button onclick="location.href = './login.php'" class="button_nav connect">Se connecter</button></li>
             <?php endif; ?>
         </ul>
     </nav>
     <main>
-    <div class="btn-retour">
+        <div class="btn-retour">
             <a href="indexBO.php" class="btn"><i class="fa-solid fa-arrow-left"></i></a>
         </div>
         <section class="commandeTable">
@@ -71,7 +82,7 @@ $infos = $infos->fetch();
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
-            
+
 
         </section>
     </main>
@@ -81,5 +92,14 @@ $infos = $infos->fetch();
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/bootstrap-table@1.22.1/dist/bootstrap-table.min.js"></script>
+<script>
+    // Function to reload the page every 30 seconds
+    function refreshTable() {
+        location.reload();
+    }
+
+    // Set interval to refresh the page every 30 seconds (30000 milliseconds)
+    setInterval(refreshTable, 30000);
+</script>
 
 </html>

@@ -28,7 +28,7 @@ echo head('Modifier les informations de l\'entreprise');
     <nav>
         <ul class="nav_left">
             <li class="nav_title"><img src="<?= $infos['url_logo'] ?>" alt="logo fouee">
-                <p>Fouée't Moi</p>
+                <p><?= $infos['nom_entreprise'] ?></p>
             </li>
             <li><button onclick="location.href = './accueil.php'" class="button_nav">Accueil</button></li>
             <?php if (isset($_SESSION['email']) && $_SESSION['email'] === 'admin@gmail.com') : ?>
@@ -67,6 +67,13 @@ echo head('Modifier les informations de l\'entreprise');
                                     <input name="adresse_entreprise" id="adresse_entreprise" value="<?php echo $infos['adresse_entreprise'] ?>">
                                 </div>
                                 <div>
+                                    <label for="telephone">N° de téléphone</label>
+                                    <input name="telephone" id="telephone" type="text" required value="<?php echo $infos['tel'] ?>">
+                                </div>
+                                <div>
+                                    <label for="email">Email</label>
+                                    <input name="email" id="email" type="email" required value="<?php echo $infos['email'] ?>">
+                                <div>
                                     <label for="fichier_logo">Logo</label>
                                     <input name="fichier_logo" id="fichier_logo" type="file">
                                 </div>
@@ -97,6 +104,8 @@ echo head('Modifier les informations de l\'entreprise');
                     // Récupérer les données du formulaire
                     $nom_entreprise = isset($_POST['nom_entreprise']) ? htmlspecialchars($_POST['nom_entreprise']) : '';
                     $adresse_entreprise = isset($_POST['adresse_entreprise']) ? htmlspecialchars($_POST['adresse_entreprise']) : '';
+                    $telephone = isset($_POST['telephone']) ? htmlspecialchars($_POST['telephone']) : '';
+                    $email = isset($_POST['email']) ? htmlspecialchars($_POST['email']) : '';
                     $fichier_logo = isset($_FILES['fichier_logo']) ? $_FILES['fichier_logo'] : '';
 
                     // Gestion du fichier logo
@@ -119,11 +128,13 @@ echo head('Modifier les informations de l\'entreprise');
                     }
 
                     // Mettre à jour les informations de l'entreprise avec le chemin du fichier logo
-                    $updateInfosSql = 'UPDATE settings SET nom_entreprise = :nom_entreprise, adresse_entreprise = :adresse_entreprise, url_logo = :url_logo';
+                    $updateInfosSql = 'UPDATE settings SET nom_entreprise = :nom_entreprise, adresse_entreprise = :adresse_entreprise, url_logo = :url_logo, tel = :tel, email = :email';
                     $updateInfosStmt = $dbh->prepare($updateInfosSql);
                     $updateInfosStmt->execute([
                         'nom_entreprise' => $nom_entreprise,
                         'adresse_entreprise' => $adresse_entreprise,
+                        'tel' => $telephone,
+                        'email' => $email,
                         'url_logo' => $chemin_logo,
                     ]);
 

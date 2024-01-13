@@ -32,7 +32,7 @@ if (isset($_SESSION['email'])) {
 
 
 
-echo head('Accueil');
+echo head('Informations de votre entreprise');
 
 ?>
 
@@ -51,7 +51,7 @@ echo head('Accueil');
     <nav>
         <ul class="nav_left">
             <li class="nav_title"><img src="<?= $infos['url_logo'] ?>" alt="logo fouee">
-                <p>Fouée't Moi</p>
+                <p><?= $infos['nom_entreprise'] ?></p>
             </li>
             <li><button onclick="location.href = './accueil.php'" class="button_nav">Accueil</button></li>
             <?php if (isset($_SESSION['email']) && $_SESSION['email'] === 'admin@gmail.com') : ?>
@@ -75,14 +75,16 @@ echo head('Accueil');
             <div class="title_infos">
                 <h1>Les informations de l'entreprise sont :</h1>
                 <div class="infos">
-                    <p>Nom de l'entreprise : <?= $infos['nom_entreprise'] ?></p>
-                    <p>Adresse : <?= $infos['adresse_entreprise'] ?></p>
+                    <p>Nom de l'entreprise : <strong><?= $infos['nom_entreprise'] ?></strong></p>
+                    <p>Adresse : <strong><?= $infos['adresse_entreprise'] ?></strong></p>
+                    <p>N° de téléphone <strong><?= $infos['tel'] ?></p></strong>
+                    <p>Adresse mail : <strong><?= $infos['email'] ?></strong></p>
                     <p>Logo : <img src="<?= $infos['url_logo'] ?>" alt="logo fouee"></p>
                 </div>
                 <h1>Les horaires d'ouverture et de fermeture sont :</h1>
                 <div class="infos">
                     <?php foreach ($horaires as $horaire) : ?>
-                        <p><?= $horaire['Jour'] ?> : <?= $horaire['HeureOuverture'] ?> - <?= $horaire['HeureFermeture'] ?></p>
+                        <p><?= $horaire['Jour'] ?> : <strong><?= $horaire['HeureOuverture'] ?> - <?= $horaire['HeureFermeture'] ?></strong></p>
                     <?php endforeach; ?>
                 </div>
             </div>

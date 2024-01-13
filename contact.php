@@ -46,13 +46,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
 ?>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 
 <body>
     <header>
         <nav class="navfr">
             <ul class="nav_left">
                 <li class="nav_title"><img src="<?= htmlspecialchars($infos['url_logo']) ?>" alt="logo fouee">
-                    <p><?= htmlspecialchars("Fouée't Moi") ?></p>
+                    <p><?= $infos['nom_entreprise'] ?></p>
                 </li>
                 <li><button onclick="location.href = './accueil.php'" class="button_nav"><?= htmlspecialchars("Accueil") ?></button></li>
                 <li><button onclick="location.href = './index.php'" class="button_nav"><?= htmlspecialchars("Commander") ?></button></li>
@@ -95,10 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </header>
     <style>
         body {
-            font-family: Arial, sans-serif;
             background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
         }
 
         .container {
@@ -110,9 +110,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
+        .form {
+            margin-top: 15px;
+            width: 40vw;
+        }
+
         label {
             display: block;
             margin-bottom: 8px;
+        }
+
+        p {
+            padding: 10px;
         }
 
         input,
@@ -125,26 +134,49 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             box-sizing: border-box;
         }
 
-        button {
-            background-color: #4caf50;
-            color: #fff;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
+        main {
+            display: flex;
         }
 
-        button:hover {
-            background-color: #45a049;
+        .form img {
+            width: 15%;
+            padding-right: 20px;
+            transform: translateX(-10px);
+        }
+
+        i {
+            font-size: 30px;
+            padding-right: 20px;
+        }
+
+        main section:nth-child(2) {
+            align-items: start;
+        }
+
+        .form p {
+            text-align: justify;
+            display: flex;
+            align-items: center;
+            font-size: 18px;
+
+
+        }
+
+
+
+        .bar {
+            width: 100%;
+            height: 2px;
+            background-color: black;
         }
     </style>
     <main>
         <section class="form">
             <div class="container">
                 <h2>Contactez-nous</h2>
+
                 <form action="" method="post">
-                    <label for="nom">Prenom :</label>
+                    <label for="nom">Prénom :</label>
                     <input type="text" id="prenom" name="prenom" required>
 
                     <label for="nom">Nom :</label>
@@ -159,9 +191,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <label for="message">Message :</label>
                     <textarea id="message" name="message" rows="4" required></textarea>
 
-                    <button type="submit">Envoyer</button>
+                    <button type="submit" class="actions">Envoyer</button>
                 </form>
             </div>
+
+        </section>
+        <section class="form">
+            <p>Pour toute information complémentaire, posez-nous vos questions, et nous serons ravis de vous répondre.</p>
+            <div class="bar"></div>
+            <p><img src="<?= htmlspecialchars($infos['url_logo']) ?>" alt="logo fouee"><?php echo $infos['nom_entreprise'] ?></p>
+            <p>
+                <i class="fa-solid fa-location-dot"></i>
+                <?php echo $infos['adresse_entreprise'] ?>
+            </p>
+            <p>
+                <i class="fa-solid fa-phone"></i>
+                <?php echo $infos['tel'] ?>
+            </p>
+            <p>
+                <i class="fa-solid fa-envelope"></i>
+                <?php echo $infos['email'] ?>
+            </p>
+
         </section>
     </main>
 

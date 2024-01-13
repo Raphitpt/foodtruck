@@ -39,7 +39,7 @@ echo head('Statistiques de vente par jour');
     <nav>
         <ul class="nav_left">
             <li class="nav_title"><img src="<?= $infos['url_logo'] ?>" alt="logo fouee">
-                <p>Fouée't Moi</p>
+                <p><?= $infos['nom_entreprise'] ?></p>
             </li>
             <li><button onclick="location.href = './accueil.php'" class="button_nav">Accueil</button></li>
             <?php if (isset($_SESSION['email']) && $_SESSION['email'] === 'admin@gmail.com') : ?>

@@ -37,14 +37,9 @@ $infos = "SELECT * FROM settings";
 $infos = $dbh->query($infos);
 $infos = $infos->fetch();
 echo head('Inscription');
-// Display the registration form
-?>
-<!DOCTYPE html>
-<html>
 
-<head>
-  <title>S'inscire</title>
-</head>
+?>
+
 
 <body>
   <main>
@@ -52,7 +47,7 @@ echo head('Inscription');
       <a href="index.php" class="btn"><i class="fa-solid fa-arrow-left"></i></a>
     </div>
     <section class="form">
-      <h1>Register</h1>
+      <h1>S'inscrire</h1>
       <?php if (isset($error)) { ?>
         <p>
           <?php echo $error; ?>
