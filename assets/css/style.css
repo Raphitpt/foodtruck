@@ -248,11 +248,19 @@ nav > ul > li > img {
   text-align: center;
   height: 20rem;
 }
-
+.card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 10px;
+  text-align: center;
+  height: 20rem;
+}
 .plats_card .card .card-title {
   font-size: 1.2rem;
   color: #28272b;
-  margin-bottom: 10px;
+  margin-bottom: 7px;
 }
 
 .plats_card .card .card-price {
@@ -260,13 +268,13 @@ nav > ul > li > img {
   color: #e56d00;
   margin-top: auto;
   position: absolute;
-  bottom: 3.4rem;
+  bottom: 3.1rem;
   left: 50%;
   transform: translateX(-50%);
 }
 .plats_card .card .card_img {
-  width: 70%;
-  height: auto;
+  width: 80%;
+  height: 50%;
   object-fit: cover;
   margin-bottom: 1rem;
 }

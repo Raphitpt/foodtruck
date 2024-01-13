@@ -34,7 +34,7 @@ $id_plat = isset($_GET['id_plat']) ? htmlspecialchars($_GET['id_plat']) : '';
               </div>
               <div>
                 <label for="composition">Composition du plat</label>
-                <input name="composition" id="composition" required>
+                <input name="composition" id="composition">
               </div>
               <div>
                 <label for="prix">Prix du plat</label>
