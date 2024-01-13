@@ -69,6 +69,11 @@ if (isset($_SESSION['email'])) {
         .text-input {
             display: none;
         }
+
+        .btnHeure.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
     </style>
 
 </head>
@@ -77,7 +82,9 @@ if (isset($_SESSION['email'])) {
     <nav>
         <ul class="nav_left">
             <li class="nav_title"><img src="<?= $infos['url_logo'] ?>" alt="logo fouee">
-                <p><?= $infos['nom_entreprise'] ?></p>
+                <p>
+                    <?= $infos['nom_entreprise'] ?>
+                </p>
             </li>
             <li><button onclick="location.href = './accueil.php'" class="button_nav">Accueil</button></li>
             <li><button onclick="location.href = './index.php'" class="button_nav">Commander</button></li>
@@ -99,9 +106,7 @@ if (isset($_SESSION['email'])) {
             <div class="container">
                 <div class="row">
                     <div class="col-12">
-                        <div class="btn-retour">
-                            <a href="index.php" class="btn"><i class="fa-solid fa-arrow-left"></i></a>
-                        </div>
+
                         <h1>Mon panier</h1>
                         <table class="table">
                             <thead>
@@ -122,17 +127,21 @@ if (isset($_SESSION['email'])) {
 
                             <div class="text-input">
                                 <label for="monTexte"></label>
-                                <input type="text" placeholder="Précisez quels couverts, serviettes, pailles et
+                                <!-- <input type="text" placeholder="Précisez quels couverts, serviettes, pailles et
                                     condiments vous souhaitez inclure dans votre commande, ainsi que toute instruction
-                                    spécifique à communiquer au restaurant" size="100" id="commentaire">
+                                    spécifique à communiquer au restaurant" size="100" id="commentaire"> -->
+                                <textarea name="texte" id="commentaire" cols="30" rows="10"
+                                    placeholder="Précisez quels couverts, serviettes et condiments vous souhaitez inclure dans votre commande."></textarea>
                             </div>
-                            <h2>Total de la commande <span id="totalCommande"></span> €</h2>
-                            <h2>Date de retrait : <span id="totalHeure"></span> le <span id="totalDate"></span></h2>
+                            <div class="totalRet">
+                                <h2>Total de la commande <span id="totalCommande"></span> €</h2>
+                                <h2>Date de retrait : <span id="totalHeure"></span> le <span id="totalDate"></span></h2>
+                            </div>
                         </div>
                         <div class="btn">
-                            <button class="btn btn-primary btn_commander">Commander</button>
-                            <button onclick="location.href = './index.php'"
-                                class="btn btn-secondary btn_commander">Retour</button>
+                            <button onclick="location.href = './index.php'" class="btn btn-dark btn_continuer">Continuer
+                                mes achats</button>
+                            <button class="btn btn-success btn_commander">Commander</button>
                         </div>
                         <div class="monElement"></div>
                     </div>
@@ -202,6 +211,7 @@ if (isset($_SESSION['email'])) {
         const commentaire = document.getElementById('commentaire');
 
         let total = 0;
+        let nombreArticlesDansPanier = 0;
 
         function formatDate(selectedDate) {
             const options = {
@@ -220,6 +230,8 @@ if (isset($_SESSION['email'])) {
             total = 0;
             heure = heure || "12h00";
 
+            nombreArticlesDansPanier = panier.reduce((total, item) => total + parseInt(item.quantite), 0);
+
             panier.forEach(element => {
                 html += '<tr>';
                 html += `<th scope="row">${element.nom}</th>`;
@@ -237,6 +249,22 @@ if (isset($_SESSION['email'])) {
                 total += articleTotal;
 
             });
+            if (nombreArticlesDansPanier > 8) {
+                btnHeure.forEach((elem) => {
+                    const selectedHour = elem.querySelector('.selectedTime').textContent;
+                    const hourArticlesCount = panier.filter(item => item.heure === selectedHour).reduce((total, item) => total + parseInt(item.quantite), 0);
+
+                    if (hourArticlesCount >= 8) {
+                        elem.classList.add('disabled');
+                    } else {
+                        elem.classList.remove('disabled');
+                    }
+                });
+            } else {
+                btnHeure.forEach((elem) => {
+                    elem.classList.remove('disabled');
+                });
+            }
             const iconCell = document.querySelector('.icon-cell');
 
             // Vous pouvez ajouter des styles spécifiques à cette cellule
@@ -275,16 +303,6 @@ if (isset($_SESSION['email'])) {
             totalCommande.innerHTML = `${total}`;
             sessionStorage.setItem("panier", JSON.stringify(panier));
         }
-        // const selectedHour = heure.split('h').join(''); // Convertir l'heure en format numérique
-        // const articlesAtSelectedHour = panier.filter(element => {
-        //     const articleHour = element.heure.split('h').join(''); // Convertir l'heure de l'article en format numérique
-        //     return articleHour === selectedHour;
-        // });
-
-        // if (articlesAtSelectedHour.length >= 8) {
-        //     alert('Cette heure est déjà pleine. Veuillez sélectionner une autre heure.');
-        //     return;
-        // }
 
         document.addEventListener('DOMContentLoaded', function () {
             // Initialise la date du jour lors du chargement de la page
@@ -305,17 +323,36 @@ if (isset($_SESSION['email'])) {
             });
 
             // Associe l'événement de clic sur une heure
+            // if (btnHeure) {
+            //     btnHeure.forEach((elem) => {
+            //         elem.addEventListener("click", function (event) {
+            //             listPanier(event.target.textContent, dateReservationInput.value);
+            //             btnHeure.forEach((elem) => {
+            //                 elem.classList.remove('heureSelected');
+            //             });
+            //             elem.classList.add('heureSelected');
+            //         });
+            //     });
+            // }
             if (btnHeure) {
                 btnHeure.forEach((elem) => {
                     elem.addEventListener("click", function (event) {
-                        listPanier(event.target.textContent, dateReservationInput.value);
-                        btnHeure.forEach((elem) => {
-                            elem.classList.remove('heureSelected');
-                        });
-                        elem.classList.add('heureSelected');
+                        const selectedHour = elem.querySelector('.selectedTime').textContent;
+                        const hourArticlesCount = panier.filter(item => item.heure === selectedHour).reduce((total, item) => total + parseInt(item.quantite), 0);
+
+                        if (hourArticlesCount >= 8) {
+                            alert("Vous devez choisir une autre heure, celle-ci est indisponible.");
+                        } else {
+                            listPanier(selectedHour, dateReservationInput.value);
+                            btnHeure.forEach((elem) => {
+                                elem.classList.remove('heureSelected');
+                            });
+                            elem.classList.add('heureSelected');
+                        }
                     });
                 });
             }
+
         });
 
         if (panier.length === 0) {
@@ -345,6 +382,7 @@ if (isset($_SESSION['email'])) {
             let heure = heureFormated[0] + ":" + heureFormated[1];
             let commentaires = commentaire.value;
             let date = formattedDate + " " + heure;
+
             fetch('commandefinal.php', {
                 method: 'POST',
                 headers: {
