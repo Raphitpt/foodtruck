@@ -75,16 +75,16 @@ echo head('Informations de votre entreprise');
             <div class="title_infos">
                 <h1>Les informations de l'entreprise sont :</h1>
                 <div class="infos">
-                    <p>Nom de l'entreprise : <?= $infos['nom_entreprise'] ?></p>
-                    <p>Adresse : <?= $infos['adresse_entreprise'] ?></p>
-                    <p>N° de téléphone <?= $infos['tel'] ?></p>
-                    <p>Adresse mail : <?= $infos['email'] ?></p>
+                    <p>Nom de l'entreprise : <strong><?= $infos['nom_entreprise'] ?></strong></p>
+                    <p>Adresse : <strong><?= $infos['adresse_entreprise'] ?></strong></p>
+                    <p>N° de téléphone <strong><?= $infos['tel'] ?></p></strong>
+                    <p>Adresse mail : <strong><?= $infos['email'] ?></strong></p>
                     <p>Logo : <img src="<?= $infos['url_logo'] ?>" alt="logo fouee"></p>
                 </div>
                 <h1>Les horaires d'ouverture et de fermeture sont :</h1>
                 <div class="infos">
                     <?php foreach ($horaires as $horaire) : ?>
-                        <p><?= $horaire['Jour'] ?> : <?= $horaire['HeureOuverture'] ?> - <?= $horaire['HeureFermeture'] ?></p>
+                        <p><?= $horaire['Jour'] ?> : <strong><?= $horaire['HeureOuverture'] ?> - <?= $horaire['HeureFermeture'] ?></strong></p>
                     <?php endforeach; ?>
                 </div>
             </div>

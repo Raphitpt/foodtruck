@@ -92,5 +92,23 @@ if (isset($_SESSION['email'])) {
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/bootstrap-table@1.22.1/dist/bootstrap-table.min.js"></script>
+<script>
+    // Fonction pour mettre à jour les données du tableau
+    function mettreAJourTableau() {
+        // Effectuer une nouvelle requête AJAX pour récupérer les données actualisées
+        $.ajax({
+            url: 'actualiserCommandes.php', // Créez un script PHP pour récupérer les nouvelles données
+            success: function(nouvellesDonnees) {
+                // Mettez à jour le contenu du corps du tableau avec les nouvelles données
+                $('#table tbody').html(nouvellesDonnees);
+            },
+            error: function() {
+                console.log('Erreur lors de la mise à jour des données du tableau.');
+            }
+        });
+    }
 
+    // Mettre à jour le tableau toutes les 10sec (30000 millisecondes)
+    setInterval(mettreAJourTableau, 10000);
+</script>
 </html>
