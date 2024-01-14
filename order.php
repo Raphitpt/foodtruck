@@ -1,34 +1,5 @@
 <?php
 session_start();
-
-// // Vérifier si l'utilisateur est connecté
-// if (!isset($_SESSION['email'])) {
-//     // Rediriger vers login.php si l'utilisateur n'est pas connecté
-//     header('Location: login.php');
-//     exit();
-// }
-
-// require 'bootstrap.php';
-
-
-// echo head('Panier');
-// $infos = "SELECT * FROM settings";
-// $infos = $dbh->query($infos);
-// $infos = $infos->fetch();
-
-// $users = "SELECT * FROM users";
-// $users = $dbh->query($users);
-// $users = $users->fetchAll();
-
-// if (isset($_SESSION['email'])) {
-//     $email = $_SESSION['email'];
-//     $photo = "SELECT * FROM users where email = :email";
-//     $stmt = $dbh->prepare($photo);
-//     $stmt->execute([
-//         'email' => $email,
-//     ]);
-//     $photo = $stmt->fetch();
-// }
 // Vérifier si l'utilisateur est connecté
 if (!isset($_SESSION['email'])) {
     // Rediriger vers login.php si l'utilisateur n'est pas connecté
@@ -251,7 +222,7 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
                             accompagné de votre facture. Vous pouvez la retrouver dans votre historique de
                             commande.</p>
                         <button onclick="location.href = './index.php'"
-                            class="btn btn-secondary btn_commander">Retour</button>
+                            class="btn btn-secondary button_accueil btn_commander">Accueil</button>
                     </div>
                 </div>
             </div>
@@ -495,6 +466,22 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
                 mainContent.style.display = "block";
             }
         });
+        const accueilCommandConfirmButton = document.querySelector('.button_accueil');
+
+        // Fonction pour vider le panier
+        function viderPanier() {
+            // Réinitialise le panier dans la session
+            sessionStorage.removeItem('panier');
+
+            // Redirige l'utilisateur vers la page d'accueil
+            window.location.href = './index.php';
+        }
+        if (accueilCommandConfirmButton) {
+            accueilCommandConfirmButton.addEventListener('click', function () {
+                viderPanier();
+            });
+        }
+
     </script>
     <script src="./assets/js/functions.js"></script>
     <script src="https://kit.fontawesome.com/45762c6469.js" crossorigin="anonymous"></script>
