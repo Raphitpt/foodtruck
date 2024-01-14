@@ -341,6 +341,7 @@ if (isset($_SESSION['email'])) {
             </ul>
         </nav>
         <div class="menu-container">
+
             <ul class="nav_left">
                 <li class="nav_title"><img src="<?= htmlspecialchars($infos['url_logo']) ?>" alt="logo fouee">
                     <p><?= htmlspecialchars("Fouée't Moi") ?>
@@ -351,6 +352,7 @@ if (isset($_SESSION['email'])) {
                 <div class="bar"></div>
                 <div class="bar"></div>
             </div>
+
 
             <nav class="menu">
                 <ul>
