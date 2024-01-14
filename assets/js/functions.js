@@ -28,7 +28,7 @@ function generatePanierHTML(panier) {
         </div>
         <div class="name_plat_commande">
           <p>${plat.nom}</p>
-          <p>Supléments</p>
+          <p>Supplément(s) : ${plat.supplements[0].name}</p>
           <p>${prix} €</p>
           <p class="id_plats" style="display:none;">${plat.id}</p>
         </div>
@@ -103,7 +103,6 @@ document.addEventListener("DOMContentLoaded", function () {
     panier = JSON.parse(sessionStorage.getItem("panier")) || [];
     const panierTotal = calculateTotal(panier);
     panierDiv.innerHTML = generatePanierHTML(panier);
-    console.log("chef");
   }
 
   // Mise à jour de l'affichage initial du panier
@@ -167,13 +166,13 @@ document.addEventListener("DOMContentLoaded", function () {
     // Vérifier si une occurrence a les mêmes suppléments
     const selectedSupplements = withSupplements ? getSelectedSupplements() : [];
     const hasMatchingComposition = existingItems.some((item) =>
-      arraysEqual(item.composition, selectedSupplements)
+      arraysEqual(item.supplements, selectedSupplements)
     );
 
     if (hasMatchingComposition) {
       // Si une occurrence a les mêmes suppléments, incrémenter la quantité
       const matchingItem = existingItems.find((item) =>
-        arraysEqual(item.composition, selectedSupplements)
+        arraysEqual(item.supplements, selectedSupplements)
       );
       matchingItem.quantite++;
     } else {
@@ -182,7 +181,7 @@ document.addEventListener("DOMContentLoaded", function () {
         id: id,
         nom: platName,
         prix: platPrice,
-        composition: selectedSupplements,
+        supplements: selectedSupplements,
         quantite: 1,
       });
     }
