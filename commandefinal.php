@@ -34,7 +34,7 @@ if ($input && isset($input['panier'], $input['date_retrait'])) {
         $query->bindValue(':total', $input['prix'], PDO::PARAM_STR);
         $query->execute();
 
-        echo json_encode(['success' => true, 'new_time' => 'Prfait, nous avons bien enregistré votre comande pour le' . $dateRetrait]);
+        echo json_encode(['success' => true, 'new_time' => 'Parfait, nous avons bien enregistré votre comande pour le ' . $dateRetrait]);
     } else {
         echo json_encode(['error' => 'La capacité du four est atteinte à cette heure. Choisissez une autre heure.'], 400);
     }
