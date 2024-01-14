@@ -25,7 +25,7 @@ $id_plat = isset($_GET['id_plat']) ? htmlspecialchars($_GET['id_plat']) : '';
       <?php
       if ($_SERVER['REQUEST_METHOD'] === 'GET') { ?>
         <h1>Ajouter un plat</h1>
-        <form action="" method="post">
+        <form action="" method="post" enctype="multipart/form-data">
           <div class="grid">
             <div>
               <div>
@@ -68,13 +68,31 @@ $id_plat = isset($_GET['id_plat']) ? htmlspecialchars($_GET['id_plat']) : '';
         $composition = htmlspecialchars(trim($_POST['composition']));
         $prix = htmlspecialchars(trim($_POST['prix']));
         $id_categorie = $_POST['choix'];
-        $image = $_POST['image'];
+        $image_path = $_POST['image_path'];
+
 
         $errors = [];
 
-        // You need to validate data and add errors if necessary.
-        // For example, you can check if the fields are not empty and if the price is a valid number.
-      
+        // Vérifier si un nouveau fichier image est spécifié
+        $image_path = $_POST['image_path'];
+        if (!empty($_FILES['image']['name'])) {
+          // Supprimer l'ancienne image si elle existe
+          if (file_exists($image_path)) {
+            unlink($image_path);
+          }
+
+          // Télécharger la nouvelle image
+          $dossier_destination = './assets/img/'; // Mettez le chemin vers le dossier où vous souhaitez stocker les images
+          $nom_fichier_image = uniqid() . '_' . $_FILES['image']['name'];
+          $image_path = $dossier_destination . $nom_fichier_image;
+
+          if (move_uploaded_file($_FILES['image']['tmp_name'], $image_path)) {
+            // Image téléchargée avec succès
+          } else {
+            echo "Erreur lors du téléchargement du fichier.";
+            exit();
+          }
+        }
         if (count($errors) > 0) {
           foreach ($errors as $error) { ?>
         <p>
@@ -83,7 +101,7 @@ $id_plat = isset($_GET['id_plat']) ? htmlspecialchars($_GET['id_plat']) : '';
       <?php }
         } else {
           // 2. Construire le SQL de la requête préparée d'insertion
-          $sql = 'INSERT INTO plats(`nom`, `composition`, `prix`,`id_categorie`,`image_plat`,)
+          $sql = 'INSERT INTO plats(`nom`, `composition`, `prix`,`id_categorie`,`image_plat`)
                 VALUES (:nom, :composition, :prix, :id_categorie, :image_plat)';
           // Exécuter
           $sth = $dbh->prepare($sql);
@@ -92,7 +110,7 @@ $id_plat = isset($_GET['id_plat']) ? htmlspecialchars($_GET['id_plat']) : '';
             'composition' => $composition,
             'prix' => $prix,
             'id_categorie' => $id_categorie,
-            'image_plat' => $image,
+            'image_plat' => $image_path,
           ]);
 
           // 3. Après l'insertion, retourner sur la page d'accueil avec un message
