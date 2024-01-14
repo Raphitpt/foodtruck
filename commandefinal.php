@@ -5,62 +5,44 @@ session_start();
 $inputJSON = file_get_contents('php://input');
 $input = json_decode($inputJSON, true);
 
-if ($input && isset($input['panier'])) {
+if ($input && isset($input['panier'], $input['date_retrait'])) {
     $panier = $input['panier'];
+    $dateRetrait = $input['date_retrait'];
+    $quantitesParFouee = array_reduce($panier, function ($result, $fouee) {
+        $quantite = $fouee['quantite'];
+        $result += $quantite;
+        return $result;
+    }, 0);
+    // Répartir automatiquement les fouées dans le four
+    $foueesReparties = distributeFouees($dateRetrait, $quantitesParFouee);
 
-    if (!empty($panier)) {
-        // Somme des quantités pour chaque type de fouée
-        $quantitesParFouee = array_reduce($panier, function ($result, $fouee) {
-            $quantite = $fouee['quantite'];
-            $result += $quantite;
-            return $result;
-        }, 0);
+    // Vérifier la capacité du four avant d'ajouter la commande
+    if ($foueesReparties !== false) {
+        // Ajouter la nouvelle commande et les fouées dans les tables `commandes` et `four`
+        $panier = json_encode($panier);
 
-        // Répartir automatiquement les fouées dans le four
-        $dateRetrait = calculatePickupTime($input['date_retrait']);
-        $foueesReparties = distributeFouees($dateRetrait, $quantitesParFouee);
+        // Utilisation de l'instruction ON DUPLICATE KEY UPDATE pour mettre à jour si l'heure existe déjà
+        $sql = "INSERT INTO `commandes` (detail_commande, id_user, date_retrait, commentaire, total) 
+                VALUES (:panier, :id_user, :date_retrait, :commentaire, :total)
+                ON DUPLICATE KEY UPDATE total = :total";
 
-        // Vérifier la capacité du four avant d'ajouter la commande
-        if ($foueesReparties !== false) {
-            // Ajouter la nouvelle commande et les fouées dans les tables `commandes` et `four`
-            $panier = json_encode($panier);
+        $query = $dbh->prepare($sql);
+        $query->bindValue(':panier', $panier, PDO::PARAM_STR);
+        $query->bindValue(':id_user', $input['id_user'], PDO::PARAM_INT);
+        $query->bindValue(':commentaire', $input['commentaire'], PDO::PARAM_STR);
+        $query->bindValue(':date_retrait', $dateRetrait, PDO::PARAM_STR);
+        $query->bindValue(':total', $input['prix'], PDO::PARAM_STR);
+        $query->execute();
 
-            // Utilisation de l'instruction ON DUPLICATE KEY UPDATE pour mettre à jour si l'heure existe déjà
-            $sql = "INSERT INTO `commandes` (detail_commande, id_user, date_retrait, commentaire, total) 
-                    VALUES (:panier, :id_user, :date_retrait, :commentaire, :total)
-                    ON DUPLICATE KEY UPDATE total = :total";
-
-            $query = $dbh->prepare($sql);
-            $query->bindValue(':panier', $panier, PDO::PARAM_STR);
-            $query->bindValue(':id_user', $input['id_user'], PDO::PARAM_INT);
-            $query->bindValue(':commentaire', $input['commentaire'], PDO::PARAM_STR);
-            $query->bindValue(':date_retrait', $dateRetrait, PDO::PARAM_STR);
-            $query->bindValue(':total', $input['prix'], PDO::PARAM_STR);
-            $query->execute();
-
-            echo json_encode(['success' => true, 'new_time' => 'Désolé, nos fours sont plein pour votre créneau, nous avons enregistrer votre commande pour le ' . $dateRetrait]);
-        } else {
-            echo json_encode(['error' => 'La capacité du four est atteinte à cette heure. Choisissez une autre heure.'], 400);
-        }
+        echo json_encode(['success' => true, 'new_time' => 'Désolé, nos fours sont pleins pour votre créneau, nous avons enregistré votre commande pour le ' . $dateRetrait]);
     } else {
-        echo json_encode(['error' => 'Le panier est vide.'], 400);
+        echo json_encode(['error' => 'La capacité du four est atteinte à cette heure. Choisissez une autre heure.'], 400);
     }
 } else {
-    echo json_encode(['error' => 'Aucun panier envoyé.'], 400);
+    echo json_encode(['error' => 'Paramètres manquants.'], 400);
 }
 
-function calculatePickupTime($requestedTime) {
-    global $dbh;
-    $pickupTime = strtotime($requestedTime);
 
-    // Boucler jusqu'à trouver un créneau disponible
-    while (countScheduledOrders($requestedTime) >= 8) {
-        $pickupTime += 10 * 60; // Ajouter 10 minutes
-        $requestedTime = date("Y-m-d H:i:s", $pickupTime);
-    }
-
-    return $requestedTime;
-}
 
 function countScheduledOrders($requestedTime) {
     global $dbh;
