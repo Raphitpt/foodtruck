@@ -28,7 +28,13 @@ function generatePanierHTML(panier) {
         </div>
         <div class="name_plat_commande">
           <p>${plat.nom}</p>
-          <p>Supplément(s) : ${plat.supplements[0].name}</p>
+          `;
+    if (plat.supplements.length > 0) {
+      html += `<p>Supplément(s) : ${plat.supplements[0].name}</p>`;
+    } else {
+      html += `<p>Supplément(s) : Aucun</p>`;
+    }
+    html += `
           <p>${prix} €</p>
           <p class="id_plats" style="display:none;">${plat.id}</p>
         </div>
