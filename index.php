@@ -42,6 +42,7 @@ echo head('Commander');
 
 ?>
 
+
 <body>
     <header>
         <nav class="navfr">
@@ -126,13 +127,8 @@ echo head('Commander');
             <div class="line"></div>
         </div>
         <div>
-            <p>Les horaires d'ouverture aujourd'hui sont :</p>
-            <div>
-            </div>
-            <p><?php echo $horaires['HeureOuverture'] ?>h -
-                <?php echo $horaires['HeureFermeture'] ?>h
-            </p>
-
+            <p>Les horaires d'ouverture aujourd'hui sont : </p>
+            <p><?php echo $horaires['HeureOuverture'] ?>h - <?php echo $horaires['HeureFermeture'] ?></p>
         </div>
     </div>
 
