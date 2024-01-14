@@ -43,7 +43,7 @@ echo head('Connexion');
 ?>
 
 <body>
-<header>
+    <header>
         <nav class="navfr">
             <ul class="nav_left">
                 <li class="nav_title"><img src="<?= htmlspecialchars($infos['url_logo']) ?>" alt="logo fouee">
@@ -118,7 +118,7 @@ echo head('Connexion');
     </header>
     <main>
         <div class="btn-retour">
-            <a href="index.php" class="btn"><i class="fa-solid fa-arrow-left"></i></a>
+            <a href="accueil.php" class="btn"><i class="fa-solid fa-arrow-left"></i></a>
         </div>
         <section class="form">
             <h1>Connectez-vous</h1>
@@ -140,7 +140,7 @@ echo head('Connexion');
                     <input type="submit" name="envoi" value="Envoyer">
                     <button class="actions"><a href="signin.php">S'inscire</a></button>
                 </div>
-                
+
             </form>
 
         </section>

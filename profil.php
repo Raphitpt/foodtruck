@@ -128,9 +128,9 @@ if (isset($_POST['modifier_mot_de_passe']) && !empty($_POST['nouveau_mot_de_pass
     </nav>
     <main>
         <div class="btn-retour">
-            <a href="index.php" class="btn"><i class="fa-solid fa-arrow-left"></i></a>
+            <a href="accueil.php" class="btn"><i class="fa-solid fa-arrow-left"></i></a>
         </div>
-        
+
 
         <section class="form">
             <h1>Profil de <?php echo $recupUser['nom'] . " " . $recupUser['prenom'] ?></h1>
