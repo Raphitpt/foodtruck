@@ -203,8 +203,8 @@ nav > ul > li {
 
 .menu li {
   text-align: center;
-  height: 10vh;
-  border-bottom: 1px solid black;
+  margin-bottom: 5vh;
+  border-bottom: 2px solid #e56d00;
 }
 
 .menu a {
@@ -1064,6 +1064,7 @@ input[type="date"] {
 }
 .totalRet :first-child {
   margin-bottom: 2vh;
+  font-size: 1.5rem;
 }
 .h2Pannier {
   display: none;

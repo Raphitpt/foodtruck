@@ -121,6 +121,12 @@ if (isset($_POST['modifier_mot_de_passe']) && !empty($_POST['nouveau_mot_de_pass
         margin-left: auto;
         margin-right: auto
     }
+
+    .nav_title img {
+        border-radius: 0;
+        height: auto;
+
+    }
 </style>
 
 <body>

@@ -187,22 +187,40 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
                                 <!-- <input type="text" placeholder="Précisez quels couverts, serviettes, pailles et
                                     condiments vous souhaitez inclure dans votre commande, ainsi que toute instruction
                                     spécifique à communiquer au restaurant" size="100" id="commentaire"> -->
+                                <textarea name="texte" id="commentaire" cols="20" rows="10"
+                                    placeholder="Précisez quels couverts, serviettes et condiments vous souhaitez inclure dans votre commande."></textarea>
                                 <textarea name="texte" id="commentaire" cols="30" rows="10"
                                     placeholder="Précisez quels couverts, serviettes et condiments vous souhaitez inclure dans votre commande."></textarea>
                             </div>
                             <div class="totalRet">
                                 <h2>Total de la commande <span id="totalCommande"></span> €</h2>
-                                <h2>Date de retrait : <span id="totalHeure"></span> le <span id="totalDate"></span></h2>
+                                <div>
+                                    <h2>FouéePoints: <span id="totalPts">
+                                            <select id="ptsFideliteSelect"
+                                                onchange="updateSelection(document.getElementById('totalCommande').textContent)">
+                                                <?php
+                                                for ($i = 0; $i <= $photo['pts_fidelite']; $i++) {
+                                                    echo "<option value=\"$i\">$i</option>";
+                                                }
+                                                ?>
+                                            </select></span>
+                                    </h2>
+                                </div>
+                                <p>Un fouéePoints = 1€ de réduction !</p>
+                                <p>Vous gagnez 1 FouéePoints tous les 10€ d'achats</p>
                             </div>
+
+                            <h2>Date de retrait : <span id="totalHeure"></span> le <span id="totalDate"></span></h2>
                         </div>
-                        <div class="btn">
-                            <button onclick="location.href = './index.php'" class="btn btn-dark btn_continuer">Continuer
-                                mes achats</button>
-                            <button class="btn btn-success btn_commander">Commander</button>
-                        </div>
-                        <div class="monElement"></div>
                     </div>
+                    <div class="btn">
+                        <button onclick="location.href = './index.php'" class="btn btn-dark btn_continuer">Continuer
+                            mes achats</button>
+                        <button class="btn btn-success btn_commander">Commander</button>
+                    </div>
+                    <div class="monElement"></div>
                 </div>
+            </div>
             </div>
             <div>
                 <h2>Réserver son repas</h2>
