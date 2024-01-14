@@ -234,7 +234,7 @@ nav > ul > li {
   header {
     background-color: white;
     border-radius: 0px 0px 26px 26px;
-    box-shadow: 1px 3px 10.6px 0px rgba(0, 0, 0, 0.69);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     height: 10vh;
     display: flex;
     justify-content: center;
@@ -1268,5 +1268,9 @@ input[type="date"] {
 
   .form {
     width: 90vw;
+  }
+
+  .menu-container img{
+    width: 10vw;
   }
 }
