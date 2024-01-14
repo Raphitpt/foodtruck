@@ -446,6 +446,7 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
                     console.log('Réponse du serveur :', data);
                     if (data.success) {
                         // Rediriger vers la page de confirmation
+                        alert(data.new_time);
                         afficherCommandeConfirm();
                     } else {
                         alert(data.error);

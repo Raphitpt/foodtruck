@@ -86,50 +86,7 @@ function footer(): string
 HTML_FOOTER;
 }
 
-function DecalageFour($date, $nb, $dbh)
-{
-    // Séparer la date en jour, mois, année, heure et minute
-    list($annee, $mois, $jour, $heure, $minute) = explode("-", explode(" ", $date)[0] . "-" . explode(" ", $date)[1]);
 
-    // Vérifier si le four est fermé à cette heure-ci
-    if ($heure < 12 || $heure >= 15) {
-        return "Le four est fermé à cette heure-ci.";
-    }
-
-    // Vérifier le nombre de commandes prévues pour cette date et heure
-    $sql_order = "SELECT * FROM `four` WHERE date = :date AND heure = :heure";
-    $stmt_order = $dbh->prepare($sql_order);
-    $stmt_order->bindParam(':date', $jour . "-" . $mois . "-" . $annee);
-    $stmt_order->bindParam(':heure', $heure . ":" . $minute);
-    $stmt_order->execute();
-    $order = $stmt_order->fetch();
-
-    // Si le nombre de commandes prévues est égal à 8, calculer le prochain créneau possible
-    if ($order['nombre_fouees'] == 8) {
-        $nextcreneau = calculerProchainCreneau($date, $dbh);
-        return "Le four est plein pour ce créneau horaire, le prochain créneau possible est à : " . $nextcreneau;
-    } elseif ($order['nombre_fouees'] + $nb > 8) {
-        // Logique de répartition sur plusieurs créneaux
-        $commandesRestantes = $nb;
-        $creneauSuivant = 10; // Ajoutez 10 minutes pour le prochain créneau
-        while ($commandesRestantes > 0) {
-            $heureCreneauSuivant = $heure . ":" . str_pad($minute + $creneauSuivant, 2, '0', STR_PAD_LEFT);
-            $orderCreneauSuivant = getOrderForCreneau($jour, $mois, $annee, $heureCreneauSuivant, $dbh);
-
-            // Si le créneau suivant est disponible, enregistrez les commandes
-            if ($orderCreneauSuivant['nombre_fouees'] < 8) {
-                $commandesCreneau = min(8 - $orderCreneauSuivant['nombre_fouees'], $commandesRestantes);
-                enregistrerCommandes($jour, $mois, $annee, $heureCreneauSuivant, $commandesCreneau, $dbh);
-                $commandesRestantes -= $commandesCreneau;
-            }
-
-            $creneauSuivant += 10; // Passez au créneau suivant
-        }
-        return "Les commandes ont été réparties sur plusieurs créneaux.";
-    } elseif ($order['nombre_fouees'] + $nb < 8) {
-        return "Il reste " . (8 - $order['nombre_fouees']) . " fouées pour ce créneau horaire.";
-    }
-}
 
 function calculerProchainCreneau($date, $dbh)
 {
