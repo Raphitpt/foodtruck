@@ -20,6 +20,7 @@ $users = "SELECT * FROM users";
 $users = $dbh->query($users);
 $users = $users->fetchAll();
 
+
 if (isset($_SESSION['email'])) {
     $email = $_SESSION['email'];
     $photo = "SELECT * FROM users where email = :email";
@@ -92,8 +93,7 @@ if (isset($_SESSION['email'])) {
         </ul>
         <ul class="nav_right">
             <?php if (isset($_SESSION['email'])) { ?>
-                <button onclick="location.href = 'profil.php'" class="image"><img
-                        src="<?php echo $photo['photoprofil'] == NULL ? "./assets/img/grandprofilfb.jpg" : $photo['photoprofil']; ?>" /></button>
+                <button onclick="location.href = 'profil.php'" class="image"><img src="<?php echo $photo['photoprofil'] == NULL ? "./assets/img/grandprofilfb.jpg" : $photo['photoprofil']; ?>" /></button>
             <?php } else { ?>
                 <li><button onclick="location.href = './login.php'" class="button_nav connect">
                         <?= htmlspecialchars("Se connecter") ?>
@@ -130,22 +130,36 @@ if (isset($_SESSION['email'])) {
                                 <!-- <input type="text" placeholder="Précisez quels couverts, serviettes, pailles et
                                     condiments vous souhaitez inclure dans votre commande, ainsi que toute instruction
                                     spécifique à communiquer au restaurant" size="100" id="commentaire"> -->
-                                <textarea name="texte" id="commentaire" cols="20" rows="10"
-                                    placeholder="Précisez quels couverts, serviettes et condiments vous souhaitez inclure dans votre commande."></textarea>
+                                <textarea name="texte" id="commentaire" cols="20" rows="10" placeholder="Précisez quels couverts, serviettes et condiments vous souhaitez inclure dans votre commande."></textarea>
                             </div>
                             <div class="totalRet">
                                 <h2>Total de la commande <span id="totalCommande"></span> €</h2>
-                                <h2>Date de retrait : <span id="totalHeure"></span> le <span id="totalDate"></span></h2>
+                                <div>
+                                    <h2>FouéePoints: <span id="totalPts">
+                                            <select id="ptsFideliteSelect">
+                                                <?php
+                                                for ($i = 0; $i <= $photo['pts_fidelite']; $i++) {
+                                                    echo "<option value=\"$i\">$i</option>";
+                                                }
+                                                ?>
+                                            </select></span>
+                                    </h2>
+                                </div>
+                                <p>Un fouéePoints = 1€ de réduction !</p>
+                                <p>Vous gagnez 1 FouéePoints tous les 10€ d'achats</p>
                             </div>
+
+                            <h2>Date de retrait : <span id="totalHeure"></span> le <span id="totalDate"></span></h2>
                         </div>
-                        <div class="btn">
-                            <button onclick="location.href = './index.php'" class="btn btn-dark btn_continuer">Continuer
-                                mes achats</button>
-                            <button class="btn btn-light btn_commander">Confirmer</button>
-                        </div>
-                        <div class="monElement"></div>
                     </div>
+                    <div class="btn">
+                        <button onclick="location.href = './index.php'" class="btn btn-dark btn_continuer">Continuer
+                            mes achats</button>
+                        <button class="btn btn-light btn_commander">Confirmer</button>
+                    </div>
+                    <div class="monElement"></div>
                 </div>
+            </div>
             </div>
             <div>
                 <h2>Réserver son repas</h2>
@@ -174,8 +188,7 @@ if (isset($_SESSION['email'])) {
                         <h1>Commande confirmée !</h1>
                         <p>Votre commande a bien été prise en compte. Vous pouvez la retrouver dans votre historique de
                             commande.</p>
-                        <button onclick="location.href = './index.php'"
-                            class="btn btn-secondary btn_commander">Retour</button>
+                        <button onclick="location.href = './index.php'" class="btn btn-secondary btn_commander">Retour</button>
                     </div>
                 </div>
             </div>
@@ -187,6 +200,18 @@ if (isset($_SESSION['email'])) {
         </script>
     </main>
     <script>
+        // Récupérer l'élément <select> par son ID
+        var selectElement = document.getElementById("ptsFideliteSelect");
+
+        // Ajouter un écouteur d'événements pour le changement de sélection
+        selectElement.addEventListener("change", function() {
+            // Récupérer la valeur sélectionnée
+            var selectedValue = selectElement.value;
+
+            // Faire quelque chose avec la valeur sélectionnée
+            console.log("Valeur sélectionnée :", selectedValue);
+        });
+
         function afficherCommandeConfirm() {
             // Masquer la section recap
             document.querySelector('.recap').style.display = 'none';
@@ -286,7 +311,7 @@ if (isset($_SESSION['email'])) {
 
             // Associer un événement de clic à chaque icône de suppression
             iconCells.forEach(icon => {
-                icon.addEventListener('click', function (event) {
+                icon.addEventListener('click', function(event) {
                     const id = event.target.dataset.id;
                     if (id) {
                         // Supprimer l'élément du panier en utilisant son ID
@@ -304,7 +329,7 @@ if (isset($_SESSION['email'])) {
             sessionStorage.setItem("panier", JSON.stringify(panier));
         }
 
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             // Initialise la date du jour lors du chargement de la page
             const today = new Date();
             const formattedToday = today.toISOString().split('T')[0]; // Format YYYY-MM-DD
@@ -314,7 +339,7 @@ if (isset($_SESSION['email'])) {
             listPanier("12h00", formattedToday);
 
             // Associe l'événement de changement de date
-            dateReservationInput.addEventListener('change', function () {
+            dateReservationInput.addEventListener('change', function() {
                 const selectedDate = dateReservationInput.value;
                 // Vérifie si une heure est déjà sélectionnée, puis met à jour le panier
                 const selectedHeure = document.querySelector('.heureSelected');
@@ -336,7 +361,7 @@ if (isset($_SESSION['email'])) {
             // }
             if (btnHeure) {
                 btnHeure.forEach((elem) => {
-                    elem.addEventListener("click", function (event) {
+                    elem.addEventListener("click", function(event) {
                         const selectedHour = elem.querySelector('.selectedTime').textContent;
                         const hourArticlesCount = panier.filter(item => item.heure === selectedHour).reduce((total, item) => total + parseInt(item.quantite), 0);
 
@@ -372,7 +397,7 @@ if (isset($_SESSION['email'])) {
             return objet;
         }
 
-        commanderButton.addEventListener('click', function () {
+        commanderButton.addEventListener('click', function() {
             const panierNettoye = nettoyerObjet(panier);
             let dateRetrait = totalDate.textContent;
             let [jour, mois, annee] = dateRetrait.split('/');
@@ -384,17 +409,17 @@ if (isset($_SESSION['email'])) {
             let date = formattedDate + " " + heure;
 
             fetch('commandefinal.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    panier: panierNettoye,
-                    date_retrait: date,
-                    prix: totalCommande.textContent,
-                    commentaire: commentaires,
-                }, null),
-            })
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        panier: panierNettoye,
+                        date_retrait: date,
+                        prix: totalCommande.textContent,
+                        commentaire: commentaires,
+                    }, null),
+                })
                 .then(response => response.json())
                 .then(data => {
                     console.log('Réponse du serveur :', data);
