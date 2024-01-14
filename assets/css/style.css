@@ -925,7 +925,7 @@ input[type="date"] {
 
 .btn-retour {
   position: absolute;
-  top: 0;
+  top: -15;
   left: 0;
   margin: 1rem;
   font-size: 2rem;
@@ -1060,13 +1060,13 @@ input[type="date"] {
   }
 
   .list_plat {
-    width: 80vw;
+    width: 90vw;
     height: auto;
     margin-right: auto;
     margin-left: auto;
   }
   .plats {
-    width: 80vw;
+    width: 90vw;
     height: 70vh;
     margin-right: auto;
     margin-left: auto;
@@ -1098,7 +1098,7 @@ input[type="date"] {
     max-width: 100%; /* Réglez la largeur maximale à 100% pour les écrans plus petits */
   }
   .panier {
-    width: 75vw;
+    width: 90vw;
     margin-right: auto;
     margin-left: auto;
     display: flex;
@@ -1114,7 +1114,7 @@ input[type="date"] {
     display: none;
   }
   .commande {
-    width: 80vw;
+    width: 90vw;
     max-height: 100%;
     margin-right: auto;
     margin-left: auto;

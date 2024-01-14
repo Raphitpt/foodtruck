@@ -402,7 +402,6 @@ if (isset($_SESSION['email'])) {
 
         </section>
     </main>
-    <footer></footer>
     <script src="./assets/js/functions.js">
     </script>
     <script>

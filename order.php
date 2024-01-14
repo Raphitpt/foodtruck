@@ -136,7 +136,7 @@ if (isset($_SESSION['email'])) {
                                 <h2>Total de la commande <span id="totalCommande"></span> €</h2>
                                 <div>
                                     <h2>FouéePoints: <span id="totalPts">
-                                            <select id="ptsFideliteSelect">
+                                            <select id="ptsFideliteSelect" onchange="updateSelection()">
                                                 <?php
                                                 for ($i = 0; $i <= $photo['pts_fidelite']; $i++) {
                                                     echo "<option value=\"$i\">$i</option>";
@@ -200,6 +200,28 @@ if (isset($_SESSION['email'])) {
         </script>
     </main>
     <script>
+        function updateSelection() {
+        // Récupérer l'élément <select> par son ID
+        var selectElement = document.getElementById("ptsFideliteSelect");
+
+        // Définir des valeurs minimales et maximales
+        var minValue = 0;
+        var maxValue = //totalcommande;
+
+        // Récupérer la valeur sélectionnée
+        var selectedValue = parseInt(selectElement.value);
+
+        // Vérifier si la valeur est en dehors des limites
+        if (selectedValue < minValue) {
+            alert("La valeur sélectionnée est inférieure à la valeur minimale autorisée.");
+            // Réinitialiser la sélection à la valeur minimale
+            selectElement.value = minValue;
+        } else if (selectedValue > maxValue) {
+            alert("La valeur sélectionnée est supérieure à la valeur maximale autorisée.");
+            // Réinitialiser la sélection à la valeur maximale
+            selectElement.value = maxValue;
+        }
+    }
         // Récupérer l'élément <select> par son ID
         let selectElement = document.getElementById("ptsFideliteSelect");
         let selectedValue = selectElement.value;
