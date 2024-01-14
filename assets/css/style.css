@@ -953,6 +953,7 @@ input[type="date"] {
 }
 .commandeConfirm {
   display: none;
+  text-align: center;
 }
 .text-input {
   display: none;
