@@ -41,6 +41,8 @@ if (isset($_SESSION['email'])) {
 echo head('Commander');
 
 ?>
+<style>
+</style>
 
 <body>
     <header>
