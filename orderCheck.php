@@ -47,22 +47,28 @@ if (isset($_SESSION['email'])) {
         }
     };
 </script>
+
 <body>
     <nav>
         <ul class="nav_left">
             <li class="nav_title"><img src="<?= $infos['url_logo'] ?>" alt="logo fouee">
-                <p><?= $infos['nom_entreprise'] ?></p>
+                <p>
+                    <?= $infos['nom_entreprise'] ?>
+                </p>
             </li>
             <li><button onclick="location.href = './accueil.php'" class="button_nav">Accueil</button></li>
-            <?php if (isset($_SESSION['email']) && $_SESSION['email'] === 'admin@gmail.com') : ?>
+            <?php if (isset($_SESSION['email']) && $_SESSION['email'] === 'admin@gmail.com'): ?>
                 <li><button onclick="location.href = 'indexBO.php'" class="button_nav">Back Office</button></li>
             <?php endif; ?>
         </ul>
         <ul class="nav_right">
             <?php if (isset($_SESSION['email'])) { ?>
-                <button onclick="location.href = 'profil.php'" class="image"><img src="<?php echo $photo['photoprofil'] == NULL ? "./assets/img/grandprofilfb.jpg" : $photo['photoprofil']; ?>" /></button>
+                <button onclick="location.href = 'profil.php'" class="image"><img
+                        src="<?php echo $photo['photoprofil'] == NULL ? "./assets/img/grandprofilfb.jpg" : $photo['photoprofil']; ?>" /></button>
             <?php } else { ?>
-                <li><button onclick="location.href = './login.php'" class="button_nav connect"><?= htmlspecialchars("Se connecter") ?></button></li>
+                <li><button onclick="location.href = './login.php'" class="button_nav connect">
+                        <?= htmlspecialchars("Se connecter") ?>
+                    </button></li>
             <?php } ?>
         </ul>
     </nav>
@@ -73,7 +79,8 @@ if (isset($_SESSION['email'])) {
 
         <section class="commandeTable">
             <h1>Commande en direct</h1>
-            <table class="table" id="table" data-toggle="table" data-show-columns="true" data-search="true" auto-refresh="true">
+            <table class="table" id="table" data-toggle="table" data-show-columns="true" data-search="true"
+                auto-refresh="true">
                 <thead>
                     <tr>
                         <th scope="col" data-sortable="true" data-field="id">Numéro de commande</th>
@@ -85,6 +92,7 @@ if (isset($_SESSION['email'])) {
                         <th scope="col">Commentaire</th>
                         <th scope="col">Total</th>
                         <th scope="col">Valider</th>
+                        <th scope="col">Supprimer</th>
 
 
                     </tr>
@@ -92,20 +100,37 @@ if (isset($_SESSION['email'])) {
                 <tbody>
                     <?php foreach ($hist as $histo) { ?>
                         <tr>
-                            <td><?php echo $histo['id_commande']; ?></td>
+                            <td>
+                                <?php echo $histo['id_commande']; ?>
+                            </td>
                             <?php $details = json_decode($histo['detail_commande'], true);
                             echo "<td><ul>";
                             foreach ($details as $detail) {
                                 echo "<li>{$detail['nom']} x {$detail['quantite']}</li>";
                             } ?>
-                            <td><?php echo $histo['nom'] . " " . $histo['prenom'] ?></td>
-                            <td><?php echo $histo['date_commande']; ?></td>
-                            <td><?php echo $histo['date_retrait']; ?></td>
-                            <td><?php echo $histo['statut']; ?></td>
-                            <td><?php echo $histo['commentaire']; ?></td>
-                            <td><?php echo $histo['total']; ?>€</td>
+                            <td>
+                                <?php echo $histo['nom'] . " " . $histo['prenom'] ?>
+                            </td>
+                            <td>
+                                <?php echo $histo['date_commande']; ?>
+                            </td>
+                            <td>
+                                <?php echo $histo['date_retrait']; ?>
+                            </td>
+                            <td>
+                                <?php echo $histo['statut']; ?>
+                            </td>
+                            <td>
+                                <?php echo $histo['commentaire']; ?>
+                            </td>
+                            <td>
+                                <?php echo $histo['total']; ?>€
+                            </td>
 
-                            <td><a href="./addPtsFid.php?id_commande=<?php echo $histo['id_commande']; ?>" class="actions">Valider</a></td>
+                            <td><a href="./addPtsFid.php?id_commande=<?php echo $histo['id_commande']; ?>"
+                                    class="actions">Valider</a></td>
+                            <td><a href="./suppCommande.php?id_commande=<?php echo $histo['id_commande']; ?>"
+                                    class="actionsSup">Supprimer</a></td>
                         </tr>
                     <?php } ?>
                 </tbody>
@@ -116,8 +141,11 @@ if (isset($_SESSION['email'])) {
 
 
 </body>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/bootstrap-table@1.22.1/dist/bootstrap-table.min.js"></script>
 <script>
     // Fonction pour mettre à jour les données du tableau
@@ -125,11 +153,11 @@ if (isset($_SESSION['email'])) {
         // Effectuer une nouvelle requête AJAX pour récupérer les données actualisées
         $.ajax({
             url: 'actualiserCommandes.php', // Créez un script PHP pour récupérer les nouvelles données
-            success: function(nouvellesDonnees) {
+            success: function (nouvellesDonnees) {
                 // Mettez à jour le contenu du corps du tableau avec les nouvelles données
                 $('#table tbody').html(nouvellesDonnees);
             },
-            error: function() {
+            error: function () {
                 console.log('Erreur lors de la mise à jour des données du tableau.');
             }
         });

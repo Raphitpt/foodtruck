@@ -30,5 +30,6 @@ foreach ($hist as $histo) {
     echo "<td>{$histo['commentaire']}</td>";
     echo "<td>{$histo['total']}€</td>";
     echo "<td><a href='./addPtsFid.php?id_commande={$histo['id_commande']}'>Valider</a></td>";
+    echo "<td><a href='./suppCommande.php?id_commande={$histo['id_commande']}'>Supprimer</a></td>";
     echo "</tr>";
 }

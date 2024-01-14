@@ -484,6 +484,19 @@ nav > ul > li > img {
 .actions i {
   margin-left: 1rem;
 }
+.actionsSup {
+  font-size: 1em;
+  padding: 0.4rem;
+  color: red;
+  border: none;
+  border-radius: 10px;
+  text-decoration: none;
+  cursor: pointer;
+}
+.actionsSup:hover {
+  background: red;
+  color: #fff;
+}
 
 .fa-plus {
   margin-right: 1rem;
