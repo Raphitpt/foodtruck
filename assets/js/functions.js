@@ -102,26 +102,33 @@ function addToCart(platId, withSupplements) {
     });
   }
 
+  // Faire une copie profonde du panier existant
+  let nouveauPanier = JSON.parse(JSON.stringify(panier));
+
   // Vérifier si le plat est déjà dans le panier
-  const existingItemIndex = panier.findIndex((item) => item.id === platId);
+  const existingItemIndex = nouveauPanier.findIndex((item) => item.id === platId);
 
   // Mettre à jour le panier
   if (existingItemIndex !== -1) {
-    panier[existingItemIndex].quantite++;
+    nouveauPanier[existingItemIndex].quantite++;
+
+    // Ajouter les nouveaux suppléments sans écraser les existants
     if (withSupplements) {
-      // Ajouter les nouveaux suppléments sans écraser les existants
-      panier[existingItemIndex].composition.push(...nouveauPlat.supplements);
+      nouveauPanier[existingItemIndex].composition = JSON.parse(JSON.stringify(nouveauPlat.composition));
     }
   } else {
-    panier.push(nouveauPlat);
+    nouveauPanier.push(nouveauPlat);
   }
 
   // Mettre à jour le sessionStorage avec le nouveau panier
-  sessionStorage.setItem("panier", JSON.stringify(panier));
+  sessionStorage.setItem("panier", JSON.stringify(nouveauPanier));
 
   // Mettre à jour l'affichage du panier
   updateCartDisplay();
 }
+
+
+
 document.addEventListener("DOMContentLoaded", function () {
   // Sélection des éléments du DOM
   const platName = document.querySelectorAll(".card-title");
