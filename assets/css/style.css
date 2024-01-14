@@ -485,17 +485,16 @@ nav > ul > li > img {
   margin-left: 1rem;
 }
 .actionsSup {
-  color: red;
   font-size: 1em;
   padding: 0.4rem;
-  color: #28272b;
+  color: red;
   border: none;
   border-radius: 10px;
   text-decoration: none;
   cursor: pointer;
 }
 .actionsSup:hover {
-  background: darkblue;
+  background: red;
   color: #fff;
 }
 
