@@ -28,3 +28,4 @@ if ($input && isset($input['panier'])) {
 } else {
     echo json_encode(['error' => 'Aucun panier envoyé.'], 400);
 }
+?>

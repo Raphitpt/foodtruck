@@ -68,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <li><button onclick="location.href = './contact.php'" class="button_nav">
                         <?= htmlspecialchars("Nous contacter") ?>
                     </button></li>
-                <?php if (isset($_SESSION['email']) && $_SESSION['email'] === 'admin@gmail.com'): ?>
+                <?php if (isset($_SESSION['email']) && $_SESSION['email'] === 'admin@gmail.com') : ?>
                     <li><button onclick="location.href = 'indexBO.php'" class="button_nav">
                             <?= htmlspecialchars("Back Office") ?>
                         </button></li>
@@ -76,8 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </ul>
             <ul class="nav_right">
                 <?php if (isset($_SESSION['email'])) { ?>
-                    <button onclick="location.href = 'profil.php'" class="image"><img
-                            src="<?php echo $photo['photoprofil'] == NULL ? "./assets/img/grandprofilfb.jpg" : $photo['photoprofil']; ?>" /></button>
+                    <button onclick="location.href = 'profil.php'" class="image"><img src="<?php echo $photo['photoprofil'] == NULL ? "./assets/img/grandprofilfb.jpg" : $photo['photoprofil']; ?>" /></button>
                 <?php } else { ?>
                     <li><button onclick="location.href = './login.php'" class="button_nav connect">
                             <?= htmlspecialchars("Se connecter") ?>
@@ -104,7 +103,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <li><button onclick="location.href = ''" class="button_nav">
                         <?= htmlspecialchars("Contact us") ?>
                     </button></li>
-                <?php if (isset($_SESSION['email']) && $_SESSION['email'] === 'admin@gmail.com'): ?>
+                <?php if (isset($_SESSION['email']) && $_SESSION['email'] === 'admin@gmail.com') : ?>
                     <li><button onclick="location.href = 'indexBO.php'" class="button_nav">
                             <?= htmlspecialchars("Back Office") ?>
                         </button></li>
@@ -112,21 +111,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </ul>
             <ul class="nav_right">
                 <?php if (isset($_SESSION['email'])) { ?>
-                    <button onclick="location.href = 'profil.php'" class="image"><img
-                            src="<?php echo $photo['photoprofil'] == NULL ? "./assets/img/grandprofilfb.jpg" : $photo['photoprofil']; ?>" /></button>
+                    <button onclick="location.href = 'profil.php'" class="image"><img src="<?php echo $photo['photoprofil'] == NULL ? "./assets/img/grandprofilfb.jpg" : $photo['photoprofil']; ?>" /></button>
                 <?php } else { ?>
-<<<<<<< HEAD
-                    <li><button onclick="location.href = './login.php'" class="button_nav connect"><?= htmlspecialchars("Connexion") ?></button></li>
-                    <li><button onclick="location.href = './signin.php'" class="button_nav connect"><?= htmlspecialchars("Inscription") ?></button></li>
-=======
-                    <li><button onclick="location.href = './login.php'" class="button_nav connect">
-                            <?= htmlspecialchars("Se connecter") ?>
-                        </button></li>
-                    <li><button onclick="location.href = './signin.php'" class="button_nav connect">
-                            <?= htmlspecialchars("S'inscrire") ?>
-                        </button></li>
->>>>>>> d93cdd06076d1c8d7c75374aa02302b7d2906172
-                <?php } ?>
+                    <<<<<<< HEAD <li><button onclick="location.href = './login.php'" class="button_nav connect"><?= htmlspecialchars("Connexion") ?></button></li>
+                        <li><button onclick="location.href = './signin.php'" class="button_nav connect"><?= htmlspecialchars("Inscription") ?></button></li>
+                        =======
+                        <li><button onclick="location.href = './login.php'" class="button_nav connect">
+                                <?= htmlspecialchars("Se connecter") ?>
+                            </button></li>
+                        <li><button onclick="location.href = './signin.php'" class="button_nav connect">
+                                <?= htmlspecialchars("S'inscrire") ?>
+                            </button></li>
+                        >>>>>>> d93cdd06076d1c8d7c75374aa02302b7d2906172
+                    <?php } ?>
             </ul>
         </nav>
         <div class="menu-container">
@@ -143,9 +140,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             <nav class="menu">
                 <ul>
-                    <li><a href="#">Accueil</a></li>
+                    <li><a href="accueil.php">Accueil</a></li>
                     <li><a href="index.php">Commander</a></li>
                     <li><a href="contact.php">Nous contacter</a></li>
+                    <?php if (isset($_SESSION['email'])) { ?>
+                        <li><a href="profil.php">Mon compte</a></li>
+                    <?php } else { ?>
+                        <li><a href="login.php">Connexion/Inscription</a></li>
+                    <?php } ?>
                     <?php if (isset($_SESSION['email']) && $_SESSION['email'] === 'admin@gmail.com') : ?>
                         <li><button onclick="location.href = 'indexBO.php'" class="button_nav"><?= htmlspecialchars("Back Office") ?></button></li>
                     <?php endif; ?>
@@ -216,11 +218,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             display: flex;
             align-items: center;
             font-size: 18px;
-
-
         }
-
-
 
         .bar {
             width: 100%;
@@ -229,11 +227,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
 
         @media only screen and (max-width: 768px) {
-            .form{
+            .form {
                 width: 90vw;
             }
-            .container{
+
+            .container {
                 margin-bottom: 0px;
+            }
+
+            .form p {
+                text-align: center;
             }
         }
     </style>
@@ -287,6 +290,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </main>
 
 </body>
+<script>
+    document.getElementById("menu-btn").addEventListener("click", function() {
+        this.classList.toggle("open");
+        var mainContent = document.querySelector("main");
+        if (this.classList.contains("open")) {
+            mainContent.style.display = "none";
+        } else {
+            mainContent.style.display = "block";
+        }
+    });
+</script>
 
 </html>
 

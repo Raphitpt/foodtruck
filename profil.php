@@ -95,6 +95,9 @@ if (isset($_POST['modifier_mot_de_passe']) && !empty($_POST['nouveau_mot_de_pass
 
     .form {
         margin-top: 5px;
+        border-radius: 0;
+        background-color: #eeeeee00;
+        ;
     }
 
     .connect {
@@ -110,22 +113,60 @@ if (isset($_POST['modifier_mot_de_passe']) && !empty($_POST['nouveau_mot_de_pass
     ul {
         text-decoration: none;
     }
+
+    .menu-container img {
+        height: auto;
+        border-radius: 0;
+        object-fit: contain;
+        margin-left: auto;
+        margin-right: auto
+    }
 </style>
 
 <body>
-    <nav>
-        <ul class="nav_left">
-            <li class="nav_title"><img src="<?= $infos['url_logo'] ?>" alt="logo fouee">
-                <p><?= $infos['nom_entreprise'] ?></p>
-            </li>
-            <li><button onclick="location.href = './accueil.php'" class="button_nav">Accueil</button></li>
-            <li><button onclick="location.href = './index.php'" class="button_nav">Commander</button></li>
-            <li><button onclick="location.href = './contact.php'" class="button_nav">Nous contacter</button></li>
-            <?php if (isset($_SESSION['email']) && $_SESSION['email'] === 'admin@gmail.com') : ?>
-                <li><button onclick="location.href = 'indexBO.php'" class="button_nav">Back Office</button></li>
-            <?php endif; ?>
-        </ul>
-    </nav>
+    <header>
+        <nav>
+            <ul class="nav_left">
+                <li class="nav_title"><img src="<?= $infos['url_logo'] ?>" alt="logo fouee">
+                    <p><?= $infos['nom_entreprise'] ?></p>
+                </li>
+                <li><button onclick="location.href = './accueil.php'" class="button_nav">Accueil</button></li>
+                <li><button onclick="location.href = './index.php'" class="button_nav">Commander</button></li>
+                <li><button onclick="location.href = './contact.php'" class="button_nav">Nous contacter</button></li>
+                <?php if (isset($_SESSION['email']) && $_SESSION['email'] === 'admin@gmail.com') : ?>
+                    <li><button onclick="location.href = 'indexBO.php'" class="button_nav">Back Office</button></li>
+                <?php endif; ?>
+            </ul>
+        </nav>
+        <div class="menu-container">
+            <ul class="nav_left">
+                <li class="nav_title"><img src="<?= htmlspecialchars($infos['url_logo']) ?>" alt="logo fouee">
+                    <p><?= htmlspecialchars("Fouée't Moi") ?>
+                </li>
+            </ul>
+            <div class="menu-btn" id="menu-btn">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+
+            <nav class="menu">
+                <ul>
+                    <li><a href="./accueil.php">Accueil</a></li>
+                    <li><a href="index.php">Commander</a></li>
+                    <li><a href="contact.php">Nous contacter</a></li>
+                    <?php if (isset($_SESSION['email'])) { ?>
+                        <li><a href="profil.php">Mon compte</a></li>
+                    <?php } else { ?>
+                        <li><a href="login.php">Connexion/Inscription</a></li>
+                    <?php } ?>
+                    <?php if (isset($_SESSION['email']) && $_SESSION['email'] === 'admin@gmail.com') : ?>
+                        <li><button onclick="location.href = 'indexBO.php'" class="button_nav"><?= htmlspecialchars("Back Office") ?></button></li>
+                    <?php endif; ?>
+                </ul>
+            </nav>
+        </div>
+    </header>
     <main>
         <div class="btn-retour">
             <a href="accueil.php" class="btn"><i class="fa-solid fa-arrow-left"></i></a>
@@ -165,6 +206,18 @@ if (isset($_POST['modifier_mot_de_passe']) && !empty($_POST['nouveau_mot_de_pass
 
     </main>
 
+
 </body>
+<script>
+    document.getElementById("menu-btn").addEventListener("click", function() {
+        this.classList.toggle("open");
+        var mainContent = document.querySelector("main");
+        if (this.classList.contains("open")) {
+            mainContent.style.display = "none";
+        } else {
+            mainContent.style.display = "block";
+        }
+    });
+</script>
 
 </html>

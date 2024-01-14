@@ -128,7 +128,8 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
         <div class="menu-container">
             <ul class="nav_left">
                 <li class="nav_title"><img src="<?= htmlspecialchars($infos['url_logo']) ?>" alt="logo fouee">
-                    <p><?= htmlspecialchars("Fouée't Moi") ?>
+                    <p>
+                        <?= htmlspecialchars("Fouée't Moi") ?>
                 </li>
             </ul>
             <div class="menu-btn" id="menu-btn">
@@ -139,11 +140,18 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
 
             <nav class="menu">
                 <ul>
-                    <li><a href="#">Accueil</a></li>
+                    <li><a href="./accueil.php">Accueil</a></li>
                     <li><a href="index.php">Commander</a></li>
                     <li><a href="contact.php">Nous contacter</a></li>
+                    <?php if (isset($_SESSION['email'])) { ?>
+                        <li><a href="profil.php">Mon compte</a></li>
+                    <?php } else { ?>
+                        <li><a href="login.php">Connexion/Inscription</a></li>
+                    <?php } ?>
                     <?php if (isset($_SESSION['email']) && $_SESSION['email'] === 'admin@gmail.com') : ?>
-                        <li><button onclick="location.href = 'indexBO.php'" class="button_nav"><?= htmlspecialchars("Back Office") ?></button></li>
+                        <li><button onclick="location.href = 'indexBO.php'" class="button_nav">
+                                <?= htmlspecialchars("Back Office") ?>
+                            </button></li>
                     <?php endif; ?>
                 </ul>
             </nav>
@@ -230,6 +238,7 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
     <script>
         const panier = JSON.parse(sessionStorage.getItem('panier')) || [];
         console.log(panier);
+
         function afficherCommandeConfirm() {
             // Masquer la section recap
             document.querySelector('.recap').style.display = 'none';

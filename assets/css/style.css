@@ -222,7 +222,7 @@ nav > ul > li {
     padding: 0;
     position: relative;
     z-index: 10;
-    gap:3rem;
+    gap: 3rem;
   }
   .nav_left {
     position: relative;
@@ -243,8 +243,7 @@ nav > ul > li {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap:3rem;
-
+    gap: 3rem;
   }
 }
 
@@ -955,10 +954,13 @@ input[type="date"] {
 
 .btn-retour {
   position: absolute;
-  top: -15;
+  top: -30px;
   left: 0;
   margin: 1rem;
-  font-size: 2rem;
+  margin-left: 0;
+}
+.btn-retour i {
+  font-size: 1.5rem;
 }
 .fa-solid > fa-xmark {
   cursor: pointer;
@@ -971,6 +973,7 @@ input[type="date"] {
 }
 .commandeConfirm {
   display: none;
+  text-align: center;
 }
 .text-input {
   display: none;
@@ -1219,7 +1222,7 @@ input[type="date"] {
     gap: 1rem;
   }
 
-  .respContact{
+  .respContact {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1227,8 +1230,7 @@ input[type="date"] {
     gap: 1rem;
   }
 
-  .form{
+  .form {
     width: 90vw;
-
   }
 }
