@@ -43,34 +43,74 @@ echo head('Commander');
 ?>
 
 <body>
-    <nav>
-        <ul class="nav_left">
-            <li class="nav_title"><img src="<?= $infos['url_logo'] ?>" alt="logo fouee">
-                <p>
-                    <?= $infos['nom_entreprise'] ?>
-                </p>
-            </li>
-            <li><button onclick="location.href = './accueil.php'" class="button_nav">Accueil</button></li>
-            <li><button onclick="location.href = './index.php'" class="button_nav">Commander</button></li>
-            <li><button onclick="location.href = './contact.php'" class="button_nav">Nous contacter</button></li>
-            <?php if (isset($_SESSION['email']) && $_SESSION['email'] === 'admin@gmail.com'): ?>
-                <li><button onclick="location.href = 'indexBO.php'" class="button_nav">Back Office</button></li>
-            <?php endif; ?>
-        </ul>
-        <ul class="nav_right">
-            <?php if (isset($_SESSION['email'])) { ?>
-                <button onclick="location.href = 'profil.php'" class="image"><img
-                        src="<?php echo $photo['photoprofil'] == NULL ? "./assets/img/grandprofilfb.jpg" : $photo['photoprofil']; ?>" /></button>
-            <?php } else { ?>
-                <li><button onclick="location.href = './login.php'" class="button_nav connect">
-                        <?= htmlspecialchars("Se connecter") ?>
-                    </button></li>
-                <li><button onclick="location.href = './signin.php'" class="button_nav connect">
-                        <?= htmlspecialchars("S'inscrire") ?>
-                    </button></li>
-            <?php } ?>
-        </ul>
-    </nav>
+    <header>
+        <nav class="navfr">
+            <ul class="nav_left">
+                <li class="nav_title"><img src="<?= htmlspecialchars($infos['url_logo']) ?>" alt="logo fouee">
+                    <p><?= $infos['nom_entreprise'] ?></p>
+                </li>
+                <li><button onclick="location.href = './accueil.php'" class="button_nav"><?= htmlspecialchars("Accueil") ?></button></li>
+                <li><button onclick="location.href = './index.php'" class="button_nav"><?= htmlspecialchars("Commander") ?></button></li>
+                <li><button onclick="location.href = './contact.php'" class="button_nav"><?= htmlspecialchars("Nous contacter") ?></button></li>
+                <?php if (isset($_SESSION['email']) && $_SESSION['email'] === 'admin@gmail.com') : ?>
+                    <li><button onclick="location.href = 'indexBO.php'" class="button_nav"><?= htmlspecialchars("Back Office") ?></button></li>
+                <?php endif; ?>
+            </ul>
+            <ul class="nav_right">
+                <?php if (isset($_SESSION['email'])) { ?>
+                    <button onclick="location.href = 'profil.php'" class="image"><img src="<?php echo $photo['photoprofil'] == NULL ? "./assets/img/grandprofilfb.jpg" : $photo['photoprofil']; ?>" /></button>
+                <?php } else { ?>
+                    <li><button onclick="location.href = './login.php'" class="button_nav connect"><?= htmlspecialchars("Se connecter") ?></button></li>
+                    <li><button onclick="location.href = './signin.php'" class="button_nav connect"><?= htmlspecialchars("S'inscrire") ?></button></li>
+                <?php } ?>
+
+            </ul>
+        </nav>
+        <nav style="display:none;" class="navang">
+            <ul class="nav_left">
+                <li class="nav_title"><img src="<?= htmlspecialchars($infos['url_logo']) ?>" alt="logo fouee">
+                    <p><?= htmlspecialchars("Fouée't Moi") ?>
+                </li>
+                <li><button onclick="location.href = '#'" class="button_nav"><?= htmlspecialchars("Home") ?></button></li>
+                <li><button onclick="location.href = './index.php'" class="button_nav"><?= htmlspecialchars("Order") ?></button></li>
+                <li><button onclick="location.href = ''" class="button_nav"><?= htmlspecialchars("Contact us") ?></button></li>
+                <?php if (isset($_SESSION['email']) && $_SESSION['email'] === 'admin@gmail.com') : ?>
+                    <li><button onclick="location.href = 'indexBO.php'" class="button_nav"><?= htmlspecialchars("Back Office") ?></button></li>
+                <?php endif; ?>
+            </ul>
+            <ul class="nav_right">
+                <?php if (isset($_SESSION['email'])) { ?>
+                    <button onclick="location.href = 'profil.php'" class="image"><img src="<?php echo $photo['photoprofil'] == NULL ? "./assets/img/grandprofilfb.jpg" : $photo['photoprofil']; ?>" /></button>
+                <?php } else { ?>
+                    <li><button onclick="location.href = './login.php'" class="button_nav connect"><?= htmlspecialchars("Connexion") ?></button></li>
+                    <li><button onclick="location.href = './signin.php'" class="button_nav connect"><?= htmlspecialchars("Inscription") ?></button></li>
+                <?php } ?>
+            </ul>
+        </nav>
+        <div class="menu-container">
+            <ul class="nav_left">
+                <li class="nav_title"><img src="<?= htmlspecialchars($infos['url_logo']) ?>" alt="logo fouee">
+                    <p><?= htmlspecialchars("Fouée't Moi") ?>
+                </li>
+            </ul>
+            <div class="menu-btn" id="menu-btn">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+
+            <nav class="menu">
+                <ul>
+                    <li><a href="#">Accueil</a></li>
+                    <li><a href="index.php">Commander</a></li>
+                    <li><a href="contact.php">Nous contacter</a></li>
+                    <?php if (isset($_SESSION['email']) && $_SESSION['email'] === 'admin@gmail.com') : ?>
+                        <li><button onclick="location.href = 'indexBO.php'" class="button_nav"><?= htmlspecialchars("Back Office") ?></button></li>
+                    <?php endif; ?>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
 
 
@@ -82,12 +122,12 @@ echo head('Commander');
         </div>
         <div>
             <p>Les horaires d'ouverture aujourd'hui sont :</p>
-        <div>
-        </div>     
+            <div>
+            </div>
             <p><?php echo $horaires['HeureOuverture'] ?>h -
                 <?php echo $horaires['HeureFermeture'] ?>h
             </p>
-            
+
         </div>
     </div>
 
@@ -98,10 +138,8 @@ echo head('Commander');
 
             <div class="plats_title">
                 <div class="plats_titles">
-                    <button type="button" class="button_fouee sel plats_title_salées"
-                        onclick="togglePlat('plats_salées')">Fouées salées</button>
-                    <button type="button" class="button_fouee plats_title_sucrées"
-                        onclick="togglePlat('plats_sucrées')">Fouées sucrées</button>
+                    <button type="button" class="button_fouee sel plats_title_salées" onclick="togglePlat('plats_salées')">Fouées salées</button>
+                    <button type="button" class="button_fouee plats_title_sucrées" onclick="togglePlat('plats_sucrées')">Fouées sucrées</button>
 
                 </div>
                 <div class="line"></div>
@@ -110,7 +148,7 @@ echo head('Commander');
             <div class="plats_sale">
                 </br>
                 <div class="plats_card">
-                    <?php foreach ($plats_sale as $plat): ?>
+                    <?php foreach ($plats_sale as $plat) : ?>
                         <div class="card">
 
                             <div class="card-body">
@@ -141,7 +179,7 @@ echo head('Commander');
             <div class="plats_sucre" style="display: none;">
                 </br>
                 <div class="plats_card">
-                    <?php foreach ($plats_sucre as $plat): ?>
+                    <?php foreach ($plats_sucre as $plat) : ?>
 
                         <div class="card">
                             <div class="card-body">
@@ -175,7 +213,7 @@ echo head('Commander');
             <div class="suppl_sale">
                 <h3>Suppléments salées</h3>
                 <ul>
-                    <?php foreach ($supplements as $supplement):
+                    <?php foreach ($supplements as $supplement) :
                         if ($supplement['type'] == "sale") { ?>
 
                             <div class="list_suppl">
@@ -191,19 +229,18 @@ echo head('Commander');
                                     </p>
                                 </div>
                                 <label>
-                                    <input type="checkbox" class="input checkSuppl" data-id="<?= $supplement['id_suppl'] ?>"
-                                        data-name="<?= $supplement['nom'] ?>" data-price="<?= $supplement['prix'] ?>">
+                                    <input type="checkbox" class="input checkSuppl" data-id="<?= $supplement['id_suppl'] ?>" data-name="<?= $supplement['nom'] ?>" data-price="<?= $supplement['prix'] ?>">
                                     <span class="custom-checkbox"></span>
                                 </label>
                             </div>
-                        <?php }
+                    <?php }
                     endforeach; ?>
                 </ul>
             </div>
             <div class="suppl_sucre">
                 <h3>Suppléments sucrées</h3>
                 <ul>
-                    <?php foreach ($supplements as $supplement):
+                    <?php foreach ($supplements as $supplement) :
                         if ($supplement['type'] == "sucre") { ?>
 
                             <div class="list_suppl">
@@ -219,12 +256,11 @@ echo head('Commander');
                                     </p>
                                 </div>
                                 <label>
-                                    <input type="checkbox" class="input checkSuppl" data-id="<?= $supplement['id_suppl'] ?>"
-                                        data-name="<?= $supplement['nom'] ?>" data-price="<?= $supplement['prix'] ?>">
+                                    <input type="checkbox" class="input checkSuppl" data-id="<?= $supplement['id_suppl'] ?>" data-name="<?= $supplement['nom'] ?>" data-price="<?= $supplement['prix'] ?>">
                                     <span class="custom-checkbox"></span>
                                 </label>
                             </div>
-                        <?php }
+                    <?php }
                     endforeach; ?>
                 </ul>
             </div>
@@ -249,19 +285,19 @@ echo head('Commander');
     <script src="./assets/js/functions.js"></script>
     <script src="https://kit.fontawesome.com/45762c6469.js" crossorigin="anonymous"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             const numberAddElements = document.querySelectorAll('.number_add');
 
-            numberAddElements.forEach(function (element) {
+            numberAddElements.forEach(function(element) {
                 const inputElement = element.querySelector('input');
                 const addButton = element.querySelector('.add');
                 const subButton = element.querySelector('.sub');
 
-                addButton.addEventListener('click', function () {
+                addButton.addEventListener('click', function() {
                     inputElement.stepUp();
                 });
 
-                subButton.addEventListener('click', function () {
+                subButton.addEventListener('click', function() {
                     inputElement.stepDown();
                 });
 
