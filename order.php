@@ -32,50 +32,41 @@ if (isset($_SESSION['email'])) {
 }
 
 ?>
-<!DOCTYPE html>
-<html lang="fr">
+<style>
+    table {
+        width: 15vw;
+        border-collapse: collapse;
+    }
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="./assets/css/style.css" rel="stylesheet">
-    <title>Connexion</title>
-    <style>
-        table {
-            width: 15vw;
-            border-collapse: collapse;
-        }
+    th,
+    td {
+        border: 1px solid black;
+        padding: 5px;
+        text-align: center;
+    }
 
-        th,
-        td {
-            border: 1px solid black;
-            padding: 5px;
-            text-align: center;
-        }
+    .icon-cell {
+        border: 0;
+        color: red;
+    }
 
-        .icon-cell {
-            border: 0;
-            color: red;
-        }
+    th {
+        background-color: #f2f2f2;
+    }
 
-        th {
-            background-color: #f2f2f2;
-        }
+    .commandeConfirm {
+        display: none;
+    }
 
-        .commandeConfirm {
-            display: none;
-        }
+    .text-input {
+        display: none;
+    }
 
-        .text-input {
-            display: none;
-        }
-
-        .btnHeure.disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-    </style>
+    .btnHeure.disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+</style>
 
 </head>
 
@@ -199,29 +190,47 @@ if (isset($_SESSION['email'])) {
             console.log(panier);
         </script>
     </main>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script>
         function updateSelection(totalcommande) {
-        // Récupérer l'élément <select> par son ID
-        var selectElement = document.getElementById("ptsFideliteSelect");
+            // Récupérer l'élément <select> par son ID
+            var selectElement = document.getElementById("ptsFideliteSelect");
 
-        // Définir des valeurs minimales et maximales
-        var minValue = 0;
-        var maxValue = totalcommande;
+            // Définir des valeurs minimales et maximales
+            var minValue = 0;
+            var maxValue = totalcommande;
 
-        // Récupérer la valeur sélectionnée
-        var selectedValue = parseInt(selectElement.value);
+            // Récupérer la valeur sélectionnée
+            var selectedValue = parseInt(selectElement.value);
 
-        // Vérifier si la valeur est en dehors des limites
-        if (selectedValue < minValue) {
-            alert("La valeur sélectionnée est inférieure à la valeur minimale autorisée.");
-            // Réinitialiser la sélection à la valeur minimale
-            selectElement.value = minValue;
-        } else if (selectedValue > maxValue) {
-            alert("La valeur sélectionnée est supérieure à la valeur maximale autorisée.");
-            // Réinitialiser la sélection à la valeur maximale
-            selectElement.value = maxValue;
+            // Vérifier si la valeur est en dehors des limites
+            if (selectedValue < minValue) {
+                alert("La valeur sélectionnée est inférieure à la valeur minimale autorisée.");
+                // Réinitialiser la sélection à la valeur minimale
+                selectElement.value = minValue;
+            } else if (selectedValue > maxValue) {
+                alert("Vous ne pouvez pas utiliser plus de FouéePoints que le montant de votre commande.");
+                // Réinitialiser la sélection à la valeur maximale
+                selectElement.value = maxValue;
+            } else {
+                // Envoyer la valeur sélectionnée à un script PHP côté serveur
+                $.ajax({
+                    type: "POST",
+                    url: ".php", // Remplacez script.php par le nom de votre script PHP
+                    data: {
+                        selectedValue: selectedValue
+                    },
+                    success: function(response) {
+                        console.log("Valeur envoyée avec succès à PHP !");
+                    },
+                    error: function(error) {
+                        console.error("Erreur lors de l'envoi de la valeur à PHP :", error);
+                    }
+                });
+            }
         }
-    }
+
+
         // Récupérer l'élément <select> par son ID
         let selectElement = document.getElementById("ptsFideliteSelect");
         let selectedValue = selectElement.value;
@@ -424,42 +433,64 @@ if (isset($_SESSION['email'])) {
         }
 
         commanderButton.addEventListener('click', function() {
-            const panierNettoye = nettoyerObjet(panier);
-            let dateRetrait = totalDate.textContent;
-            let [jour, mois, annee] = dateRetrait.split('/');
-            let dateObj = new Date(Date.UTC(annee, mois - 1, jour));
-            let formattedDate = dateObj.toISOString().split('T')[0];
-            let heureFormated = totalHeure.textContent.split('h');
-            let heure = heureFormated[0] + ":" + heureFormated[1];
-            let commentaires = commentaire.value;
-            let date = formattedDate + " " + heure;
+                    const panierNettoye = nettoyerObjet(panier);
+                    let dateRetrait = totalDate.textContent;
+                    let [jour, mois, annee] = dateRetrait.split('/');
+                    let dateObj = new Date(Date.UTC(annee, mois - 1, jour));
+                    let formattedDate = dateObj.toISOString().split('T')[0];
+                    let heureFormated = totalHeure.textContent.split('h');
+                    let heure = heureFormated[0] + ":" + heureFormated[1];
+                    let commentaires = commentaire.value;
+                    let date = formattedDate + " " + heure;
 
-            fetch('commandefinal.php', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        panier: panierNettoye,
-                        date_retrait: date,
-                        prix: totalCommande.textContent,
-                        commentaire: commentaires,
-                    }, null),
-                })
-                .then(response => response.json())
-                .then(data => {
-                    console.log('Réponse du serveur :', data);
-                    if (data.success) {
-                        // Rediriger vers la page de confirmation
-                        afficherCommandeConfirm();
-                    } else {
-                        alert(data.error);
-                    }
-                })
-                .catch(error => {
-                    console.error('Erreur lors de la requête :', error);
+                    fetch('commandefinal.php', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                panier: panierNettoye,
+                                date_retrait: date,
+                                prix: totalCommande.textContent,
+                                commentaire: commentaires,
+                            }),
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log('Réponse du serveur :', data);
+                            if (data.success) {
+                                fetch('editPtsFid.php', {
+                                        method: 'POST',
+                                        headers: {
+                                            'Content-Type': 'application/json',
+                                        },
+                                        body: JSON.stringify({
+                                            pts_fidelite: selectedValue,
+                                        }),
+                                    })
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        console.log('Réponse du serveur :', data);
+                                        if (data.success) {
+                                            console.log("FouéePoints mis à jour avec succès !");
+                                        } else {
+                                            alert(data.error);
+                                        }
+                                    })
+                                    .catch(error => {
+                                        console.error('Erreur lors de la requête :', error);
+                                    });
+
+                                // Rediriger vers la page de confirmation
+                                afficherCommandeConfirm();
+                            } else {
+                                alert(data.error);
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Erreur lors de la requête :', error);
+                        });
                 });
-        });
     </script>
     <script src="./assets/js/functions.js"></script>
     <script src="https://kit.fontawesome.com/45762c6469.js" crossorigin="anonymous"></script>
