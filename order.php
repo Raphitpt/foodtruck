@@ -23,6 +23,9 @@ $stmt->execute([
 ]);
 $photo = $stmt->fetch();
 $userId = $photo['id_user'];
+
+$currentDateTime = new DateTime();
+$maxDate = date('Y-m-d', strtotime('+1 week'));
 // Récupérer les informations de l'utilisateur par son ID
 echo '<input type="hidden" id="userId" value="' . $userId . '">';
 ?>
@@ -192,7 +195,7 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
                 <h2>Réserver son repas</h2>
 
                 <div class="quantite"></div>
-                <input type="date" id="dateReservation">
+                <input type="date" id="dateReservation" min="<?= date('Y-m-d') ?>" max="<?= $maxDate ?>">
                 </select>
                 <div class="radio-inputs">
                     <?php
@@ -568,6 +571,23 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
                 viderPanier();
             });
         }
+        document.getElementById('dateReservation').addEventListener('change', function() {
+            let selectedDate = this.value;
+            let currentDateTime = new Date();
+            console.log(selectedDate);
+            document.querySelectorAll('.btnHeure').forEach(function(btnHeure) {
+                let hour = parseInt(btnHeure.querySelector('.selectedTime').innerText.substring(0, 2));
+                let minute = parseInt(btnHeure.querySelector('.selectedTime').innerText.substring(3, 5));
+
+                let dateTime = new Date(selectedDate + 'T' + hour + ':' + minute + ':00');
+                console.log(dateTime);
+                if (dateTime < currentDateTime) {
+                    btnHeure.classList.add('disabled');
+                } else {
+                    btnHeure.classList.remove('disabled');
+                }
+            });
+        });
     </script>
     <script src="./assets/js/functions.js"></script>
     <script src="https://kit.fontawesome.com/45762c6469.js" crossorigin="anonymous"></script>
