@@ -388,7 +388,7 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
                         if (itemIndex !== -1) {
                             panier.splice(itemIndex, 1);
                             // Mettre à jour l'affichage du panier après la suppression
-                            listPanier(heure, date);
+                            listPanier(heure, date, selectedValue);
                         }
                     }
                 });
@@ -405,7 +405,7 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
             dateReservationInput.value = formattedToday;
 
             // Initialise la liste de panier avec la date actuelle
-            listPanier("12h00", formattedToday);
+            listPanier("12h00", formattedToday, selectedValue);
 
             // Associe l'événement de changement de date
             dateReservationInput.addEventListener('change', function() {
@@ -413,7 +413,7 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
                 // Vérifie si une heure est déjà sélectionnée, puis met à jour le panier
                 const selectedHeure = document.querySelector('.heureSelected');
                 const heure = selectedHeure ? selectedHeure.textContent : "12h00";
-                listPanier(heure, selectedDate);
+                listPanier(heure, selectedDate, selectedValue);
             });
 
             if (btnHeure) {
@@ -425,7 +425,7 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
                         if (hourArticlesCount >= 8) {
                             alert("Vous devez choisir une autre heure, celle-ci est indisponible.");
                         } else {
-                            listPanier(selectedHour, dateReservationInput.value);
+                            listPanier(selectedHour, dateReservationInput.value, selectedValue);
                             btnHeure.forEach((elem) => {
                                 elem.classList.remove('heureSelected');
                             });
