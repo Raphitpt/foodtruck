@@ -199,17 +199,23 @@ navfr = document.querySelector(".navfr");
 
 anglais.addEventListener("click", function () {
   français.style.display = "block";
-  navfr.style.display = "none";
+
   fra.style.display = "none";
-  navang.style.display = "flex";
+  if (window.innerWidth > 770) {
+    navfr.style.display = "none";
+    navang.style.display = "flex";
+  }
   ang.style.display = "flex";
   anglais.style.display = "none";
 });
 français.addEventListener("click", function () {
   anglais.style.display = "block";
-  navang.style.display = "none";
+
   ang.style.display = "none";
-  navfr.style.display = "flex";
+  if (window.innerWidth > 770) {
+    navang.style.display = "none";
+    navfr.style.display = "flex";
+  }
   fra.style.display = "flex";
   français.style.display = "none";
 });

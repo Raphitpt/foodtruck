@@ -24,16 +24,16 @@ if (isset($_SESSION['email'])) {
 
 ?>
 <style>
-    body {
-        overflow-x: hidden;
-    }
-
     * {
         font-family: 'Montserrat', sans-serif;
     }
 
+    body {
+        overflow-x: hidden;
+    }
+
     h1 {
-        text-align: justify;
+        text-align: center;
         font-size: 4rem;
         font-weight: 700;
     }
@@ -49,7 +49,7 @@ if (isset($_SESSION['email'])) {
     }
 
     .accueil {
-        height: 160vh;
+        height: 120vh;
         width: 100vw;
         display: flex;
         flex-direction: column;
@@ -57,15 +57,11 @@ if (isset($_SESSION['email'])) {
         align-items: center;
     }
 
-    .button_nav {
-        width: 12rem;
-    }
 
-    @media screen and (max-width:1345px) {
-        .button_nav {
-            width: 8rem;
-        }
-    }
+
+
+
+
 
     .accueil button {
         width: 15vw;
@@ -79,38 +75,69 @@ if (isset($_SESSION['email'])) {
     }
 
     .accueil div:nth-child(3) {
-        display: flex;
+        width: 60vw;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        text-align: justify;
+        align-self: center;
         justify-content: center;
         align-items: center;
+    }
+
+    .accueil div:nth-child(3) p {
+        padding: 1rem;
     }
 
     .accueil div:nth-child(3) div {
         height: 50%;
         width: 30%;
-        text-align: justify;
-        padding-left: 3rem;
+
+
     }
 
+    .accueil div:nth-child(3) img {
+        grid-row: span 2;
+        margin-left: auto;
+        margin-right: auto;
+        width: 20vw;
+
+    }
+
+
     .accueil div:nth-child(4) {
-        display: flex;
+        width: 60vw;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        text-align: justify;
+        align-self: center;
         justify-content: center;
         align-items: center;
     }
 
+    .accueil div:nth-child(4) p {
+        padding: 1rem;
+    }
+
     .accueil div:nth-child(4) div {
         height: 50%;
-        width: 40%;
-        padding-right: 3rem;
-        text-align: justify;
+        width: 30%;
+
+
     }
 
     .accueil div:nth-child(4) img {
-        width: 25vw;
+        grid-row: span 2;
+        width: 20vw;
+        margin-left: auto;
+        margin-right: auto;
+
+
     }
+
+
 
     footer {
         height: 10vh;
-        width: 100vw;
         background-color: black;
     }
 
@@ -136,6 +163,115 @@ if (isset($_SESSION['email'])) {
 
     .choixlangue img {
         width: 4vw;
+    }
+
+    @media screen and (max-width:768px) {
+        .accueil h1 {
+            font-size: 1.7rem;
+        }
+
+        .accueil button {
+            width: 20vw;
+        }
+
+        .accueil {
+            height: auto;
+        }
+
+        .accueil h1 {
+            padding: 20px;
+        }
+
+        .accueil div:nth-child(3) {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .accueil div:nth-child(3) h2 {
+            order: 1;
+            padding: 20px;
+            width: 70vw;
+        }
+
+        .accueil div:nth-child(3) img {
+            order: 2;
+            width: 40vw;
+        }
+
+        .accueil div:nth-child(3) p {
+            order: 3;
+            width: 80vw;
+        }
+
+        .accueil div:nth-child(4) {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .accueil div:nth-child(4) h2 {
+            order: 1;
+            padding-bottom: 20px;
+            width: 70vw;
+        }
+
+        .accueil div:nth-child(4) img {
+            order: 2;
+            width: 40vw;
+        }
+
+        .accueil div:nth-child(4) p {
+            order: 3;
+            width: 80vw;
+        }
+
+
+
+        @media screen and (max-width:425px) {
+            .choixlangue div {
+                right: 0.5rem;
+                width: auto;
+
+            }
+
+            .choixlangue img {
+                width: 10vw;
+            }
+
+            .accueil {
+                height: 110vh;
+            }
+
+            .accueil h1 {
+                padding-top: 4rem;
+            }
+
+            .accueil button {
+                width: 40vw;
+            }
+
+            .accueil p {
+                font-size: 10px;
+            }
+
+            .accueil div:nth-child(3) img {
+                height: 15vh;
+                width: auto;
+            }
+
+            .accueil div:nth-child(4) img {
+                height: 15vh;
+                width: auto;
+            }
+
+            footer {
+                height: 5vh;
+            }
+
+
+        }
+
+
+
     }
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -182,12 +318,17 @@ if (isset($_SESSION['email'])) {
                 <?php if (isset($_SESSION['email'])) { ?>
                     <button onclick="location.href = 'profil.php'" class="image"><img src="<?php echo $photo['photoprofil'] == NULL ? "./assets/img/grandprofilfb.jpg" : $photo['photoprofil']; ?>" /></button>
                 <?php } else { ?>
-                    <li><button onclick="location.href = './login.php'" class="button_nav connect"><?= htmlspecialchars("Se connecter") ?></button></li>
-                    <li><button onclick="location.href = './signin.php'" class="button_nav connect"><?= htmlspecialchars("S'inscrire") ?></button></li>
+                    <li><button onclick="location.href = './login.php'" class="button_nav connect"><?= htmlspecialchars("Connexion") ?></button></li>
+                    <li><button onclick="location.href = './signin.php'" class="button_nav connect"><?= htmlspecialchars("Inscription") ?></button></li>
                 <?php } ?>
             </ul>
         </nav>
         <div class="menu-container">
+            <ul class="nav_left">
+                <li class="nav_title"><img src="<?= htmlspecialchars($infos['url_logo']) ?>" alt="logo fouee">
+                    <p><?= htmlspecialchars("Fouée't Moi") ?>
+                </li>
+            </ul>
             <div class="menu-btn" id="menu-btn">
                 <div class="bar"></div>
                 <div class="bar"></div>
@@ -218,21 +359,19 @@ if (isset($_SESSION['email'])) {
             <button onclick="location.href = './index.php'"><?= htmlspecialchars("Order") ?></button>
             <div>
                 <img src="<?php echo htmlspecialchars($contenu['url_img1']) ?>" />
-                <div>
-                    <h2><?php echo htmlspecialchars($contenu['title1EN'], ENT_QUOTES) ?></h2>
-                    <p>
-                        <?php echo htmlspecialchars($contenu['texte1EN'], ENT_QUOTES) ?>
-                    </p>
-                </div>
+
+                <h2><?php echo htmlspecialchars($contenu['title1EN'], ENT_QUOTES) ?></h2>
+                <p>
+                    <?php echo htmlspecialchars($contenu['texte1EN'], ENT_QUOTES) ?>
+                </p>
             </div>
             <div>
-                <div>
-                    <h2><?php echo htmlspecialchars($contenu['title2EN'], ENT_QUOTES) ?></h2>
-                    <p>
-                        <?php echo htmlspecialchars($contenu['texte2EN'], ENT_QUOTES) ?>
-                    </p>
-                </div>
+                <h2><?php echo htmlspecialchars($contenu['title2EN'], ENT_QUOTES) ?></h2>
                 <img src="<?php echo htmlspecialchars($contenu['url_img2']) ?>" />
+                <p>
+                    <?php echo htmlspecialchars($contenu['texte2EN'], ENT_QUOTES) ?>
+                </p>
+
 
             </div>
 
@@ -242,31 +381,40 @@ if (isset($_SESSION['email'])) {
             <button onclick="location.href = './index.php'"><?= htmlspecialchars("Commander") ?></button>
             <div>
                 <img src="<?php echo htmlspecialchars($contenu['url_img1']) ?>" />
-                <div>
-                    <h2><?php echo htmlspecialchars($contenu['title1'], ENT_QUOTES) ?></h2>
-                    <p>
-                        <?php echo htmlspecialchars($contenu['texte1'], ENT_QUOTES) ?>
-                    </p>
-                </div>
+
+                <h2><?php echo htmlspecialchars($contenu['title1'], ENT_QUOTES) ?></h2>
+                <p>
+                    <?php echo htmlspecialchars($contenu['texte1'], ENT_QUOTES) ?>
+                </p>
+
             </div>
             <div>
-                <div>
-                    <h2><?php echo htmlspecialchars($contenu['title2'], ENT_QUOTES) ?></h2>
-                    <p>
-                        <?php echo htmlspecialchars($contenu['texte2'], ENT_QUOTES) ?>
-                    </p>
-                </div>
+
+                <h2><?php echo htmlspecialchars($contenu['title2'], ENT_QUOTES) ?></h2>
                 <img src="<?php echo htmlspecialchars($contenu['url_img2']) ?>" />
+                <p>
+                    <?php echo htmlspecialchars($contenu['texte2'], ENT_QUOTES) ?>
+                </p>
+
+
 
             </div>
 
         </section>
     </main>
+    <footer></footer>
     <script src="./assets/js/functions.js">
     </script>
     <script>
         document.getElementById("menu-btn").addEventListener("click", function() {
+
             this.classList.toggle("open");
+            var mainContent = document.querySelector('main');
+            if (this.classList.contains("open")) {
+                mainContent.style.display = "none";
+            } else {
+                mainContent.style.display = "block";
+            }
         });
     </script>
 </body>
