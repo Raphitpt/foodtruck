@@ -130,11 +130,12 @@ if (isset($_POST['modifier_mot_de_passe']) && !empty($_POST['nouveau_mot_de_pass
         <div class="btn-retour">
             <a href="index.php" class="btn"><i class="fa-solid fa-arrow-left"></i></a>
         </div>
-        <button onclick="location.href = './historique.php'" class="button_nav connect"><?= htmlspecialchars("Historique") ?></button></li>
+        
 
         <section class="form">
             <h1>Profil de <?php echo $recupUser['nom'] . " " . $recupUser['prenom'] ?></h1>
             <img src="<?php echo $photo == NULL ? "./assets/img/grandprofilfb.jpg" : $photo; ?>" />
+            <button onclick="location.href = './historique.php'" class="button_nav connect"><?= htmlspecialchars("Historique") ?></button></li>
             <form action="" method="post" enctype="multipart/form-data">
                 <label for="fichier_photo_profil">Modifier la photo de profil :</label>
                 <input type="file" name="fichier_photo_profil" id="fichier_photo_profil">

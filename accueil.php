@@ -187,6 +187,7 @@ if (isset($_SESSION['email'])) {
             display: flex;
             flex-direction: column;
             margin-bottom: 3rem;
+            margin-top: 3rem;
         }
 
         .accueil div:nth-child(3) h2 {
@@ -229,14 +230,15 @@ if (isset($_SESSION['email'])) {
         }
 
         .choixlangue div {
-                right: 0.5rem;
-                width: auto;
-                top: -1.85rem;
+            right: 0.5rem;
+            width: auto;
+            top: -1.85rem;
 
-            }
+        }
+
         .choixlangue img {
-                width: 10vw;
-            }
+            width: 10vw;
+        }
 
 
 
@@ -280,7 +282,7 @@ if (isset($_SESSION['email'])) {
             footer {
                 height: 5vh;
             }
-            
+
 
 
         }
@@ -428,9 +430,8 @@ if (isset($_SESSION['email'])) {
     </script>
     <script>
         document.getElementById("menu-btn").addEventListener("click", function() {
-
             this.classList.toggle("open");
-            var mainContent = document.querySelector('main');
+            var mainContent = document.querySelector("main");
             if (this.classList.contains("open")) {
                 mainContent.style.display = "none";
             } else {
@@ -438,6 +439,7 @@ if (isset($_SESSION['email'])) {
             }
         });
     </script>
+
 </body>
 
 </html>
