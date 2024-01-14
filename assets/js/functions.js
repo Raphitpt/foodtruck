@@ -12,7 +12,7 @@ function calculateTotal(panier) {
 // Fonction pour générer le HTML du panier
 function generatePanierHTML(panier) {
   let html = "<ul>";
-
+if(panier !== null){
   panier.forEach(function (plat) {
     const prix = parseFloat(plat.prix);
     const quantite = parseFloat(plat.quantite);
@@ -28,7 +28,13 @@ function generatePanierHTML(panier) {
         </div>
         <div class="name_plat_commande">
           <p>${plat.nom}</p>
-          <p>Supléments</p>
+          `;
+    if (plat.supplements.length > 0) {
+      html += `<p>Supplément(s) : ${plat.supplements[0].name}</p>`;
+    } else {
+      html += `<p>Supplément(s) : Aucun</p>`;
+    }
+    html += `
           <p>${prix} €</p>
           <p class="id_plats" style="display:none;">${plat.id}</p>
         </div>
@@ -39,9 +45,14 @@ function generatePanierHTML(panier) {
         </fieldset>
       </li>
       <div class="line"></div>`;
-  });
-
+  });  
   html += "</ul>";
+} else {
+  html += `<p>Votre panier est vide</p>`;
+}
+
+
+
 
   // Ajout du total du panier et du bouton de commande
   if (panier.length > 0) {
@@ -103,7 +114,6 @@ document.addEventListener("DOMContentLoaded", function () {
     panier = JSON.parse(sessionStorage.getItem("panier")) || [];
     const panierTotal = calculateTotal(panier);
     panierDiv.innerHTML = generatePanierHTML(panier);
-    console.log("chef");
   }
 
   // Mise à jour de l'affichage initial du panier
@@ -167,13 +177,13 @@ document.addEventListener("DOMContentLoaded", function () {
     // Vérifier si une occurrence a les mêmes suppléments
     const selectedSupplements = withSupplements ? getSelectedSupplements() : [];
     const hasMatchingComposition = existingItems.some((item) =>
-      arraysEqual(item.composition, selectedSupplements)
+      arraysEqual(item.supplements, selectedSupplements)
     );
 
     if (hasMatchingComposition) {
       // Si une occurrence a les mêmes suppléments, incrémenter la quantité
       const matchingItem = existingItems.find((item) =>
-        arraysEqual(item.composition, selectedSupplements)
+        arraysEqual(item.supplements, selectedSupplements)
       );
       matchingItem.quantite++;
     } else {
@@ -182,7 +192,7 @@ document.addEventListener("DOMContentLoaded", function () {
         id: id,
         nom: platName,
         prix: platPrice,
-        composition: selectedSupplements,
+        supplements: selectedSupplements,
         quantite: 1,
       });
     }

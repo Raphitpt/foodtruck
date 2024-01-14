@@ -3,11 +3,10 @@ require './bootstrap.php';
 session_start();
 header('Content-Type: application/json');
 $inputJSON = file_get_contents('php://input');
-file_put_contents('log.txt', $inputJSON); // Ajout de cette ligne pour enregistrer le contenu dans un fichier log.txt
 
 $input = json_decode($inputJSON, true);
 
-// print_r($input);
+print_r($input);
 if ($input && isset($input['panier'])) {
     $panier = $input['panier'];
 
