@@ -1,20 +1,22 @@
 <?php
 require './bootstrap.php';
+session_start();
 header('Content-Type: application/json');
 $inputJSON = file_get_contents('php://input');
 file_put_contents('log.txt', $inputJSON); // Ajout de cette ligne pour enregistrer le contenu dans un fichier log.txt
 
 $input = json_decode($inputJSON, true);
-// print_r($input);
+
+print_r($input);
 if ($input && isset($input['panier'])) {
     $panier = $input['panier'];
 
     if (!empty($panier)) {
         $panier = json_encode($panier);
-        $sql = "INSERT INTO `commandes` (detail_commande, id_user, date_retrait, commentaire, total) VALUES (:panier, '5', :date_retrait, :commentaire, :total)";
+        $sql = "INSERT INTO `commandes` (detail_commande, id_user, date_retrait, commentaire, total) VALUES (:panier, :id_user, :date_retrait, :commentaire, :total)";
         $query = $dbh->prepare($sql);
         $query->bindValue(':panier', $panier, PDO::PARAM_STR);
-        // $query->bindValue(':id_user', $_SESSION['id'], PDO::PARAM_INT);
+        $query->bindValue(':id_user', $input['id_user'], PDO::PARAM_INT);
         $query->bindValue(':commentaire', $input['commentaire'], PDO::PARAM_STR);
         $query->bindValue(':date_retrait', $input['date_retrait'], PDO::PARAM_STR);
         $query->bindValue(':total', $input['prix'], PDO::PARAM_STR);

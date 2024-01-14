@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 {"panier":[{"id":"4","nom":"FOUÉE SAUCISSE-MOGETTES","prix":"5€","composition":[],"quantite":1},{"id":"30","nom":"FOUÉE MOGETTE","prix":"3€","composition":[],"quantite":1}],"date_retrait":"2024-01-14 12:00","prix":"8","commentaire":""}
+=======
+{"panier":[{"id":"6","nom":"FOUÉE ESCARGOTS","prix":"8€","composition":[],"quantite":1}],"date_retrait":"2024-01-14 12:00","prix":"8","commentaire":"","id_user":"5"}
+>>>>>>> d93cdd06076d1c8d7c75374aa02302b7d2906172

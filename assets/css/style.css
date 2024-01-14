@@ -381,11 +381,9 @@ nav > ul > li > img {
   transform: translateX(-50%);
 }
 .plats_card .card .card_img {
-
   height: 45%;
   object-fit: cover;
   border-radius: 10px;
-  
 
   margin-bottom: 1rem;
 }

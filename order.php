@@ -1,6 +1,34 @@
 <?php
 session_start();
 
+// // Vérifier si l'utilisateur est connecté
+// if (!isset($_SESSION['email'])) {
+//     // Rediriger vers login.php si l'utilisateur n'est pas connecté
+//     header('Location: login.php');
+//     exit();
+// }
+
+// require 'bootstrap.php';
+
+
+// echo head('Panier');
+// $infos = "SELECT * FROM settings";
+// $infos = $dbh->query($infos);
+// $infos = $infos->fetch();
+
+// $users = "SELECT * FROM users";
+// $users = $dbh->query($users);
+// $users = $users->fetchAll();
+
+// if (isset($_SESSION['email'])) {
+//     $email = $_SESSION['email'];
+//     $photo = "SELECT * FROM users where email = :email";
+//     $stmt = $dbh->prepare($photo);
+//     $stmt->execute([
+//         'email' => $email,
+//     ]);
+//     $photo = $stmt->fetch();
+// }
 // Vérifier si l'utilisateur est connecté
 if (!isset($_SESSION['email'])) {
     // Rediriger vers login.php si l'utilisateur n'est pas connecté
@@ -10,63 +38,78 @@ if (!isset($_SESSION['email'])) {
 
 require 'bootstrap.php';
 
-
 echo head('Panier');
 $infos = "SELECT * FROM settings";
 $infos = $dbh->query($infos);
 $infos = $infos->fetch();
 
-$users = "SELECT * FROM users";
-$users = $dbh->query($users);
-$users = $users->fetchAll();
+// Récupérer l'ID de l'utilisateur connecté
+$email = $_SESSION['email'];
+$userQuery = "SELECT * FROM users WHERE email = :email";
+$stmt = $dbh->prepare($userQuery);
+$stmt->execute([
+    'email' => $email,
+]);
+$user = $stmt->fetch();
 
+// Récupérer l'ID de l'utilisateur connecté
+$user_id = $user['id_user'];
 
-if (isset($_SESSION['email'])) {
-    $email = $_SESSION['email'];
-    $photo = "SELECT * FROM users where email = :email";
-    $stmt = $dbh->prepare($photo);
-    $stmt->execute([
-        'email' => $email,
-    ]);
-    $photo = $stmt->fetch();
-}
+// Récupérer les informations de l'utilisateur par son ID
+$query = "SELECT * FROM users WHERE id_user = :id_user";
+$users = $dbh->prepare($query);
+$users->bindParam(':id_user', $user_id, PDO::PARAM_INT);
+$users->execute();
 
+$userDetails = $users->fetch(PDO::FETCH_ASSOC);
+
+// Récupérer les informations de l'utilisateur par son ID
+echo '<input type="hidden" id="userId" value="' . $userDetails['id_user'] . '">';
 ?>
-<style>
-    table {
-        width: 15vw;
-        border-collapse: collapse;
-    }
+<!DOCTYPE html>
+<html lang="fr">
 
-    th,
-    td {
-        border: 1px solid black;
-        padding: 5px;
-        text-align: center;
-    }
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./assets/css/style.css" rel="stylesheet">
+    <title>Connexion</title>
+    <style>
+        table {
+            width: 15vw;
+            border-collapse: collapse;
+        }
 
-    .icon-cell {
-        border: 0;
-        color: red;
-    }
+        th,
+        td {
+            border: 1px solid black;
+            padding: 5px;
+            text-align: center;
+        }
 
-    th {
-        background-color: #f2f2f2;
-    }
+        .icon-cell {
+            border: 0;
+            color: red;
+        }
 
-    .commandeConfirm {
-        display: none;
-    }
+        th {
+            background-color: #f2f2f2;
+        }
 
-    .text-input {
-        display: none;
-    }
+        .commandeConfirm {
+            display: none;
+        }
 
-    .btnHeure.disabled {
-        opacity: 0.5;
-        cursor: not-allowed;
-    }
-</style>
+        .text-input {
+            display: none;
+        }
+
+        .btnHeure.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+    </style>
 
 </head>
 
@@ -84,7 +127,8 @@ if (isset($_SESSION['email'])) {
         </ul>
         <ul class="nav_right">
             <?php if (isset($_SESSION['email'])) { ?>
-                <button onclick="location.href = 'profil.php'" class="image"><img src="<?php echo $photo['photoprofil'] == NULL ? "./assets/img/grandprofilfb.jpg" : $photo['photoprofil']; ?>" /></button>
+                <button onclick="location.href = 'profil.php'" class="image"><img
+                        src="<?php echo $photo['photoprofil'] == NULL ? "./assets/img/grandprofilfb.jpg" : $photo['photoprofil']; ?>" /></button>
             <?php } else { ?>
                 <li><button onclick="location.href = './login.php'" class="button_nav connect">
                         <?= htmlspecialchars("Se connecter") ?>
@@ -121,36 +165,22 @@ if (isset($_SESSION['email'])) {
                                 <!-- <input type="text" placeholder="Précisez quels couverts, serviettes, pailles et
                                     condiments vous souhaitez inclure dans votre commande, ainsi que toute instruction
                                     spécifique à communiquer au restaurant" size="100" id="commentaire"> -->
-                                <textarea name="texte" id="commentaire" cols="20" rows="10" placeholder="Précisez quels couverts, serviettes et condiments vous souhaitez inclure dans votre commande."></textarea>
+                                <textarea name="texte" id="commentaire" cols="30" rows="10"
+                                    placeholder="Précisez quels couverts, serviettes et condiments vous souhaitez inclure dans votre commande."></textarea>
                             </div>
                             <div class="totalRet">
                                 <h2>Total de la commande <span id="totalCommande"></span> €</h2>
-                                <div>
-                                    <h2>FouéePoints: <span id="totalPts">
-                                            <select id="ptsFideliteSelect" onchange="updateSelection(document.getElementById('totalCommande').textContent)">
-                                                <?php
-                                                for ($i = 0; $i <= $photo['pts_fidelite']; $i++) {
-                                                    echo "<option value=\"$i\">$i</option>";
-                                                }
-                                                ?>
-                                            </select></span>
-                                    </h2>
-                                </div>
-                                <p>Un fouéePoints = 1€ de réduction !</p>
-                                <p>Vous gagnez 1 FouéePoints tous les 10€ d'achats</p>
+                                <h2>Date de retrait : <span id="totalHeure"></span> le <span id="totalDate"></span></h2>
                             </div>
-
-                            <h2>Date de retrait : <span id="totalHeure"></span> le <span id="totalDate"></span></h2>
                         </div>
+                        <div class="btn">
+                            <button onclick="location.href = './index.php'" class="btn btn-dark btn_continuer">Continuer
+                                mes achats</button>
+                            <button class="btn btn-success btn_commander">Commander</button>
+                        </div>
+                        <div class="monElement"></div>
                     </div>
-                    <div class="btn">
-                        <button onclick="location.href = './index.php'" class="btn btn-dark btn_continuer">Continuer
-                            mes achats</button>
-                        <button class="btn btn-light btn_commander">Confirmer</button>
-                    </div>
-                    <div class="monElement"></div>
                 </div>
-            </div>
             </div>
             <div>
                 <h2>Réserver son repas</h2>
@@ -179,7 +209,8 @@ if (isset($_SESSION['email'])) {
                         <h1>Commande confirmée !</h1>
                         <p>Votre commande a bien été prise en compte. Vous pouvez la retrouver dans votre historique de
                             commande.</p>
-                        <button onclick="location.href = './index.php'" class="btn btn-secondary btn_commander">Retour</button>
+                        <button onclick="location.href = './index.php'"
+                            class="btn btn-secondary btn_commander">Retour</button>
                     </div>
                 </div>
             </div>
@@ -190,60 +221,7 @@ if (isset($_SESSION['email'])) {
             console.log(panier);
         </script>
     </main>
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script>
-        function updateSelection(totalcommande) {
-            // Récupérer l'élément <select> par son ID
-            var selectElement = document.getElementById("ptsFideliteSelect");
-
-            // Définir des valeurs minimales et maximales
-            var minValue = 0;
-            var maxValue = totalcommande;
-
-            // Récupérer la valeur sélectionnée
-            var selectedValue = parseInt(selectElement.value);
-
-            // Vérifier si la valeur est en dehors des limites
-            if (selectedValue < minValue) {
-                alert("La valeur sélectionnée est inférieure à la valeur minimale autorisée.");
-                // Réinitialiser la sélection à la valeur minimale
-                selectElement.value = minValue;
-            } else if (selectedValue > maxValue) {
-                alert("Vous ne pouvez pas utiliser plus de FouéePoints que le montant de votre commande.");
-                // Réinitialiser la sélection à la valeur maximale
-                selectElement.value = maxValue;
-            } else {
-                // Envoyer la valeur sélectionnée à un script PHP côté serveur
-                $.ajax({
-                    type: "POST",
-                    url: ".php", // Remplacez script.php par le nom de votre script PHP
-                    data: {
-                        selectedValue: selectedValue
-                    },
-                    success: function(response) {
-                        console.log("Valeur envoyée avec succès à PHP !");
-                    },
-                    error: function(error) {
-                        console.error("Erreur lors de l'envoi de la valeur à PHP :", error);
-                    }
-                });
-            }
-        }
-
-
-        // Récupérer l'élément <select> par son ID
-        let selectElement = document.getElementById("ptsFideliteSelect");
-        let selectedValue = selectElement.value;
-        // Ajouter un écouteur d'événements pour le changement de sélection
-        selectElement.addEventListener("change", function() {
-            // Récupérer la valeur sélectionnée
-            selectedValue = selectElement.value;
-
-            // Faire quelque chose avec la valeur sélectionnée
-            listPanier("", "", selectedValue)
-            console.log("Valeur sélectionnée :", selectedValue);
-        });
-
         function afficherCommandeConfirm() {
             // Masquer la section recap
             document.querySelector('.recap').style.display = 'none';
@@ -266,6 +244,7 @@ if (isset($_SESSION['email'])) {
         const btnHeure = document.querySelectorAll('.btnHeure');
         const dateReservationInput = document.getElementById('dateReservation');
         const commentaire = document.getElementById('commentaire');
+        const idUsers = document.getElementById('userId');
 
         let total = 0;
         let nombreArticlesDansPanier = 0;
@@ -280,15 +259,12 @@ if (isset($_SESSION['email'])) {
             return dateObject.toLocaleDateString('fr-FR', options);
         }
 
-        function listPanier(heure, date, selectedValue) {
+        function listPanier(heure, date) {
             html = '';
             let prix = 0;
             let quantite = 0;
             total = 0;
             heure = heure || "12h00";
-            date = date || dateReservationInput.value;
-            selectedValue = selectedValue || 0;
-
 
             nombreArticlesDansPanier = panier.reduce((total, item) => total + parseInt(item.quantite), 0);
 
@@ -346,7 +322,7 @@ if (isset($_SESSION['email'])) {
 
             // Associer un événement de clic à chaque icône de suppression
             iconCells.forEach(icon => {
-                icon.addEventListener('click', function(event) {
+                icon.addEventListener('click', function (event) {
                     const id = event.target.dataset.id;
                     if (id) {
                         // Supprimer l'élément du panier en utilisant son ID
@@ -359,27 +335,27 @@ if (isset($_SESSION['email'])) {
                     }
                 });
             });
-            total = total - selectedValue;
+
             totalCommande.innerHTML = `${total}`;
             sessionStorage.setItem("panier", JSON.stringify(panier));
         }
 
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             // Initialise la date du jour lors du chargement de la page
             const today = new Date();
             const formattedToday = today.toISOString().split('T')[0]; // Format YYYY-MM-DD
             dateReservationInput.value = formattedToday;
 
             // Initialise la liste de panier avec la date actuelle
-            listPanier("12h00", formattedToday, selectedValue);
+            listPanier("12h00", formattedToday);
 
             // Associe l'événement de changement de date
-            dateReservationInput.addEventListener('change', function() {
+            dateReservationInput.addEventListener('change', function () {
                 const selectedDate = dateReservationInput.value;
                 // Vérifie si une heure est déjà sélectionnée, puis met à jour le panier
                 const selectedHeure = document.querySelector('.heureSelected');
                 const heure = selectedHeure ? selectedHeure.textContent : "12h00";
-                listPanier(heure, selectedDate, selectedValue);
+                listPanier(heure, selectedDate);
             });
 
             // Associe l'événement de clic sur une heure
@@ -396,14 +372,14 @@ if (isset($_SESSION['email'])) {
             // }
             if (btnHeure) {
                 btnHeure.forEach((elem) => {
-                    elem.addEventListener("click", function(event) {
+                    elem.addEventListener("click", function (event) {
                         const selectedHour = elem.querySelector('.selectedTime').textContent;
                         const hourArticlesCount = panier.filter(item => item.heure === selectedHour).reduce((total, item) => total + parseInt(item.quantite), 0);
 
                         if (hourArticlesCount >= 8) {
                             alert("Vous devez choisir une autre heure, celle-ci est indisponible.");
                         } else {
-                            listPanier(selectedHour, dateReservationInput.value, selectedValue);
+                            listPanier(selectedHour, dateReservationInput.value);
                             btnHeure.forEach((elem) => {
                                 elem.classList.remove('heureSelected');
                             });
@@ -432,65 +408,45 @@ if (isset($_SESSION['email'])) {
             return objet;
         }
 
-        commanderButton.addEventListener('click', function() {
-                    const panierNettoye = nettoyerObjet(panier);
-                    let dateRetrait = totalDate.textContent;
-                    let [jour, mois, annee] = dateRetrait.split('/');
-                    let dateObj = new Date(Date.UTC(annee, mois - 1, jour));
-                    let formattedDate = dateObj.toISOString().split('T')[0];
-                    let heureFormated = totalHeure.textContent.split('h');
-                    let heure = heureFormated[0] + ":" + heureFormated[1];
-                    let commentaires = commentaire.value;
-                    let date = formattedDate + " " + heure;
+        commanderButton.addEventListener('click', function () {
+            const panierNettoye = nettoyerObjet(panier);
+            let dateRetrait = totalDate.textContent;
+            let [jour, mois, annee] = dateRetrait.split('/');
+            let dateObj = new Date(Date.UTC(annee, mois - 1, jour));
+            let formattedDate = dateObj.toISOString().split('T')[0];
+            let heureFormated = totalHeure.textContent.split('h');
+            let heure = heureFormated[0] + ":" + heureFormated[1];
+            let commentaires = commentaire.value;
+            let date = formattedDate + " " + heure;
+            let idUser = idUsers.value;
 
-                    fetch('commandefinal.php', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify({
-                                panier: panierNettoye,
-                                date_retrait: date,
-                                prix: totalCommande.textContent,
-                                commentaire: commentaires,
-                            }),
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            console.log('Réponse du serveur :', data);
-                            if (data.success) {
-                                fetch('editPtsFid.php', {
-                                        method: 'POST',
-                                        headers: {
-                                            'Content-Type': 'application/json',
-                                        },
-                                        body: JSON.stringify({
-                                            pts_fidelite: selectedValue,
-                                        }),
-                                    })
-                                    .then(response => response.json())
-                                    .then(data => {
-                                        console.log('Réponse du serveur :', data);
-                                        if (data.success) {
-                                            console.log("FouéePoints mis à jour avec succès !");
-                                        } else {
-                                            alert(data.error);
-                                        }
-                                    })
-                                    .catch(error => {
-                                        console.error('Erreur lors de la requête :', error);
-                                    });
-
-                                // Rediriger vers la page de confirmation
-                                afficherCommandeConfirm();
-                            } else {
-                                alert(data.error);
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Erreur lors de la requête :', error);
-                        });
+            fetch('commandefinal.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    panier: panierNettoye,
+                    date_retrait: date,
+                    prix: totalCommande.textContent,
+                    commentaire: commentaires,
+                    id_user: idUser,
+                }, null),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Réponse du serveur :', data);
+                    if (data.success) {
+                        // Rediriger vers la page de confirmation
+                        afficherCommandeConfirm();
+                    } else {
+                        alert(data.error);
+                    }
+                })
+                .catch(error => {
+                    console.error('Erreur lors de la requête :', error);
                 });
+        });
     </script>
     <script src="./assets/js/functions.js"></script>
     <script src="https://kit.fontawesome.com/45762c6469.js" crossorigin="anonymous"></script>
