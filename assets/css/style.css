@@ -1064,6 +1064,7 @@ input[type="date"] {
 }
 .totalRet :first-child {
   margin-bottom: 2vh;
+  font-size: 1.5rem;
 }
 .h2Pannier {
   display: none;
