@@ -202,7 +202,7 @@ nav > ul > li {
     padding: 0;
     position: relative;
     z-index: 10;
-    gap:3rem;
+    gap: 3rem;
   }
   .nav_left {
     position: relative;
@@ -223,8 +223,7 @@ nav > ul > li {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap:3rem;
-
+    gap: 3rem;
   }
 }
 

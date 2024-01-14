@@ -95,6 +95,9 @@ if (isset($_POST['modifier_mot_de_passe']) && !empty($_POST['nouveau_mot_de_pass
 
     .form {
         margin-top: 5px;
+        border-radius: 0;
+        background-color: #eeeeee00;
+        ;
     }
 
     .connect {
