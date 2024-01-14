@@ -44,19 +44,20 @@ $infos = $dbh->query($infos);
 $infos = $infos->fetch();
 
 // Récupérer l'ID de l'utilisateur connecté
-$email = $_SESSION['email'];
-$photo = "SELECT * FROM users WHERE email = :email";
-$stmt = $dbh->prepare($photo);
-$stmt->execute([
-    'email' => $email,
-]);
-$photo = $stmt->fetch();
+if (isset($_SESSION['email'])) {
+    $email = $_SESSION['email'];
+    $photo = "SELECT * FROM users where email = :email";
+    $stmt = $dbh->prepare($photo);
+    $stmt->execute([
+        'email' => $email,
+    ]);
+    $photo = $stmt->fetch();
+}
 $userId = $photo['id_user'];
 // Récupérer les informations de l'utilisateur par son ID
 echo '<input type="hidden" id="userId" value="' . $userId . '">';
 ?>
-<!DOCTYPE html>
-<html lang="fr">
+>
 
 <head>
     <meta charset="UTF-8">
@@ -190,7 +191,19 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
                             </div>
                             <div class="totalRet">
                                 <h2>Total de la commande <span id="totalCommande"></span> €</h2>
-                                <h2>Date de retrait : <span id="totalHeure"></span> le <span id="totalDate"></span></h2>
+                                <div>
+                                    <h2>FouéePoints: <span id="totalPts">
+                                            <select id="ptsFideliteSelect" onchange="updateSelection(document.getElementById('totalCommande').textContent)">
+                                                <?php
+                                                for ($i = 0; $i <= $photo['pts_fidelite']; $i++) {
+                                                    echo "<option value=\"$i\">$i</option>";
+                                                }
+                                                ?>
+                                            </select></span>
+                                    </h2>
+                                </div>
+                                <p>Un fouéePoints = 1€ de réduction !</p>
+                                <p>Vous gagnez 1 FouéePoints tous les 10€ d'achats</p>
                             </div>
                         </div>
                         <div class="btn">
@@ -238,6 +251,61 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
     <script>
         const panier = JSON.parse(sessionStorage.getItem('panier')) || [];
         console.log(panier);
+    </script>
+    </main>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        function updateSelection(totalcommande) {
+            // Récupérer l'élément <select> par son ID
+            var selectElement = document.getElementById("ptsFideliteSelect");
+
+            // Définir des valeurs minimales et maximales
+            var minValue = 0;
+            var maxValue = totalcommande;
+
+            // Récupérer la valeur sélectionnée
+            var selectedValue = parseInt(selectElement.value);
+
+            // Vérifier si la valeur est en dehors des limites
+            if (selectedValue < minValue) {
+                alert("La valeur sélectionnée est inférieure à la valeur minimale autorisée.");
+                // Réinitialiser la sélection à la valeur minimale
+                selectElement.value = minValue;
+            } else if (selectedValue > maxValue) {
+                alert("Vous ne pouvez pas utiliser plus de FouéePoints que le montant de votre commande.");
+                // Réinitialiser la sélection à la valeur maximale
+                selectElement.value = maxValue;
+            } else {
+                // Envoyer la valeur sélectionnée à un script PHP côté serveur
+                $.ajax({
+                    type: "POST",
+                    url: ".php", // Remplacez script.php par le nom de votre script PHP
+                    data: {
+                        selectedValue: selectedValue
+                    },
+                    success: function(response) {
+                        console.log("Valeur envoyée avec succès à PHP !");
+                    },
+                    error: function(error) {
+                        console.error("Erreur lors de l'envoi de la valeur à PHP :", error);
+                    }
+                });
+            }
+        }
+
+
+        // Récupérer l'élément <select> par son ID
+        let selectElement = document.getElementById("ptsFideliteSelect");
+        let selectedValue = selectElement.value;
+        // Ajouter un écouteur d'événements pour le changement de sélection
+        selectElement.addEventListener("change", function() {
+            // Récupérer la valeur sélectionnée
+            selectedValue = selectElement.value;
+
+            // Faire quelque chose avec la valeur sélectionnée
+            listPanier("", "", selectedValue)
+            console.log("Valeur sélectionnée :", selectedValue);
+        });
 
         function afficherCommandeConfirm() {
             // Masquer la section recap
@@ -261,7 +329,6 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
         const btnHeure = document.querySelectorAll('.btnHeure');
         const dateReservationInput = document.getElementById('dateReservation');
         const commentaire = document.getElementById('commentaire');
-        const idUsers = document.getElementById('userId');
 
         let total = 0;
         let nombreArticlesDansPanier = 0;
@@ -276,12 +343,15 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
             return dateObject.toLocaleDateString('fr-FR', options);
         }
 
-        function listPanier(heure, date) {
+        function listPanier(heure, date, selectedValue) {
             html = '';
             let prix = 0;
             let quantite = 0;
             total = 0;
             heure = heure || "12h00";
+            date = date || dateReservationInput.value;
+            selectedValue = selectedValue || 0;
+
 
             nombreArticlesDansPanier = panier.reduce((total, item) => total + parseInt(item.quantite), 0);
 
@@ -352,7 +422,7 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
                     }
                 });
             });
-
+            total = total - selectedValue;
             totalCommande.innerHTML = `${total}`;
             sessionStorage.setItem("panier", JSON.stringify(panier));
         }
@@ -364,7 +434,7 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
             dateReservationInput.value = formattedToday;
 
             // Initialise la liste de panier avec la date actuelle
-            listPanier("12h00", formattedToday);
+            listPanier("12h00", formattedToday, selectedValue);
 
             // Associe l'événement de changement de date
             dateReservationInput.addEventListener('change', function() {
@@ -372,7 +442,7 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
                 // Vérifie si une heure est déjà sélectionnée, puis met à jour le panier
                 const selectedHeure = document.querySelector('.heureSelected');
                 const heure = selectedHeure ? selectedHeure.textContent : "12h00";
-                listPanier(heure, selectedDate);
+                listPanier(heure, selectedDate, selectedValue);
             });
 
             // Associe l'événement de clic sur une heure
@@ -396,7 +466,7 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
                         if (hourArticlesCount >= 8) {
                             alert("Vous devez choisir une autre heure, celle-ci est indisponible.");
                         } else {
-                            listPanier(selectedHour, dateReservationInput.value);
+                            listPanier(selectedHour, dateReservationInput.value, selectedValue);
                             btnHeure.forEach((elem) => {
                                 elem.classList.remove('heureSelected');
                             });
@@ -435,7 +505,6 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
             let heure = heureFormated[0] + ":" + heureFormated[1];
             let commentaires = commentaire.value;
             let date = formattedDate + " " + heure;
-            let idUser = idUsers.value;
 
             fetch('commandefinal.php', {
                     method: 'POST',
@@ -447,13 +516,34 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
                         date_retrait: date,
                         prix: totalCommande.textContent,
                         commentaire: commentaires,
-                        id_user: idUser,
-                    }, null),
+                    }),
                 })
                 .then(response => response.json())
                 .then(data => {
                     console.log('Réponse du serveur :', data);
                     if (data.success) {
+                        fetch('editPtsFid.php', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify({
+                                    pts_fidelite: selectedValue,
+                                }),
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                                console.log('Réponse du serveur :', data);
+                                if (data.success) {
+                                    console.log("FouéePoints mis à jour avec succès !");
+                                } else {
+                                    alert(data.error);
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Erreur lors de la requête :', error);
+                            });
+
                         // Rediriger vers la page de confirmation
                         afficherCommandeConfirm();
                     } else {
@@ -463,15 +553,6 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
                 .catch(error => {
                     console.error('Erreur lors de la requête :', error);
                 });
-        });
-        document.getElementById("menu-btn").addEventListener("click", function() {
-            this.classList.toggle("open");
-            var mainContent = document.querySelector("main");
-            if (this.classList.contains("open")) {
-                mainContent.style.display = "none";
-            } else {
-                mainContent.style.display = "block";
-            }
         });
     </script>
     <script src="./assets/js/functions.js"></script>
