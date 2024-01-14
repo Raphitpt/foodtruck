@@ -157,10 +157,7 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
                                 <!-- <input type="text" placeholder="Précisez quels couverts, serviettes, pailles et
                                     condiments vous souhaitez inclure dans votre commande, ainsi que toute instruction
                                     spécifique à communiquer au restaurant" size="100" id="commentaire"> -->
-                                <textarea name="texte" id="commentaire" cols="20" rows="10"
-                                    placeholder="Précisez quels couverts, serviettes et condiments vous souhaitez inclure dans votre commande."></textarea>
-                                <textarea name="texte" id="commentaire" cols="30" rows="10"
-                                    placeholder="Précisez quels couverts, serviettes et condiments vous souhaitez inclure dans votre commande."></textarea>
+                                <textarea name="texte" id="commentaire" cols="20" rows="10" placeholder="Précisez quels couverts, serviettes et condiments vous souhaitez inclure dans votre commande."></textarea>
                             </div>
                             <div class="totalRet">
                                 <h2>Total de la commande <span id="totalCommande"></span> €</h2>
@@ -229,6 +226,58 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
         const panier = JSON.parse(sessionStorage.getItem('panier')) || [];
         console.log(panier);
 
+        function updateSelection(totalcommande) {
+            // Récupérer l'élément <select> par son ID
+            var selectElement = document.getElementById("ptsFideliteSelect");
+
+            // Définir des valeurs minimales et maximales
+            var minValue = 0;
+            var maxValue = totalcommande;
+
+            // Récupérer la valeur sélectionnée
+            var selectedValue = parseInt(selectElement.value);
+
+            // Vérifier si la valeur est en dehors des limites
+            if (selectedValue < minValue) {
+                alert("La valeur sélectionnée est inférieure à la valeur minimale autorisée.");
+                // Réinitialiser la sélection à la valeur minimale
+                selectElement.value = minValue;
+            } else if (selectedValue > maxValue) {
+                alert("Vous ne pouvez pas utiliser plus de FouéePoints que le montant de votre commande.");
+                // Réinitialiser la sélection à la valeur maximale
+                selectElement.value = maxValue;
+            } else {
+                // Envoyer la valeur sélectionnée à un script PHP côté serveur
+                $.ajax({
+                    type: "POST",
+                    url: ".php", // Remplacez script.php par le nom de votre script PHP
+                    data: {
+                        selectedValue: selectedValue
+                    },
+                    success: function(response) {
+                        console.log("Valeur envoyée avec succès à PHP !");
+                    },
+                    error: function(error) {
+                        console.error("Erreur lors de l'envoi de la valeur à PHP :", error);
+                    }
+                });
+            }
+        }
+
+
+        // Récupérer l'élément <select> par son ID
+        let selectElement = document.getElementById("ptsFideliteSelect");
+        let selectedValue = selectElement.value;
+        // Ajouter un écouteur d'événements pour le changement de sélection
+        selectElement.addEventListener("change", function() {
+            // Récupérer la valeur sélectionnée
+            selectedValue = selectElement.value;
+
+            // Faire quelque chose avec la valeur sélectionnée
+            listPanier("", "", selectedValue)
+            console.log("Valeur sélectionnée :", selectedValue);
+        });
+
         function afficherCommandeConfirm() {
             // Masquer la section recap
             document.querySelector('.recap').style.display = 'none';
@@ -266,12 +315,14 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
             return dateObject.toLocaleDateString('fr-FR', options);
         }
 
-        function listPanier(heure, date) {
+        function listPanier(heure, date, selectedValue) {
             html = '';
             let prix = 0;
             let quantite = 0;
             total = 0;
             heure = heure || "12h00";
+            date = date || dateReservationInput.value;
+            selectedValue = selectedValue || 0;
 
             nombreArticlesDansPanier = panier.reduce((total, item) => total + parseInt(item.quantite), 0);
 
@@ -342,7 +393,7 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
                     }
                 });
             });
-
+            total = total - selectedValue;
             totalCommande.innerHTML = `${total}`;
             sessionStorage.setItem("panier", JSON.stringify(panier));
         }
@@ -365,18 +416,6 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
                 listPanier(heure, selectedDate);
             });
 
-            // Associe l'événement de clic sur une heure
-            // if (btnHeure) {
-            //     btnHeure.forEach((elem) => {
-            //         elem.addEventListener("click", function (event) {
-            //             listPanier(event.target.textContent, dateReservationInput.value);
-            //             btnHeure.forEach((elem) => {
-            //                 elem.classList.remove('heureSelected');
-            //             });
-            //             elem.classList.add('heureSelected');
-            //         });
-            //     });
-            // }
             if (btnHeure) {
                 btnHeure.forEach((elem) => {
                     elem.addEventListener("click", function(event) {
@@ -463,7 +502,28 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
                                 .then(data => {
                                     console.log('Réponse du serveur :', data);
                                     if (data.success) {
-                                        // Rediriger vers la page de confirmation
+                                        fetch('editPtsFid.php', {
+                                                method: 'POST',
+                                                headers: {
+                                                    'Content-Type': 'application/json',
+                                                },
+                                                body: JSON.stringify({
+                                                    pts_fidelite: selectedValue,
+                                                }),
+                                            })
+                                            .then(response => response.json())
+                                            .then(data => {
+                                                console.log('Réponse du serveur :', data);
+                                                if (data.success) {
+                                                    console.log("FouéePoints mis à jour avec succès !");
+                                                } else {
+                                                    alert(data.error);
+                                                }
+                                            })
+                                            .catch(error => {
+                                                console.error('Erreur lors de la requête :', error);
+                                            });
+
                                         alert(data.new_time);
                                         afficherCommandeConfirm();
                                     } else {
