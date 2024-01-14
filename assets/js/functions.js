@@ -4,9 +4,25 @@ function calculateTotal(panier) {
   panier.forEach(function (plat) {
     const prix = parseFloat(plat.prix);
     const quantite = parseFloat(plat.quantite);
-    total += prix * quantite;
+    const supplementCost = calculateSupplementCost(plat.supplements);
+    total += (prix + supplementCost) * quantite;
   });
   return total;
+}
+
+function calculateSupplementCost(supplements) {
+  let supplementCost = 0;
+  supplements.forEach(function (supplement) {
+    const supplementPrice = parseFloat(supplement.price);
+    supplementCost += supplementPrice;
+  });
+  return supplementCost;
+}
+
+function cleanURL(fullURL) {
+  const baseURL = window.location.origin;
+  const cleanedURL = fullURL.replace(baseURL, "");
+  return cleanedURL;
 }
 
 // Fonction pour générer le HTML du panier
@@ -14,7 +30,7 @@ function generatePanierHTML(panier) {
   let html = "<ul>";
 if(panier !== null){
   panier.forEach(function (plat) {
-    const prix = parseFloat(plat.prix);
+    let prix = parseFloat(plat.prix);
     const quantite = parseFloat(plat.quantite);
 
     // Template HTML pour chaque plat dans le panier
@@ -24,18 +40,24 @@ if(panier !== null){
           <i class="fa-solid fa-xmark"></i>
         </div>
         <div class="div_img_commande">
-          <img src="./assets/img/Fouées_angevines_avec_rillettes.JPG" class="img_commande">
+          <img src="${plat.img_url}" class="img_commande">
         </div>
         <div class="name_plat_commande">
           <p>${plat.nom}</p>
           `;
     if (plat.supplements.length > 0) {
-      html += `<p>Supplément(s) : ${plat.supplements[0].name}</p>`;
+      html += `<p>Supplément(s) : `;
+      plat.supplements.forEach(function (supplement) {
+        html += `${supplement.name} (${supplement.price}€) `;
+        prix += parseFloat(supplement.price);
+      });
+      html += `</p>`;
     } else {
       html += `<p>Supplément(s) : Aucun</p>`;
     }
+
     html += `
-          <p>${prix} €</p>
+          <p class="pri">${prix} €</p>
           <p class="id_plats" style="display:none;">${plat.id}</p>
         </div>
         <fieldset class="number_add">
@@ -114,13 +136,14 @@ document.addEventListener("DOMContentLoaded", function () {
       let id = idPlat[index].value;
       let platName = document.querySelectorAll(".card-title")[index].innerHTML;
       let platPrice = document.querySelectorAll(".card-price")[index].innerHTML;
+      let img_url = "." + cleanURL(document.querySelectorAll(".card_img")[index].src);
 
       // Récupérer les informations sur les suppléments
       const hasSupplements = checkSuppl.length > 0;
 
       // Définir les gestionnaires d'événements
       function handleCheckSupplYes() {
-        addToCart(id, platName, platPrice, true);
+        addToCart(id, platName, platPrice, img_url, true);
         divSuppl.style.display = "none";
         checkSuppl.forEach((checkSuppl) => {
           checkSuppl.checked = false;
@@ -129,7 +152,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       function handleNoThanks() {
-        addToCart(id, platName, platPrice, false);
+        addToCart(id, platName, platPrice, img_url, false);
         divSuppl.style.display = "none";
         checkSuppl.forEach((checkSuppl) => {
           checkSuppl.checked = false;
@@ -149,7 +172,7 @@ document.addEventListener("DOMContentLoaded", function () {
         divSuppl.style.display = "block";
       } else {
         // Aucun supplément disponible, ajouter directement au panier
-        addToCart(id, platName, platPrice, false);
+        addToCart(id, platName, platPrice, img_url, false);
       }
 
       updateInputNumbers();
@@ -157,7 +180,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  function addToCart(id, platName, platPrice, withSupplements) {
+  function addToCart(id, platName, platPrice, img_url, withSupplements) {
     // Récupérer ou initialiser le panier depuis le sessionStorage
     let panier = JSON.parse(sessionStorage.getItem("panier")) || [];
 
@@ -183,6 +206,7 @@ document.addEventListener("DOMContentLoaded", function () {
         nom: platName,
         prix: platPrice,
         supplements: selectedSupplements,
+        img_url: img_url,
         quantite: 1,
       });
     }
@@ -257,9 +281,9 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       }
     }
-    updateCartDisplay();
-
     sessionStorage.setItem("panier", JSON.stringify(panier));
+    updateCartDisplay();
+    
   });
 });
 

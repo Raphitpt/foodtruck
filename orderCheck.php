@@ -107,6 +107,11 @@ if (isset($_SESSION['email'])) {
                             echo "<td><ul>";
                             foreach ($details as $detail) {
                                 echo "<li>{$detail['nom']} x {$detail['quantite']}</li>";
+                                echo "<ul>";
+                                foreach ($detail['supplements'] as $supplements) {
+                                    echo "<li>{$supplements['name']}</li>";
+                                }
+                                echo "</ul>";
                             } ?>
                             <td>
                                 <?php echo $histo['nom'] . " " . $histo['prenom'] ?>
