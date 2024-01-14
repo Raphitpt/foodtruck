@@ -227,7 +227,7 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
                 <div class="row">
                     <div class="col-12">
                         <h1>Commande confirmée !</h1>
-                        <p>Votre commande a bien été prise en compte. Vous pouvez la retrouver dans votre historique de
+                        <p>Votre commande a bien été prise en compte. On vous a envoyé un mail de confirmation accompagné de votre facture. Vous pouvez la retrouver dans votre historique de
                             commande.</p>
                         <button onclick="location.href = './index.php'" class="btn btn-secondary btn_commander">Retour</button>
                     </div>
