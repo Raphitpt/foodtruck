@@ -57,7 +57,6 @@ $userId = $photo['id_user'];
 // Récupérer les informations de l'utilisateur par son ID
 echo '<input type="hidden" id="userId" value="' . $userId . '">';
 ?>
->
 
 <head>
     <meta charset="UTF-8">
