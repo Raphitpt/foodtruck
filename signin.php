@@ -3,41 +3,50 @@ session_start();
 require './bootstrap.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-  // Get the form data
-  $nom = $_POST['nom'];
-  $prenom = $_POST['prenom'];
-  $email = $_POST['email'];
-  $password = $_POST['password'];
-  $confirmPassword = $_POST['confirm_password'];
+    // Get the form data
+    $nom = $_POST['nom'];
+    $prenom = $_POST['prenom'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $confirmPassword = $_POST['confirm_password'];
 
-  // Validate the form data (you can add more validation rules here)
-  if (empty($nom) || empty($prenom) || empty($email) || empty($password) || empty($confirmPassword)) {
-    $error = 'Veuillez renseigner tous les champs';
-  } elseif ($password !== $confirmPassword) {
-    $error = 'Les mots de passe ne correspondent pas';
-  } else {
-    $password = password_hash($password, PASSWORD_DEFAULT);
-    $token = bin2hex(random_bytes(16));
-    // Insert form data in the database
-    $sql = "INSERT INTO users (nom, prenom, email, passwd, mailverif) VALUES (:nom, :prenom, :email, :passwd, :mailverif)";
-    $stmt = $dbh->prepare($sql);
-    $stmt->execute(['nom' => $nom, 'prenom' => $prenom, 'email' => $email, 'passwd' => $password, 'mailverif' => $token]);
-
-    if ($stmt->rowCount() == 1) {
-      $success = 'Vous êtes maintenant enregistré !';
-      sendConfirmationMail($email, $token);
-      $_SESSION['email'] = $email;
-      header('Location: verifMail.php');
+    // Validate the form data (you can add more validation rules here)
+    if (empty($nom) || empty($prenom) || empty($email) || empty($password) || empty($confirmPassword)) {
+        $error = 'Veuillez renseigner tous les champs';
+    } elseif ($password !== $confirmPassword) {
+        $error = 'Les mots de passe ne correspondent pas';
     } else {
-      $error = "Quelque chose s'est mal passé...";
+        // Check if the email is already in use
+        $existingUser = $dbh->prepare("SELECT * FROM users WHERE email = :email");
+        $existingUser->execute(['email' => $email]);
+
+        if ($existingUser->rowCount() > 0) {
+            $error = 'Cette adresse e-mail est déjà utilisée. Veuillez en choisir une autre.';
+        } else {
+            $password = password_hash($password, PASSWORD_DEFAULT);
+            $token = bin2hex(random_bytes(16));
+
+            // Insert form data in the database
+            $sql = "INSERT INTO users (nom, prenom, email, passwd, mailverif) VALUES (:nom, :prenom, :email, :passwd, :mailverif)";
+            $stmt = $dbh->prepare($sql);
+            $stmt->execute(['nom' => $nom, 'prenom' => $prenom, 'email' => $email, 'passwd' => $password, 'mailverif' => $token]);
+
+            if ($stmt->rowCount() == 1) {
+                $success = 'Vous êtes maintenant enregistré !';
+                sendConfirmationMail($email, $token);
+                $_SESSION['email'] = $email;
+                header('Location: verifMail.php');
+            } else {
+                $error = "Quelque chose s'est mal passé...";
+            }
+        }
     }
-  }
 }
+
 $infos = "SELECT * FROM settings";
 $infos = $dbh->query($infos);
 $infos = $infos->fetch();
 echo head('Inscription');
-
 ?>
 
 
