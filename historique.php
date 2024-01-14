@@ -71,8 +71,7 @@ if (isset($_SESSION['email'])) {
             <table class="table" id="table" data-toggle="table" data-show-columns="true" data-search="true" auto-refresh="true">
                 <thead>
                     <tr>
-                        <th scope="col" data-sortable="true" data-field="id">Commande n°</th>
-                        <th scope="col">Détail de la commande</th>
+                        <th scope="col" data-sortable="true" data-field="id">Détail de la commande</th>
                         <th scope="col">Nom/Prénom du client</th>
                         <th scope="col">Date de commande</th>
                         <th scope="col">Date de retrait</th>
@@ -87,7 +86,7 @@ if (isset($_SESSION['email'])) {
                             <?php $details = json_decode($histo['detail_commande'], true);
                             echo "<td><ul>";
                             foreach ($details as $detail) {
-                                echo "<li>{$detail['nom']} x {$detail['quantite']}</li>";
+                                echo "<li>" . $detail['nom'] . " x " . $detail['quantite'] . "</li>";
                             } ?>
                             <td><?php echo $histo['nom'] . " " . $histo['prenom'] ?></td>
                             <td><?php echo $histo['date_commande']; ?></td>
