@@ -74,7 +74,7 @@ echo head('Statistiques de vente par jour');
         </div>
         <section class="commandeTable">
             <h1>Statistiques de vente par jour</h1>
-            <table class="table" id="table" data-toggle="table" data-show-columns="true" data-search="true" auto-refresh="true">
+            <table class="table" id="table" data-toggle="table" data-show-columns="true" data-search="true" auto-refresh="true" data-pagination="true">
                 <thead>
                     <tr>
                         <th scope="col" data-sortable="true" data-field="id">Jour</th>

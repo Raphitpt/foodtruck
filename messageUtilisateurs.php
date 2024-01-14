@@ -72,7 +72,7 @@ if (isset($_SESSION['email'])) {
         </div>
         <section class="commandeTable">
             <h1>Messages des utilisateurs</h1>
-            <table class="table" id="table" data-toggle="table" data-show-columns="true" data-search="true" auto-refresh="true">
+            <table class="table" id="table" data-toggle="table" data-show-columns="true" data-search="true" auto-refresh="true" data-pagination="true">
                 <thead>
                     <tr>
                         <th scope="col" data-sortable="true" data-field="id">Message n°</th>
