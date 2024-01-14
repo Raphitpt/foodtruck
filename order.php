@@ -136,7 +136,7 @@ if (isset($_SESSION['email'])) {
                                 <h2>Total de la commande <span id="totalCommande"></span> €</h2>
                                 <div>
                                     <h2>FouéePoints: <span id="totalPts">
-                                            <select id="ptsFideliteSelect" onchange="updateSelection()">
+                                            <select id="ptsFideliteSelect" onchange="updateSelection(document.getElementById('totalCommande').textContent)">
                                                 <?php
                                                 for ($i = 0; $i <= $photo['pts_fidelite']; $i++) {
                                                     echo "<option value=\"$i\">$i</option>";
@@ -200,13 +200,13 @@ if (isset($_SESSION['email'])) {
         </script>
     </main>
     <script>
-        function updateSelection() {
+        function updateSelection(totalcommande) {
         // Récupérer l'élément <select> par son ID
         var selectElement = document.getElementById("ptsFideliteSelect");
 
         // Définir des valeurs minimales et maximales
         var minValue = 0;
-        var maxValue = //totalcommande;
+        var maxValue = totalcommande;
 
         // Récupérer la valeur sélectionnée
         var selectedValue = parseInt(selectElement.value);
