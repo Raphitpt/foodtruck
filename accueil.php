@@ -187,6 +187,7 @@ if (isset($_SESSION['email'])) {
             display: flex;
             flex-direction: column;
             margin-bottom: 3rem;
+            margin-top: 3rem;
         }
 
         .accueil div:nth-child(3) h2 {
