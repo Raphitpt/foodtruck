@@ -157,8 +157,8 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
                                 <!-- <input type="text" placeholder="Précisez quels couverts, serviettes, pailles et
                                     condiments vous souhaitez inclure dans votre commande, ainsi que toute instruction
                                     spécifique à communiquer au restaurant" size="100" id="commentaire"> -->
-                                <textarea name="texte" id="commentaire" cols="20" rows="10" placeholder="Précisez quels couverts, serviettes et condiments vous souhaitez inclure dans votre commande."></textarea>
-                                <textarea name="texte" id="commentaire" cols="30" rows="10" placeholder="Précisez quels couverts, serviettes et condiments vous souhaitez inclure dans votre commande."></textarea>
+                                <textarea name="texte" id="commentaire" cols="20" rows="10"
+                                    placeholder="Précisez quels couverts, serviettes et condiments vous souhaitez inclure dans votre commande."></textarea>
                             </div>
                             <div class="totalRet">
                                 <h2>Total de la commande <span id="totalCommande"></span> €</h2>
