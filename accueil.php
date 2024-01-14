@@ -134,8 +134,6 @@ if (isset($_SESSION['email'])) {
 
     }
 
-
-
     footer {
         height: 10vh;
         background-color: black;
