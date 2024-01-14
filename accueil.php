@@ -134,8 +134,6 @@ if (isset($_SESSION['email'])) {
 
     }
 
-
-
     footer {
         height: 10vh;
         background-color: black;
@@ -146,7 +144,7 @@ if (isset($_SESSION['email'])) {
         font-weight: bold;
     }
 
-    button:hover {
+    .accueil button:hover {
         color: white;
         background-color: #e56D00;
     }

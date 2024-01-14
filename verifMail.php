@@ -24,7 +24,6 @@ if (isset($_POST['submit'])) {
         $sql = "UPDATE users SET mailverif = :token WHERE id_user = :id_user";
         $stmt = $dbh->prepare($sql);
         $stmt->execute(['token' => $token, 'id_user' => $user['id_user']]);
-
         // on envoie le mail
         sendConfirmationMail($email, $token);
 
@@ -44,12 +43,13 @@ echo head('Accueil');
             <p>Si tu veux confirmer ton inscription, clique sur le lien qu'on t'a envoyé</p>
             <p>Si tu veux pas, clique sur le lien qu'on t'a envoyé</p>
             <form method="post">
-            <input type="submit" value="Renvoyer un mail">
-            </form> 
+                <input type="submit" value="Renvoyer un mail">
+            </form>
         </section>
-       
+
     </main>
-    
+
 
 </body>
+
 </html>

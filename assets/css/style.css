@@ -415,6 +415,15 @@ nav > ul > li > img {
   font-size: 14px;
   color: #777;
 }
+.noThanks,
+.addSupplYes {
+  padding: 10px;
+  border: 0px;
+  border-radius: 10px;
+  margin-top: 30px;
+  margin-right: 10px;
+  transform: translateX(100px);
+}
 
 .button_add {
   font-size: 1em;
