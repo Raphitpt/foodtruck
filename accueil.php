@@ -146,7 +146,7 @@ if (isset($_SESSION['email'])) {
         font-weight: bold;
     }
 
-    button:hover {
+    .accueil button:hover {
         color: white;
         background-color: #e56D00;
     }
