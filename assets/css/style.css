@@ -188,7 +188,7 @@ nav > ul > li {
 
 .menu li {
   text-align: center;
-  height: 20vh;
+  height: 33vh;
 }
 
 .menu a {
@@ -1188,5 +1188,18 @@ input[type="date"] {
     align-items: center;
     flex-direction: column;
     gap: 1rem;
+  }
+
+  .respContact{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .form{
+    width: 90vw;
+
   }
 }

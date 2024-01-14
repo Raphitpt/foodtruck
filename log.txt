@@ -1,1 +1,0 @@
-{"panier":[{"id":"6","nom":"FOUÉE ESCARGOTS","prix":"8€","composition":[],"quantite":1}],"date_retrait":"2024-01-14 12:00","prix":"8","commentaire":"","id_user":"5"}

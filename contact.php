@@ -115,15 +115,43 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <button onclick="location.href = 'profil.php'" class="image"><img
                             src="<?php echo $photo['photoprofil'] == NULL ? "./assets/img/grandprofilfb.jpg" : $photo['photoprofil']; ?>" /></button>
                 <?php } else { ?>
+<<<<<<< HEAD
+                    <li><button onclick="location.href = './login.php'" class="button_nav connect"><?= htmlspecialchars("Connexion") ?></button></li>
+                    <li><button onclick="location.href = './signin.php'" class="button_nav connect"><?= htmlspecialchars("Inscription") ?></button></li>
+=======
                     <li><button onclick="location.href = './login.php'" class="button_nav connect">
                             <?= htmlspecialchars("Se connecter") ?>
                         </button></li>
                     <li><button onclick="location.href = './signin.php'" class="button_nav connect">
                             <?= htmlspecialchars("S'inscrire") ?>
                         </button></li>
+>>>>>>> d93cdd06076d1c8d7c75374aa02302b7d2906172
                 <?php } ?>
             </ul>
         </nav>
+        <div class="menu-container">
+            <ul class="nav_left">
+                <li class="nav_title"><img src="<?= htmlspecialchars($infos['url_logo']) ?>" alt="logo fouee">
+                    <p><?= htmlspecialchars("Fouée't Moi") ?>
+                </li>
+            </ul>
+            <div class="menu-btn" id="menu-btn">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+
+            <nav class="menu">
+                <ul>
+                    <li><a href="#">Accueil</a></li>
+                    <li><a href="index.php">Commander</a></li>
+                    <li><a href="contact.php">Nous contacter</a></li>
+                    <?php if (isset($_SESSION['email']) && $_SESSION['email'] === 'admin@gmail.com') : ?>
+                        <li><button onclick="location.href = 'indexBO.php'" class="button_nav"><?= htmlspecialchars("Back Office") ?></button></li>
+                    <?php endif; ?>
+                </ul>
+            </nav>
+        </div>
     </header>
     <style>
         body {
@@ -199,8 +227,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             height: 2px;
             background-color: black;
         }
+
+        @media only screen and (max-width: 768px) {
+            .form{
+                width: 90vw;
+            }
+            .container{
+                margin-bottom: 0px;
+            }
+        }
     </style>
-    <main>
+    <main class="respContact">
         <section class="form">
             <div class="container">
                 <h2>Contactez-nous</h2>
