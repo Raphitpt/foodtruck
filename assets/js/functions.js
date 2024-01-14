@@ -1,4 +1,119 @@
+// Déclaration de panier dans la portée globale
+let panier = JSON.parse(sessionStorage.getItem("panier")) || [];
+let panierDiv = document.querySelector(".panier");  // Assurez-vous d'avoir un élément avec la classe "panier"
+// Fonction pour calculer le total
+function calculateTotal(panier) {
+  let total = 0;
+  panier.forEach(function (plat) {
+    const prix = parseFloat(plat.prix);
+    const quantite = parseFloat(plat.quantite);
+    total += prix * quantite;
+  });
+  return total;
+}
+
+// Fonction pour générer le HTML du panier
+function generatePanierHTML(panier) {
+  let html = "<ul>";
+  panier.forEach(function (plat) {
+    const prix = parseFloat(plat.prix);
+    const quantite = parseFloat(plat.quantite);
+
+    html += `<li class="list_commande">
+      <div class="supprCommande">
+        <i class="fa-solid fa-xmark"></i>
+      </div>
+      
+      <div class="div_img_commande">
+        <img src="./assets/img/Fouées_angevines_avec_rillettes.JPG" class="img_commande">
+      </div>
+      <div class="name_plat_commande">
+        <p>${plat.nom}</p>
+        <p>Supléments</p>
+        <p>${prix} €</p>
+        <p class="id_plats" style="display:none;">${plat.id}</p>
+      </div>
+      <fieldset class="number_add">
+        <button type="button" title="-" class="sub" control-id="ControlID-20">-</button>
+        <input type="number" name="quantity" pattern="[0-9]+" control-id="ControlID-21" min="1" value="${quantite}">
+        <button type="button" title="+" class="add" control-id="ControlID-22">+</button>
+      </fieldset>
+    </li>
+    <div class="line"></div>`;
+  });
+
+  html += "</ul>";
+  if (panier.length > 0) {
+    html += '<div class="bottom_panier">';
+    html += `<p>Total du panier : ${calculateTotal(panier)}€</p>`;
+    html += `<button onclick="location.href = './order.php'" class="button_command">Commander</button>`;
+    html += "</div>";
+  } else {
+    html += `<i class="fa-solid fa-cart-shopping"></i>`;
+  }
+  if (panier.length === 0) {
+    html = "";
+  }
+  return html;
+}
+
+// Fonction pour mettre à jour l'affichage du panier
+function updateCartDisplay() {
+  const panierTotal = calculateTotal(panier);
+  panierDiv.innerHTML = generatePanierHTML(panier);
+}
+// Fonction pour ajouter un plat au panier
+function addToCart(platId, withSupplements) {
+  let selectedSupplements = [];
+
+  if (withSupplements) {
+    const checkSupplElements = document.querySelectorAll(".checkSuppl:checked");
+    
+    checkSupplElements.forEach((checkSupplElement) => {
+      const supplementId = checkSupplElement.dataset.id;
+      const supplementName = checkSupplElement.dataset.name;
+      const supplementPrice = checkSupplElement.dataset.price;
+
+      selectedSupplements.push({
+        id: supplementId,
+        name: supplementName,
+        price: supplementPrice,
+      });
+    });
+  }
+
+  // Récupérer ou initialiser le panier depuis le sessionStorage
+  let panier = JSON.parse(sessionStorage.getItem("panier")) || [];
+
+  // Vérifier si le plat est déjà dans le panier
+  const existingItemIndex = panier.findIndex((item) => item.id === platId);
+
+  // Mettre à jour le plat dans le panier ou l'ajouter s'il n'existe pas
+  if (existingItemIndex !== -1) {
+    panier[existingItemIndex].quantite++;
+
+    // Créer une copie distincte des suppléments pour ce plat
+    if (withSupplements) {
+      panier[existingItemIndex].composition = [...selectedSupplements];
+    }
+  } else {
+    panier.push({
+      id: platId,
+      nom: platName,
+      prix: platPrice,
+      composition: withSupplements ? [...selectedSupplements] : [], // Copie distincte des suppléments
+      quantite: 1,
+    });
+  }
+
+  // Mettre à jour le sessionStorage avec le nouveau panier
+  sessionStorage.setItem("panier", JSON.stringify(panier));
+
+  // Mettre à jour l'affichage du panier
+  updateCartDisplay();
+}
 document.addEventListener("DOMContentLoaded", function () {
+  // Sélection des éléments du DOM
   const platName = document.querySelectorAll(".card-title");
   const platPrice = document.querySelectorAll(".card-price");
   const platComposition = document.querySelectorAll(".card-text");
@@ -11,6 +126,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const checkSuppl = document.querySelectorAll(".checkSuppl");
   let panierDiv = document.querySelector(".panier");
 
+  // Initialisation du panier avec une icône si vide
   if (panierDiv.innerHTML.trim() === "") {
     panierDiv.classList.add("icon-in-circle");
     let icon = document.createElement("i");
@@ -18,9 +134,7 @@ document.addEventListener("DOMContentLoaded", function () {
     panierDiv.appendChild(icon);
   }
 
-  // update js functions
-  let panier = JSON.parse(sessionStorage.getItem("panier")) || [];
-
+  // Fonction pour mettre à jour les quantités dans les inputs
   function updateInputNumbers() {
     panier.forEach(function (item) {
       const id = item.id;
@@ -31,6 +145,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
+  // Mise à jour des quantités
   updateInputNumbers();
 
   ajouterBoutons.forEach((ajouterBouton, index) => {
@@ -40,6 +155,7 @@ document.addEventListener("DOMContentLoaded", function () {
       let id = idPlat[index].value;
       let itemIndex = panier.findIndex((item) => item.id === id);
 
+      // Mettre à jour ou ajouter un nouvel élément au panier
       if (itemIndex !== -1) {
         panier[itemIndex].quantite = elementCounter;
       } else {
@@ -47,12 +163,29 @@ document.addEventListener("DOMContentLoaded", function () {
           id: id,
           nom: platName[index].innerHTML,
           prix: platPrice[index].innerHTML,
-          composition: platComposition[index].innerHTML,
+          composition: [],
           quantite: elementCounter,
         });
       }
 
-      panierDiv.innerHTML = generatePanierHTML(panier);
+      // Affichage des suppléments si disponibles
+      const hasSupplements = checkSuppl.length > 0;
+      if (hasSupplements) {
+        divSuppl.style.display = "block";
+        checkSupplYes.addEventListener("click", function () {
+          addToCart(id, true);
+          divSuppl.style.display = "none";
+        });
+
+        noThanks.addEventListener("click", function () {
+          addToCart(id, false);
+          divSuppl.style.display = "none";
+        });
+      } else {
+        // Aucun supplément disponible, ajouter directement au panier
+        addToCart(id, false);
+      }
+
       updateInputNumbers();
       updateCartDisplay();
 
@@ -60,64 +193,9 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  function calculateTotal(panier) {
-    let total = 0;
-    panier.forEach(function (plat) {
-      const prix = parseFloat(plat.prix);
-      const quantite = parseFloat(plat.quantite);
-      const articleTotal = prix * quantite;
-      total += articleTotal;
-    });
-    return total;
-  }
-
-  function generatePanierHTML(panier) {
-    let html = "<ul>";
-    panier.forEach(function (plat) {
-      const prix = parseFloat(plat.prix);
-      const quantite = parseFloat(plat.quantite);
-      const articleTotal = prix * quantite;
-
-      html += `<li class="list_commande">
-        <div class="supprCommande">
-          <i class="fa-solid fa-xmark"></i>
-        </div>
-        
-        <div class="div_img_commande">
-          <img src="./assets/img/Fouées_angevines_avec_rillettes.JPG" class="img_commande">
-        </div>
-        <div class="name_plat_commande">
-          <p>${plat.nom}</p>
-          <p>Supléments</p>
-          <p>${prix} €</p>
-          <p class="id_plats" style="display:none;">${plat.id}</p>
-        </div>
-        <fieldset class="number_add">
-          <button type="button" title="-" class="sub" control-id="ControlID-20">-</button>
-          <input type="number" name="quantity" pattern="[0-9]+" control-id="ControlID-21" min="1" value="${quantite}">
-          <button type="button" title="+" class="add" control-id="ControlID-22">+</button>
-        </fieldset>
-      </li>
-      <div class="line"></div>`;
-    });
-
-    html += "</ul>";
-    if (panier.length > 0) {
-      html += '<div class="bottom_panier">';
-      html += `<p>Total du panier : ${calculateTotal(panier)}€</p>`;
-      html += `<button onclick="location.href = './order.php'" class="button_command">Commander</button>`;
-      html += "</div>";
-    } else {
-      html += `<i class="fa-solid fa-cart-shopping"></i>`;
-    }
-    if (panier.length === 0) {
-      html = "";
-    }
-    return html;
-  }
-
   panierDiv.addEventListener("click", function (event) {
     if (event.target.classList.contains("fa-xmark")) {
+      // Suppression d'un élément du panier
       const listItem = event.target.closest(".list_commande");
       const id = listItem.querySelector(".id_plats").textContent;
 
@@ -129,6 +207,7 @@ document.addEventListener("DOMContentLoaded", function () {
       event.target.classList.contains("add") ||
       event.target.classList.contains("sub")
     ) {
+      // Modification de la quantité d'un élément du panier
       const listItem = event.target.closest(".list_commande");
       const id = listItem.querySelector(".id_plats").textContent;
       const itemIndex = panier.findIndex((item) => item.id === id);
@@ -142,9 +221,10 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     updateCartDisplay();
 
-    updateSessionStorage();
+    sessionStorage.setItem("panier", JSON.stringify(panier));
   });
 
+  // Mise à jour de l'affichage du panier
   function updateCartDisplay() {
     const panierTotal = calculateTotal(panier);
     panierDiv.innerHTML = generatePanierHTML(panier);
@@ -153,7 +233,8 @@ document.addEventListener("DOMContentLoaded", function () {
   updateCartDisplay();
 });
 
-//Toggle plats
+
+// Fonction pour afficher les plats en fonction de leur type (sucré, salé, supplément)
 function togglePlat(platType) {
   const sucreIcon = document.querySelector(".plats_title_sucrées");
   const saleIcon = document.querySelector(".plats_title_salées");
@@ -190,6 +271,7 @@ function togglePlat(platType) {
   }
 }
 
+// Gestion du changement de langue
 français = document.querySelector(".français");
 anglais = document.querySelector(".anglais");
 fra = document.querySelector(".fra");
@@ -208,6 +290,7 @@ anglais.addEventListener("click", function () {
   ang.style.display = "flex";
   anglais.style.display = "none";
 });
+
 français.addEventListener("click", function () {
   anglais.style.display = "block";
 
