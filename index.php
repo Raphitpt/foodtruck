@@ -303,6 +303,15 @@ echo head('Commander');
 
             });
         });
+        document.getElementById("menu-btn").addEventListener("click", function() {
+            this.classList.toggle("open");
+            var mainContent = document.querySelector("main");
+            if (this.classList.contains("open")) {
+                mainContent.style.display = "none";
+            } else {
+                mainContent.style.display = "block";
+            }
+        });
     </script>
 </body>
 
