@@ -1093,10 +1093,14 @@ input[type="date"] {
   display: none;
 }
 .infos_generale h1 {
+  margin-top: 10px;
   text-align: center;
 }
 .infos_generale p {
   text-align: center;
+}
+.infos_generale p:first-child {
+  padding-top: 10px;
 }
 
 @media only screen and (max-width: 768px) {
@@ -1116,6 +1120,12 @@ input[type="date"] {
     flex-direction: column;
     gap: 1rem;
     margin-top: 5vh;
+  }
+  .infos_generale h1 {
+    margin-top: 0px;
+  }
+  .infos_generale p:first-child {
+    padding-top: 0px;
   }
 
   .list_plat {
