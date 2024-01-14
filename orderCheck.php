@@ -86,11 +86,11 @@ if (isset($_SESSION['email'])) {
                         <th scope="col" data-sortable="true" data-field="id">Numéro de commande</th>
                         <th scope="col">Détail de la commande</th>
                         <th scope="col">Nom/Prénom du client</th>
-                        <th scope="col">Date de commande</th>
-                        <th scope="col">Date de retrait</th>
+                        <th scope="col" data-sortable="true">Date de commande</th>
+                        <th scope="col" data-sortable="true">Date de retrait</th>
                         <th scope="col">Statut</th>
                         <th scope="col">Commentaire</th>
-                        <th scope="col">Total</th>
+                        <th scope="col" data-sortable="true">Total</th>
                         <th scope="col">Valider</th>
                         <th scope="col">Supprimer</th>
 
