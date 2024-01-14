@@ -926,10 +926,13 @@ input[type="date"] {
 
 .btn-retour {
   position: absolute;
-  top: -15;
+  top: -30px;
   left: 0;
   margin: 1rem;
-  font-size: 2rem;
+  margin-left: 0;
+}
+.btn-retour i {
+  font-size: 1.5rem;
 }
 .fa-solid > fa-xmark {
   cursor: pointer;
@@ -1190,7 +1193,7 @@ input[type="date"] {
     gap: 1rem;
   }
 
-  .respContact{
+  .respContact {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1198,8 +1201,7 @@ input[type="date"] {
     gap: 1rem;
   }
 
-  .form{
+  .form {
     width: 90vw;
-
   }
 }
