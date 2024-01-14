@@ -942,6 +942,7 @@ input[type="date"] {
 }
 .commandeConfirm {
   display: none;
+  text-align: center;
 }
 .text-input {
   display: none;
@@ -1190,7 +1191,7 @@ input[type="date"] {
     gap: 1rem;
   }
 
-  .respContact{
+  .respContact {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1198,8 +1199,7 @@ input[type="date"] {
     gap: 1rem;
   }
 
-  .form{
+  .form {
     width: 90vw;
-
   }
 }
