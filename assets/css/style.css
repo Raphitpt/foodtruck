@@ -202,6 +202,7 @@ nav > ul > li {
     padding: 0;
     position: relative;
     z-index: 10;
+    gap:3rem;
   }
   .nav_left {
     position: relative;
@@ -216,6 +217,14 @@ nav > ul > li {
 
   header {
     background-color: white;
+    border-radius: 0px 0px 26px 26px;
+    box-shadow: 1px 3px 10.6px 0px rgba(0, 0, 0, 0.69);
+    height: 10vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap:3rem;
+
   }
 }
 
