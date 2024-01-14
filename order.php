@@ -201,14 +201,15 @@ if (isset($_SESSION['email'])) {
     </main>
     <script>
         // Récupérer l'élément <select> par son ID
-        var selectElement = document.getElementById("ptsFideliteSelect");
+        let selectElement = document.getElementById("ptsFideliteSelect");
 
         // Ajouter un écouteur d'événements pour le changement de sélection
         selectElement.addEventListener("change", function() {
             // Récupérer la valeur sélectionnée
-            var selectedValue = selectElement.value;
+            let selectedValue = selectElement.value;
 
             // Faire quelque chose avec la valeur sélectionnée
+            listPanier("", "", selectedValue)
             console.log("Valeur sélectionnée :", selectedValue);
         });
 
@@ -248,12 +249,15 @@ if (isset($_SESSION['email'])) {
             return dateObject.toLocaleDateString('fr-FR', options);
         }
 
-        function listPanier(heure, date) {
+        function listPanier(heure, date, selectedValue) {
             html = '';
             let prix = 0;
             let quantite = 0;
             total = 0;
             heure = heure || "12h00";
+            date = date || dateReservationInput.value;
+            selectedValue = selectedValue || 0;
+
 
             nombreArticlesDansPanier = panier.reduce((total, item) => total + parseInt(item.quantite), 0);
 
@@ -324,7 +328,7 @@ if (isset($_SESSION['email'])) {
                     }
                 });
             });
-
+            total = total - selectedValue;
             totalCommande.innerHTML = `${total}`;
             sessionStorage.setItem("panier", JSON.stringify(panier));
         }
