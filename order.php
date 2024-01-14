@@ -1,6 +1,34 @@
 <?php
 session_start();
 
+// // Vérifier si l'utilisateur est connecté
+// if (!isset($_SESSION['email'])) {
+//     // Rediriger vers login.php si l'utilisateur n'est pas connecté
+//     header('Location: login.php');
+//     exit();
+// }
+
+// require 'bootstrap.php';
+
+
+// echo head('Panier');
+// $infos = "SELECT * FROM settings";
+// $infos = $dbh->query($infos);
+// $infos = $infos->fetch();
+
+// $users = "SELECT * FROM users";
+// $users = $dbh->query($users);
+// $users = $users->fetchAll();
+
+// if (isset($_SESSION['email'])) {
+//     $email = $_SESSION['email'];
+//     $photo = "SELECT * FROM users where email = :email";
+//     $stmt = $dbh->prepare($photo);
+//     $stmt->execute([
+//         'email' => $email,
+//     ]);
+//     $photo = $stmt->fetch();
+// }
 // Vérifier si l'utilisateur est connecté
 if (!isset($_SESSION['email'])) {
     // Rediriger vers login.php si l'utilisateur n'est pas connecté
@@ -10,26 +38,33 @@ if (!isset($_SESSION['email'])) {
 
 require 'bootstrap.php';
 
-
 echo head('Panier');
 $infos = "SELECT * FROM settings";
 $infos = $dbh->query($infos);
 $infos = $infos->fetch();
 
-$users = "SELECT * FROM users";
-$users = $dbh->query($users);
-$users = $users->fetchAll();
+// Récupérer l'ID de l'utilisateur connecté
+$email = $_SESSION['email'];
+$userQuery = "SELECT * FROM users WHERE email = :email";
+$stmt = $dbh->prepare($userQuery);
+$stmt->execute([
+    'email' => $email,
+]);
+$user = $stmt->fetch();
 
-if (isset($_SESSION['email'])) {
-    $email = $_SESSION['email'];
-    $photo = "SELECT * FROM users where email = :email";
-    $stmt = $dbh->prepare($photo);
-    $stmt->execute([
-        'email' => $email,
-    ]);
-    $photo = $stmt->fetch();
-}
+// Récupérer l'ID de l'utilisateur connecté
+$user_id = $user['id_user'];
 
+// Récupérer les informations de l'utilisateur par son ID
+$query = "SELECT * FROM users WHERE id_user = :id_user";
+$users = $dbh->prepare($query);
+$users->bindParam(':id_user', $user_id, PDO::PARAM_INT);
+$users->execute();
+
+$userDetails = $users->fetch(PDO::FETCH_ASSOC);
+
+// Récupérer les informations de l'utilisateur par son ID
+echo '<input type="hidden" id="userId" value="' . $userDetails['id_user'] . '">';
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -130,7 +165,7 @@ if (isset($_SESSION['email'])) {
                                 <!-- <input type="text" placeholder="Précisez quels couverts, serviettes, pailles et
                                     condiments vous souhaitez inclure dans votre commande, ainsi que toute instruction
                                     spécifique à communiquer au restaurant" size="100" id="commentaire"> -->
-                                <textarea name="texte" id="commentaire" cols="20" rows="10"
+                                <textarea name="texte" id="commentaire" cols="30" rows="10"
                                     placeholder="Précisez quels couverts, serviettes et condiments vous souhaitez inclure dans votre commande."></textarea>
                             </div>
                             <div class="totalRet">
@@ -141,7 +176,7 @@ if (isset($_SESSION['email'])) {
                         <div class="btn">
                             <button onclick="location.href = './index.php'" class="btn btn-dark btn_continuer">Continuer
                                 mes achats</button>
-                            <button class="btn btn-light btn_commander">Confirmer</button>
+                            <button class="btn btn-success btn_commander">Commander</button>
                         </div>
                         <div class="monElement"></div>
                     </div>
@@ -209,6 +244,7 @@ if (isset($_SESSION['email'])) {
         const btnHeure = document.querySelectorAll('.btnHeure');
         const dateReservationInput = document.getElementById('dateReservation');
         const commentaire = document.getElementById('commentaire');
+        const idUsers = document.getElementById('userId');
 
         let total = 0;
         let nombreArticlesDansPanier = 0;
@@ -382,6 +418,7 @@ if (isset($_SESSION['email'])) {
             let heure = heureFormated[0] + ":" + heureFormated[1];
             let commentaires = commentaire.value;
             let date = formattedDate + " " + heure;
+            let idUser = idUsers.value;
 
             fetch('commandefinal.php', {
                 method: 'POST',
@@ -393,6 +430,7 @@ if (isset($_SESSION['email'])) {
                     date_retrait: date,
                     prix: totalCommande.textContent,
                     commentaire: commentaires,
+                    id_user: idUser,
                 }, null),
             })
                 .then(response => response.json())

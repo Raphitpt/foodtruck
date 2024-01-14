@@ -171,11 +171,12 @@ if (isset($_SESSION['email'])) {
         }
 
         .accueil button {
-            width: 20vw;
+            width: 40vw;
         }
 
         .accueil {
             height: auto;
+            margin: 30px auto;
         }
 
         .accueil h1 {
@@ -185,6 +186,7 @@ if (isset($_SESSION['email'])) {
         .accueil div:nth-child(3) {
             display: flex;
             flex-direction: column;
+            margin-bottom: 3rem;
         }
 
         .accueil div:nth-child(3) h2 {
@@ -206,6 +208,8 @@ if (isset($_SESSION['email'])) {
         .accueil div:nth-child(4) {
             display: flex;
             flex-direction: column;
+            margin-bottom: 3rem;
+
         }
 
         .accueil div:nth-child(4) h2 {
@@ -223,6 +227,16 @@ if (isset($_SESSION['email'])) {
             order: 3;
             width: 80vw;
         }
+
+        .choixlangue div {
+                right: 0.5rem;
+                width: auto;
+                top: -1.85rem;
+
+            }
+        .choixlangue img {
+                width: 10vw;
+            }
 
 
 
@@ -266,6 +280,7 @@ if (isset($_SESSION['email'])) {
             footer {
                 height: 5vh;
             }
+            
 
 
         }
@@ -338,9 +353,16 @@ if (isset($_SESSION['email'])) {
             <nav class="menu">
                 <ul>
                     <li><a href="#">Accueil</a></li>
-                    <li><a href="#">Services</a></li>
-                    <li><a href="#">Produits</a></li>
-                    <li><a href="#">Contact</a></li>
+                    <li><a href="index.php">Commander</a></li>
+                    <li><a href="contact.php">Nous contacter</a></li>
+                    <?php if (isset($_SESSION['email'])) { ?>
+                        <li><a href="profil.php">Mon compte</a></li>
+                    <?php } else { ?>
+                        <li><a href="login.php">Connexion/Inscription</a></li>
+                    <?php } ?>
+                    <?php if (isset($_SESSION['email']) && $_SESSION['email'] === 'admin@gmail.com') : ?>
+                        <li><button onclick="location.href = 'indexBO.php'" class="button_nav"><?= htmlspecialchars("Back Office") ?></button></li>
+                    <?php endif; ?>
                 </ul>
             </nav>
         </div>
@@ -402,7 +424,6 @@ if (isset($_SESSION['email'])) {
 
         </section>
     </main>
-    <footer></footer>
     <script src="./assets/js/functions.js">
     </script>
     <script>

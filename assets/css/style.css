@@ -188,7 +188,7 @@ nav > ul > li {
 
 .menu li {
   text-align: center;
-  height: 20vh;
+  height: 33vh;
 }
 
 .menu a {
@@ -381,9 +381,10 @@ nav > ul > li > img {
   transform: translateX(-50%);
 }
 .plats_card .card .card_img {
-  width: 80%;
-  height: 50%;
+  height: 45%;
   object-fit: cover;
+  border-radius: 10px;
+
   margin-bottom: 1rem;
 }
 .plats_card .card .card-text {
@@ -925,7 +926,7 @@ input[type="date"] {
 
 .btn-retour {
   position: absolute;
-  top: 0;
+  top: -15;
   left: 0;
   margin: 1rem;
   font-size: 2rem;
@@ -1060,13 +1061,13 @@ input[type="date"] {
   }
 
   .list_plat {
-    width: 80vw;
+    width: 90vw;
     height: auto;
     margin-right: auto;
     margin-left: auto;
   }
   .plats {
-    width: 80vw;
+    width: 90vw;
     height: 70vh;
     margin-right: auto;
     margin-left: auto;
@@ -1098,7 +1099,7 @@ input[type="date"] {
     max-width: 100%; /* Réglez la largeur maximale à 100% pour les écrans plus petits */
   }
   .panier {
-    width: 75vw;
+    width: 90vw;
     margin-right: auto;
     margin-left: auto;
     display: flex;
@@ -1114,7 +1115,7 @@ input[type="date"] {
     display: none;
   }
   .commande {
-    width: 80vw;
+    width: 90vw;
     max-height: 100%;
     margin-right: auto;
     margin-left: auto;
@@ -1187,5 +1188,18 @@ input[type="date"] {
     align-items: center;
     flex-direction: column;
     gap: 1rem;
+  }
+
+  .respContact{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .form{
+    width: 90vw;
+
   }
 }
