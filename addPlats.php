@@ -33,6 +33,10 @@ $id_plat = isset($_GET['id_plat']) ? htmlspecialchars($_GET['id_plat']) : '';
                 <input name="nom" id="nom" type="text" required>
               </div>
               <div>
+                <label for="Image du plat">Image du plat</label>
+                <input name="image" id="image" type="file">
+              </div>
+              <div>
                 <label for="composition">Composition du plat</label>
                 <input name="composition" id="composition">
               </div>
@@ -53,12 +57,12 @@ $id_plat = isset($_GET['id_plat']) ? htmlspecialchars($_GET['id_plat']) : '';
             <button type="submit" class="actions">Ajouter</button>
             <a href="indexBO.php" class="actions">Annuler</a>
         </form>
-  </main>
+    </main>
 
-  <?php
+    <?php
       } else {
         // En mode POST, il faut enregistrer les données du formulaire dans la base
-
+      
         // 1. Récupérer les données du formulaire
         $nom = htmlspecialchars(trim($_POST['nom']));
         $composition = htmlspecialchars(trim($_POST['composition']));
@@ -69,11 +73,13 @@ $id_plat = isset($_GET['id_plat']) ? htmlspecialchars($_GET['id_plat']) : '';
 
         // You need to validate data and add errors if necessary.
         // For example, you can check if the fields are not empty and if the price is a valid number.
-
+      
         if (count($errors) > 0) {
           foreach ($errors as $error) { ?>
-      <p><?php echo htmlspecialchars($error); ?></p>
-<?php }
+        <p>
+          <?php echo htmlspecialchars($error); ?>
+        </p>
+      <?php }
         } else {
           // 2. Construire le SQL de la requête préparée d'insertion
           $sql = 'INSERT INTO plats(`nom`, `composition`, `prix`,`id_categorie`)
@@ -92,7 +98,7 @@ $id_plat = isset($_GET['id_plat']) ? htmlspecialchars($_GET['id_plat']) : '';
           exit;
         }
       } ?>
-</section>
+  </section>
 
 
 
