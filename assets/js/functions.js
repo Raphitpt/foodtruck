@@ -12,7 +12,7 @@ function calculateTotal(panier) {
 // Fonction pour générer le HTML du panier
 function generatePanierHTML(panier) {
   let html = "<ul>";
-
+if(panier !== null){
   panier.forEach(function (plat) {
     const prix = parseFloat(plat.prix);
     const quantite = parseFloat(plat.quantite);
@@ -45,9 +45,14 @@ function generatePanierHTML(panier) {
         </fieldset>
       </li>
       <div class="line"></div>`;
-  });
-
+  });  
   html += "</ul>";
+} else {
+  html += `<p>Votre panier est vide</p>`;
+}
+
+
+
 
   // Ajout du total du panier et du bouton de commande
   if (panier.length > 0) {
