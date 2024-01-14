@@ -45,26 +45,15 @@ $infos = $infos->fetch();
 
 // Récupérer l'ID de l'utilisateur connecté
 $email = $_SESSION['email'];
-$userQuery = "SELECT * FROM users WHERE email = :email";
-$stmt = $dbh->prepare($userQuery);
+$photo = "SELECT * FROM users WHERE email = :email";
+$stmt = $dbh->prepare($photo);
 $stmt->execute([
     'email' => $email,
 ]);
-$user = $stmt->fetch();
-
-// Récupérer l'ID de l'utilisateur connecté
-$user_id = $user['id_user'];
-
+$photo = $stmt->fetch();
+$userId = $photo['id_user'];
 // Récupérer les informations de l'utilisateur par son ID
-$query = "SELECT * FROM users WHERE id_user = :id_user";
-$users = $dbh->prepare($query);
-$users->bindParam(':id_user', $user_id, PDO::PARAM_INT);
-$users->execute();
-
-$userDetails = $users->fetch(PDO::FETCH_ASSOC);
-
-// Récupérer les informations de l'utilisateur par son ID
-echo '<input type="hidden" id="userId" value="' . $userDetails['id_user'] . '">';
+echo '<input type="hidden" id="userId" value="' . $userId . '">';
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -215,13 +204,10 @@ echo '<input type="hidden" id="userId" value="' . $userDetails['id_user'] . '">'
                 </div>
             </div>
         </section>
-
-        <script>
-            const panier = JSON.parse(sessionStorage.getItem('panier')) || [];
-            console.log(panier);
-        </script>
     </main>
     <script>
+        const panier = JSON.parse(sessionStorage.getItem('panier')) || [];
+        console.log(panier);
         function afficherCommandeConfirm() {
             // Masquer la section recap
             document.querySelector('.recap').style.display = 'none';
