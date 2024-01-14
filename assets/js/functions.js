@@ -64,46 +64,56 @@ function updateCartDisplay() {
 }
 // Fonction pour ajouter un plat au panier
 function addToCart(platId, withSupplements) {
-  let selectedSupplements = [];
+  // Récupérer ou initialiser le panier depuis le sessionStorage
+  let panier = JSON.parse(sessionStorage.getItem("panier")) || [];
 
+  // Récupérer les informations du plat
+  const platName = document
+    .querySelector(`.id_plats[value='${platId}']`)
+    .closest(".card")
+    .querySelector(".card-title").innerText;
+  const platPrice = document
+    .querySelector(`.id_plats[value='${platId}']`)
+    .closest(".card")
+    .querySelector(".card-price").innerText;
+
+  // Créer une nouvelle instance d'objet pour le plat actuel
+  const nouveauPlat = {
+    id: platId,
+    nom: platName,
+    prix: platPrice,
+    composition: [],
+    quantite: 1,
+  };
+
+  // Ajouter les suppléments si nécessaire
   if (withSupplements) {
     const checkSupplElements = document.querySelectorAll(".checkSuppl:checked");
-    
     checkSupplElements.forEach((checkSupplElement) => {
       const supplementId = checkSupplElement.dataset.id;
       const supplementName = checkSupplElement.dataset.name;
       const supplementPrice = checkSupplElement.dataset.price;
-
-      selectedSupplements.push({
+      const supplement = {
         id: supplementId,
         name: supplementName,
         price: supplementPrice,
-      });
+      };
+      nouveauPlat.composition.push(supplement);
     });
   }
-
-  // Récupérer ou initialiser le panier depuis le sessionStorage
-  let panier = JSON.parse(sessionStorage.getItem("panier")) || [];
 
   // Vérifier si le plat est déjà dans le panier
   const existingItemIndex = panier.findIndex((item) => item.id === platId);
 
-  // Mettre à jour le plat dans le panier ou l'ajouter s'il n'existe pas
+  // Mettre à jour le panier
   if (existingItemIndex !== -1) {
     panier[existingItemIndex].quantite++;
-
-    // Créer une copie distincte des suppléments pour ce plat
     if (withSupplements) {
-      panier[existingItemIndex].composition = [...selectedSupplements];
+      // Ajouter les nouveaux suppléments sans écraser les existants
+      panier[existingItemIndex].composition.push(...nouveauPlat.supplements);
     }
   } else {
-    panier.push({
-      id: platId,
-      nom: platName,
-      prix: platPrice,
-      composition: withSupplements ? [...selectedSupplements] : [], // Copie distincte des suppléments
-      quantite: 1,
-    });
+    panier.push(nouveauPlat);
   }
 
   // Mettre à jour le sessionStorage avec le nouveau panier

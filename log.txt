@@ -1,1 +1,1 @@
-{"panier":[{"id":"6","nom":"FOUÉE ESCARGOTS","prix":"8€","composition":"Escargots-beurre-persil","quantite":2}],"date_retrait":"2024-01-13 12:00","prix":"16","commentaire":""}
+{"panier":[{"id":"7","nom":"FOUÉE FROMAGE de Chevre","prix":"3€","composition":[],"quantite":2},{"id":"5","nom":"FOUÉE RILLETTES-MOGETTES","prix":"6€","composition":[],"quantite":2},{"id":"31","nom":"FOUÉE SAUCISSE","prix":"5€","composition":[],"quantite":2}],"date_retrait":"2024-01-25 12:40","prix":"12","commentaire":""}

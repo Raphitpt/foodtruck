@@ -202,11 +202,11 @@ if (isset($_SESSION['email'])) {
     <script>
         // Récupérer l'élément <select> par son ID
         let selectElement = document.getElementById("ptsFideliteSelect");
-
+        let selectedValue = selectElement.value;
         // Ajouter un écouteur d'événements pour le changement de sélection
         selectElement.addEventListener("change", function() {
             // Récupérer la valeur sélectionnée
-            let selectedValue = selectElement.value;
+            selectedValue = selectElement.value;
 
             // Faire quelque chose avec la valeur sélectionnée
             listPanier("", "", selectedValue)
@@ -340,7 +340,7 @@ if (isset($_SESSION['email'])) {
             dateReservationInput.value = formattedToday;
 
             // Initialise la liste de panier avec la date actuelle
-            listPanier("12h00", formattedToday);
+            listPanier("12h00", formattedToday, selectedValue);
 
             // Associe l'événement de changement de date
             dateReservationInput.addEventListener('change', function() {
@@ -348,7 +348,7 @@ if (isset($_SESSION['email'])) {
                 // Vérifie si une heure est déjà sélectionnée, puis met à jour le panier
                 const selectedHeure = document.querySelector('.heureSelected');
                 const heure = selectedHeure ? selectedHeure.textContent : "12h00";
-                listPanier(heure, selectedDate);
+                listPanier(heure, selectedDate, selectedValue);
             });
 
             // Associe l'événement de clic sur une heure
@@ -372,7 +372,7 @@ if (isset($_SESSION['email'])) {
                         if (hourArticlesCount >= 8) {
                             alert("Vous devez choisir une autre heure, celle-ci est indisponible.");
                         } else {
-                            listPanier(selectedHour, dateReservationInput.value);
+                            listPanier(selectedHour, dateReservationInput.value, selectedValue);
                             btnHeure.forEach((elem) => {
                                 elem.classList.remove('heureSelected');
                             });
