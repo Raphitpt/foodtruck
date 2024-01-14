@@ -381,9 +381,12 @@ nav > ul > li > img {
   transform: translateX(-50%);
 }
 .plats_card .card .card_img {
-  width: 80%;
-  height: 50%;
+
+  height: 45%;
   object-fit: cover;
+  border-radius: 10px;
+  
+
   margin-bottom: 1rem;
 }
 .plats_card .card .card-text {
