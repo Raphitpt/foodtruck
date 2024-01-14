@@ -68,6 +68,7 @@ $id_plat = isset($_GET['id_plat']) ? htmlspecialchars($_GET['id_plat']) : '';
         $composition = htmlspecialchars(trim($_POST['composition']));
         $prix = htmlspecialchars(trim($_POST['prix']));
         $id_categorie = $_POST['choix'];
+        $image = $_POST['image'];
 
         $errors = [];
 
@@ -82,8 +83,8 @@ $id_plat = isset($_GET['id_plat']) ? htmlspecialchars($_GET['id_plat']) : '';
       <?php }
         } else {
           // 2. Construire le SQL de la requête préparée d'insertion
-          $sql = 'INSERT INTO plats(`nom`, `composition`, `prix`,`id_categorie`)
-                VALUES (:nom, :composition, :prix, :id_categorie)';
+          $sql = 'INSERT INTO plats(`nom`, `composition`, `prix`,`id_categorie`,`image_plat`,)
+                VALUES (:nom, :composition, :prix, :id_categorie, :image_plat)';
           // Exécuter
           $sth = $dbh->prepare($sql);
           $sth->execute([
@@ -91,6 +92,7 @@ $id_plat = isset($_GET['id_plat']) ? htmlspecialchars($_GET['id_plat']) : '';
             'composition' => $composition,
             'prix' => $prix,
             'id_categorie' => $id_categorie,
+            'image_plat' => $image,
           ]);
 
           // 3. Après l'insertion, retourner sur la page d'accueil avec un message
