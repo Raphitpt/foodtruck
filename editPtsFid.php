@@ -2,12 +2,12 @@
 
 require 'bootstrap.php';
 session_start();
-if (!isset($_SESSION['email']) || $_SESSION['email'] !== 'admin@gmail.com') {
-    // Rediriger vers une page d'erreur ou une autre page appropriée si l'utilisateur n'est pas autorisé.
-    echo "Vous n'êtes pas le bienvenu ici";
-    echo "<a href='index.php'>Retour</a>";
-    exit();
-}
+// if (!isset($_SESSION['email']) || $_SESSION['email'] !== 'admin@gmail.com') {
+//     // Rediriger vers une page d'erreur ou une autre page appropriée si l'utilisateur n'est pas autorisé.
+//     echo "Vous n'êtes pas le bienvenu ici";
+//     echo "<a href='index.php'>Retour</a>";
+//     exit();
+// }
 
 echo head('Mise à jour des points de fidélité');
 
@@ -32,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $pts_fidelite = $data['pts_fidelite'];
 
         // Faites quelque chose avec la valeur $pts_fidelite, par exemple, mettez à jour votre base de données
-        $sql = "UPDATE users SET pts_fidelite = :pts_fidelite WHERE email = :email";
+        $sql = "UPDATE users SET pts_fidelite = pts_fidelite - :pts_fidelite WHERE email = :email";
         $stmt = $dbh->prepare($sql);
         $stmt->execute([
             ':pts_fidelite' => $pts_fidelite,

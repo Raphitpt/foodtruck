@@ -71,7 +71,7 @@ if (isset($_SESSION['email'])) {
         </div>
         <section class="commandeTable">
             <h1>Historique de commande</h1>
-            <table class="table" id="table" data-toggle="table" data-show-columns="true" data-search="true" auto-refresh="true">
+            <table class="table" id="table" data-toggle="table" data-pagination="true" data-show-columns="true" data-search="true" auto-refresh="true">
                 <thead>
                     <tr>
                         <th scope="col" data-sortable="true" data-field="id">Commande n°</th>

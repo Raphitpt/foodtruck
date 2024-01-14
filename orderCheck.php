@@ -79,7 +79,7 @@ if (isset($_SESSION['email'])) {
 
         <section class="commandeTable">
             <h1>Commande en direct</h1>
-            <table class="table" id="table" data-toggle="table" data-show-columns="true" data-search="true"
+            <table class="table" id="table" data-toggle="table" data-pagination="true" data-show-columns="true" data-search="true"
                 auto-refresh="true">
                 <thead>
                     <tr>
