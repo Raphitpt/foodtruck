@@ -8,9 +8,14 @@ $_SESSION = array();
 // Si vous utilisez des cookies de session, détruisez-les également
 if (ini_get("session.use_cookies")) {
     $params = session_get_cookie_params();
-    setcookie(session_name(), '', time() - 42000,
-        $params["path"], $params["domain"],
-        $params["secure"], $params["httponly"]
+    setcookie(
+        session_name(),
+        '',
+        time() - 42000,
+        $params["path"],
+        $params["domain"],
+        $params["secure"],
+        $params["httponly"]
     );
 }
 
@@ -18,6 +23,5 @@ if (ini_get("session.use_cookies")) {
 session_destroy();
 
 // Redirigez l'utilisateur vers la page de connexion (ou une autre page de votre choix)
-header("Location: index.php");
+header("Location: accueil.php");
 exit();
-?>

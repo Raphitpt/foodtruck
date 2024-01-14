@@ -42,6 +42,7 @@ echo head('Commander');
 
 ?>
 
+
 <body>
     <header>
         <nav class="navfr">
@@ -101,9 +102,14 @@ echo head('Commander');
 
             <nav class="menu">
                 <ul>
-                    <li><a href="#">Accueil</a></li>
+                    <li><a href="accueil.php">Accueil</a></li>
                     <li><a href="index.php">Commander</a></li>
                     <li><a href="contact.php">Nous contacter</a></li>
+                    <?php if (isset($_SESSION['email'])) { ?>
+                        <li><a href="profil.php">Mon compte</a></li>
+                    <?php } else { ?>
+                        <li><a href="login.php">Connexion/Inscription</a></li>
+                    <?php } ?>
                     <?php if (isset($_SESSION['email']) && $_SESSION['email'] === 'admin@gmail.com') : ?>
                         <li><button onclick="location.href = 'indexBO.php'" class="button_nav"><?= htmlspecialchars("Back Office") ?></button></li>
                     <?php endif; ?>
@@ -121,13 +127,8 @@ echo head('Commander');
             <div class="line"></div>
         </div>
         <div>
-            <p>Les horaires d'ouverture aujourd'hui sont :</p>
-            <div>
-            </div>
-            <p><?php echo $horaires['HeureOuverture'] ?>h -
-                <?php echo $horaires['HeureFermeture'] ?>h
-            </p>
-
+            <p>Les horaires d'ouverture aujourd'hui sont : </p>
+            <p><?php echo $horaires['HeureOuverture'] ?>h - <?php echo $horaires['HeureFermeture'] ?></p>
         </div>
     </div>
 

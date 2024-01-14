@@ -134,8 +134,6 @@ if (isset($_SESSION['email'])) {
 
     }
 
-
-
     footer {
         height: 10vh;
         background-color: black;
@@ -146,7 +144,7 @@ if (isset($_SESSION['email'])) {
         font-weight: bold;
     }
 
-    button:hover {
+    .accueil button:hover {
         color: white;
         background-color: #e56D00;
     }
@@ -162,7 +160,7 @@ if (isset($_SESSION['email'])) {
     }
 
     .choixlangue img {
-        width: 4vw;
+        width: 2.5vw;
     }
 
     @media screen and (max-width:768px) {
@@ -300,21 +298,36 @@ if (isset($_SESSION['email'])) {
         <nav class="navfr">
             <ul class="nav_left">
                 <li class="nav_title"><img src="<?= htmlspecialchars($infos['url_logo']) ?>" alt="logo fouee">
-                    <p><?= $infos['nom_entreprise'] ?></p>
+                    <p>
+                        <?= $infos['nom_entreprise'] ?>
+                    </p>
                 </li>
-                <li><button onclick="location.href = './accueil.php'" class="button_nav"><?= htmlspecialchars("Accueil") ?></button></li>
-                <li><button onclick="location.href = './index.php'" class="button_nav"><?= htmlspecialchars("Commander") ?></button></li>
-                <li><button onclick="location.href = './contact.php'" class="button_nav"><?= htmlspecialchars("Nous contacter") ?></button></li>
-                <?php if (isset($_SESSION['email']) && $_SESSION['email'] === 'admin@gmail.com') : ?>
-                    <li><button onclick="location.href = 'indexBO.php'" class="button_nav"><?= htmlspecialchars("Back Office") ?></button></li>
+                <li><button onclick="location.href = './accueil.php'" class="button_nav">
+                        <?= htmlspecialchars("Accueil") ?>
+                    </button></li>
+                <li><button onclick="location.href = './index.php'" class="button_nav">
+                        <?= htmlspecialchars("Commander") ?>
+                    </button></li>
+                <li><button onclick="location.href = './contact.php'" class="button_nav">
+                        <?= htmlspecialchars("Nous contacter") ?>
+                    </button></li>
+                <?php if (isset($_SESSION['email']) && $_SESSION['email'] === 'admin@gmail.com'): ?>
+                    <li><button onclick="location.href = 'indexBO.php'" class="button_nav">
+                            <?= htmlspecialchars("Back Office") ?>
+                        </button></li>
                 <?php endif; ?>
             </ul>
             <ul class="nav_right">
                 <?php if (isset($_SESSION['email'])) { ?>
-                    <button onclick="location.href = 'profil.php'" class="image"><img src="<?php echo $photo['photoprofil'] == NULL ? "./assets/img/grandprofilfb.jpg" : $photo['photoprofil']; ?>" /></button>
+                    <button onclick="location.href = 'profil.php'" class="image"><img
+                            src="<?php echo $photo['photoprofil'] == NULL ? "./assets/img/grandprofilfb.jpg" : $photo['photoprofil']; ?>" /></button>
                 <?php } else { ?>
-                    <li><button onclick="location.href = './login.php'" class="button_nav connect"><?= htmlspecialchars("Se connecter") ?></button></li>
-                    <li><button onclick="location.href = './signin.php'" class="button_nav connect"><?= htmlspecialchars("S'inscrire") ?></button></li>
+                    <li><button onclick="location.href = './login.php'" class="button_nav connect">
+                            <?= htmlspecialchars("Se connecter") ?>
+                        </button></li>
+                    <li><button onclick="location.href = './signin.php'" class="button_nav connect">
+                            <?= htmlspecialchars("S'inscrire") ?>
+                        </button></li>
                 <?php } ?>
 
             </ul>
@@ -322,28 +335,44 @@ if (isset($_SESSION['email'])) {
         <nav style="display:none;" class="navang">
             <ul class="nav_left">
                 <li class="nav_title"><img src="<?= htmlspecialchars($infos['url_logo']) ?>" alt="logo fouee">
-                    <p><?= htmlspecialchars("Fouée't Moi") ?>
+                    <p>
+                        <?= htmlspecialchars("Fouée't Moi") ?>
                 </li>
-                <li><button onclick="location.href = '#'" class="button_nav"><?= htmlspecialchars("Home") ?></button></li>
-                <li><button onclick="location.href = './index.php'" class="button_nav"><?= htmlspecialchars("Order") ?></button></li>
-                <li><button onclick="location.href = ''" class="button_nav"><?= htmlspecialchars("Contact us") ?></button></li>
-                <?php if (isset($_SESSION['email']) && $_SESSION['email'] === 'admin@gmail.com') : ?>
-                    <li><button onclick="location.href = 'indexBO.php'" class="button_nav"><?= htmlspecialchars("Back Office") ?></button></li>
+                <li><button onclick="location.href = '#'" class="button_nav">
+                        <?= htmlspecialchars("Home") ?>
+                    </button></li>
+                <li><button onclick="location.href = './index.php'" class="button_nav">
+                        <?= htmlspecialchars("Order") ?>
+                    </button></li>
+                <li><button onclick="location.href = ''" class="button_nav">
+                        <?= htmlspecialchars("Contact us") ?>
+                    </button></li>
+                <?php if (isset($_SESSION['email']) && $_SESSION['email'] === 'admin@gmail.com'): ?>
+                    <li><button onclick="location.href = 'indexBO.php'" class="button_nav">
+                            <?= htmlspecialchars("Back Office") ?>
+                        </button></li>
                 <?php endif; ?>
             </ul>
             <ul class="nav_right">
                 <?php if (isset($_SESSION['email'])) { ?>
-                    <button onclick="location.href = 'profil.php'" class="image"><img src="<?php echo $photo['photoprofil'] == NULL ? "./assets/img/grandprofilfb.jpg" : $photo['photoprofil']; ?>" /></button>
+                    <button onclick="location.href = 'profil.php'" class="image"><img
+                            src="<?php echo $photo['photoprofil'] == NULL ? "./assets/img/grandprofilfb.jpg" : $photo['photoprofil']; ?>" /></button>
                 <?php } else { ?>
-                    <li><button onclick="location.href = './login.php'" class="button_nav connect"><?= htmlspecialchars("Connexion") ?></button></li>
-                    <li><button onclick="location.href = './signin.php'" class="button_nav connect"><?= htmlspecialchars("Inscription") ?></button></li>
+                    <li><button onclick="location.href = './login.php'" class="button_nav connect">
+                            <?= htmlspecialchars("Connexion") ?>
+                        </button></li>
+                    <li><button onclick="location.href = './signin.php'" class="button_nav connect">
+                            <?= htmlspecialchars("Inscription") ?>
+                        </button></li>
                 <?php } ?>
             </ul>
         </nav>
         <div class="menu-container">
+
             <ul class="nav_left">
                 <li class="nav_title"><img src="<?= htmlspecialchars($infos['url_logo']) ?>" alt="logo fouee">
-                    <p><?= htmlspecialchars("Fouée't Moi") ?>
+                    <p>
+                        <?= htmlspecialchars("Fouée't Moi") ?>
                 </li>
             </ul>
             <div class="menu-btn" id="menu-btn">
@@ -351,6 +380,7 @@ if (isset($_SESSION['email'])) {
                 <div class="bar"></div>
                 <div class="bar"></div>
             </div>
+
 
             <nav class="menu">
                 <ul>
@@ -362,8 +392,10 @@ if (isset($_SESSION['email'])) {
                     <?php } else { ?>
                         <li><a href="login.php">Connexion/Inscription</a></li>
                     <?php } ?>
-                    <?php if (isset($_SESSION['email']) && $_SESSION['email'] === 'admin@gmail.com') : ?>
-                        <li><button onclick="location.href = 'indexBO.php'" class="button_nav"><?= htmlspecialchars("Back Office") ?></button></li>
+                    <?php if (isset($_SESSION['email']) && $_SESSION['email'] === 'admin@gmail.com'): ?>
+                        <li><button onclick="location.href = 'indexBO.php'" class="button_nav">
+                                <?= htmlspecialchars("Back Office") ?>
+                            </button></li>
                     <?php endif; ?>
                 </ul>
             </nav>
@@ -374,23 +406,32 @@ if (isset($_SESSION['email'])) {
 
 
         <div class="choixlangue">
-            <div class="français" style="display:none;"><img src="./assets/img/FR_MARIN.png"></div>
-            <div class="anglais"><img src="./assets/img/Flag_of_Great_Britain_(1707–1800).svg.png"></div>
+            <div class="français" style="display:none;"><img src="./assets/img/fr.webp"></div>
+            <div class="anglais"><img src="./assets/img/Flag_of_Great_Britain__1707–1800_.svg.webp"></div>
         </div>
 
         <section class="accueil ang" style="display:none">
-            <h1><?= htmlspecialchars("Welcome on") ?> <?php echo htmlspecialchars($contenu['nom_entreprise'], ENT_QUOTES) ?></h1>
-            <button onclick="location.href = './index.php'"><?= htmlspecialchars("Order") ?></button>
+            <h1>
+                <?= htmlspecialchars("Welcome on") ?>
+                <?php echo htmlspecialchars($contenu['nom_entreprise'], ENT_QUOTES) ?>
+            </h1>
+            <button onclick="location.href = './index.php'">
+                <?= htmlspecialchars("Order") ?>
+            </button>
             <div>
                 <img src="<?php echo htmlspecialchars($contenu['url_img1']) ?>" />
 
-                <h2><?php echo htmlspecialchars($contenu['title1EN'], ENT_QUOTES) ?></h2>
+                <h2>
+                    <?php echo htmlspecialchars($contenu['title1EN'], ENT_QUOTES) ?>
+                </h2>
                 <p>
                     <?php echo htmlspecialchars($contenu['texte1EN'], ENT_QUOTES) ?>
                 </p>
             </div>
             <div>
-                <h2><?php echo htmlspecialchars($contenu['title2EN'], ENT_QUOTES) ?></h2>
+                <h2>
+                    <?php echo htmlspecialchars($contenu['title2EN'], ENT_QUOTES) ?>
+                </h2>
                 <img src="<?php echo htmlspecialchars($contenu['url_img2']) ?>" />
                 <p>
                     <?php echo htmlspecialchars($contenu['texte2EN'], ENT_QUOTES) ?>
@@ -401,12 +442,19 @@ if (isset($_SESSION['email'])) {
 
         </section>
         <section class="accueil fra">
-            <h1><?= htmlspecialchars("Bienvenue sur") ?> <?php echo htmlspecialchars($contenu['nom_entreprise'], ENT_QUOTES) ?></h1>
-            <button onclick="location.href = './index.php'"><?= htmlspecialchars("Commander") ?></button>
+            <h1>
+                <?= htmlspecialchars("Bienvenue sur") ?>
+                <?php echo htmlspecialchars($contenu['nom_entreprise'], ENT_QUOTES) ?>
+            </h1>
+            <button onclick="location.href = './index.php'">
+                <?= htmlspecialchars("Commander") ?>
+            </button>
             <div>
                 <img src="<?php echo htmlspecialchars($contenu['url_img1']) ?>" />
 
-                <h2><?php echo htmlspecialchars($contenu['title1'], ENT_QUOTES) ?></h2>
+                <h2>
+                    <?php echo htmlspecialchars($contenu['title1'], ENT_QUOTES) ?>
+                </h2>
                 <p>
                     <?php echo htmlspecialchars($contenu['texte1'], ENT_QUOTES) ?>
                 </p>
@@ -414,7 +462,9 @@ if (isset($_SESSION['email'])) {
             </div>
             <div>
 
-                <h2><?php echo htmlspecialchars($contenu['title2'], ENT_QUOTES) ?></h2>
+                <h2>
+                    <?php echo htmlspecialchars($contenu['title2'], ENT_QUOTES) ?>
+                </h2>
                 <img src="<?php echo htmlspecialchars($contenu['url_img2']) ?>" />
                 <p>
                     <?php echo htmlspecialchars($contenu['texte2'], ENT_QUOTES) ?>
@@ -429,7 +479,7 @@ if (isset($_SESSION['email'])) {
     <script src="./assets/js/functions.js">
     </script>
     <script>
-        document.getElementById("menu-btn").addEventListener("click", function() {
+        document.getElementById("menu-btn").addEventListener("click", function () {
             this.classList.toggle("open");
             var mainContent = document.querySelector("main");
             if (this.classList.contains("open")) {
