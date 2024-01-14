@@ -1072,6 +1072,12 @@ input[type="date"] {
 .h2Pannier {
   display: none;
 }
+.infos_generale h1 {
+  text-align: center;
+}
+.infos_generale p {
+  text-align: center;
+}
 
 @media only screen and (max-width: 768px) {
   .main_commande {
