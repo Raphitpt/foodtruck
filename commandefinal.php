@@ -6,7 +6,7 @@ $inputJSON = file_get_contents('php://input');
 
 $input = json_decode($inputJSON, true);
 
-print_r($input);
+// print_r($input);
 if ($input && isset($input['panier'])) {
     $panier = $input['panier'];
 

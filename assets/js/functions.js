@@ -48,10 +48,8 @@ if(panier !== null){
   });  
   html += "</ul>";
 } else {
-  html += `<p>Votre panier est vide</p>`;
+  html = `<p>Votre panier est vide</p>`;
 }
-
-
 
 
   // Ajout du total du panier et du bouton de commande
@@ -60,14 +58,6 @@ if(panier !== null){
     html += `<p>Total du panier : ${calculateTotal(panier)}€</p>`;
     html += `<button onclick="location.href = './order.php'" class="button_command">Commander</button>`;
     html += "</div>";
-  } else {
-    // Afficher une icône de panier vide si le panier est vide
-    html += `<i class="fa-solid fa-cart-shopping"></i>`;
-  }
-
-  // Effacer le contenu si le panier est vide
-  if (panier.length === 0) {
-    html = "";
   }
 
   return html;
