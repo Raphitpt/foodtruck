@@ -28,7 +28,7 @@ function generatePanierHTML(panier) {
         </div>
         <div class="name_plat_commande">
           <p>${plat.nom}</p>
-          <p>${plat.supplements.name}</p>
+          <p>Supplément(s) : ${plat.supplements[0].name}</p>
           <p>${prix} €</p>
           <p class="id_plats" style="display:none;">${plat.id}</p>
         </div>
