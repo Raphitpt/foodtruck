@@ -223,7 +223,7 @@ function sendFacture($data, $id_user, $commentaire, $date_retrait, $total, $id_c
     $invoice->setTo([
         $user['nom'] . " " . $user['prenom'],
         $user['email'],
-        'Nombre de points de fidélités : ' . $user['pts_fidelite']
+        'Nombre de points de fidélités restant: ' . $user['pts_fidelite']
     ]);
     foreach ($dataArray as $item) {
         $taxedPrice = is_numeric($item['prix']) ? $item['prix'] : 0;
