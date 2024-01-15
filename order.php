@@ -140,6 +140,7 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
 
                         <h1>Mon panier</h1>
                         <table class="table">
+                            <img src="./assets/img/FOUEE2.png" alt="">
                             <thead>
                                 <tr>
                                     <th scope="col">Nom</th>
