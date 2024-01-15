@@ -210,7 +210,6 @@ function sendFacture($data, $id_user, $commentaire, $date_retrait, $total, $id_c
     $invoice->setReference("INV-$id_commande");
     $invoice->setDate(date('d M Y', time()));
     $invoice->setTime(date('h:i:s ', time()));
-    $invoice->setDue(date('d M Y', strtotime('+3 months')));
     $address = explode(", ", $infos['adresse_entreprise']);
 
     $invoice->setFrom([
@@ -255,7 +254,7 @@ function sendFacture($data, $id_user, $commentaire, $date_retrait, $total, $id_c
     $total = $total - ($total * 0.055);
     $invoice->addTotal("Total", $total);
     $invoice->addTotal("TVA 5,5%", $percentage);
-    $invoice->addTotal("Montant total", $total + $percentage, true);
+    $invoice->addTotal("Total", $total + $percentage, true);
 
     $invoice->addBadge("Non Payé");
     $invoice->addTitle("Commentaire de commande");
