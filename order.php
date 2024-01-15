@@ -26,6 +26,12 @@ $photo = $stmt->fetch();
 $userId = $photo['id_user'];
 
 $currentDateTime = new DateTime();
+if ($currentDateTime->format('H') >= '15') {
+    $dateDay = date('Y-m-d', strtotime('+1 day'));
+} else {
+    $dateDay = date('Y-m-d');
+
+}
 $maxDate = date('Y-m-d', strtotime('+1 week'));
 // Récupérer les informations de l'utilisateur par son ID
 echo '<input type="hidden" id="userId" value="' . $userId . '">';
@@ -70,11 +76,6 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
         }
 
         .btnHeure.disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .selectedTime.disabled {
             opacity: 0.5;
             cursor: not-allowed;
         }
@@ -196,7 +197,7 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
                 <h2>Réserver son repas</h2>
 
                 <div class="quantite"></div>
-                <input type="date" id="dateReservation" min="<?= date('Y-m-d') ?>" max="<?= $maxDate ?>">
+                <input type="date" id="dateReservation" min="<?= $dateDay ?>" max="<?= $maxDate ?>" value="<?= $dateDay ?>">
                 </select>
                 <div class="radio-inputs" id="heureContainer">
                     <?php
@@ -374,22 +375,22 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
                 return supplementCost;
             }
 
-            // if (nombreArticlesDansPanier > 8) {
-            //     btnHeure.forEach((elem) => {
-            //         const selectedHour = elem.querySelector('.selectedTime').textContent;
-            //         const hourArticlesCount = panier.filter(item => item.heure === selectedHour).reduce((total, item) => total + parseInt(item.quantite), 0);
+            if (nombreArticlesDansPanier > 8) {
+                btnHeure.forEach((elem) => {
+                    const selectedHour = elem.querySelector('.selectedTime').textContent;
+                    const hourArticlesCount = panier.filter(item => item.heure === selectedHour).reduce((total, item) => total + parseInt(item.quantite), 0);
 
-            //         if (hourArticlesCount >= 8) {
-            //             elem.classList.add('disabled');
-            //         } else {
-            //             elem.classList.remove('disabled');
-            //         }
-            //     });
-            // } else {
-            //     btnHeure.forEach((elem) => {
-            //         elem.classList.remove('disabled');
-            //     });
-            // }
+                    if (hourArticlesCount >= 8) {
+                        elem.classList.add('disabled');
+                    } else {
+                        elem.classList.remove('disabled');
+                    }
+                });
+            } else {
+                btnHeure.forEach((elem) => {
+                    elem.classList.remove('disabled');
+                });
+            }
             const iconCell = document.querySelector('.icon-cell');
 
             // Vous pouvez ajouter des styles spécifiques à cette cellule
@@ -433,7 +434,6 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
             // Initialise la date du jour lors du chargement de la page
             const today = new Date();
             const formattedToday = today.toISOString().split('T')[0]; // Format YYYY-MM-DD
-            dateReservationInput.value = formattedToday;
 
             // Initialise la liste de panier avec la date actuelle
             listPanier("12h00", formattedToday, selectedValue);
@@ -601,34 +601,23 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
         }
 
         function updateDisabledHours() {
-            let selectedDate = document.getElementById('dateReservation').value;
-            let currentDateTime = new Date();
-            let heureContainer = document.getElementById('heureContainer');
+            var selectedDate = document.getElementById('dateReservation').value;
+            var currentDateTime = new Date();
 
-            // Supprimer toutes les heures actuelles
-            while (heureContainer.firstChild) {
-                heureContainer.removeChild(heureContainer.firstChild);
-            }
-
-            // Réafficher toutes les heures
-            for (let hour = 12; hour <= 15; hour++) {
-                for (let minute = (hour == 12 ? 10 : 0); minute <= (hour == 15 ? 0 : 55); minute += 10) {
-                    let time = ('0' + hour).slice(-2) + ':' + ('0' + minute).slice(-2);
-                    let div = document.createElement('div');
-                    div.className = 'btnHeure';
-                    div.innerHTML = '<p class="selectedTime">' + time + '</p>';
-                    heureContainer.appendChild(div);
-
-                    let minuteString = ('0' + minute).slice(-2);
-
-                    let dateTime = new Date(selectedDate + 'T' + hour + ':' + minuteString + ':00');
-
-                    if (dateTime < currentDateTime) {
-                        div.classList.add('disabled');
-                    }
+            document.querySelectorAll('.btnHeure').forEach(function(btnHeure) {
+                var hour = parseInt(btnHeure.querySelector('.selectedTime').innerText.substring(0, 2));
+                var minute = parseInt(btnHeure.querySelector('.selectedTime').innerText.substring(3, 5));
+                if(minute == 0){
+                    minute = "00";
                 }
-            }
+                var dateTime = new Date(selectedDate + 'T' + hour + ':' + minute + ':00');
 
+                if (dateTime < currentDateTime || (dateTime.getMinutes() === 0 && dateTime < currentDateTime)) {
+                    btnHeure.classList.add('disabled');
+                } else {
+                    btnHeure.classList.remove('disabled');
+                }
+            });
         }
 
         // Appeler la fonction au chargement de la page
