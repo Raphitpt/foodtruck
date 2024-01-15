@@ -43,7 +43,7 @@ if(panier !== null){
           <img src="${plat.img_url}" class="img_commande">
         </div>
         <div class="name_plat_commande">
-          <p>${plat.nom}</p>
+          <p><span>${plat.nom}</span></p>
           `;
     if (plat.supplements.length > 0) {
       html += `<p>Supplément(s) : `;

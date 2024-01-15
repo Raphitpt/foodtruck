@@ -9,7 +9,7 @@ if (isset($_POST['envoi'])) {
     if (!empty($_POST['email']) && !empty($_POST['mdp'])) {
         $email = htmlspecialchars($_POST['email']);
         $mdp = $_POST['mdp'];
-        $_SESSION['email'] = $email;
+
 
         $recupUser = 'SELECT * FROM users WHERE email = :email';
         $stmt = $dbh->prepare($recupUser);
@@ -19,6 +19,7 @@ if (isset($_POST['envoi'])) {
         $recupUser = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($recupUser && password_verify($mdp, $recupUser['passwd'])) {
+            $_SESSION['email'] = $email;
             if ($recupUser['email'] == 'admin@gmail.com') {
                 header('Location: indexBO.php');
                 exit();

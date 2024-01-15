@@ -366,6 +366,9 @@ nav > ul > li > img {
   display: flex;
   flex-direction: column;
 }
+.panier span {
+  font-weight: bold;
+}
 
 .plats_titles {
   display: flex;
