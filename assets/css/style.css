@@ -458,9 +458,10 @@ nav > ul > li > img {
   padding: 10px;
   border: 0px;
   border-radius: 10px;
-  margin-top: 30px;
-  margin-right: 10px;
-  transform: translateX(100px);
+  margin-left: auto;
+  margin-right: auto;
+
+
 }
 
 .button_add {
@@ -1324,6 +1325,9 @@ input[type="date"] {
     margin: 0;
     padding-left: 0;
   }
+  .buttonSuppl button {
+    font-size: 0.8rem;
+  }
 }
 @media screen and (max-width: 425px) {
   .menu-container img {
@@ -1346,6 +1350,30 @@ input[type="date"] {
 
 .supplements .line{
   margin: 1rem 0;
-
 }
+
+.supplements {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.suppl_sucre {
+  margin-bottom: 2rem;
+}
+
+
+.buttonSuppl{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  
+}
+
 

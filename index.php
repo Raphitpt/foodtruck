@@ -261,8 +261,9 @@ echo head('Commander');
                     <?php }
                     endforeach; ?>
                 </ul>
+                
             </div>
-            <div>
+            <div class="buttonSuppl">
                 <button class="noThanks">Non merci</button>
                 <button class="addSupplYes">Ajouter</button>
             </div>
