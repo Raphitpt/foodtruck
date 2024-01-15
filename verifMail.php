@@ -39,9 +39,9 @@ echo head('Accueil');
 <body>
     <main>
         <section class="form">
-            <h1>On t'a envoyé un mail mdr à <?= $_SESSION['email'] ?></h1>
-            <p>Si tu veux confirmer ton inscription, clique sur le lien qu'on t'a envoyé</p>
-            <p>Si tu veux pas, clique sur le lien qu'on t'a envoyé</p>
+            <h1>Un mail vient d'être envoyé à <?= $_SESSION['email'] ?></h1>
+            <p>Pour vérifier votre mail, cliquer sur le lien dans le mail que vous avez reçu.</p>
+            <p>En cas de problème, contactez-nous !</p>
             <form method="post">
                 <input type="submit" value="Renvoyer un mail">
             </form>

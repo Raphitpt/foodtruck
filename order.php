@@ -4,6 +4,7 @@ session_start();
 if (!isset($_SESSION['email'])) {
     // Rediriger vers login.php si l'utilisateur n'est pas connecté
     header('Location: login.php');
+    $_SESSION['order'] = "je viens de order";
     exit();
 }
 
