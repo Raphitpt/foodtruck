@@ -223,7 +223,7 @@ function sendFacture($data, $id_user, $commentaire, $date_retrait, $total, $id_c
     $invoice->setTo([
         $user['nom'] . " " . $user['prenom'],
         $user['email'],
-        'Nombre de points de fidélités : ' . $user['pts_fidelite']
+        'Nombre de points de fidélités restant: ' . $user['pts_fidelite']
     ]);
     foreach ($dataArray as $item) {
         $taxedPrice = is_numeric($item['prix']) ? $item['prix'] : 0;
@@ -265,10 +265,10 @@ function sendFacture($data, $id_user, $commentaire, $date_retrait, $total, $id_c
         $invoice->addParagraph("Aucun commentaire");
     }
 
-    $invoice->addTitle("Commentaire de livraison");
+    $invoice->addTitle("Commentaire de réception");
 
     $invoice->addParagraph("Vous pourrez venir chercher votre commande le " . date('d/m/Y H:i:s', strtotime($date_retrait)) . " au FoodTruck");
-    $invoice->addParagraph("Le paiement se fait à la livraison: CB, Carte Restaurant, Bulles et espèces exclusivement");
+    $invoice->addParagraph("Le paiement se fait à la réception: CB, Carte Restaurant, Bulles et Espèces exclusivement");
     $invoice->setFooternote("Le meilleur FoodTruck");
 
     $invoiceFileName = 'INV-' . $id_commande . '.pdf';
