@@ -333,7 +333,6 @@ function footer(): string
 <a href="./mentions-legales.php">Mentions Légales</a>
 <p>|</p>
 <a href="./conditiongeneralvente.php">Conditions Générales de Vente</a>
-<p>|</p>
 <div>
 </footer>
 HTML_FOOTER;
