@@ -231,10 +231,8 @@ nav > ul > li {
     position: relative;
     padding-top: 0.5rem;
     z-index: 6;
-    transform: translateX(-12vw);
   }
   .menu-btn {
-    transform: translateX(15vw);
     margin-right: 20px;
     position: relative;
     z-index: 10;
@@ -249,14 +247,6 @@ nav > ul > li {
     justify-content: center;
     align-items: center;
     gap: 3rem;
-  }
-}
-@media screen and (max-width: 425px) {
-  .nav_left {
-    transform: translateX(-8vw);
-  }
-  .menu-btn {
-    transform: translateX(8vw);
   }
 }
 
