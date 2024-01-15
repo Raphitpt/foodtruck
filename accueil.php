@@ -261,10 +261,6 @@ if (isset($_SESSION['email'])) {
                 width: 10vw;
             }
 
-            .accueil {
-                /* height: 110vh; */
-            }
-
             .accueil h1 {
                 padding-top: 2rem;
             }
