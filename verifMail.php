@@ -11,7 +11,7 @@ if (isset($_POST['submit'])) {
     $stmt = $dbh->prepare($sql);
     $stmt->execute(['email' => $email]);
     $user = $stmt->fetch();
-    
+
     $infos = "SELECT * FROM settings";
     $infos = $dbh->query($infos);
     $infos = $infos->fetch();
@@ -36,7 +36,7 @@ if (isset($_POST['submit'])) {
         $sql = "UPDATE users SET mailverif = :token WHERE id_user = :id_user";
         $stmt = $dbh->prepare($sql);
         $stmt->execute(['token' => $token, 'id_user' => $user['id_user']]);
-        
+
         // on envoie le mail
         send_activation_email($email, $token);
 
@@ -53,10 +53,14 @@ echo head('Accueil');
     <main>
         <section class="form">
             <?php if (isset($success)): ?>
-                <h1><?= $success ?></h1>
+                <h1>
+                    <?= $success ?>
+                </h1>
             <?php else: ?>
                 <?php if (isset($error)): ?>
-                    <h1><?= $error ?></h1>
+                    <h1>
+                        <?= $error ?>
+                    </h1>
                 <?php endif; ?>
                 <p>Pour vérifier votre mail, cliquer sur le lien dans le mail que vous avez reçu.</p>
                 <p>En cas de problème, contactez-nous !</p>
@@ -68,4 +72,5 @@ echo head('Accueil');
         </section>
     </main>
 </body>
+
 </html>
