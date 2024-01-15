@@ -43,8 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($stmt->rowCount() == 1) {
                 $success = 'Vous êtes maintenant enregistré !';
                 send_activation_email($email, $token);
-                $_SESSION['email'] = $email;
-                header('Location: verifMail.php');
+                header('Location: verifMail.php?email=' . $email . '');
             } else {
                 $error = "Quelque chose s'est mal passé...";
             }

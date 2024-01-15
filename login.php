@@ -18,18 +18,26 @@ if (isset($_POST['envoi'])) {
         ]);
         $recupUser = $stmt->fetch(PDO::FETCH_ASSOC);
 
+
+
         if ($recupUser && password_verify($mdp, $recupUser['passwd'])) {
-            $_SESSION['email'] = $email;
-            if ($recupUser['email'] == 'admin@gmail.com') {
-                header('Location: indexBO.php');
-                exit();
-            } else if ($_SESSION['order'] == "je viens de order") {
-                header('Location: order.php');
-                exit();
+            if($recupUser['active'] != 0){
+                $_SESSION['email'] = $email;
+                if ($recupUser['email'] == 'admin@gmail.com') {
+                    header('Location: indexBO.php');
+                    exit();
+                } else if ($_SESSION['order'] == "je viens de order") {
+                    header('Location: order.php');
+                    exit();
+                } else {
+                    header('Location: accueil.php');
+                    exit();
+                }
             } else {
-                header('Location: accueil.php');
-                exit();
+                // $errorMsg = "Veuillez activer votre compte";
+                header('Location: verifMail.php?email=' . $email);
             }
+           
         } else {
             // Mettre à jour le message d'erreur
             $errorMsg = "Votre mot de passe ou pseudo est incorrect";
