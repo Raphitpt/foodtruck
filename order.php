@@ -184,9 +184,9 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
                         </div>
                     </div>
                     <div class="btn">
-                        <button onclick="location.href = './index.php'" class="btn btn-dark btn_continuer">Continuer
+                        <button onclick="location.href = './index.php'" class="btn btn_continuer">Continuer
                             mes achats</button>
-                        <button class="btn btn-success btn_commander">Commander</button>
+                        <button class="btn btn_commander">Commander</button>
                     </div>
                     <div class="monElement"></div>
                 </div>
