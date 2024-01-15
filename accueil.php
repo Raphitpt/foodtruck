@@ -159,8 +159,9 @@ if (isset($_SESSION['email'])) {
     .choixlangue img {
         width: 2.5vw;
     }
-    h5{
-        padding-top:15px;
+
+    h5 {
+        padding-top: 15px;
     }
 
     @media screen and (max-width:768px) {
@@ -260,6 +261,10 @@ if (isset($_SESSION['email'])) {
                 padding-top: 4rem;
             }
 
+            .accueil h5 {
+                text-align: center;
+            }
+
             .accueil button {
                 width: 40vw;
             }
@@ -278,10 +283,15 @@ if (isset($_SESSION['email'])) {
                 width: auto;
             }
 
+            footer {
+                height: 5vh;
+            }
+        }
 
-
-
-
+        @media screen and (max-width:425px) and (max-height:667px) {
+            main {
+                margin-top: 7rem;
+            }
         }
 
 
@@ -412,7 +422,9 @@ if (isset($_SESSION['email'])) {
             <button onclick="location.href = './index.php'">
                 <?= htmlspecialchars("Order") ?>
             </button>
-            <h5><?php echo $infos['adresse_entreprise'] ?></h5>
+            <h5>
+                <?php echo $infos['adresse_entreprise'] ?>
+            </h5>
             <div>
                 <img src="<?php echo htmlspecialchars($contenu['url_img1']) ?>" />
 
@@ -444,8 +456,11 @@ if (isset($_SESSION['email'])) {
             <button onclick="location.href = './index.php'">
                 <?= htmlspecialchars("Commander") ?>
             </button>
-            <h5><?php echo $infos['adresse_entreprise'] ?></h5>
-            
+            <h5>
+                <i class="fa-solid fa-location-dot"></i>
+                <?php echo $infos['adresse_entreprise'] ?>
+            </h5>
+
             <div>
                 <img src="<?php echo htmlspecialchars($contenu['url_img1']) ?>" />
 
@@ -488,8 +503,9 @@ if (isset($_SESSION['email'])) {
     </script>
 
 </body>
+
+
+</html>
 <?php
 echo footer();
 ?>
-
-</html>
