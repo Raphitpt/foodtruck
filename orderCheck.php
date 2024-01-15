@@ -79,18 +79,18 @@ if (isset($_SESSION['email'])) {
 
         <section class="commandeTable">
             <h1>Commande en direct</h1>
-            <table class="table" id="table" data-toggle="table" data-show-columns="true" data-search="true"
+            <table class="table" id="table" data-toggle="table" data-pagination="true" data-show-columns="true" data-search="true"
                 auto-refresh="true">
                 <thead>
                     <tr>
                         <th scope="col" data-sortable="true" data-field="id">Numéro de commande</th>
                         <th scope="col">Détail de la commande</th>
                         <th scope="col">Nom/Prénom du client</th>
-                        <th scope="col">Date de commande</th>
-                        <th scope="col">Date de retrait</th>
+                        <th scope="col" data-sortable="true">Date de commande</th>
+                        <th scope="col" data-sortable="true">Date de retrait</th>
                         <th scope="col">Statut</th>
                         <th scope="col">Commentaire</th>
-                        <th scope="col">Total</th>
+                        <th scope="col" data-sortable="true">Total</th>
                         <th scope="col">Valider</th>
                         <th scope="col">Supprimer</th>
 
@@ -107,6 +107,11 @@ if (isset($_SESSION['email'])) {
                             echo "<td><ul>";
                             foreach ($details as $detail) {
                                 echo "<li>{$detail['nom']} x {$detail['quantite']}</li>";
+                                echo "<ul>";
+                                foreach ($detail['supplements'] as $supplements) {
+                                    echo "<li>{$supplements['name']}</li>";
+                                }
+                                echo "</ul>";
                             } ?>
                             <td>
                                 <?php echo $histo['nom'] . " " . $histo['prenom'] ?>

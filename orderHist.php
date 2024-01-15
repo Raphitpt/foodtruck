@@ -71,17 +71,17 @@ if (isset($_SESSION['email'])) {
         </div>
         <section class="commandeTable">
             <h1>Historique de commande</h1>
-            <table class="table" id="table" data-toggle="table" data-show-columns="true" data-search="true" auto-refresh="true">
+            <table class="table" id="table" data-toggle="table" data-pagination="true" data-show-columns="true" data-search="true" auto-refresh="true">
                 <thead>
                     <tr>
                         <th scope="col" data-sortable="true" data-field="id">Commande n°</th>
                         <th scope="col">Détail de la commande</th>
                         <th scope="col">Nom/Prénom du client</th>
-                        <th scope="col">Date de commande</th>
-                        <th scope="col">Date de retrait</th>
+                        <th scope="col" data-sortable="true">Date de commande</th>
+                        <th scope="col" data-sortable="true">Date de retrait</th>
                         <th scope="col">Statut</th>
                         <th scope="col">Commentaire</th>
-                        <th scope="col">Total</th>
+                        <th scope="col" data-sortable="true">Total</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -92,6 +92,11 @@ if (isset($_SESSION['email'])) {
                             echo "<td><ul>";
                             foreach ($details as $detail) {
                                 echo "<li>{$detail['nom']} x {$detail['quantite']}</li>";
+                                echo "<ul>";
+                                foreach ($detail['supplements'] as $supplements) {
+                                    echo "<li>{$supplements['name']}</li>";
+                                }
+                                echo "</ul>";
                             } ?>
                             <td><?php echo $histo['nom'] . " " . $histo['prenom'] ?></td>
                             <td><?php echo $histo['date_commande']; ?></td>

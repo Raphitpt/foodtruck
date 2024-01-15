@@ -22,6 +22,9 @@ if (isset($_POST['envoi'])) {
             if ($recupUser['email'] == 'admin@gmail.com') {
                 header('Location: indexBO.php');
                 exit();
+            } else if ($_SESSION['order'] == "je viens de order") {
+                header('Location: order.php');
+                exit();
             } else {
                 header('Location: accueil.php');
                 exit();

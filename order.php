@@ -4,6 +4,7 @@ session_start();
 if (!isset($_SESSION['email'])) {
     // Rediriger vers login.php si l'utilisateur n'est pas connecté
     header('Location: login.php');
+    $_SESSION['order'] = "je viens de order";
     exit();
 }
 
@@ -23,6 +24,9 @@ $stmt->execute([
 ]);
 $photo = $stmt->fetch();
 $userId = $photo['id_user'];
+
+$currentDateTime = new DateTime();
+$maxDate = date('Y-m-d', strtotime('+1 week'));
 // Récupérer les informations de l'utilisateur par son ID
 echo '<input type="hidden" id="userId" value="' . $userId . '">';
 ?>
@@ -136,6 +140,7 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
 
                         <h1>Mon panier</h1>
                         <table class="table">
+                            <img src="./assets/img/FOUEE2.png" alt="">
                             <thead>
                                 <tr>
                                     <th scope="col">Nom</th>
@@ -180,9 +185,9 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
                         </div>
                     </div>
                     <div class="btn">
-                        <button onclick="location.href = './index.php'" class="btn btn-dark btn_continuer">Continuer
+                        <button onclick="location.href = './index.php'" class="btn btn_continuer">Continuer
                             mes achats</button>
-                        <button class="btn btn-success btn_commander">Commander</button>
+                        <button class="btn btn_commander">Commander</button>
                     </div>
                     <div class="monElement"></div>
                 </div>
@@ -192,7 +197,7 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
                 <h2>Réserver son repas</h2>
 
                 <div class="quantite"></div>
-                <input type="date" id="dateReservation">
+                <input type="date" id="dateReservation" min="<?= date('Y-m-d') ?>" max="<?= $maxDate ?>">
                 </select>
                 <div class="radio-inputs">
                     <?php
@@ -328,21 +333,48 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
 
             panier.forEach(element => {
                 html += '<tr>';
-                html += `<th scope="row">${element.nom}</th>`;
+                html += `<td scope="row"><span class="titlePlatsRecap">${element.nom}</span>`;
+
+                if (element.supplements !== null && element.supplements.length > 0) {
+                    html += `<ul class="listRecapOrder">`;
+                    html += "<p>Supplément(s) : </p>";
+                    element.supplements.forEach(suppl => {
+                        html += `<li>${suppl.name} (+${suppl.price} €)</li>`;
+                    });
+                    html += `</ul>`;
+                }
+
+                html += `</td>`;
                 html += `<td class="monElement" id="${element.id}">${element.prix}</td>`;
                 html += `<td class="monElement" id="${element.id}">${element.quantite}</td>`;
-                prix = parseFloat(element.prix);
-                quantite = parseFloat(element.quantite);
-                const articleTotal = prix * quantite;
+
+                const prix = parseFloat(element.prix);
+                const quantite = parseFloat(element.quantite);
+
+                // Ajouter le coût des suppléments
+                const supplementCost = calculateSupplementCost(element.supplements);
+                const articleTotal = (prix + supplementCost) * quantite;
+
                 html += `<td class="monElement" id="${element.id}">${articleTotal} €</td>`;
                 html += `<td class="icon-cell"><i class="fa-solid fa-xmark icon-xmark" data-id="${element.id}"></i></td>`;
+
                 if (element.suplement != null) {
                     html += `<td>${element.suplement.nom}</td>`;
                 }
+
                 html += '</tr>';
                 total += articleTotal;
-
             });
+
+            function calculateSupplementCost(supplements) {
+                let supplementCost = 0;
+                supplements.forEach(function(supplement) {
+                    const supplementPrice = parseFloat(supplement.price);
+                    supplementCost += supplementPrice;
+                });
+                return supplementCost;
+            }
+
             if (nombreArticlesDansPanier > 8) {
                 btnHeure.forEach((elem) => {
                     const selectedHour = elem.querySelector('.selectedTime').textContent;
@@ -388,7 +420,7 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
                         if (itemIndex !== -1) {
                             panier.splice(itemIndex, 1);
                             // Mettre à jour l'affichage du panier après la suppression
-                            listPanier(heure, date);
+                            listPanier(heure, date, selectedValue);
                         }
                     }
                 });
@@ -405,7 +437,7 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
             dateReservationInput.value = formattedToday;
 
             // Initialise la liste de panier avec la date actuelle
-            listPanier("12h00", formattedToday);
+            listPanier("12h00", formattedToday, selectedValue);
 
             // Associe l'événement de changement de date
             dateReservationInput.addEventListener('change', function() {
@@ -413,7 +445,7 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
                 // Vérifie si une heure est déjà sélectionnée, puis met à jour le panier
                 const selectedHeure = document.querySelector('.heureSelected');
                 const heure = selectedHeure ? selectedHeure.textContent : "12h00";
-                listPanier(heure, selectedDate);
+                listPanier(heure, selectedDate, selectedValue);
             });
 
             if (btnHeure) {
@@ -425,7 +457,7 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
                         if (hourArticlesCount >= 8) {
                             alert("Vous devez choisir une autre heure, celle-ci est indisponible.");
                         } else {
-                            listPanier(selectedHour, dateReservationInput.value);
+                            listPanier(selectedHour, dateReservationInput.value, selectedValue);
                             btnHeure.forEach((elem) => {
                                 elem.classList.remove('heureSelected');
                             });
@@ -568,6 +600,23 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
                 viderPanier();
             });
         }
+        document.getElementById('dateReservation').addEventListener('change', function() {
+            let selectedDate = this.value;
+            let currentDateTime = new Date();
+            console.log(selectedDate);
+            document.querySelectorAll('.btnHeure').forEach(function(btnHeure) {
+                let hour = parseInt(btnHeure.querySelector('.selectedTime').innerText.substring(0, 2));
+                let minute = parseInt(btnHeure.querySelector('.selectedTime').innerText.substring(3, 5));
+
+                let dateTime = new Date(selectedDate + 'T' + hour + ':' + minute + ':00');
+                console.log(dateTime);
+                if (dateTime < currentDateTime) {
+                    btnHeure.classList.add('disabled');
+                } else {
+                    btnHeure.classList.remove('disabled');
+                }
+            });
+        });
     </script>
     <script src="./assets/js/functions.js"></script>
     <script src="https://kit.fontawesome.com/45762c6469.js" crossorigin="anonymous"></script>

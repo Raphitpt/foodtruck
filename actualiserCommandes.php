@@ -21,6 +21,11 @@ foreach ($hist as $histo) {
     echo "<td><ul>";
     foreach ($details as $detail) {
         echo "<li>{$detail['nom']} x {$detail['quantite']}</li>";
+        echo "<ul>";
+        foreach ($detail['supplements'] as $supplements) {
+            echo "<li>{$supplements['name']}</li>";
+        }
+        echo "</ul>";
     }
     echo "</ul></td>";
     echo "<td>{$histo['nom']} {$histo['prenom']}</td>";

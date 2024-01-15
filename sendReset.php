@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['email'])) {
 
 
         $subject = "Votre mot passe a été réinitialisé";
-        $message = "http://localhost:8080/resetpass.php?email=" . $email . "&reset_pass=" . $reset_pass . "";
+        $message = "https://rtiphonet.fr/foodtruck/resetpass.php?email=" . $email . "&reset_pass=" . $reset_pass . "";
 
 
 
