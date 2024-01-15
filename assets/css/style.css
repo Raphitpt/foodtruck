@@ -74,13 +74,13 @@ nav > ul > li {
   transition: background 0.3s;
   background-color: #f5f5f5;
 }
-.panierBlock{
+.panierBlock {
   max-height: 70vh;
 }
-.listCommandPanier{
-overflow: scroll;
-overflow-x: hidden;
-max-height: 62.5vh;
+.listCommandPanier {
+  overflow: scroll;
+  overflow-x: hidden;
+  max-height: 62.5vh;
 }
 .button_nav:hover {
   background: #e56d00;
@@ -255,7 +255,7 @@ max-height: 62.5vh;
 }
 .menu-container .nav_title p {
   width: 40vw;
-  font-size: 1.5rem;
+  font-size: 1.1rem;
   text-align: center;
 }
 .menu-container .nav_title {
@@ -318,7 +318,8 @@ nav > ul > li > img {
 }
 
 .plats::-webkit-scrollbar,
-.platsBO::-webkit-scrollbar,.listCommandPanier::-webkit-scrollbar {
+.platsBO::-webkit-scrollbar,
+.listCommandPanier::-webkit-scrollbar {
   width: 0.5rem;
   scrollbar-face-color: #f5f5f5;
   scrollbar-arrow-color: #fff;
@@ -336,7 +337,7 @@ nav > ul > li > img {
 }
 .plats::-webkit-scrollbar-track,
 .platsBO::-webkit-scrollbar-track,
-.listCommandPanier::-webkit-scrollbar-track{
+.listCommandPanier::-webkit-scrollbar-track {
   scrollbar-track-color: #191a20;
 }
 /*animation*/
@@ -367,22 +368,22 @@ nav > ul > li > img {
   gap: 1.5rem; /* Adjusted gap for better spacing */
   cursor: pointer;
 }
-.btn_commander{
+.btn_commander {
   background: #e56d00;
   color: #fff;
 }
-.btn_commander:hover{
+.btn_commander:hover {
   background: #fff;
   color: #e56d00;
   border: 1px solid #e56d00;
 }
-.btn_continuer{
+.btn_continuer {
   background: #fff;
   color: #e56d00;
   border: 1px solid #e56d00;
 }
-.btn_continuer:hover{
-  background: #F5F5F5;
+.btn_continuer:hover {
+  background: #f5f5f5;
   color: #e56d00;
   border: 1px solid #e56d00;
 }
@@ -529,11 +530,11 @@ nav > ul > li > img {
 .fa-plus {
   margin-right: 1rem;
 }
-.listRecapOrder{
-list-style: none;
+.listRecapOrder {
+  list-style: none;
 }
-.titlePlatsRecap{
-font-weight: bold;
+.titlePlatsRecap {
+  font-weight: bold;
 }
 
 .button_fouee {
@@ -765,7 +766,6 @@ font-weight: bold;
 main {
   position: relative;
 }
-
 
 .commandeTable {
   display: flex;
@@ -1069,6 +1069,7 @@ input[type="date"] {
   gap: 1rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+
 .commandeConfirm h1 {
   margin-bottom: 2rem;
 }
@@ -1078,9 +1079,9 @@ input[type="date"] {
 .supprCommande {
   cursor: pointer;
 }
-.col-12 img{
- width: 10%;
- margin-bottom: 1rem;
+.col-12 img {
+  width: 10%;
+  margin-bottom: 1rem;
 }
 .commandes {
   display: flex;
@@ -1307,7 +1308,7 @@ input[type="date"] {
     width: 90vw;
   }
 
-  .menu-container img{
+  .menu-container img {
     width: 10vw;
   }
 }

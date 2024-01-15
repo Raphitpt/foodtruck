@@ -198,8 +198,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         .form img {
             width: 15%;
-            padding-right: 20px;
-            transform: translateX(-10px);
+            margin-bottom: 1rem;
         }
 
         i {
@@ -244,6 +243,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <h2>Contactez-nous</h2>
 
                 <form action="" method="post">
+                    <img src="./assets/img/FOUEE2.png" alt="">
                     <label for="nom">Prénom :</label>
                     <input type="text" id="prenom" name="prenom" required>
 
