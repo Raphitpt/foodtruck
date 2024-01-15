@@ -36,6 +36,7 @@ if (isset($_SESSION['email'])) {
         text-align: center;
         font-size: 4rem;
         font-weight: 700;
+        margin-top: 3rem;
     }
 
     h2 {
@@ -49,7 +50,7 @@ if (isset($_SESSION['email'])) {
     }
 
     .accueil {
-        height: 120vh;
+        /* height: 120vh; */
         width: 100vw;
         display: flex;
         flex-direction: column;
@@ -72,6 +73,7 @@ if (isset($_SESSION['email'])) {
         border-radius: 11px;
         color: black;
         border: 2px solid #e56D00;
+        margin-top: 2rem;
     }
 
     .accueil div:nth-child(4) {
@@ -82,6 +84,8 @@ if (isset($_SESSION['email'])) {
         align-self: center;
         justify-content: center;
         align-items: center;
+        margin-top: 2rem;
+        margin-bottom: 2rem;
     }
 
     .accueil div:nth-child(4) p {
@@ -112,6 +116,8 @@ if (isset($_SESSION['email'])) {
         align-self: center;
         justify-content: center;
         align-items: center;
+        margin-top: 2rem;
+        margin-bottom: 2rem;
     }
 
     .accueil div:nth-child(5) p {
@@ -162,6 +168,8 @@ if (isset($_SESSION['email'])) {
 
     h5 {
         padding-top: 15px;
+        margin-top: 2rem;
+        margin-bottom: 2rem;
     }
 
     @media screen and (max-width:768px) {
