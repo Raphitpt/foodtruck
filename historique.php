@@ -161,7 +161,7 @@ if (isset($_SESSION['email'])) {
         <section class="table-responsive">
 
 
-            <table class="table" id="table" data-toggle="table" data-show-columns="true" data-search="true" auto-refresh="true">
+            <table class="table" id="table" data-toggle="table" data-show-columns="true" data-pagination="true" data-search="true" auto-refresh="true">
                 <thead>
                     <tr>
                         <th scope="col" data-sortable="true" data-field="id">Détail de la commande</th>
