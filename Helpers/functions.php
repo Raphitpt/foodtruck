@@ -1,12 +1,14 @@
 <?php
-require 'vendor/autoload.php';
+if (($_SERVER['REMOTE_ADDR'] == '127.0.0.1' or $_SERVER['REMOTE_ADDR'] == '::1')) {
+
+} else {
+    require 'vendor/autoload.php';
+}
+
 /*
     Fichier : /Helpers/functions.php
  */
-global $dbh;
-$infosQuery = "SELECT * FROM settings";
-$infosResult = $dbh->query($infosQuery);
-$infos = $infosResult->fetch();
+
 /**
  * Retourne le contenu HTML du bloc d'en tête d'une page.
  * Deux CSS sont automatiquement intégré :
@@ -61,6 +63,10 @@ use PHPMailer\PHPMailer\Exception;
 
 function send_activation_email(string $email, string $activation_code,)
 {
+    global $dbh;
+    $infosQuery = "SELECT * FROM settings";
+    $infosResult = $dbh->query($infosQuery);
+    $infos = $infosResult->fetch();
     global $infos;
     // set email subjectj
     $subject = 'Active ton compte dès maintenant !';
@@ -71,7 +77,7 @@ function send_activation_email(string $email, string $activation_code,)
 HTML;
 
     $headers  = 'MIME-Version: 1.0' . "\r\n";
-    $headers .= 'From:' . $infos['nom_entreprise'] .'<' . SENDER_EMAIL_ADDRESS . '>' . "\r\n" .
+    $headers .= 'From:' . $infos['nom_entreprise'] . '<' . SENDER_EMAIL_ADDRESS . '>' . "\r\n" .
         'Reply-To: ' . SENDER_EMAIL_ADDRESS . "\r\n" .
         'Content-Type: text/html; charset="utf-8"' . "\r\n" .
         'X-Mailer: PHP/' . phpversion();
@@ -128,6 +134,3 @@ function footer(): string
 </html>
 HTML_FOOTER;
 }
-
-
-
