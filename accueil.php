@@ -184,7 +184,7 @@ if (isset($_SESSION['email'])) {
 
         .accueil {
             height: auto;
-            margin: 30px auto;
+            /* margin: 30px auto; */
         }
 
         .accueil h1 {
