@@ -1,4 +1,5 @@
 <?php
+require 'vendor/autoload.php';
 /*
     Fichier : /Helpers/functions.php
  */
