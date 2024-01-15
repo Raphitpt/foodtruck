@@ -307,7 +307,7 @@ HTML;
 
         //Recipients
         $mail->setFrom(SENDER_EMAIL_ADDRESS, $infos['nom_entreprise']);
-        $mail->addAddress("rtiphonet@gmail.com");
+        $mail->addAddress($user['email']);
 
         // Content
         $mail->isHTML(true);

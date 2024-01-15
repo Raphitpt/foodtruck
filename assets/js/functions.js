@@ -145,6 +145,7 @@ document.addEventListener("DOMContentLoaded", function () {
       function handleCheckSupplYes() {
         addToCart(id, platName, platPrice, img_url, true);
         divSuppl.style.display = "none";
+        divListPlats.style.display = "block";
         checkSuppl.forEach((checkSuppl) => {
           checkSuppl.checked = false;
         });
@@ -154,6 +155,7 @@ document.addEventListener("DOMContentLoaded", function () {
       function handleNoThanks() {
         addToCart(id, platName, platPrice, img_url, false);
         divSuppl.style.display = "none";
+        divListPlats.style.display = "block";
         checkSuppl.forEach((checkSuppl) => {
           checkSuppl.checked = false;
         });
@@ -170,6 +172,7 @@ document.addEventListener("DOMContentLoaded", function () {
         checkSupplYes.addEventListener("click", handleCheckSupplYes);
         noThanks.addEventListener("click", handleNoThanks);
         divSuppl.style.display = "block";
+        divListPlats.style.display = "none";
       } else {
         // Aucun supplément disponible, ajouter directement au panier
         addToCart(id, platName, platPrice, img_url, false);
