@@ -113,16 +113,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <?php if (isset($_SESSION['email'])) { ?>
                     <button onclick="location.href = 'profil.php'" class="image"><img src="<?php echo $photo['photoprofil'] == NULL ? "./assets/img/grandprofilfb.jpg" : $photo['photoprofil']; ?>" /></button>
                 <?php } else { ?>
-                    <<<<<<< HEAD <li><button onclick="location.href = './login.php'" class="button_nav connect"><?= htmlspecialchars("Connexion") ?></button></li>
+                        <li><button onclick="location.href = './login.php'" class="button_nav connect"><?= htmlspecialchars("Connexion") ?></button></li>
                         <li><button onclick="location.href = './signin.php'" class="button_nav connect"><?= htmlspecialchars("Inscription") ?></button></li>
-                        =======
                         <li><button onclick="location.href = './login.php'" class="button_nav connect">
                                 <?= htmlspecialchars("Se connecter") ?>
                             </button></li>
                         <li><button onclick="location.href = './signin.php'" class="button_nav connect">
                                 <?= htmlspecialchars("S'inscrire") ?>
                             </button></li>
-                        >>>>>>> d93cdd06076d1c8d7c75374aa02302b7d2906172
                     <?php } ?>
             </ul>
         </nav>
