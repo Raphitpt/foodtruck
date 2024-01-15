@@ -99,7 +99,7 @@ HTML;
         $mail->Encoding = "base64";
 
         //Recipients
-        $mail->setFrom(SENDER_EMAIL_ADDRESS, 'MMI Companion');
+        $mail->setFrom(SENDER_EMAIL_ADDRESS, $infos['nom_entreprise']);
         $mail->addAddress($email);     // Add a recipient
 
         // Content
