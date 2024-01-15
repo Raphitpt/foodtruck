@@ -73,11 +73,6 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
             opacity: 0.5;
             cursor: not-allowed;
         }
-
-        .selectedTime.disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
     </style>
 
 </head>
@@ -374,22 +369,22 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
                 return supplementCost;
             }
 
-            // if (nombreArticlesDansPanier > 8) {
-            //     btnHeure.forEach((elem) => {
-            //         const selectedHour = elem.querySelector('.selectedTime').textContent;
-            //         const hourArticlesCount = panier.filter(item => item.heure === selectedHour).reduce((total, item) => total + parseInt(item.quantite), 0);
+            if (nombreArticlesDansPanier > 8) {
+                btnHeure.forEach((elem) => {
+                    const selectedHour = elem.querySelector('.selectedTime').textContent;
+                    const hourArticlesCount = panier.filter(item => item.heure === selectedHour).reduce((total, item) => total + parseInt(item.quantite), 0);
 
-            //         if (hourArticlesCount >= 8) {
-            //             elem.classList.add('disabled');
-            //         } else {
-            //             elem.classList.remove('disabled');
-            //         }
-            //     });
-            // } else {
-            //     btnHeure.forEach((elem) => {
-            //         elem.classList.remove('disabled');
-            //     });
-            // }
+                    if (hourArticlesCount >= 8) {
+                        elem.classList.add('disabled');
+                    } else {
+                        elem.classList.remove('disabled');
+                    }
+                });
+            } else {
+                btnHeure.forEach((elem) => {
+                    elem.classList.remove('disabled');
+                });
+            }
             const iconCell = document.querySelector('.icon-cell');
 
             // Vous pouvez ajouter des styles spécifiques à cette cellule
@@ -601,34 +596,23 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
         }
 
         function updateDisabledHours() {
-            let selectedDate = document.getElementById('dateReservation').value;
-            let currentDateTime = new Date();
-            let heureContainer = document.getElementById('heureContainer');
+            var selectedDate = document.getElementById('dateReservation').value;
+            var currentDateTime = new Date();
 
-            // Supprimer toutes les heures actuelles
-            while (heureContainer.firstChild) {
-                heureContainer.removeChild(heureContainer.firstChild);
-            }
-
-            // Réafficher toutes les heures
-            for (let hour = 12; hour <= 15; hour++) {
-                for (let minute = (hour == 12 ? 10 : 0); minute <= (hour == 15 ? 0 : 55); minute += 10) {
-                    let time = ('0' + hour).slice(-2) + ':' + ('0' + minute).slice(-2);
-                    let div = document.createElement('div');
-                    div.className = 'btnHeure';
-                    div.innerHTML = '<p class="selectedTime">' + time + '</p>';
-                    heureContainer.appendChild(div);
-
-                    let minuteString = ('0' + minute).slice(-2);
-
-                    let dateTime = new Date(selectedDate + 'T' + hour + ':' + minuteString + ':00');
-
-                    if (dateTime < currentDateTime) {
-                        div.classList.add('disabled');
-                    }
+            document.querySelectorAll('.btnHeure').forEach(function(btnHeure) {
+                var hour = parseInt(btnHeure.querySelector('.selectedTime').innerText.substring(0, 2));
+                var minute = parseInt(btnHeure.querySelector('.selectedTime').innerText.substring(3, 5));
+                if(minute == 0){
+                    minute = "00";
                 }
-            }
+                var dateTime = new Date(selectedDate + 'T' + hour + ':' + minute + ':00');
 
+                if (dateTime < currentDateTime || (dateTime.getMinutes() === 0 && dateTime < currentDateTime)) {
+                    btnHeure.classList.add('disabled');
+                } else {
+                    btnHeure.classList.remove('disabled');
+                }
+            });
         }
 
         // Appeler la fonction au chargement de la page
