@@ -74,36 +74,6 @@ if (isset($_SESSION['email'])) {
         border: 2px solid #e56D00;
     }
 
-    .accueil div:nth-child(3) {
-        width: 60vw;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        text-align: justify;
-        align-self: center;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .accueil div:nth-child(3) p {
-        padding: 1rem;
-    }
-
-    .accueil div:nth-child(3) div {
-        height: 50%;
-        width: 30%;
-
-
-    }
-
-    .accueil div:nth-child(3) img {
-        grid-row: span 2;
-        margin-left: auto;
-        margin-right: auto;
-        width: 20vw;
-
-    }
-
-
     .accueil div:nth-child(4) {
         width: 60vw;
         display: grid;
@@ -126,6 +96,36 @@ if (isset($_SESSION['email'])) {
     }
 
     .accueil div:nth-child(4) img {
+        grid-row: span 2;
+        margin-left: auto;
+        margin-right: auto;
+        width: 20vw;
+
+    }
+
+
+    .accueil div:nth-child(5) {
+        width: 60vw;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        text-align: justify;
+        align-self: center;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .accueil div:nth-child(5) p {
+        padding: 1rem;
+    }
+
+    .accueil div:nth-child(5) div {
+        height: 50%;
+        width: 30%;
+
+
+    }
+
+    .accueil div:nth-child(5) img {
         grid-row: span 2;
         width: 20vw;
         margin-left: auto;
@@ -162,6 +162,9 @@ if (isset($_SESSION['email'])) {
     .choixlangue img {
         width: 2.5vw;
     }
+    h5{
+        padding-top:15px;
+    }
 
     @media screen and (max-width:768px) {
         .accueil h1 {
@@ -182,39 +185,16 @@ if (isset($_SESSION['email'])) {
             padding: 20px;
         }
 
-        .accueil div:nth-child(3) {
+        .accueil div:nth-child(4) {
             display: flex;
             flex-direction: column;
             margin-bottom: 3rem;
             margin-top: 3rem;
         }
 
-        .accueil div:nth-child(3) h2 {
-            order: 1;
-            padding: 20px;
-            width: 70vw;
-        }
-
-        .accueil div:nth-child(3) img {
-            order: 2;
-            width: 40vw;
-        }
-
-        .accueil div:nth-child(3) p {
-            order: 3;
-            width: 80vw;
-        }
-
-        .accueil div:nth-child(4) {
-            display: flex;
-            flex-direction: column;
-            margin-bottom: 3rem;
-
-        }
-
         .accueil div:nth-child(4) h2 {
             order: 1;
-            padding-bottom: 20px;
+            padding: 20px;
             width: 70vw;
         }
 
@@ -224,6 +204,29 @@ if (isset($_SESSION['email'])) {
         }
 
         .accueil div:nth-child(4) p {
+            order: 3;
+            width: 80vw;
+        }
+
+        .accueil div:nth-child(5) {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 3rem;
+
+        }
+
+        .accueil div:nth-child(5) h2 {
+            order: 1;
+            padding-bottom: 20px;
+            width: 70vw;
+        }
+
+        .accueil div:nth-child(5) img {
+            order: 2;
+            width: 40vw;
+        }
+
+        .accueil div:nth-child(5) p {
             order: 3;
             width: 80vw;
         }
@@ -268,12 +271,12 @@ if (isset($_SESSION['email'])) {
                 font-size: 10px;
             }
 
-            .accueil div:nth-child(3) img {
+            .accueil div:nth-child(4) img {
                 height: 15vh;
                 width: auto;
             }
 
-            .accueil div:nth-child(4) img {
+            .accueil div:nth-child(5) img {
                 height: 15vh;
                 width: auto;
             }
@@ -412,6 +415,7 @@ if (isset($_SESSION['email'])) {
             <button onclick="location.href = './index.php'">
                 <?= htmlspecialchars("Order") ?>
             </button>
+            <h5><?php echo $infos['adresse_entreprise'] ?></h5>
             <div>
                 <img src="<?php echo htmlspecialchars($contenu['url_img1']) ?>" />
 
@@ -443,6 +447,8 @@ if (isset($_SESSION['email'])) {
             <button onclick="location.href = './index.php'">
                 <?= htmlspecialchars("Commander") ?>
             </button>
+            <h5><?php echo $infos['adresse_entreprise'] ?></h5>
+            
             <div>
                 <img src="<?php echo htmlspecialchars($contenu['url_img1']) ?>" />
 
