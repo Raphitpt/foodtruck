@@ -162,6 +162,9 @@ if (isset($_SESSION['email'])) {
     .choixlangue img {
         width: 2.5vw;
     }
+    h5{
+        padding-top:15px;
+    }
 
     @media screen and (max-width:768px) {
         .accueil h1 {
