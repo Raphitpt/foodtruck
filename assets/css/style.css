@@ -510,6 +510,12 @@ nav > ul > li > img {
 .fa-plus {
   margin-right: 1rem;
 }
+.listRecapOrder{
+list-style: none;
+}
+.titlePlatsRecap{
+font-weight: bold;
+}
 
 .button_fouee {
   font-size: 1em;

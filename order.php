@@ -331,21 +331,40 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
             nombreArticlesDansPanier = panier.reduce((total, item) => total + parseInt(item.quantite), 0);
 
             panier.forEach(element => {
+
                 html += '<tr>';
-                html += `<th scope="row">${element.nom}</th>`;
+                html += `<td scope="row"><span class="titlePlatsRecap">${element.nom}</span>`;
+
+                if (element.supplements !== null && element.supplements.length > 0) {
+                    html += `<ul class="listRecapOrder">`;
+                    html += "<p>Supplément(s) : </p>";
+                    element.supplements.forEach(suppl => {
+                        html += `<li>${suppl.name}</li>`;
+                    });
+                    html += `</ul>`;
+                }
+
+                html += `</td>`;
                 html += `<td class="monElement" id="${element.id}">${element.prix}</td>`;
                 html += `<td class="monElement" id="${element.id}">${element.quantite}</td>`;
-                prix = parseFloat(element.prix);
-                quantite = parseFloat(element.quantite);
-                const articleTotal = prix * quantite;
+
+                let articleTotal = 0;
+                panier.forEach(function(plat) {
+                    const prix = parseFloat(plat.prix);
+                    const quantite = parseFloat(plat.quantite);
+                    const supplementCost = calculateSupplementCost(plat.supplements);
+                    articleTotal += (prix + supplementCost) * quantite;
+                });
+
                 html += `<td class="monElement" id="${element.id}">${articleTotal} €</td>`;
                 html += `<td class="icon-cell"><i class="fa-solid fa-xmark icon-xmark" data-id="${element.id}"></i></td>`;
+
                 if (element.suplement != null) {
                     html += `<td>${element.suplement.nom}</td>`;
                 }
+
                 html += '</tr>';
                 total += articleTotal;
-
             });
             if (nombreArticlesDansPanier > 8) {
                 btnHeure.forEach((elem) => {
