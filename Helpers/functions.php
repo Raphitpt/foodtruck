@@ -1,8 +1,6 @@
 <?php
 if (($_SERVER['REMOTE_ADDR'] == '127.0.0.1' or $_SERVER['REMOTE_ADDR'] == '::1')) {
-
-} else {
-    require 'vendor/autoload.php';
+} else {require 'vendor/autoload.php';
 }
 
 /*
@@ -185,3 +183,124 @@ function footer(): string
 </html>
 HTML_FOOTER;
 }
+
+use Konekt\PdfInvoice\InvoicePrinter;
+
+function sendFacture($data, $id_user, $commentaire, $date_retrait, $total)
+{
+    $dataArray = json_decode($data, true);
+
+    // Check if decoding was successful
+    if (is_array($dataArray)) {
+        global $dbh;
+        $infos = "SELECT * FROM settings";
+        $infos = $dbh->query($infos);
+        $infos = $infos->fetch();
+        
+        $user = "SELECT * FROM users WHERE id_user = :id_user";
+        $user = $dbh->prepare($user);
+        $user->execute(['id_user' => $id_user]);
+        $user = $user->fetch();
+
+        $invoice = new InvoicePrinter('A4', '€', 'fr');
+
+        // Header settings
+        $invoice->setColor("#e56d00");
+        $invoice->setLogo($infos['logo_facture'], 300, 300);
+        $invoice->setType("Facture");
+        $invoice->setReference("INV-55033645");
+        $invoice->setDate(date('M dS ,Y', time()));
+        $invoice->setTime(date('h:i:s A', time()));
+        $invoice->setDue(date('M dS ,Y', strtotime('+3 months')));
+        $address = explode(", ",$infos['adresse_entreprise']);
+
+        $invoice->setFrom([
+            $infos['nom_entreprise'],
+            $address[0],
+            $address[1],
+            $infos['tel'],
+            $infos['email']   
+        ]);
+        $invoice->setTo([
+            $user['nom'] . " " . $user['prenom'],
+            $user['email'],
+            'Nombre de points de fidélités : ' . $user['pts_fidelite'] 
+         ]);
+
+        // Add items dynamically from $data
+        foreach ($dataArray as $item) {
+            $invoice->addItem(
+                $item['nom'],
+                isset($item['supplements'][0]['name']) ? $item['supplements'][0]['name'] : '',
+                $item['quantite'],
+                $item['prix'] * 0.055,
+                $item['prix'] - ($item['prix'] * 0.055),
+                false,
+                $item['quantite'] * $item['prix']
+            );
+        }
+        $percentage = $total * 0.055;
+        $total = $total - ($total * 0.055);        
+        $invoice->addTotal("Total", $percentage);
+        $invoice->addTotal("TVA 5,5%", 1);
+        $invoice->addTotal("Montant total", $total + $percentage, true);
+
+        $invoice->addBadge("Non Payé");
+        $invoice->addTitle("Commentaire de commande");
+        if ($commentaire != null){
+            $invoice->addParagraph($commentaire);
+        }else{
+            $invoice->addParagraph("Aucun commentaire");
+        }
+
+        $invoice->addTitle("Commentaire de livraison");
+
+        $invoice->addParagraph("Vous pourrez venir chercher votre commande le " . date('d/m/Y H:i:s', strtotime($date_retrait)) . " au FoodTruck");
+
+        $invoice->setFooternote("Le meilleur FoodTruck");
+        $invoiceFileName = 'facture.pdf';
+        $invoice->render($invoiceFileName, 'F');
+    } else {
+        echo 'Error decoding JSON data.';
+    }
+    // Envoyez la facture par e-mail
+    // Destinataire de l'e-mail
+    $to = 'rtiphonet@gmail.com';
+
+    // Sujet de l'e-mail
+    $subject = 'Facture';
+
+    // En-têtes MIME pour l'e-mail
+    $headers = "From: Votre Nom <votre_email@example.com>\r\n";
+    $headers .= "MIME-Version: 1.0\r\n";
+    $headers .= "Content-Type: multipart/mixed; boundary=\"boundary\"\r\n";
+
+    // Corps de l'e-mail
+    $message = "--boundary\r\n";
+    $message .= "Content-Type: text/plain; charset=\"utf-8\"\r\n";
+    $message .= "Content-Transfer-Encoding: 7bit\r\n";
+    $message .= "\r\n";
+    $message .= "Veuillez trouver ci-joint la facture en PDF.\r\n";
+    $message .= "\r\n";
+    $message .= "--boundary\r\n";
+
+    // Pièce jointe (facture en PDF)
+    $fileContent = file_get_contents($invoiceFileName);
+    $message .= "Content-Type: application/pdf\r\n";
+    $message .= "Content-Disposition: attachment; filename=\"$invoiceFileName\"\r\n";
+    $message .= "Content-Transfer-Encoding: base64\r\n";
+    $message .= "\r\n";
+    $message .= chunk_split(base64_encode($fileContent));
+    $message .= "\r\n";
+    $message .= "--boundary--\r\n";
+
+    // Envoyer l'e-mail avec la pièce jointe
+    if (mail($to, $subject, $message, $headers)) {
+        echo 'Facture envoyée avec succès par e-mail.';
+    } else {
+        echo 'Échec de l\'envoi de la facture par e-mail.';
+    }
+
+    // Supprimer le fichier PDF temporaire
+    unlink($invoiceFileName);
+};
