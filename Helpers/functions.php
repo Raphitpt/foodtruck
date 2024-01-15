@@ -67,9 +67,8 @@ function send_activation_email(string $email, string $activation_code,)
     $infosQuery = "SELECT * FROM settings";
     $infosResult = $dbh->query($infosQuery);
     $infos = $infosResult->fetch();
-    global $infos;
     // set email subjectj
-    $subject = 'Active ton compte dès maintenant !';
+    $subject = 'Activez votre compte dès maintenant !';
     $message = <<<HTML
     <h1>Confirmation de votre inscription</h1>
     <p>Merci de cliquer sur le lien suivant pour confirmer votre inscription :</p>
@@ -99,7 +98,7 @@ HTML;
         $mail->Encoding = "base64";
 
         //Recipients
-        $mail->setFrom(SENDER_EMAIL_ADDRESS, 'MMI Companion');
+        $mail->setFrom(SENDER_EMAIL_ADDRESS, $infos['nom_entreprise']);
         $mail->addAddress($email);     // Add a recipient
 
         // Content
