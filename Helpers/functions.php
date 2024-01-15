@@ -113,6 +113,58 @@ HTML;
         error_log("Error sending activation email to $email");
     }
 }
+function send_reset_pass(string $email, string $activation_code,)
+{
+    global $dbh;
+    $infosQuery = "SELECT * FROM settings";
+    $infosResult = $dbh->query($infosQuery);
+    $infos = $infosResult->fetch();
+
+    $subject = 'Réinitialiser votre mot de passe dès maintenant !';
+    $message = <<<HTML
+    <h1>Réinitialiser votre mot de passe</h1>
+    <p>Merci de cliquer sur le lien suivant pour modifier votre mot de passe :</p>
+    <a href="https://rtiphonet.fr/foodtruck/resetpass.php?&reset_pass=$activation_code&email=$email">Modifier mon mot de passe</a>
+HTML;
+
+    $headers  = 'MIME-Version: 1.0' . "\r\n";
+    $headers .= 'From:' . $infos['nom_entreprise'] . '<' . SENDER_EMAIL_ADDRESS . '>' . "\r\n" .
+        'Reply-To: ' . SENDER_EMAIL_ADDRESS . "\r\n" .
+        'Content-Type: text/html; charset="utf-8"' . "\r\n" .
+        'X-Mailer: PHP/' . phpversion();
+
+    // send the email
+    $_SESSION['mail_message'] = "";
+    $mail = new PHPMailer(true);
+    try {
+        //Server settings
+        $mail->SMTPDebug = SMTP::DEBUG_OFF;                      // Enable verbose debug output
+        $mail->isSMTP();                                            // Send using SMTP
+        $mail->Host       = "mail.rtiphonet.fr";                    // Set the SMTP server to send through
+        $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+        $mail->Username   = "foodtruck@rtiphonet.fr";                     // SMTP username
+        $mail->Password   = "y9AtkG7Z]oG7";                               // SMTP password
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
+        $mail->Port       = "465";                 // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
+        $mail->CharSet = "UTF-8";
+        $mail->Encoding = "base64";
+
+        //Recipients
+        $mail->setFrom(SENDER_EMAIL_ADDRESS, $infos['nom_entreprise']);
+        $mail->addAddress($email);     // Add a recipient
+
+        // Content
+        $mail->isHTML(true);                                  // Set email format to HTML
+        $mail->Subject = $subject;
+        $mail->Body    = $message;
+
+        $mail->send();
+        $_SESSION['mail_message'] = "Le mail vient de t'être envoyé, penses à regarder dans tes spams si besoin.";
+    } catch (Exception $e) {
+        $_SESSION['mail_message'] = "Une erreur vient de survenir lors de l'envoi du mail, réessaye plus tard.";
+        error_log("Error sending activation email to $email");
+    }
+}
 /**
  * Retourne vrai si la méthode d'appel est POST.
  */

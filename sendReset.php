@@ -33,25 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['email'])) {
         $insert->execute();
 
 
-        $subject = "Votre mot passe a été réinitialisé";
-        $message = "https://rtiphonet.fr/foodtruck/resetpass.php?email=" . $email . "&reset_pass=" . $reset_pass . "";
-
-
-
-        // declare variable
-        $headers = "Reply-To: Fouée Et Moi <rtiphonet@gmail.com>\r\n";
-
-        $headers .= "Return-Path: Fouée Et Moi <rtiphonet@gmail.com>\r\n";
-        $headers .= "From: Fouée Et Moi <rtiphonet@gmail.com>\r\n";
-        $headers .= "Organization: Fouée Et Moi\r\n";
-        $headers .= "MIME-Version: 1.0\r\n";
-        $headers .= "Content-type: text/plain; charset=iso-8859-1\r\n";
-        $headers .= "X-Priority: 3\r\n";
-        $headers .= "X-Mailer: PHP" . phpversion() . "\r\n";
-
-
-
-        mail($email, $subject, $message, $headers);
+        send_reset_pass($email,$reset_pass);
     }
     echo head('Mot de passe oublié');
 ?>

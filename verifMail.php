@@ -11,6 +11,7 @@ if (isset($_POST['submit'])) {
     $stmt = $dbh->prepare($sql);
     $stmt->execute(['email' => $email]);
     $user = $stmt->fetch();
+    
     $infos = "SELECT * FROM settings";
     $infos = $dbh->query($infos);
     $infos = $infos->fetch();
