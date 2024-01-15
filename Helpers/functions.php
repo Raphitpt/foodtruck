@@ -67,7 +67,6 @@ function send_activation_email(string $email, string $activation_code,)
     $infosQuery = "SELECT * FROM settings";
     $infosResult = $dbh->query($infosQuery);
     $infos = $infosResult->fetch();
-    global $infos;
     // set email subjectj
     $subject = 'Activez votre compte dès maintenant !';
     $message = <<<HTML
