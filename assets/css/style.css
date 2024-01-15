@@ -140,7 +140,7 @@ nav > ul > li {
   cursor: pointer;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-around;
   width: 30px;
   height: 20px;
 }
@@ -231,8 +231,10 @@ nav > ul > li {
     position: relative;
     padding-top: 0.5rem;
     z-index: 6;
+    transform: translateX(-12vw);
   }
   .menu-btn {
+    transform: translateX(15vw);
     margin-right: 20px;
     position: relative;
     z-index: 10;
@@ -247,6 +249,14 @@ nav > ul > li {
     justify-content: center;
     align-items: center;
     gap: 3rem;
+  }
+}
+@media screen and (max-width: 425px) {
+  .nav_left {
+    transform: translateX(-8vw);
+  }
+  .menu-btn {
+    transform: translateX(8vw);
   }
 }
 
@@ -1308,6 +1318,18 @@ input[type="date"] {
     width: 90vw;
   }
 
+  .menu-container img {
+    width: 8vw;
+  }
+  .nav_left {
+    margin: 0;
+    padding-left: 0;
+  }
+  .menu-container .nav_title p {
+    width: 40vw;
+  }
+}
+@media screen and (max-width: 425px) {
   .menu-container img {
     width: 10vw;
   }
