@@ -11,7 +11,7 @@ if (isset($_POST['submit'])) {
     $stmt = $dbh->prepare($sql);
     $stmt->execute(['email' => $email]);
     $user = $stmt->fetch();
-    
+
     $infos = "SELECT * FROM settings";
     $infos = $dbh->query($infos);
     $infos = $infos->fetch();
@@ -50,7 +50,9 @@ echo head('Accueil');
 <body>
     <main>
         <section class="form">
-            <h1>Un mail vient d'être envoyé à <?= $_SESSION['email'] ?></h1>
+            <h1>Un mail vient d'être envoyé à
+                <?= $_SESSION['email'] ?>
+            </h1>
             <p>Pour vérifier votre mail, cliquer sur le lien dans le mail que vous avez reçu.</p>
             <p>En cas de problème, contactez-nous !</p>
             <form method="post">
@@ -62,5 +64,6 @@ echo head('Accueil');
 
 
 </body>
+
 
 </html>

@@ -134,10 +134,7 @@ if (isset($_SESSION['email'])) {
 
     }
 
-    footer {
-        height: 10vh;
-        background-color: black;
-    }
+
 
     span {
         color: #e56D00;
@@ -278,9 +275,7 @@ if (isset($_SESSION['email'])) {
                 width: auto;
             }
 
-            footer {
-                height: 5vh;
-            }
+
 
 
 
@@ -312,7 +307,7 @@ if (isset($_SESSION['email'])) {
                 <li><button onclick="location.href = './contact.php'" class="button_nav">
                         <?= htmlspecialchars("Nous contacter") ?>
                     </button></li>
-                <?php if (isset($_SESSION['email']) && $_SESSION['email'] === 'admin@gmail.com') : ?>
+                <?php if (isset($_SESSION['email']) && $_SESSION['email'] === 'admin@gmail.com'): ?>
                     <li><button onclick="location.href = 'indexBO.php'" class="button_nav">
                             <?= htmlspecialchars("Back Office") ?>
                         </button></li>
@@ -320,7 +315,8 @@ if (isset($_SESSION['email'])) {
             </ul>
             <ul class="nav_right">
                 <?php if (isset($_SESSION['email'])) { ?>
-                    <button onclick="location.href = 'profil.php'" class="image"><img src="<?php echo $photo['photoprofil'] == NULL ? "./assets/img/grandprofilfb.jpg" : $photo['photoprofil']; ?>" /></button>
+                    <button onclick="location.href = 'profil.php'" class="image"><img
+                            src="<?php echo $photo['photoprofil'] == NULL ? "./assets/img/grandprofilfb.jpg" : $photo['photoprofil']; ?>" /></button>
                 <?php } else { ?>
                     <li><button onclick="location.href = './login.php'" class="button_nav connect">
                             <?= htmlspecialchars("Se connecter") ?>
@@ -347,7 +343,7 @@ if (isset($_SESSION['email'])) {
                 <li><button onclick="location.href = ''" class="button_nav">
                         <?= htmlspecialchars("Contact us") ?>
                     </button></li>
-                <?php if (isset($_SESSION['email']) && $_SESSION['email'] === 'admin@gmail.com') : ?>
+                <?php if (isset($_SESSION['email']) && $_SESSION['email'] === 'admin@gmail.com'): ?>
                     <li><button onclick="location.href = 'indexBO.php'" class="button_nav">
                             <?= htmlspecialchars("Back Office") ?>
                         </button></li>
@@ -355,7 +351,8 @@ if (isset($_SESSION['email'])) {
             </ul>
             <ul class="nav_right">
                 <?php if (isset($_SESSION['email'])) { ?>
-                    <button onclick="location.href = 'profil.php'" class="image"><img src="<?php echo $photo['photoprofil'] == NULL ? "./assets/img/grandprofilfb.jpg" : $photo['photoprofil']; ?>" /></button>
+                    <button onclick="location.href = 'profil.php'" class="image"><img
+                            src="<?php echo $photo['photoprofil'] == NULL ? "./assets/img/grandprofilfb.jpg" : $photo['photoprofil']; ?>" /></button>
                 <?php } else { ?>
                     <li><button onclick="location.href = './login.php'" class="button_nav connect">
                             <?= htmlspecialchars("Connexion") ?>
@@ -473,7 +470,7 @@ if (isset($_SESSION['email'])) {
     <script src="./assets/js/functions.js">
     </script>
     <script>
-        document.getElementById("menu-btn").addEventListener("click", function() {
+        document.getElementById("menu-btn").addEventListener("click", function () {
             this.classList.toggle("open");
             var mainContent = document.querySelector("main");
             if (this.classList.contains("open")) {
@@ -485,5 +482,8 @@ if (isset($_SESSION['email'])) {
     </script>
 
 </body>
+<?php
+echo footer();
+?>
 
 </html>
