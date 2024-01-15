@@ -136,7 +136,7 @@ document.addEventListener("DOMContentLoaded", function () {
       let id = idPlat[index].value;
       let platName = document.querySelectorAll(".card-title")[index].innerHTML;
       let platPrice = document.querySelectorAll(".card-price")[index].innerHTML;
-      let img_url = "." + cleanURL(document.querySelectorAll(".card_img")[index].src);
+      let img_url = document.querySelectorAll(".card_img")[index].src;
 
       // Récupérer les informations sur les suppléments
       const hasSupplements = checkSuppl.length > 0;
