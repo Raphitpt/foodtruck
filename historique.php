@@ -161,7 +161,7 @@ if (isset($_SESSION['email'])) {
         <section class="table-responsive">
 
 
-            <table class="table" id="table" data-toggle="table" data-show-columns="true" data-search="true" auto-refresh="true">
+            <table class="table" id="table" data-toggle="table" data-show-columns="true" data-pagination="true" data-search="true" auto-refresh="true">
                 <thead>
                     <tr>
                         <th scope="col" data-sortable="true" data-field="id">Détail de la commande</th>
@@ -170,6 +170,7 @@ if (isset($_SESSION['email'])) {
                         <th scope="col">Date de retrait</th>
                         <th scope="col">Statut</th>
                         <th scope="col">Commentaire</th>
+                        <th scope="col">Facture</th>
                         <th scope="col">Total</th>
                     </tr>
                 </thead>
@@ -191,6 +192,7 @@ if (isset($_SESSION['email'])) {
                             <td><?php echo $histo['date_retrait']; ?></td>
                             <td><?php echo $histo['statut']; ?></td>
                             <td><?php echo $histo['commentaire']; ?></td>
+                            <td><a href="./facture/INV-<?= $histo['id_commande'] ?>.pdf" download  target="_blank">Facture n°<?= $histo['id_commande'] ?></a></td>
                             <td><?php echo $histo['total']; ?>€</td>
 
                         </tr>

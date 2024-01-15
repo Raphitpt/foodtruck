@@ -298,9 +298,13 @@ echo head('Commander');
                         <?php }
                     endforeach; ?>
                 </ul>
+                
             </div>
-            <button class="noThanks">Non merci</button>
-            <button class="addSupplYes">Ajouter</button>
+            <div class="buttonSuppl">
+                <button class="noThanks">Non merci</button>
+                <button class="addSupplYes">Ajouter</button>
+            </div>
+            
         </section>
         <section class="panierBlock">
             <div class="h2Pannier">

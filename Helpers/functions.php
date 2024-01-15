@@ -193,16 +193,23 @@ function sendFacture($data, $id_user, $commentaire, $date_retrait, $total, $id_c
     $user->execute(['id_user' => $id_user]);
     $user = $user->fetch();
 
+    setlocale(LC_TIME, 'fr_FR.UTF-8');
+
+    $date = new DateTime();
+    $formattedDate = $date->format('j M. Y');
+    $formattedTime = $date->format('H:i:s');
+
     $invoice = new InvoicePrinter('A4', '€', 'fr');
 
     // Header settings
     $invoice->setColor("#e56d00");
+    $invoice->setNumberFormat(",", " ", "right", true, false);
+    $invoice->setTimeZone('Europe/Paris');
     $invoice->setLogo("./assets/img/facture.png", 70, 70);
     $invoice->setType("Facture");
     $invoice->setReference("INV-$id_commande");
-    $invoice->setDate(date('d M Y', time()));
-    $invoice->setTime(date('h:i:s ', time()));
-    $invoice->setDue(date('d M Y', strtotime('+3 months')));
+    $invoice->setDate($formattedDate);
+    $invoice->setTime($formattedTime);
     $address = explode(", ", $infos['adresse_entreprise']);
 
     $invoice->setFrom([
@@ -215,7 +222,7 @@ function sendFacture($data, $id_user, $commentaire, $date_retrait, $total, $id_c
     $invoice->setTo([
         $user['nom'] . " " . $user['prenom'],
         $user['email'],
-        'Nombre de points de fidélités : ' . $user['pts_fidelite']
+        'Nombre de points de fidélités restant: ' . $user['pts_fidelite']
     ]);
     foreach ($dataArray as $item) {
         $taxedPrice = is_numeric($item['prix']) ? $item['prix'] : 0;
@@ -247,7 +254,7 @@ function sendFacture($data, $id_user, $commentaire, $date_retrait, $total, $id_c
     $total = $total - ($total * 0.055);
     $invoice->addTotal("Total", $total);
     $invoice->addTotal("TVA 5,5%", $percentage);
-    $invoice->addTotal("Montant total", $total + $percentage, true);
+    $invoice->addTotal("Total", $total + $percentage, true);
 
     $invoice->addBadge("Non Payé");
     $invoice->addTitle("Commentaire de commande");
@@ -257,10 +264,10 @@ function sendFacture($data, $id_user, $commentaire, $date_retrait, $total, $id_c
         $invoice->addParagraph("Aucun commentaire");
     }
 
-    $invoice->addTitle("Commentaire de livraison");
+    $invoice->addTitle("Commentaire de réception");
 
     $invoice->addParagraph("Vous pourrez venir chercher votre commande le " . date('d/m/Y H:i:s', strtotime($date_retrait)) . " au FoodTruck");
-    $invoice->addParagraph("Le paiement se fait à la livraison: CB, Carte Restaurant, Bulles et espèces exclusivement");
+    $invoice->addParagraph("Le paiement se fait à la réception: CB, Carte Restaurant, Bulles et Espèces exclusivement");
     $invoice->setFooternote("Le meilleur FoodTruck");
 
     $invoiceFileName = 'INV-' . $id_commande . '.pdf';
@@ -299,11 +306,13 @@ HTML;
 
         //Recipients
         $mail->setFrom(SENDER_EMAIL_ADDRESS, $infos['nom_entreprise']);
-        $mail->addAddress($user['email']);
+        $mail->addAddress('rtiphonet@gmail.com');
 
         // Content
         $mail->isHTML(true);
         $mail->Subject = $subject;
+        $mail->Body = $message;
+        $mail->addAttachment('./facture/' . $invoiceFileName . '');
         $mail->Body = $message;
         $mail->addAttachment('./facture/' . $invoiceFileName . '');
 

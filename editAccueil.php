@@ -28,6 +28,12 @@ if (isset($_SESSION['email'])) {
     ]);
     $photo = $stmt->fetch();
 }
+$infosite = "SELECT * FROM elements_accueil";
+$insite = $dbh->query($infosite);
+$info = $insite->fetch();
+$image1 = $info['url_img1'];
+$imgage2 = $info['url_img2'];
+
 
 
 // Afficher l'en-tête de la page
@@ -160,6 +166,8 @@ echo head('Modifier les informations de la page d\'accueil');
                             move_uploaded_file($img1['tmp_name'], $destination);
                             // Enregistrer le chemin dans la base de données
                             $url_img1 = $destination;
+                            unlink($image1);
+                            
                         } else {
                             echo 'Le fichier n\'est pas une image';
                             exit(); // Ajout de cette ligne pour éviter l'exécution du code suivant en cas d'erreur
@@ -177,6 +185,8 @@ echo head('Modifier les informations de la page d\'accueil');
                             move_uploaded_file($img2['tmp_name'], $destination);
                             // Enregistrer le chemin dans la base de données
                             $url_img2 = $destination;
+                            unlink($image2);
+
                         } else {
                             echo 'Le fichier n\'est pas une image';
                             exit(); // Ajout de cette ligne pour éviter l'exécution du code suivant en cas d'erreur
