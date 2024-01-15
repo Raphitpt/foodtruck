@@ -262,8 +262,11 @@ echo head('Commander');
                     endforeach; ?>
                 </ul>
             </div>
-            <button class="noThanks">Non merci</button>
-            <button class="addSupplYes">Ajouter</button>
+            <div>
+                <button class="noThanks">Non merci</button>
+                <button class="addSupplYes">Ajouter</button>
+            </div>
+            
         </section>
         <section class="panierBlock">
             <div class="h2Pannier">
