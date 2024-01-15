@@ -26,6 +26,12 @@ $photo = $stmt->fetch();
 $userId = $photo['id_user'];
 
 $currentDateTime = new DateTime();
+if ($currentDateTime->format('H') >= '15') {
+    $dateDay = date('Y-m-d', strtotime('+1 day'));
+} else {
+    $dateDay = date('Y-m-d');
+
+}
 $maxDate = date('Y-m-d', strtotime('+1 week'));
 // Récupérer les informations de l'utilisateur par son ID
 echo '<input type="hidden" id="userId" value="' . $userId . '">';
@@ -191,7 +197,7 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
                 <h2>Réserver son repas</h2>
 
                 <div class="quantite"></div>
-                <input type="date" id="dateReservation" min="<?= date('Y-m-d') ?>" max="<?= $maxDate ?>">
+                <input type="date" id="dateReservation" min="<?= $dateDay ?>" max="<?= $maxDate ?>" value="<?= $dateDay ?>">
                 </select>
                 <div class="radio-inputs" id="heureContainer">
                     <?php
@@ -428,7 +434,6 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
             // Initialise la date du jour lors du chargement de la page
             const today = new Date();
             const formattedToday = today.toISOString().split('T')[0]; // Format YYYY-MM-DD
-            dateReservationInput.value = formattedToday;
 
             // Initialise la liste de panier avec la date actuelle
             listPanier("12h00", formattedToday, selectedValue);
