@@ -140,7 +140,7 @@ nav > ul > li {
   cursor: pointer;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: space-between;
   width: 30px;
   height: 20px;
 }
@@ -236,6 +236,7 @@ nav > ul > li {
     margin-right: 20px;
     position: relative;
     z-index: 10;
+    transform: translateX(6vw);
   }
 
   header {
@@ -1315,12 +1316,9 @@ input[type="date"] {
     margin: 0;
     padding-left: 0;
   }
-  .menu-container .nav_title p {
-    width: 40vw;
-  }
 }
 @media screen and (max-width: 425px) {
   .menu-container img {
-    width: 10vw;
+    width: 8vw;
   }
 }
