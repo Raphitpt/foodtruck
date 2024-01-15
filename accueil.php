@@ -184,7 +184,7 @@ if (isset($_SESSION['email'])) {
 
         .accueil {
             height: auto;
-            /* margin: 30px auto; */
+            margin: 30px auto;
         }
 
         .accueil h1 {
@@ -298,7 +298,7 @@ if (isset($_SESSION['email'])) {
 
         @media screen and (max-width:425px) and (max-height:667px) {
             main {
-                margin-top: 7rem;
+                /* margin-top: 7rem; */
             }
         }
     }
