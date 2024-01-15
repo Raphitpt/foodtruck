@@ -26,6 +26,12 @@ $photo = $stmt->fetch();
 $userId = $photo['id_user'];
 
 $currentDateTime = new DateTime();
+if ($currentDateTime->format('H') >= '15') {
+    $dateDay = date('Y-m-d', strtotime('+1 day'));
+} else {
+    $dateDay = date('Y-m-d');
+
+}
 $maxDate = date('Y-m-d', strtotime('+1 week'));
 // Récupérer les informations de l'utilisateur par son ID
 echo '<input type="hidden" id="userId" value="' . $userId . '">';
@@ -132,7 +138,6 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
             <div class="container">
                 <div class="row">
                     <div class="col-12">
-
                         <h1>Mon panier</h1>
                         <table class="table">
                             <img src="./assets/img/FOUEE2.png" alt="">
@@ -180,21 +185,21 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
                         </div>
                     </div>
                     <div class="btn">
-                        <button onclick="location.href = './index.php'" class="btn btn_continuer">Continuer
+                        <button onclick="location.href = './index.php'" class="btn btn_success btn_continuer">Continuer
                             mes achats</button>
-                        <button class="btn btn_commander">Commander</button>
+                        <button class="btn btn_dark btn_commander">Commander</button>
                     </div>
                     <div class="monElement"></div>
                 </div>
             </div>
             </div>
-            <div>
+            <div class="selHeureBtn">
                 <h2>Réserver son repas</h2>
 
                 <div class="quantite"></div>
-                <input type="date" id="dateReservation" min="<?= date('Y-m-d') ?>" max="<?= $maxDate ?>">
+                <input type="date" id="dateReservation" min="<?= $dateDay ?>" max="<?= $maxDate ?>" value="<?= $dateDay ?>">
                 </select>
-                <div class="radio-inputs">
+                <div class="radio-inputs" id="heureContainer">
                     <?php
                     for ($hour = 12; $hour <= 15; $hour++) {
                         for ($minute = ($hour == 12 ? 10 : 0); $minute <= ($hour == 15 ? 0 : 55); $minute += 10) {
@@ -429,7 +434,6 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
             // Initialise la date du jour lors du chargement de la page
             const today = new Date();
             const formattedToday = today.toISOString().split('T')[0]; // Format YYYY-MM-DD
-            dateReservationInput.value = formattedToday;
 
             // Initialise la liste de panier avec la date actuelle
             listPanier("12h00", formattedToday, selectedValue);
@@ -595,23 +599,32 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
                 viderPanier();
             });
         }
-        document.getElementById('dateReservation').addEventListener('change', function() {
-            let selectedDate = this.value;
-            let currentDateTime = new Date();
-            console.log(selectedDate);
-            document.querySelectorAll('.btnHeure').forEach(function(btnHeure) {
-                let hour = parseInt(btnHeure.querySelector('.selectedTime').innerText.substring(0, 2));
-                let minute = parseInt(btnHeure.querySelector('.selectedTime').innerText.substring(3, 5));
 
-                let dateTime = new Date(selectedDate + 'T' + hour + ':' + minute + ':00');
-                console.log(dateTime);
-                if (dateTime < currentDateTime) {
+        function updateDisabledHours() {
+            var selectedDate = document.getElementById('dateReservation').value;
+            var currentDateTime = new Date();
+
+            document.querySelectorAll('.btnHeure').forEach(function(btnHeure) {
+                var hour = parseInt(btnHeure.querySelector('.selectedTime').innerText.substring(0, 2));
+                var minute = parseInt(btnHeure.querySelector('.selectedTime').innerText.substring(3, 5));
+                if(minute == 0){
+                    minute = "00";
+                }
+                var dateTime = new Date(selectedDate + 'T' + hour + ':' + minute + ':00');
+
+                if (dateTime < currentDateTime || (dateTime.getMinutes() === 0 && dateTime < currentDateTime)) {
                     btnHeure.classList.add('disabled');
                 } else {
                     btnHeure.classList.remove('disabled');
                 }
             });
-        });
+        }
+
+        // Appeler la fonction au chargement de la page
+        window.addEventListener('load', updateDisabledHours);
+
+        // Ajouter un écouteur d'événements pour mettre à jour lors du changement de date
+        document.getElementById('dateReservation').addEventListener('input', updateDisabledHours);
     </script>
     <script src="./assets/js/functions.js"></script>
     <script src="https://kit.fontawesome.com/45762c6469.js" crossorigin="anonymous"></script>
