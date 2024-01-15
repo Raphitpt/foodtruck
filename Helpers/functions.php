@@ -3,6 +3,7 @@ require 'vendor/autoload.php';
 /*
     Fichier : /Helpers/functions.php
  */
+global $dbh;
 $infosQuery = "SELECT * FROM settings";
 $infosResult = $dbh->query($infosQuery);
 $infos = $infosResult->fetch();
