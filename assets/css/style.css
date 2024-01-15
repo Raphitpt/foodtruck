@@ -367,6 +367,25 @@ nav > ul > li > img {
   gap: 1.5rem; /* Adjusted gap for better spacing */
   cursor: pointer;
 }
+.btn_commander{
+  background: #e56d00;
+  color: #fff;
+}
+.btn_commander:hover{
+  background: #fff;
+  color: #e56d00;
+  border: 1px solid #e56d00;
+}
+.btn_continuer{
+  background: #fff;
+  color: #e56d00;
+  border: 1px solid #e56d00;
+}
+.btn_continuer:hover{
+  background: #F5F5F5;
+  color: #e56d00;
+  border: 1px solid #e56d00;
+}
 
 .line {
   width: auto;
@@ -509,6 +528,12 @@ nav > ul > li > img {
 
 .fa-plus {
   margin-right: 1rem;
+}
+.listRecapOrder{
+list-style: none;
+}
+.titlePlatsRecap{
+font-weight: bold;
 }
 
 .button_fouee {
