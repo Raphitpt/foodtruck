@@ -129,7 +129,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div class="menu-container">
             <ul class="nav_left">
                 <li class="nav_title"><img src="<?= htmlspecialchars($infos['url_logo']) ?>" alt="logo fouee">
-                    <p><?= htmlspecialchars("Fouée't Moi") ?>
+                    <p><?= htmlspecialchars("Fouées du Terroir") ?>
                 </li>
             </ul>
             <div class="menu-btn" id="menu-btn">
