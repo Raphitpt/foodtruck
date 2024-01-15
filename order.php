@@ -73,6 +73,11 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
             opacity: 0.5;
             cursor: not-allowed;
         }
+
+        .selectedTime.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
     </style>
 
 </head>
@@ -194,7 +199,7 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
                 <div class="quantite"></div>
                 <input type="date" id="dateReservation" min="<?= date('Y-m-d') ?>" max="<?= $maxDate ?>">
                 </select>
-                <div class="radio-inputs">
+                <div class="radio-inputs" id="heureContainer">
                     <?php
                     for ($hour = 12; $hour <= 15; $hour++) {
                         for ($minute = ($hour == 12 ? 10 : 0); $minute <= ($hour == 15 ? 0 : 55); $minute += 10) {
@@ -370,22 +375,22 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
                 return supplementCost;
             }
 
-            if (nombreArticlesDansPanier > 8) {
-                btnHeure.forEach((elem) => {
-                    const selectedHour = elem.querySelector('.selectedTime').textContent;
-                    const hourArticlesCount = panier.filter(item => item.heure === selectedHour).reduce((total, item) => total + parseInt(item.quantite), 0);
+            // if (nombreArticlesDansPanier > 8) {
+            //     btnHeure.forEach((elem) => {
+            //         const selectedHour = elem.querySelector('.selectedTime').textContent;
+            //         const hourArticlesCount = panier.filter(item => item.heure === selectedHour).reduce((total, item) => total + parseInt(item.quantite), 0);
 
-                    if (hourArticlesCount >= 8) {
-                        elem.classList.add('disabled');
-                    } else {
-                        elem.classList.remove('disabled');
-                    }
-                });
-            } else {
-                btnHeure.forEach((elem) => {
-                    elem.classList.remove('disabled');
-                });
-            }
+            //         if (hourArticlesCount >= 8) {
+            //             elem.classList.add('disabled');
+            //         } else {
+            //             elem.classList.remove('disabled');
+            //         }
+            //     });
+            // } else {
+            //     btnHeure.forEach((elem) => {
+            //         elem.classList.remove('disabled');
+            //     });
+            // }
             const iconCell = document.querySelector('.icon-cell');
 
             // Vous pouvez ajouter des styles spécifiques à cette cellule
@@ -595,23 +600,47 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
                 viderPanier();
             });
         }
-        document.getElementById('dateReservation').addEventListener('change', function() {
-            let selectedDate = this.value;
-            let currentDateTime = new Date();
-            console.log(selectedDate);
-            document.querySelectorAll('.btnHeure').forEach(function(btnHeure) {
-                let hour = parseInt(btnHeure.querySelector('.selectedTime').innerText.substring(0, 2));
-                let minute = parseInt(btnHeure.querySelector('.selectedTime').innerText.substring(3, 5));
 
-                let dateTime = new Date(selectedDate + 'T' + hour + ':' + minute + ':00');
-                console.log(dateTime);
-                if (dateTime < currentDateTime) {
-                    btnHeure.classList.add('disabled');
-                } else {
-                    btnHeure.classList.remove('disabled');
+        function updateDisabledHours() {
+            var selectedDate = document.getElementById('dateReservation').value;
+            var currentDateTime = new Date();
+            var heureContainer = document.getElementById('heureContainer');
+
+            // Supprimer toutes les heures actuelles
+            while (heureContainer.firstChild) {
+                heureContainer.removeChild(heureContainer.firstChild);
+            }
+
+            // Réafficher toutes les heures
+            for (var hour = 12; hour <= 15; hour++) {
+                for (var minute = (hour == 12 ? 10 : 0); minute <= (hour == 15 ? 0 : 55); minute += 10) {
+                    var time = ('0' + hour).slice(-2) + ':' + ('0' + minute).slice(-2);
+                    var div = document.createElement('div');
+                    div.className = 'btnHeure';
+                    div.innerHTML = '<p class="selectedTime">' + time + '</p>';
+                    heureContainer.appendChild(div);
+
+                    // Convertir minute en chaîne avec deux chiffres
+                    var minuteString = ('0' + minute).slice(-2);
+
+                    var dateTime = new Date(selectedDate + 'T' + hour + ':' + minuteString + ':00');
+                    console.log(minuteString);
+                    console.log(dateTime);
+
+                    // Ajouter la classe "disabled" si l'heure est passée
+                    if (dateTime < currentDateTime) {
+                        div.classList.add('disabled');
+                    }
                 }
-            });
-        });
+            }
+
+        }
+
+        // Appeler la fonction au chargement de la page
+        window.addEventListener('load', updateDisabledHours);
+
+        // Ajouter un écouteur d'événements pour mettre à jour lors du changement de date
+        document.getElementById('dateReservation').addEventListener('input', updateDisabledHours);
     </script>
     <script src="./assets/js/functions.js"></script>
     <script src="https://kit.fontawesome.com/45762c6469.js" crossorigin="anonymous"></script>
