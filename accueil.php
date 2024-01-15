@@ -422,7 +422,9 @@ if (isset($_SESSION['email'])) {
             <button onclick="location.href = './index.php'">
                 <?= htmlspecialchars("Order") ?>
             </button>
-            <h5><?php echo $infos['adresse_entreprise'] ?></h5>
+            <h5>
+                <?php echo $infos['adresse_entreprise'] ?>
+            </h5>
             <div>
                 <img src="<?php echo htmlspecialchars($contenu['url_img1']) ?>" />
 
@@ -501,8 +503,9 @@ if (isset($_SESSION['email'])) {
     </script>
 
 </body>
+
+
+</html>
 <?php
 echo footer();
 ?>
-
-</html>
