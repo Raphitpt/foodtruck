@@ -390,11 +390,6 @@ if (isset($_SESSION['email'])) {
                     <?php } else { ?>
                         <li><a href="login.php">Connexion/Inscription</a></li>
                     <?php } ?>
-                    <?php if (isset($_SESSION['email']) && $_SESSION['email'] === 'admin@gmail.com') : ?>
-                        <li><button onclick="location.href = 'indexBO.php'" class="button_nav">
-                                <?= htmlspecialchars("Back Office") ?>
-                            </button></li>
-                    <?php endif; ?>
                 </ul>
             </nav>
         </div>
