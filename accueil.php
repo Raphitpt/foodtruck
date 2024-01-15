@@ -412,6 +412,7 @@ if (isset($_SESSION['email'])) {
             <button onclick="location.href = './index.php'">
                 <?= htmlspecialchars("Order") ?>
             </button>
+            <h2><?php echo $infos['adresse_entreprise'] ?></h2>
             <div>
                 <img src="<?php echo htmlspecialchars($contenu['url_img1']) ?>" />
 
