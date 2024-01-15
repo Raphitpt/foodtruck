@@ -3,7 +3,9 @@ require 'vendor/autoload.php';
 /*
     Fichier : /Helpers/functions.php
  */
-
+$infosQuery = "SELECT * FROM settings";
+$infosResult = $dbh->query($infosQuery);
+$infos = $infosResult->fetch();
 /**
  * Retourne le contenu HTML du bloc d'en tête d'une page.
  * Deux CSS sont automatiquement intégré :
@@ -58,17 +60,17 @@ use PHPMailer\PHPMailer\Exception;
 
 function send_activation_email(string $email, string $activation_code,)
 {
-
+    global $infos;
     // set email subjectj
     $subject = 'Active ton compte dès maintenant !';
     $message = <<<HTML
     <h1>Confirmation de votre inscription</h1>
     <p>Merci de cliquer sur le lien suivant pour confirmer votre inscription :</p>
-    <a href="http://localhost:8000/confirmMail.php?token=$activation_code&email=$email">Confirmer mon inscription</a>
+    <a href="https://rtiphonet.fr/foodtruck/confirmMail.php?token=$activation_code&email=$email">Confirmer mon inscription</a>
 HTML;
 
     $headers  = 'MIME-Version: 1.0' . "\r\n";
-    $headers .= 'From: MMI Companion <' . SENDER_EMAIL_ADDRESS . '>' . "\r\n" .
+    $headers .= 'From:' . $infos['nom_entreprise'] .'<' . SENDER_EMAIL_ADDRESS . '>' . "\r\n" .
         'Reply-To: ' . SENDER_EMAIL_ADDRESS . "\r\n" .
         'Content-Type: text/html; charset="utf-8"' . "\r\n" .
         'X-Mailer: PHP/' . phpversion();
