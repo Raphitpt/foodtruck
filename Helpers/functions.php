@@ -205,6 +205,7 @@ function sendFacture($data, $id_user, $commentaire, $date_retrait, $total, $id_c
 
     // Header settings
     $invoice->setColor("#e56d00");
+    $invoice->setNumberFormat(",", " ", "right", true, false);
     $invoice->setLogo("./assets/img/facture.png", 70, 70);
     $invoice->setType("Facture");
     $invoice->setReference("INV-$id_commande");
@@ -307,7 +308,7 @@ HTML;
 
         //Recipients
         $mail->setFrom(SENDER_EMAIL_ADDRESS, $infos['nom_entreprise']);
-        $mail->addAddress($user['email']);
+        $mail->addAddress('rtiphonet@gmail.com');
 
         // Content
         $mail->isHTML(true);
