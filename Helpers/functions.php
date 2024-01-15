@@ -48,22 +48,61 @@ function isGetMethod(): bool
 /**
  * Envoyer un mail de confirmation.
  */
-function sendConfirmationMail(string $email, string $token): void
+const APP_URL = 'https://app.mmi-companion.fr/pages';
+const SENDER_EMAIL_ADDRESS = 'raphael.tiphonet@etu.univ-poitiers.fr';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
+function send_activation_email(string $email, string $activation_code,)
 {
-    $to = $email;
-    $subject = 'Confirmation de votre inscription';
+
+    // set email subjectj
+    $subject = 'Active ton compte dès maintenant !';
     $message = <<<HTML
     <h1>Confirmation de votre inscription</h1>
     <p>Merci de cliquer sur le lien suivant pour confirmer votre inscription :</p>
-    <a href="http://localhost:8000/confirmMail.php?token=$token&email=$email">Confirmer mon inscription</a>
+    <a href="http://localhost:8000/confirmMail.php?token=$activation_code&email=$email">Confirmer mon inscription</a>
 HTML;
-    $headers = [
-        'MIME-Version: 1.0',
-        'Content-type: text/html; charset=utf-8',
-        'From:  <rtiphonet@gmail.com>'
 
-    ];
-    mail($to, $subject, $message, implode("\r\n", $headers));
+    $headers  = 'MIME-Version: 1.0' . "\r\n";
+    $headers .= 'From: MMI Companion <' . SENDER_EMAIL_ADDRESS . '>' . "\r\n" .
+        'Reply-To: ' . SENDER_EMAIL_ADDRESS . "\r\n" .
+        'Content-Type: text/html; charset="utf-8"' . "\r\n" .
+        'X-Mailer: PHP/' . phpversion();
+
+    // send the email
+    $_SESSION['mail_message'] = "";
+    $mail = new PHPMailer(true);
+    try {
+        //Server settings
+        $mail->SMTPDebug = SMTP::DEBUG_OFF;                      // Enable verbose debug output
+        $mail->isSMTP();                                            // Send using SMTP
+        $mail->Host       = "mail.rtiphonet.fr";                    // Set the SMTP server to send through
+        $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+        $mail->Username   = "foodtruck@rtiphonet.fr";                     // SMTP username
+        $mail->Password   = "y9AtkG7Z]oG7";                               // SMTP password
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
+        $mail->Port       = "465";                 // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
+        $mail->CharSet = "UTF-8";
+        $mail->Encoding = "base64";
+
+        //Recipients
+        $mail->setFrom(SENDER_EMAIL_ADDRESS, 'MMI Companion');
+        $mail->addAddress($email);     // Add a recipient
+
+        // Content
+        $mail->isHTML(true);                                  // Set email format to HTML
+        $mail->Subject = $subject;
+        $mail->Body    = $message;
+
+        $mail->send();
+        $_SESSION['mail_message'] = "Le mail vient de t'être envoyé, penses à regarder dans tes spams si besoin.";
+    } catch (Exception $e) {
+        $_SESSION['mail_message'] = "Une erreur vient de survenir lors de l'envoi du mail, réessaye plus tard.";
+        error_log("Error sending activation email to $email");
+    }
 }
 /**
  * Retourne vrai si la méthode d'appel est POST.
@@ -88,34 +127,3 @@ HTML_FOOTER;
 
 
 
-function calculerProchainCreneau($date, $dbh)
-{
-    $sql = "SELECT * FROM `four` WHERE date = :date AND heure > :heure AND nombre_fouees < 8 ORDER BY heure ASC";
-    $stmt = $dbh->prepare($sql);
-    $stmt->bindParam(':date', explode(" ", $date)[0]);
-    $stmt->bindParam(':heure', explode(" ", $date)[1]);
-    $stmt->execute();
-    $order = $stmt->fetch();
-    if ($order) {
-        return $order['heure'];
-    } else {
-        return "Il n'y a plus de créneau disponible pour cette date.";
-    }
-}
-
-function getOrderForCreneau($jour, $mois, $annee, $heure, $dbh)
-{
-    $sql = "SELECT * FROM `four` WHERE date = :date AND heure = :heure";
-    $stmt = $dbh->prepare($sql);
-    $stmt->bindParam(':date', $jour . "-" . $mois . "-" . $annee);
-    $stmt->bindParam(':heure', $heure);
-    $stmt->execute();
-    return $stmt->fetch();
-}
-
-function  enregistrerCommandes($jour, $mois, $annee, $heureCreneauSuivant, $commandesCreneau, $dbh)
-{
-    $sql = "INSERT INTO four (date, heure, nombre_fouees) VALUES ( :date, :heure, :nb) ";
-    $stmt = $dbh->prepare($sql);
-    $stmt->execute(['date' => $annee . "-" . $mois . "-" . $jour, 'heure' => $heureCreneauSuivant, 'nb' => $commandesCreneau]);
-}
