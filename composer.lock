@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6572a0ac8a991926ce2385d1c4f2684a",
+    "content-hash": "f3f960301239cc203701a6bdf153b8da",
     "packages": [
         {
             "name": "konekt/pdf-invoice",
-            "version": "1.13.1",
+            "version": "1.14.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/artkonekt/pdf-invoice.git",
-                "reference": "8ee241d49c506290471ee8b623b17943f3faf655"
+                "reference": "61ba27dfca576a24ebe1d46ab24a819f1b22c88e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/artkonekt/pdf-invoice/zipball/8ee241d49c506290471ee8b623b17943f3faf655",
-                "reference": "8ee241d49c506290471ee8b623b17943f3faf655",
+                "url": "https://api.github.com/repos/artkonekt/pdf-invoice/zipball/61ba27dfca576a24ebe1d46ab24a819f1b22c88e",
+                "reference": "61ba27dfca576a24ebe1d46ab24a819f1b22c88e",
                 "shasum": ""
             },
             "require": {
@@ -55,7 +55,7 @@
             "support": {
                 "source": "https://github.com/artkonekt/pdf-invoice"
             },
-            "time": "2023-02-19T15:37:46+00:00"
+            "time": "2023-11-28T16:07:33+00:00"
         },
         {
             "name": "phpmailer/phpmailer",

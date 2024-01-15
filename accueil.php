@@ -166,6 +166,7 @@ if (isset($_SESSION['email'])) {
     @media screen and (max-width:768px) {
         .accueil h1 {
             font-size: 1.7rem;
+            margin-top: 1.5rem;
         }
 
         .accueil button {

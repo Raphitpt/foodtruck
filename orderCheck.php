@@ -11,7 +11,7 @@ if (!isset($_SESSION['email']) || $_SESSION['email'] !== 'admin@gmail.com') {
 
 echo head('Commandes en cours');
 
-$hist = "SELECT * FROM commandes inner join users on commandes.id_user = users.id_user WHERE statut = 'En cours'";
+$hist = "SELECT * FROM commandes inner join users on commandes.id_user = users.id_user WHERE statut = 'En cours' ORDER BY date_commande DESC";
 $hist = $dbh->query($hist);
 $hist = $hist->fetchAll();
 

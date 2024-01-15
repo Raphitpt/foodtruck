@@ -1326,4 +1326,17 @@ input[type="date"] {
   .menu-container img {
     width: 8vw;
   }
+
+
+}
+
+@media only screen and (max-width: 1025px) {
+  .action a {
+    font-size: 0.8rem;
+  }
+
+  .col-left h1{
+    font-size: 2.5rem;
+  }
+
 }
