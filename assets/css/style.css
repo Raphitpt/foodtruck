@@ -236,7 +236,7 @@ nav > ul > li {
     margin-right: 20px;
     position: relative;
     z-index: 10;
-    transform: translateX(6vw);
+    transform: translateX(12vw);
   }
 
   header {
@@ -248,6 +248,11 @@ nav > ul > li {
     justify-content: center;
     align-items: center;
     gap: 3rem;
+  }
+}
+@media screen and (max-width: 425px) {
+  .menu-btn {
+    transform: translateX(0px);
   }
 }
 
@@ -1071,10 +1076,10 @@ input[type="date"] {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.commandeConfirm h1 {
+.table-responsive h1 {
   margin-bottom: 2rem;
 }
-.commandeConfirm p {
+.table-responsive p {
   margin-bottom: 2rem;
 }
 .supprCommande {
