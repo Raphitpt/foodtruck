@@ -1411,6 +1411,8 @@ input[type="date"] {
 footer {
   text-align: center;
   margin-top: 20px;
+  position: absolute;
+  width: 100%;
 }
 
 footer a {
@@ -1435,4 +1437,10 @@ footer a:hover {
   text-decoration: none;
   color: #28272b;
   cursor: pointer;
+}
+
+@media screen and (max-width: 425px) {
+  .mentionlg a {
+    font-size: 10px;
+  }
 }
