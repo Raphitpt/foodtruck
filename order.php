@@ -137,7 +137,6 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
             <div class="container">
                 <div class="row">
                     <div class="col-12">
-
                         <h1>Mon panier</h1>
                         <table class="table">
                             <img src="./assets/img/FOUEE2.png" alt="">
@@ -185,15 +184,15 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
                         </div>
                     </div>
                     <div class="btn">
-                        <button onclick="location.href = './index.php'" class="btn btn_continuer">Continuer
+                        <button onclick="location.href = './index.php'" class="btn btn_success btn_continuer">Continuer
                             mes achats</button>
-                        <button class="btn btn_commander">Commander</button>
+                        <button class="btn btn_dark btn_commander">Commander</button>
                     </div>
                     <div class="monElement"></div>
                 </div>
             </div>
             </div>
-            <div>
+            <div class="selHeureBtn">
                 <h2>Réserver son repas</h2>
 
                 <div class="quantite"></div>
@@ -602,9 +601,9 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
         }
 
         function updateDisabledHours() {
-            var selectedDate = document.getElementById('dateReservation').value;
-            var currentDateTime = new Date();
-            var heureContainer = document.getElementById('heureContainer');
+            let selectedDate = document.getElementById('dateReservation').value;
+            let currentDateTime = new Date();
+            let heureContainer = document.getElementById('heureContainer');
 
             // Supprimer toutes les heures actuelles
             while (heureContainer.firstChild) {
@@ -612,22 +611,18 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
             }
 
             // Réafficher toutes les heures
-            for (var hour = 12; hour <= 15; hour++) {
-                for (var minute = (hour == 12 ? 10 : 0); minute <= (hour == 15 ? 0 : 55); minute += 10) {
-                    var time = ('0' + hour).slice(-2) + ':' + ('0' + minute).slice(-2);
-                    var div = document.createElement('div');
+            for (let hour = 12; hour <= 15; hour++) {
+                for (let minute = (hour == 12 ? 10 : 0); minute <= (hour == 15 ? 0 : 55); minute += 10) {
+                    let time = ('0' + hour).slice(-2) + ':' + ('0' + minute).slice(-2);
+                    let div = document.createElement('div');
                     div.className = 'btnHeure';
                     div.innerHTML = '<p class="selectedTime">' + time + '</p>';
                     heureContainer.appendChild(div);
 
-                    // Convertir minute en chaîne avec deux chiffres
-                    var minuteString = ('0' + minute).slice(-2);
+                    let minuteString = ('0' + minute).slice(-2);
 
-                    var dateTime = new Date(selectedDate + 'T' + hour + ':' + minuteString + ':00');
-                    console.log(minuteString);
-                    console.log(dateTime);
+                    let dateTime = new Date(selectedDate + 'T' + hour + ':' + minuteString + ':00');
 
-                    // Ajouter la classe "disabled" si l'heure est passée
                     if (dateTime < currentDateTime) {
                         div.classList.add('disabled');
                     }
