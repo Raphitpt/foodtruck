@@ -1,8 +1,8 @@
 <?php
 if (($_SERVER['REMOTE_ADDR'] == '127.0.0.1' or $_SERVER['REMOTE_ADDR'] == '::1')) {
-} else {require 'vendor/autoload.php';
+} else {
 }
-
+require 'vendor/autoload.php';
 /*
     Fichier : /Helpers/functions.php
  */
@@ -186,121 +186,139 @@ HTML_FOOTER;
 
 use Konekt\PdfInvoice\InvoicePrinter;
 
-function sendFacture($data, $id_user, $commentaire, $date_retrait, $total)
+function sendFacture($data, $id_user, $commentaire, $date_retrait, $total, $id_commande)
 {
+    // error_reporting(E_ERROR | E_PARSE);
     $dataArray = json_decode($data, true);
 
-    // Check if decoding was successful
-    if (is_array($dataArray)) {
-        global $dbh;
-        $infos = "SELECT * FROM settings";
-        $infos = $dbh->query($infos);
-        $infos = $infos->fetch();
-        
-        $user = "SELECT * FROM users WHERE id_user = :id_user";
-        $user = $dbh->prepare($user);
-        $user->execute(['id_user' => $id_user]);
-        $user = $user->fetch();
+    global $dbh;
+    $infos = "SELECT * FROM settings";
+    $infos = $dbh->query($infos);
+    $infos = $infos->fetch();
 
-        $invoice = new InvoicePrinter('A4', '€', 'fr');
+    $user = "SELECT * FROM users WHERE id_user = :id_user";
+    $user = $dbh->prepare($user);
+    $user->execute(['id_user' => $id_user]);
+    $user = $user->fetch();
 
-        // Header settings
-        $invoice->setColor("#e56d00");
-        $invoice->setLogo($infos['logo_facture'], 300, 300);
-        $invoice->setType("Facture");
-        $invoice->setReference("INV-55033645");
-        $invoice->setDate(date('M dS ,Y', time()));
-        $invoice->setTime(date('h:i:s A', time()));
-        $invoice->setDue(date('M dS ,Y', strtotime('+3 months')));
-        $address = explode(", ",$infos['adresse_entreprise']);
+    $invoice = new InvoicePrinter('A4', '€', 'fr');
 
-        $invoice->setFrom([
-            $infos['nom_entreprise'],
-            $address[0],
-            $address[1],
-            $infos['tel'],
-            $infos['email']   
-        ]);
-        $invoice->setTo([
-            $user['nom'] . " " . $user['prenom'],
-            $user['email'],
-            'Nombre de points de fidélités : ' . $user['pts_fidelite'] 
-         ]);
+    // Header settings
+    $invoice->setColor("#e56d00");
+    $invoice->setLogo("./assets/img/facture.png", 70, 70);
+    $invoice->setType("Facture");
+    $invoice->setReference("INV-$id_commande");
+    $invoice->setDate(date('d M Y', time()));
+    $invoice->setTime(date('h:i:s ', time()));
+    $invoice->setDue(date('d M Y', strtotime('+3 months')));
+    $address = explode(", ", $infos['adresse_entreprise']);
 
-        // Add items dynamically from $data
-        foreach ($dataArray as $item) {
-            $invoice->addItem(
-                $item['nom'],
-                isset($item['supplements'][0]['name']) ? $item['supplements'][0]['name'] : '',
-                $item['quantite'],
-                $item['prix'] * 0.055,
-                $item['prix'] - ($item['prix'] * 0.055),
-                false,
-                $item['quantite'] * $item['prix']
-            );
-        }
-        $percentage = $total * 0.055;
-        $total = $total - ($total * 0.055);        
-        $invoice->addTotal("Total", $percentage);
-        $invoice->addTotal("TVA 5,5%", 1);
-        $invoice->addTotal("Montant total", $total + $percentage, true);
+    $invoice->setFrom([
+        $infos['nom_entreprise'],
+        $address[0],
+        $address[1],
+        $infos['tel'],
+        $infos['email']
+    ]);
+    $invoice->setTo([
+        $user['nom'] . " " . $user['prenom'],
+        $user['email'],
+        'Nombre de points de fidélités : ' . $user['pts_fidelite']
+    ]);
+    foreach ($dataArray as $item) {
+        $taxedPrice = is_numeric($item['prix']) ? $item['prix'] : 0;
 
-        $invoice->addBadge("Non Payé");
-        $invoice->addTitle("Commentaire de commande");
-        if ($commentaire != null){
-            $invoice->addParagraph($commentaire);
-        }else{
-            $invoice->addParagraph("Aucun commentaire");
+        if (isset($item['supplements']) && is_array($item['supplements'])) {
+            foreach ($item['supplements'] as $supplement) {
+                $supplementPrice = isset($supplement['price']) && is_numeric($supplement['price'])
+                    ? $supplement['price']
+                    : 0;
+
+                $taxedPrice += $supplementPrice;
+            }
         }
 
-        $invoice->addTitle("Commentaire de livraison");
+        $taxAmount = is_numeric($taxedPrice) ? $taxedPrice * 0.055 : 0;
+        $untaxedPrice = $taxedPrice - $taxAmount;
 
-        $invoice->addParagraph("Vous pourrez venir chercher votre commande le " . date('d/m/Y H:i:s', strtotime($date_retrait)) . " au FoodTruck");
-
-        $invoice->setFooternote("Le meilleur FoodTruck");
-        $invoiceFileName = 'facture.pdf';
-        $invoice->render($invoiceFileName, 'F');
-    } else {
-        echo 'Error decoding JSON data.';
+        $invoice->addItem(
+            $item['nom'],
+            implode(', ', array_column($item['supplements'], 'name')),
+            $item['quantite'],
+            $taxAmount,
+            $untaxedPrice,
+            false,
+            $item['quantite'] * $taxedPrice
+        );
     }
-    // Envoyez la facture par e-mail
-    // Destinataire de l'e-mail
-    $to = 'rtiphonet@gmail.com';
+    $percentage = $total * 0.055;
+    $total = $total - ($total * 0.055);
+    $invoice->addTotal("Total", $total);
+    $invoice->addTotal("TVA 5,5%", $percentage);
+    $invoice->addTotal("Montant total", $total + $percentage, true);
 
-    // Sujet de l'e-mail
-    $subject = 'Facture';
-
-    // En-têtes MIME pour l'e-mail
-    $headers = "From: Votre Nom <votre_email@example.com>\r\n";
-    $headers .= "MIME-Version: 1.0\r\n";
-    $headers .= "Content-Type: multipart/mixed; boundary=\"boundary\"\r\n";
-
-    // Corps de l'e-mail
-    $message = "--boundary\r\n";
-    $message .= "Content-Type: text/plain; charset=\"utf-8\"\r\n";
-    $message .= "Content-Transfer-Encoding: 7bit\r\n";
-    $message .= "\r\n";
-    $message .= "Veuillez trouver ci-joint la facture en PDF.\r\n";
-    $message .= "\r\n";
-    $message .= "--boundary\r\n";
-
-    // Pièce jointe (facture en PDF)
-    $fileContent = file_get_contents($invoiceFileName);
-    $message .= "Content-Type: application/pdf\r\n";
-    $message .= "Content-Disposition: attachment; filename=\"$invoiceFileName\"\r\n";
-    $message .= "Content-Transfer-Encoding: base64\r\n";
-    $message .= "\r\n";
-    $message .= chunk_split(base64_encode($fileContent));
-    $message .= "\r\n";
-    $message .= "--boundary--\r\n";
-
-    // Envoyer l'e-mail avec la pièce jointe
-    if (mail($to, $subject, $message, $headers)) {
-        echo 'Facture envoyée avec succès par e-mail.';
+    $invoice->addBadge("Non Payé");
+    $invoice->addTitle("Commentaire de commande");
+    if ($commentaire != null) {
+        $invoice->addParagraph($commentaire);
     } else {
-        echo 'Échec de l\'envoi de la facture par e-mail.';
+        $invoice->addParagraph("Aucun commentaire");
     }
 
-    // Supprimer le fichier PDF temporaire
-    unlink($invoiceFileName);
+    $invoice->addTitle("Commentaire de livraison");
+
+    $invoice->addParagraph("Vous pourrez venir chercher votre commande le " . date('d/m/Y H:i:s', strtotime($date_retrait)) . " au FoodTruck");
+    $invoice->addParagraph("Le paiement se fait à la livraison: CB, Carte Restaurant, Bulles et espèces exclusivement");
+    $invoice->setFooternote("Le meilleur FoodTruck");
+
+    $invoiceFileName = 'INV-' . $id_commande . '.pdf';
+    $invoice->render('F', "./facture/$invoiceFileName");
+
+
+    $subject = 'Votre commande numéro ' . $id_commande . '';
+    $message = <<<HTML
+    <h1>Votre commande numéro $id_commande a bien été enregistrée</h1>
+    <p>Vous pourrez venir la récupérer au camion le $date_retrait. <br>De plus, une facture vous a été envoyée et se trouve en pièce jointe de ce mail. Merci pour votre commande.</p>
+HTML;
+
+
+
+    $headers  = 'MIME-Version: 1.0' . "\r\n";
+    $headers .= 'From:' . $infos['nom_entreprise'] . '<' . SENDER_EMAIL_ADDRESS . '>' . "\r\n" .
+        'Reply-To: ' . SENDER_EMAIL_ADDRESS . "\r\n" .
+        'Content-Type: text/html; charset="utf-8"' . "\r\n" .
+        'X-Mailer: PHP/' . phpversion();
+
+    // send the email
+    $_SESSION['mail_message'] = "";
+    $mail = new PHPMailer(true);
+    try {
+        //Server settings
+        $mail->SMTPDebug = SMTP::DEBUG_OFF;                    // Enable verbose debug output
+        $mail->isSMTP();                                            // Send using SMTP
+        $mail->Host       = "mail.rtiphonet.fr";                    // Set the SMTP server to send through
+        $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+        $mail->Username   = "foodtruck@rtiphonet.fr";                     // SMTP username
+        $mail->Password   = "y9AtkG7Z]oG7";                               // SMTP password
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
+        $mail->Port       = "465";                 // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
+        $mail->CharSet = "UTF-8";
+        $mail->Encoding = "base64";
+
+        //Recipients
+        $mail->setFrom(SENDER_EMAIL_ADDRESS, $infos['nom_entreprise']);
+        $mail->addAddress("rtiphonet@gmail.com");
+
+        // Content
+        $mail->isHTML(true);
+        $mail->Subject = $subject;
+        $mail->Body    = $message;
+        $mail->addAttachment('./facture/'. $invoiceFileName .'');
+
+        $mail->send();
+        $_SESSION['mail_message'] = "Le mail vient de t'être envoyé, penses à regarder dans tes spams si besoin.";
+    } catch (Exception $e) {
+        $_SESSION['mail_message'] = "Une erreur vient de survenir lors de l'envoi du mail, réessaye plus tard.";
+        error_log("Error sending activation email to me");
+    }
 };
