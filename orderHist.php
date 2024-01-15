@@ -32,7 +32,7 @@ if (isset($_SESSION['email'])) {
 
 ?>
 <script>
-    window.onload = function () {
+    window.onload = function() {
         // Check screen width
         var screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
 
@@ -46,6 +46,19 @@ if (isset($_SESSION['email'])) {
         }
     };
 </script>
+<style>
+    h1 {
+        margin-bottom: 2rem;
+        margin-top: 1rem;
+        text-align: center;
+    }
+
+    .table-responsive {
+        height: 100vh;
+    }
+</style>
+
+
 <body>
     <nav>
         <ul class="nav_left">
@@ -69,8 +82,9 @@ if (isset($_SESSION['email'])) {
         <div class="btn-retour">
             <a href="indexBO.php" class="btn"><i class="fa-solid fa-arrow-left"></i></a>
         </div>
-        <section class="commandeTable">
-            <h1>Historique de commande</h1>
+        <h1>Historique de commande</h1>
+        <section class="table-responsive">
+
             <table class="table" id="table" data-toggle="table" data-pagination="true" data-show-columns="true" data-search="true" auto-refresh="true">
                 <thead>
                     <tr>

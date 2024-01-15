@@ -1076,10 +1076,10 @@ input[type="date"] {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.commandeConfirm h1 {
+.table-responsive h1 {
   margin-bottom: 2rem;
 }
-.commandeConfirm p {
+.table-responsive p {
   margin-bottom: 2rem;
 }
 .supprCommande {
