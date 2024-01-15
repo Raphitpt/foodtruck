@@ -188,7 +188,7 @@ use Konekt\PdfInvoice\InvoicePrinter;
 
 function sendFacture($data, $id_user, $commentaire, $date_retrait, $total, $id_commande)
 {
-    // error_reporting(E_ERROR | E_PARSE);
+    error_reporting(E_ERROR | E_PARSE);
     $dataArray = json_decode($data, true);
 
     global $dbh;
