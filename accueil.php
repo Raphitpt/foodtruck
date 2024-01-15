@@ -295,12 +295,6 @@ if (isset($_SESSION['email'])) {
                 height: 5vh;
             }
         }
-
-        @media screen and (max-width:425px) and (max-height:667px) {
-            main {
-                /* margin-top: 7rem; */
-            }
-        }
     }
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
