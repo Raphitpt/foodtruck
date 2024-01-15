@@ -69,7 +69,7 @@ function send_activation_email(string $email, string $activation_code,)
     $infos = $infosResult->fetch();
     global $infos;
     // set email subjectj
-    $subject = 'Active ton compte dès maintenant !';
+    $subject = 'Activez votre compte dès maintenant !';
     $message = <<<HTML
     <h1>Confirmation de votre inscription</h1>
     <p>Merci de cliquer sur le lien suivant pour confirmer votre inscription :</p>
