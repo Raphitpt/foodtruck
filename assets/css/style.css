@@ -74,7 +74,14 @@ nav > ul > li {
   transition: background 0.3s;
   background-color: #f5f5f5;
 }
-
+.panierBlock{
+  max-height: 70vh;
+}
+.listCommandPanier{
+overflow: scroll;
+overflow-x: hidden;
+max-height: 62.5vh;
+}
 .button_nav:hover {
   background: #e56d00;
   color: #fff;
@@ -311,7 +318,7 @@ nav > ul > li > img {
 }
 
 .plats::-webkit-scrollbar,
-.platsBO::-webkit-scrollbar {
+.platsBO::-webkit-scrollbar,.listCommandPanier::-webkit-scrollbar {
   width: 0.5rem;
   scrollbar-face-color: #f5f5f5;
   scrollbar-arrow-color: #fff;
@@ -322,12 +329,14 @@ nav > ul > li > img {
 }
 
 .plats::-webkit-scrollbar-thumb,
-.platsBO::-webkit-scrollbar-thumb {
+.platsBO::-webkit-scrollbar-thumb,
+.listCommandPanier::-webkit-scrollbar-thumb {
   border-radius: 6px;
   background-color: #f0f0f0;
 }
 .plats::-webkit-scrollbar-track,
-.platsBO::-webkit-scrollbar-track {
+.platsBO::-webkit-scrollbar-track,
+.listCommandPanier::-webkit-scrollbar-track{
   scrollbar-track-color: #191a20;
 }
 /*animation*/

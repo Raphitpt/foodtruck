@@ -27,7 +27,7 @@ function cleanURL(fullURL) {
 
 // Fonction pour générer le HTML du panier
 function generatePanierHTML(panier) {
-  let html = "<ul>";
+  let html = "<ul class='listCommandPanier'>";
 if(panier !== null){
   panier.forEach(function (plat) {
     let prix = parseFloat(plat.prix);
