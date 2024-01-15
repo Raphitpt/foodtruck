@@ -147,7 +147,7 @@ if (isset($_POST['modifier_mot_de_passe']) && !empty($_POST['nouveau_mot_de_pass
         <div class="menu-container">
             <ul class="nav_left">
                 <li class="nav_title"><img src="<?= htmlspecialchars($infos['url_logo']) ?>" alt="logo fouee">
-                    <p><?= htmlspecialchars("Fouée't Moi") ?>
+                    <p><?= htmlspecialchars("Fouées du Terroir") ?>
                 </li>
             </ul>
             <div class="menu-btn" id="menu-btn">
