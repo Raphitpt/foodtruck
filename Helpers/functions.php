@@ -201,16 +201,23 @@ function sendFacture($data, $id_user, $commentaire, $date_retrait, $total, $id_c
     $user->execute(['id_user' => $id_user]);
     $user = $user->fetch();
 
+    setlocale(LC_TIME, 'fr_FR.UTF-8');
+
+    $date = new DateTime();
+    $formattedDate = $date->format('j M. Y');
+    $formattedTime = $date->format('H:i:s');
+
     $invoice = new InvoicePrinter('A4', '€', 'fr');
 
     // Header settings
     $invoice->setColor("#e56d00");
     $invoice->setNumberFormat(",", " ", "right", true, false);
+    $invoice->setTimeZone('Europe/Paris');
     $invoice->setLogo("./assets/img/facture.png", 70, 70);
     $invoice->setType("Facture");
     $invoice->setReference("INV-$id_commande");
-    $invoice->setDate(date('d M Y', time()));
-    $invoice->setTime(date('h:i:s ', time()));
+    $invoice->setDate($formattedDate);
+    $invoice->setTime($formattedTime);
     $address = explode(", ", $infos['adresse_entreprise']);
 
     $invoice->setFrom([
@@ -313,7 +320,7 @@ HTML;
         $mail->isHTML(true);
         $mail->Subject = $subject;
         $mail->Body    = $message;
-        $mail->addAttachment('./facture/'. $invoiceFileName .'');
+        $mail->addAttachment('./facture/' . $invoiceFileName . '');
 
         $mail->send();
         $_SESSION['mail_message'] = "Le mail vient de t'être envoyé, penses à regarder dans tes spams si besoin.";
