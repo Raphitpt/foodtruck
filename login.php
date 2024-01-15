@@ -72,7 +72,7 @@ echo head('Connexion');
         <nav style="display:none;" class="navang">
             <ul class="nav_left">
                 <li class="nav_title"><img src="<?= htmlspecialchars($infos['url_logo']) ?>" alt="logo fouee">
-                    <p><?= htmlspecialchars("Fouée't Moi") ?>
+                    <p><?= htmlspecialchars("Fouées du Terroir") ?>
                 </li>
                 <li><button onclick="location.href = '#'" class="button_nav"><?= htmlspecialchars("Home") ?></button></li>
                 <li><button onclick="location.href = './index.php'" class="button_nav"><?= htmlspecialchars("Order") ?></button></li>
@@ -93,7 +93,7 @@ echo head('Connexion');
         <div class="menu-container">
             <ul class="nav_left">
                 <li class="nav_title"><img src="<?= htmlspecialchars($infos['url_logo']) ?>" alt="logo fouee">
-                    <p><?= htmlspecialchars("Fouée't Moi") ?>
+                    <p><?= htmlspecialchars("Fouées du Terroir") ?>
                 </li>
             </ul>
             <div class="menu-btn" id="menu-btn">

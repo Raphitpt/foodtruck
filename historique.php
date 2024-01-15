@@ -83,7 +83,7 @@ if (isset($_SESSION['email'])) {
                 <tbody>
                     <?php foreach ($hist as $histo) { ?>
                         <tr>
-                        <?php $details = json_decode($histo['detail_commande'], true);
+                            <?php $details = json_decode($histo['detail_commande'], true);
                             echo "<td><ul>";
                             foreach ($details as $detail) {
                                 echo "<li>{$detail['nom']} x {$detail['quantite']}</li>";

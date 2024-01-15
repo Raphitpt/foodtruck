@@ -104,7 +104,7 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
             <ul class="nav_left">
                 <li class="nav_title"><img src="<?= htmlspecialchars($infos['url_logo']) ?>" alt="logo fouee">
                     <p>
-                        <?= htmlspecialchars("Fouée't Moi") ?>
+                        <?= htmlspecialchars("Fouées du Terroir") ?>
                 </li>
             </ul>
             <div class="menu-btn" id="menu-btn">
