@@ -1411,8 +1411,7 @@ input[type="date"] {
 footer {
   text-align: center;
   margin-top: 20px;
-  position: absolute;
-  bottom: 0;
+  position: abolsute;
   width: 100%;
 }
 
