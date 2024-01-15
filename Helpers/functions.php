@@ -201,16 +201,23 @@ function sendFacture($data, $id_user, $commentaire, $date_retrait, $total, $id_c
     $user->execute(['id_user' => $id_user]);
     $user = $user->fetch();
 
+    setlocale(LC_TIME, 'fr_FR.UTF-8');
+
+    $date = new DateTime();
+    $formattedDate = $date->format('j M. Y');
+    $formattedTime = $date->format('H:i:s');
+
     $invoice = new InvoicePrinter('A4', '€', 'fr');
 
     // Header settings
     $invoice->setColor("#e56d00");
+    $invoice->setNumberFormat(",", " ", "right", true, false);
+    $invoice->setTimeZone('Europe/Paris');
     $invoice->setLogo("./assets/img/facture.png", 70, 70);
     $invoice->setType("Facture");
     $invoice->setReference("INV-$id_commande");
-    $invoice->setDate(date('d M Y', time()));
-    $invoice->setTime(date('h:i:s ', time()));
-    $invoice->setDue(date('d M Y', strtotime('+3 months')));
+    $invoice->setDate($formattedDate);
+    $invoice->setTime($formattedTime);
     $address = explode(", ", $infos['adresse_entreprise']);
 
     $invoice->setFrom([
@@ -255,7 +262,7 @@ function sendFacture($data, $id_user, $commentaire, $date_retrait, $total, $id_c
     $total = $total - ($total * 0.055);
     $invoice->addTotal("Total", $total);
     $invoice->addTotal("TVA 5,5%", $percentage);
-    $invoice->addTotal("Montant total", $total + $percentage, true);
+    $invoice->addTotal("Total", $total + $percentage, true);
 
     $invoice->addBadge("Non Payé");
     $invoice->addTitle("Commentaire de commande");
@@ -307,13 +314,13 @@ HTML;
 
         //Recipients
         $mail->setFrom(SENDER_EMAIL_ADDRESS, $infos['nom_entreprise']);
-        $mail->addAddress($user['email']);
+        $mail->addAddress('rtiphonet@gmail.com');
 
         // Content
         $mail->isHTML(true);
         $mail->Subject = $subject;
         $mail->Body    = $message;
-        $mail->addAttachment('./facture/'. $invoiceFileName .'');
+        $mail->addAttachment('./facture/' . $invoiceFileName . '');
 
         $mail->send();
         $_SESSION['mail_message'] = "Le mail vient de t'être envoyé, penses à regarder dans tes spams si besoin.";
