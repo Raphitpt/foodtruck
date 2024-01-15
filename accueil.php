@@ -186,8 +186,8 @@ if (isset($_SESSION['email'])) {
         .accueil div:nth-child(4) {
             display: flex;
             flex-direction: column;
-            margin-bottom: 3rem;
-            margin-top: 3rem;
+            margin-bottom: 2rem;
+            margin-top: 2rem;
         }
 
         .accueil div:nth-child(4) h2 {
@@ -209,7 +209,7 @@ if (isset($_SESSION['email'])) {
         .accueil div:nth-child(5) {
             display: flex;
             flex-direction: column;
-            margin-bottom: 3rem;
+            /* margin-bottom: 3rem; */
 
         }
 
@@ -254,11 +254,11 @@ if (isset($_SESSION['email'])) {
             }
 
             .accueil {
-                height: 110vh;
+                /* height: 110vh; */
             }
 
             .accueil h1 {
-                padding-top: 4rem;
+                padding-top: 2rem;
             }
 
             .accueil h5 {
@@ -293,9 +293,6 @@ if (isset($_SESSION['email'])) {
                 margin-top: 7rem;
             }
         }
-
-
-
     }
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
