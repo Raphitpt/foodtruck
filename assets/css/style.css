@@ -460,8 +460,6 @@ nav > ul > li > img {
   border-radius: 10px;
   margin-left: auto;
   margin-right: auto;
-
-
 }
 
 .button_add {
@@ -1333,8 +1331,6 @@ input[type="date"] {
   .menu-container img {
     width: 8vw;
   }
-
-
 }
 
 @media only screen and (max-width: 1025px) {
@@ -1342,13 +1338,12 @@ input[type="date"] {
     font-size: 0.8rem;
   }
 
-  .col-left h1{
+  .col-left h1 {
     font-size: 2.5rem;
   }
-
 }
 
-.supplements .line{
+.supplements .line {
   margin: 1rem 0;
 }
 
@@ -1364,8 +1359,7 @@ input[type="date"] {
   margin-bottom: 2rem;
 }
 
-
-.buttonSuppl{
+.buttonSuppl {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1373,7 +1367,18 @@ input[type="date"] {
   width: 50%;
   margin-left: auto;
   margin-right: auto;
-  
 }
-
-
+.mentionlg {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+  padding: 10px;
+  gap: 1rem;
+}
+.mentionlg a {
+  text-decoration: none;
+  color: #28272b;
+  cursor: pointer;
+}

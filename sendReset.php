@@ -33,10 +33,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['email'])) {
         $insert->execute();
 
 
-        send_reset_pass($email,$reset_pass);
+        send_reset_pass($email, $reset_pass);
     }
     echo head('Mot de passe oublié');
-?>
+    ?>
 
     <body>
         <nav>
@@ -60,10 +60,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['email'])) {
     </body>
 
     </html>
-<?php
+    <?php
 } else {
     echo head('Mot de passe oublié');
-?>
+    ?>
 
     <body>
         <nav>
@@ -95,6 +95,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['email'])) {
     </body>
 
     </html>
-<?php
+    <?php
 }
 ?>

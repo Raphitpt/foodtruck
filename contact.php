@@ -68,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <li><button onclick="location.href = './contact.php'" class="button_nav">
                         <?= htmlspecialchars("Nous contacter") ?>
                     </button></li>
-                <?php if (isset($_SESSION['email']) && $_SESSION['email'] === 'admin@gmail.com') : ?>
+                <?php if (isset($_SESSION['email']) && $_SESSION['email'] === 'admin@gmail.com'): ?>
                     <li><button onclick="location.href = 'indexBO.php'" class="button_nav">
                             <?= htmlspecialchars("Back Office") ?>
                         </button></li>
@@ -76,7 +76,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </ul>
             <ul class="nav_right">
                 <?php if (isset($_SESSION['email'])) { ?>
-                    <button onclick="location.href = 'profil.php'" class="image"><img src="<?php echo $photo['photoprofil'] == NULL ? "./assets/img/grandprofilfb.jpg" : $photo['photoprofil']; ?>" /></button>
+                    <button onclick="location.href = 'profil.php'" class="image"><img
+                            src="<?php echo $photo['photoprofil'] == NULL ? "./assets/img/grandprofilfb.jpg" : $photo['photoprofil']; ?>" /></button>
                 <?php } else { ?>
                     <li><button onclick="location.href = './login.php'" class="button_nav connect">
                             <?= htmlspecialchars("Se connecter") ?>
@@ -103,7 +104,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <li><button onclick="location.href = ''" class="button_nav">
                         <?= htmlspecialchars("Contact us") ?>
                     </button></li>
-                <?php if (isset($_SESSION['email']) && $_SESSION['email'] === 'admin@gmail.com') : ?>
+                <?php if (isset($_SESSION['email']) && $_SESSION['email'] === 'admin@gmail.com'): ?>
                     <li><button onclick="location.href = 'indexBO.php'" class="button_nav">
                             <?= htmlspecialchars("Back Office") ?>
                         </button></li>
@@ -111,23 +112,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </ul>
             <ul class="nav_right">
                 <?php if (isset($_SESSION['email'])) { ?>
-                    <button onclick="location.href = 'profil.php'" class="image"><img src="<?php echo $photo['photoprofil'] == NULL ? "./assets/img/grandprofilfb.jpg" : $photo['photoprofil']; ?>" /></button>
+                    <button onclick="location.href = 'profil.php'" class="image"><img
+                            src="<?php echo $photo['photoprofil'] == NULL ? "./assets/img/grandprofilfb.jpg" : $photo['photoprofil']; ?>" /></button>
                 <?php } else { ?>
-                        <li><button onclick="location.href = './login.php'" class="button_nav connect"><?= htmlspecialchars("Connexion") ?></button></li>
-                        <li><button onclick="location.href = './signin.php'" class="button_nav connect"><?= htmlspecialchars("Inscription") ?></button></li>
-                        <li><button onclick="location.href = './login.php'" class="button_nav connect">
-                                <?= htmlspecialchars("Se connecter") ?>
-                            </button></li>
-                        <li><button onclick="location.href = './signin.php'" class="button_nav connect">
-                                <?= htmlspecialchars("S'inscrire") ?>
-                            </button></li>
-                    <?php } ?>
+                    <li><button onclick="location.href = './login.php'" class="button_nav connect">
+                            <?= htmlspecialchars("Connexion") ?>
+                        </button></li>
+                    <li><button onclick="location.href = './signin.php'" class="button_nav connect">
+                            <?= htmlspecialchars("Inscription") ?>
+                        </button></li>
+                    <li><button onclick="location.href = './login.php'" class="button_nav connect">
+                            <?= htmlspecialchars("Se connecter") ?>
+                        </button></li>
+                    <li><button onclick="location.href = './signin.php'" class="button_nav connect">
+                            <?= htmlspecialchars("S'inscrire") ?>
+                        </button></li>
+                <?php } ?>
             </ul>
         </nav>
         <div class="menu-container">
             <ul class="nav_left">
                 <li class="nav_title"><img src="<?= htmlspecialchars($infos['url_logo']) ?>" alt="logo fouee">
-                    <p><?= htmlspecialchars("Fouées du Terroir") ?>
+                    <p>
+                        <?= htmlspecialchars("Fouées du Terroir") ?>
                 </li>
             </ul>
             <div class="menu-btn" id="menu-btn">
@@ -286,7 +293,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 </body>
 <script>
-    document.getElementById("menu-btn").addEventListener("click", function() {
+    document.getElementById("menu-btn").addEventListener("click", function () {
         this.classList.toggle("open");
         var mainContent = document.querySelector("main");
         if (this.classList.contains("open")) {
@@ -298,5 +305,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </script>
 
 </html>
-
+<?php
+echo footer();
+?>
 </body>

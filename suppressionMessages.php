@@ -21,7 +21,7 @@ $infos = $infos->fetch();
 
 
 if (isset($_GET['id_message'])) {
-    $id_message = (int)$_GET['id_message'];
+    $id_message = (int) $_GET['id_message'];
 
     $sql = 'DELETE FROM messages WHERE id_message = :id_message';
     // exécuter
@@ -34,4 +34,3 @@ if (isset($_GET['id_message'])) {
 header('Location: messageUtilisateurs.php');
 
 ?>
-
