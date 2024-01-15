@@ -4,7 +4,7 @@ require './bootstrap.php';
 
 if (isset($_POST['submit'])) {
     // on récupère le mail
-    $email = $_SESSION['email'];
+    $email = $_POST['email']; // Use POST instead of GET
 
     // on vérifie que le mail existe
     $sql = "SELECT * FROM users WHERE email = :email";
@@ -15,6 +15,7 @@ if (isset($_POST['submit'])) {
     $infos = "SELECT * FROM settings";
     $infos = $dbh->query($infos);
     $infos = $infos->fetch();
+
 
     // si on a un utilisateur
     if ($user) {
@@ -35,6 +36,7 @@ if (isset($_POST['submit'])) {
         $sql = "UPDATE users SET mailverif = :token WHERE id_user = :id_user";
         $stmt = $dbh->prepare($sql);
         $stmt->execute(['token' => $token, 'id_user' => $user['id_user']]);
+        
         // on envoie le mail
         send_activation_email($email, $token);
 
@@ -50,17 +52,20 @@ echo head('Accueil');
 <body>
     <main>
         <section class="form">
-            <h1>Un mail vient d'être envoyé à <?= $_SESSION['email'] ?></h1>
-            <p>Pour vérifier votre mail, cliquer sur le lien dans le mail que vous avez reçu.</p>
-            <p>En cas de problème, contactez-nous !</p>
-            <form method="post">
-                <input type="submit" value="Renvoyer un mail">
-            </form>
+            <?php if (isset($success)): ?>
+                <h1><?= $success ?></h1>
+            <?php else: ?>
+                <?php if (isset($error)): ?>
+                    <h1><?= $error ?></h1>
+                <?php endif; ?>
+                <p>Pour vérifier votre mail, cliquer sur le lien dans le mail que vous avez reçu.</p>
+                <p>En cas de problème, contactez-nous !</p>
+                <form method="post">
+                    <input type="hidden" name="email" value="<?= $_GET['email'] ?>">
+                    <input type="submit" name="submit" value="Renvoyer un mail">
+                </form>
+            <?php endif; ?>
         </section>
-
     </main>
-
-
 </body>
-
 </html>
