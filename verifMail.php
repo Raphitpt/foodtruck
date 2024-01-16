@@ -2,6 +2,24 @@
 session_start();
 require './bootstrap.php';
 
+$email = $_GET['email']; // Use POST instead of GET
+
+// on vérifie que le mail existe
+$sql = "SELECT * FROM users WHERE email = :email";
+$stmt = $dbh->prepare($sql);
+$stmt->execute(['email' => $email]);
+$user = $stmt->fetch();
+
+if ($user['active'] == 1) {
+    if ($_SESSION['order'] == "je viens de order") {
+        header('Location: order.php');
+        exit();
+    } else {
+        header('Location: accueil.php');
+        exit();
+    }
+}
+
 if (isset($_POST['submit'])) {
     // on récupère le mail
     $email = $_POST['email']; // Use POST instead of GET
@@ -52,12 +70,12 @@ echo head('Accueil');
 <body>
     <main>
         <section class="form">
-            <?php if (isset($success)): ?>
+            <?php if (isset($success)) : ?>
                 <h1>
                     <?= $success ?>
                 </h1>
-            <?php else: ?>
-                <?php if (isset($error)): ?>
+            <?php else : ?>
+                <?php if (isset($error)) : ?>
                     <h1>
                         <?= $error ?>
                     </h1>
@@ -68,6 +86,8 @@ echo head('Accueil');
                     <input type="hidden" name="email" value="<?= $_GET['email'] ?>">
                     <input type="submit" name="submit" value="Renvoyer un mail">
                 </form>
+                <p>Vous avez déjà vérifier votre mail !</p>
+                <button class="actions" style="background:#e56d00; color:#fff;" onclick="window.location.reload()">Recharger la page</button>
             <?php endif; ?>
         </section>
     </main>
