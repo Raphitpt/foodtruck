@@ -1305,7 +1305,7 @@ input[type="date"] {
     margin-left: 0;
     flex-direction: column;
   }
-  .selHeureBtn{
+  .selHeureBtn {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1313,10 +1313,10 @@ input[type="date"] {
     width: 100%;
     flex-direction: column;
   }
-  #dateReservation{
+  #dateReservation {
     width: 90% !important;
   }
-  .radio-inputs{
+  .radio-inputs {
     width: 90% !important;
   }
 
@@ -1377,14 +1377,14 @@ input[type="date"] {
 .recap_commande {
   overflow: auto; /* or overflow: hidden; */
 }
-.table>:not(caption)>*>*{
+.table > :not(caption) > * > * {
   padding: 0 !important;
 }
 .recap_commande table {
   width: 100%;
   overflow-x: auto;
 }
-.cal-12{
+.cal-12 {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1394,7 +1394,7 @@ input[type="date"] {
 .row {
   margin-right: 0 !important;
 }
-.row>* {
+.row > * {
   padding-right: 0 !important;
 }
 
