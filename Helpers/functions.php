@@ -211,7 +211,7 @@ function sendFacture($data, $id_user, $commentaire, $date_retrait, $total, $id_c
     $invoice->setDate($formattedDate);
     $invoice->setTime($formattedTime);
     $address = explode(", ", $infos['adresse_entreprise']);
-
+    $totalBeforeTax = 0; // Initializing total before tax
     $invoice->setFrom([
         $infos['nom_entreprise'],
         $address[0],
@@ -224,20 +224,19 @@ function sendFacture($data, $id_user, $commentaire, $date_retrait, $total, $id_c
         $user['email'],
         'Nombre de points de fidélités restant: ' . $user['pts_fidelite']
     ]);
+    $totalPrice = 0;
     foreach ($dataArray as $item) {
-        $taxedPrice = is_numeric($item['prix']) ? $item['prix'] : 0;
+        $taxedPrice = $item['prix'];
 
         if (isset($item['supplements']) && is_array($item['supplements'])) {
             foreach ($item['supplements'] as $supplement) {
-                $supplementPrice = isset($supplement['price']) && is_numeric($supplement['price'])
-                    ? $supplement['price']
-                    : 0;
-
-                $taxedPrice += $supplementPrice;
+                if (isset($supplement['price']) && is_numeric($supplement['price'])) {
+                    $taxedPrice += $supplement['price'];
+                }
             }
         }
 
-        $taxAmount = is_numeric($taxedPrice) ? $taxedPrice * 0.055 : 0;
+        $taxAmount = $taxedPrice * 0.055;
         $untaxedPrice = $taxedPrice - $taxAmount;
 
         $invoice->addItem(
@@ -249,12 +248,13 @@ function sendFacture($data, $id_user, $commentaire, $date_retrait, $total, $id_c
             false,
             $item['quantite'] * $taxedPrice
         );
+        $totalPrice += $item['quantite'] * $taxedPrice;
     }
-    $percentage = $total * 0.055;
-    $total = $total - ($total * 0.055);
-    $invoice->addTotal("Total", $total);
-    $invoice->addTotal("TVA 5,5%", $percentage);
-    $invoice->addTotal("Total", $total + $percentage, true);
+        $taxRate = 0.055; // Replace this with your actual tax rate
+    
+        $invoice->addTotal("Total", $totalPrice - ($totalPrice * $taxRate));
+        $invoice->addTotal("TVA " . ($taxRate * 100) . "%", $totalPrice * $taxRate);
+        $invoice->addTotal("Montant total", $total, true); // Assuming $total already includes taxes
 
     $invoice->addBadge("Non Payé");
     $invoice->addTitle("Commentaire de commande");

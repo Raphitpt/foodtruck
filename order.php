@@ -30,7 +30,6 @@ if ($currentDateTime->format('H') >= '15') {
     $dateDay = date('Y-m-d', strtotime('+1 day'));
 } else {
     $dateDay = date('Y-m-d');
-
 }
 $maxDate = date('Y-m-d', strtotime('+1 week'));
 // Récupérer les informations de l'utilisateur par son ID
@@ -75,7 +74,8 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
             display: none;
         }
 
-        .btnHeure.disabled {
+        .btnHeure.disabled,
+        .btnHeure.past {
             opacity: 0.5;
             cursor: not-allowed;
         }
@@ -275,6 +275,7 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
         let selectedValue = selectElement.value;
         // Ajouter un écouteur d'événements pour le changement de sélection
         selectElement.addEventListener("change", function() {
+            updateDisabledHours()
             // Récupérer la valeur sélectionnée
             selectedValue = selectElement.value;
 
@@ -413,6 +414,7 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
             // Associer un événement de clic à chaque icône de suppression
             iconCells.forEach(icon => {
                 icon.addEventListener('click', function(event) {
+                    updateDisabledHours();
                     const id = event.target.dataset.id;
                     if (id) {
                         // Supprimer l'élément du panier en utilisant son ID
@@ -440,6 +442,7 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
 
             // Associe l'événement de changement de date
             dateReservationInput.addEventListener('change', function() {
+                updateDisabledHours();
                 const selectedDate = dateReservationInput.value;
                 // Vérifie si une heure est déjà sélectionnée, puis met à jour le panier
                 const selectedHeure = document.querySelector('.heureSelected');
@@ -450,6 +453,7 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
             if (btnHeure) {
                 btnHeure.forEach((elem) => {
                     elem.addEventListener("click", function(event) {
+                        updateDisabledHours();
                         const selectedHour = elem.querySelector('.selectedTime').textContent;
                         const hourArticlesCount = panier.filter(item => item.heure === selectedHour).reduce((total, item) => total + parseInt(item.quantite), 0);
 
@@ -486,6 +490,7 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
         }
 
         commanderButton.addEventListener('click', function() {
+            updateDisabledHours();
             const panierNettoye = nettoyerObjet(panier);
             let dateRetrait = totalDate.textContent;
             let [jour, mois, annee] = dateRetrait.split('/');
@@ -496,7 +501,6 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
             let commentaires = commentaire.value;
             let date = formattedDate + " " + heure;
             let idUser = idUsers.value;
-
             fetch('getProvisionalDate.php', {
                     method: 'POST',
                     headers: {
@@ -504,6 +508,7 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
                     },
                     body: JSON.stringify({
                         date_retrait: date, // La date que vous souhaitez
+                        quantite: nombreArticlesDansPanier, // Le nombre de fouées que vous souhaitez
                     }),
                 })
                 .then(response => response.json())
@@ -583,6 +588,7 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
             } else {
                 mainContent.style.display = "block";
             }
+            updateDisabledHours();
         });
         const accueilCommandConfirmButton = document.querySelector('.button_accueil');
 
@@ -607,18 +613,16 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
             document.querySelectorAll('.btnHeure').forEach(function(btnHeure) {
                 var hour = parseInt(btnHeure.querySelector('.selectedTime').innerText.substring(0, 2));
                 var minute = parseInt(btnHeure.querySelector('.selectedTime').innerText.substring(3, 5));
-                if(minute == 0){
+                if (minute === 0) {
                     minute = "00";
                 }
                 var dateTime = new Date(selectedDate + 'T' + hour + ':' + minute + ':00');
 
-                if (dateTime < currentDateTime || (dateTime.getMinutes() === 0 && dateTime < currentDateTime)) {
-                    btnHeure.classList.add('disabled');
-                } else {
-                    btnHeure.classList.remove('disabled');
-                }
+                btnHeure.classList.toggle('disabled', dateTime < currentDateTime || (dateTime.getMinutes() === 0 && dateTime <= currentDateTime));
+                btnHeure.classList.toggle('past', dateTime < currentDateTime);
             });
         }
+
 
         // Appeler la fonction au chargement de la page
         window.addEventListener('load', updateDisabledHours);
