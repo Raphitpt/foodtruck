@@ -94,7 +94,7 @@ echo head('Statistiques de vente par jour');
                 </thead>
                 <tbody>
                     <?php
-                    $sql = "SELECT date_commande AS jour, COUNT(*) AS nb_commandes, SUM(total) AS total, AVG(total) AS moyenne, ROUND(MAX(total)) AS max, MIN(total) AS min FROM commandes GROUP BY DAYNAME(date_commande)";
+                    $sql = "SELECT date_commande AS jour, COUNT(*) AS nb_commandes, SUM(total) AS total, AVG(total) AS moyenne, ROUND(MAX(total), 2) AS max, MIN(total) AS min FROM commandes GROUP BY DAYNAME(date_commande)";
                     $stmt = $dbh->query($sql);
                     $stats = $stmt->fetchAll();
                     foreach ($stats as $stat) {
