@@ -86,7 +86,7 @@ echo head('Accueil');
                     <input type="hidden" name="email" value="<?= $_GET['email'] ?>">
                     <input type="submit" name="submit" value="Renvoyer un mail">
                 </form>
-                <p>Vous avez déjà vérifier votre mail !</p>
+                <p>Une fois votre compte actif, revenez sur cette page pour continuer votre commande ! </p>
                 <button class="actions" style="background:#e56d00; color:#fff;" onclick="window.location.reload()">Recharger la page</button>
             <?php endif; ?>
         </section>
