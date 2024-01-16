@@ -340,7 +340,8 @@ if (isset($_SESSION['email'])) {
             <ul class="nav_left">
                 <li class="nav_title"><img src="<?= htmlspecialchars($infos['url_logo']) ?>" alt="logo fouee">
                     <p>
-                        <?= htmlspecialchars("Fouée't Moi") ?>
+                        <?= $infos['nom_entreprise'] ?>
+                    </p>
                 </li>
                 <li><button onclick="location.href = '#'" class="button_nav">
                         <?= htmlspecialchars("Home") ?>
@@ -376,7 +377,8 @@ if (isset($_SESSION['email'])) {
             <ul class="nav_left">
                 <li class="nav_title"><img src="<?= htmlspecialchars($infos['url_logo']) ?>" alt="logo fouee">
                     <p>
-                        <?= htmlspecialchars("Fouées du Terroir") ?>
+                        <?= $infos['nom_entreprise'] ?>
+                    </p>
                 </li>
             </ul>
             <div class="menu-btn" id="menu-btn">
@@ -418,6 +420,7 @@ if (isset($_SESSION['email'])) {
                 <?= htmlspecialchars("Order") ?>
             </button>
             <h5>
+                <i class="fa-solid fa-location-dot"></i>
                 <?php echo $infos['adresse_entreprise'] ?>
             </h5>
             <div>
