@@ -87,14 +87,14 @@ echo head('Statistiques de vente par jour');
                         <th scope="col" data-sortable="true" data-field="id">Jour</th>
                         <th scope="col">Nombre de commandes</th>
                         <th scope="col">Total</th>
-                        <th scope="col">Moyenne</th>
+                        <th scope="col">Prix moyen d'une commande</th>
                         <th scope="col">Vente la plus élevée</th>
                         <th scope="col">Vente la plus faible</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
-                    $sql = "SELECT date_commande AS jour, COUNT(*) AS nb_commandes, SUM(total) AS total, AVG(total) AS moyenne, MAX(total) AS max, MIN(total) AS min FROM commandes GROUP BY DAYNAME(date_commande)";
+                    $sql = "SELECT date_commande AS jour, COUNT(*) AS nb_commandes, SUM(total) AS total, ROUND(AVG(total), 2) AS moyenne, MAX(total) AS max, MIN(total) AS min FROM commandes GROUP BY DAYNAME(date_commande)";
                     $stmt = $dbh->query($sql);
                     $stats = $stmt->fetchAll();
                     foreach ($stats as $stat) {

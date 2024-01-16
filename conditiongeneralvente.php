@@ -19,7 +19,7 @@ echo head('Mentions Légales');
         <section class="retours">
             <a href="./accueil.php">
                 <i class="fa-solid fa-arrow-left"></i>
-                Retours
+                Retour
             </a>
         </section>
 
