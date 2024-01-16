@@ -4,14 +4,27 @@ session_start();
 
 $inputJSON = file_get_contents('php://input');
 $input = json_decode($inputJSON, true);
+// date now en yyyy-mm-jj H:i
+$now = date("Y-m-d H:i:s");
 
 if ($input && isset($input['date_retrait']) && isset($input['quantite'])) {
+    if ($input['date_retrait'] < $now){
+        echo json_encode(['error' => 'La date de retrait doit être supérieure à la date actuelle.']);
+        exit();
+    }
     if ($input['quantite']> 8){
         echo json_encode(['error' => 'La quantité maximale pour un créneau est de 8 fouées.']);
         exit();
     }
+
     $dateRetrait = calculatePickupTime($input['date_retrait'], $input['quantite']);
-    echo json_encode(['success' => true, 'provisional_date' => $dateRetrait]);
+    if (date("H:i", strtotime($dateRetrait)) >= '15:10') {
+        echo json_encode(['error' => 'Il n\'y a plus de places pour ce jour.']);
+        exit();
+    } else {
+        echo json_encode(['success' => true, 'provisional_date' => $dateRetrait]);
+    }
+    
 } else {
     echo json_encode(['error' => 'Paramètres manquants.'], 400);
 }

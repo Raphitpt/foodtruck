@@ -222,7 +222,7 @@ function sendFacture($data, $id_user, $commentaire, $date_retrait, $total, $id_c
     $invoice->setTo([
         $user['nom'] . " " . $user['prenom'],
         $user['email'],
-        'Nombre de points de fidélités restant: ' . $user['pts_fidelite']
+        'Nombre de points de fidélités restant avant la commande : ' . $user['pts_fidelite']
     ]);
     $totalPrice = 0;
     foreach ($dataArray as $item) {
@@ -253,6 +253,9 @@ function sendFacture($data, $id_user, $commentaire, $date_retrait, $total, $id_c
         $taxRate = 0.055; // Replace this with your actual tax rate
     
         $invoice->addTotal("Total", $totalPrice - ($totalPrice * $taxRate));
+        if ($total - $totalPrice < 0){
+          $invoice->addTotal("FouéePoints", $total - $totalPrice . " €");  
+        }
         $invoice->addTotal("TVA " . ($taxRate * 100) . "%", $totalPrice * $taxRate);
         $invoice->addTotal("Montant total", $total, true); // Assuming $total already includes taxes
 

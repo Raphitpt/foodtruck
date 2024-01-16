@@ -251,21 +251,6 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
                 alert("Vous ne pouvez pas utiliser plus de FouéePoints que le montant de votre commande.");
                 // Réinitialiser la sélection à la valeur maximale
                 selectElement.value = maxValue;
-            } else {
-                // Envoyer la valeur sélectionnée à un script PHP côté serveur
-                $.ajax({
-                    type: "POST",
-                    url: ".php", // Remplacez script.php par le nom de votre script PHP
-                    data: {
-                        selectedValue: selectedValue
-                    },
-                    success: function(response) {
-                        console.log("Valeur envoyée avec succès à PHP !");
-                    },
-                    error: function(error) {
-                        console.error("Erreur lors de l'envoi de la valeur à PHP :", error);
-                    }
-                });
             }
         }
 
@@ -274,15 +259,7 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
         let selectElement = document.getElementById("ptsFideliteSelect");
         let selectedValue = selectElement.value;
         // Ajouter un écouteur d'événements pour le changement de sélection
-        selectElement.addEventListener("change", function() {
-            updateDisabledHours()
-            // Récupérer la valeur sélectionnée
-            selectedValue = selectElement.value;
 
-            // Faire quelque chose avec la valeur sélectionnée
-            listPanier("", "", selectedValue)
-            console.log("Valeur sélectionnée :", selectedValue);
-        });
 
         function afficherCommandeConfirm() {
             // Masquer la section recap
@@ -320,7 +297,17 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
             const dateObject = new Date(selectedDate);
             return dateObject.toLocaleDateString('fr-FR', options);
         }
+        selectElement.addEventListener("change", function() {
+            updateDisabledHours()
+            // Récupérer la valeur sélectionnée
+            selectedValue = selectElement.value;
 
+            // Faire quelque chose avec la valeur sélectionnée
+            let heureSel = totalHeure.textContent;
+
+            listPanier(heureSel, dateReservationInput.value, selectedValue);
+            console.log("Valeur sélectionnée :", selectedValue);
+        });
         function listPanier(heure, date, selectedValue) {
             html = '';
             let prix = 0;
@@ -365,7 +352,9 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
 
                 html += '</tr>';
                 total += articleTotal;
+
             });
+
 
             function calculateSupplementCost(supplements) {
                 let supplementCost = 0;
