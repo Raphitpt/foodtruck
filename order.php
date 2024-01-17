@@ -179,6 +179,7 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
                                 </div>
                                 <p>Un fouéePoints = 1€ de réduction !</p>
                                 <p>Vous gagnez 1 FouéePoints tous les 10€ d'achats</p>
+                                <p style='font-weight: bold;'>Le paiement se fera à la récupération de la commande au camion.</p>
                             </div>
 
                             <h2>Date de retrait : <span id="totalHeure"></span> le <span id="totalDate"></span></h2>
@@ -220,7 +221,7 @@ echo '<input type="hidden" id="userId" value="' . $userId . '">';
                         <h1>Commande confirmée !</h1>
                         <p>Votre commande a bien été prise en compte. <br>On vous a envoyé un mail de confirmation
                             accompagné de votre facture. <br>Vous pouvez la retrouver dans votre historique de
-                            commande.</p>
+                            commande.<br><span style="font-weight: bold;">Le paiement se fera à la récupération de la commande</span></p>
                         <button onclick="location.href = './index.php'" class="btn btn-secondary button_accueil btn_commander">Accueil</button>
                     </div>
                 </div>

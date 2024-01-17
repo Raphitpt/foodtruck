@@ -12,9 +12,11 @@ $user = $stmt->fetch();
 
 if ($user['active'] == 1) {
     if ($_SESSION['order'] == "je viens de order") {
+        $_SESSION['email'] = $email;
         header('Location: order.php');
         exit();
     } else {
+        $_SESSION['email'] = $email;
         header('Location: accueil.php');
         exit();
     }
